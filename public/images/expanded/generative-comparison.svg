@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1325" viewBox="0 0 1200 1325" role="img" aria-labelledby="title description">
+<title id="title">Three ways to learn a generative structure</title><desc id="description">An autoencoder reconstructs its input through a bottleneck. A variational autoencoder samples a latent vector from learned mean and log variance and balances reconstruction with distribution regularization. An adversarial model trains a generator against a discriminator that sees both generated and real samples.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64775F"/></marker></defs>
+<rect width="1200" height="1325" fill="#F5F7F1"/>
+<text x="44" y="42.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="700" text-anchor="start" fill="#64775F" letter-spacing="2">MACHINE LEARNING SUPER LAB</text>
+<text x="44" y="94.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="36" font-weight="700" text-anchor="start" fill="#24352B">Three ways to learn a generative structure</text>
+<text x="44" y="128.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">These objectives teach different behaviors. A low training loss does not guarantee useful generated samples.</text>
+<rect x="44" y="170" width="1112" height="255" rx="18" fill="#FFFFFF" stroke="#DCE5D3"/>
+<rect x="66" y="193" width="42" height="32" rx="8" fill="#EAF3DE" stroke="#EAF3DE"/>
+<text x="87" y="216.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="700" text-anchor="middle" fill="#64775F">01</text>
+<text x="124" y="217.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="23" font-weight="700" text-anchor="start" fill="#24352B">Autoencoder</text>
+<text x="68" y="258.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">Learning signal: reconstruct the input after passing through a bottleneck.</text>
+<rect x="76" y="285" width="185" height="70" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="168.5" y="312.5" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" font-weight="600" text-anchor="middle" fill="#24352B">Input image</text>
+<text x="168.5" y="341.5" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" font-weight="600" text-anchor="middle" fill="#24352B">x</text>
+<rect x="333" y="285" width="185" height="70" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="425.5" y="312.5" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" font-weight="600" text-anchor="middle" fill="#24352B">Encoder</text>
+<text x="425.5" y="341.5" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" font-weight="600" text-anchor="middle" fill="#24352B">compress</text>
+<rect x="590" y="285" width="185" height="70" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="682.5" y="312.5" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" font-weight="600" text-anchor="middle" fill="#24352B">Latent vector</text>
+<text x="682.5" y="341.5" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" font-weight="600" text-anchor="middle" fill="#24352B">z</text>
+<rect x="847" y="285" width="265" height="70" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="979.5" y="312.5" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" font-weight="600" text-anchor="middle" fill="#24352B">Decoder</text>
+<text x="979.5" y="341.5" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" font-weight="600" text-anchor="middle" fill="#24352B">reconstruction of x</text>
+<line x1="266" y1="320" x2="323" y2="320" stroke="#64775F" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="523" y1="320" x2="580" y2="320" stroke="#64775F" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="780" y1="320" x2="837" y2="320" stroke="#64775F" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="76" y="394.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" font-weight="400" text-anchor="start" fill="#64775F">Compare reconstruction with the original image. A basic autoencoder does not define a reliable sampling prior.</text>
+<rect x="44" y="449" width="1112" height="354" rx="18" fill="#FFFFFF" stroke="#DCE5D3"/>
+<rect x="66" y="472" width="42" height="32" rx="8" fill="#EAF3DE" stroke="#EAF3DE"/>
+<text x="87" y="495.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="700" text-anchor="middle" fill="#64775F">02</text>
+<text x="124" y="496.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="23" font-weight="700" text-anchor="start" fill="#24352B">Variational autoencoder</text>
+<text x="68" y="537.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">Learning signal: reconstruction plus a penalty that shapes the latent distribution.</text>
+<rect x="76" y="570" width="177" height="77" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="164.5" y="601.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" font-weight="600" text-anchor="middle" fill="#24352B">Input image</text>
+<text x="164.5" y="630.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" font-weight="600" text-anchor="middle" fill="#24352B">x</text>
+<rect x="305" y="570" width="263" height="77" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="436.5" y="601.375" font-family="DejaVu Sans,Arial,sans-serif" font-size="19" font-weight="600" text-anchor="middle" fill="#24352B">Encoder predicts</text>
+<text x="436.5" y="628.925" font-family="DejaVu Sans,Arial,sans-serif" font-size="19" font-weight="600" text-anchor="middle" fill="#24352B">mean and log variance</text>
+<rect x="620" y="570" width="185" height="77" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="712.5" y="601.375" font-family="DejaVu Sans,Arial,sans-serif" font-size="19" font-weight="600" text-anchor="middle" fill="#24352B">Sample latent</text>
+<text x="712.5" y="628.925" font-family="DejaVu Sans,Arial,sans-serif" font-size="19" font-weight="600" text-anchor="middle" fill="#24352B">vector z</text>
+<rect x="857" y="570" width="255" height="77" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="984.5" y="601.375" font-family="DejaVu Sans,Arial,sans-serif" font-size="19" font-weight="600" text-anchor="middle" fill="#24352B">Decoder predicts</text>
+<text x="984.5" y="628.925" font-family="DejaVu Sans,Arial,sans-serif" font-size="19" font-weight="600" text-anchor="middle" fill="#24352B">reconstruction</text>
+<line x1="258" y1="608" x2="295" y2="608" stroke="#64775F" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="573" y1="608" x2="610" y2="608" stroke="#64775F" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="810" y1="608" x2="847" y2="608" stroke="#64775F" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="76" y="696.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" font-weight="600" text-anchor="start" fill="#24352B">Sampling rule: z = mean + exp(0.5 × log variance) × standard-normal noise</text>
+<text x="76" y="745.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">The distribution penalty encourages a structured latent space; it is balanced against reconstruction.</text>
+<text x="76" y="771.1" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">The relative weighting affects both reconstructions and samples. Inspect both, not only the loss.</text>
+<rect x="44" y="827" width="1112" height="384" rx="18" fill="#FFFFFF" stroke="#DCE5D3"/>
+<rect x="66" y="850" width="42" height="32" rx="8" fill="#EAF3DE" stroke="#EAF3DE"/>
+<text x="87" y="873.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="700" text-anchor="middle" fill="#64775F">03</text>
+<text x="124" y="874.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="23" font-weight="700" text-anchor="start" fill="#24352B">Generative adversarial network</text>
+<text x="68" y="915.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">Learning signal: competition between a generator and a discriminator.</text>
+<rect x="76" y="948" width="185" height="68" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="168.5" y="989.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" font-weight="600" text-anchor="middle" fill="#24352B">Random noise</text>
+<rect x="334" y="948" width="235" height="68" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="451.5" y="989.35" font-family="DejaVu Sans,Arial,sans-serif" font-size="21" font-weight="600" text-anchor="middle" fill="#24352B">Generator</text>
+<rect x="654" y="948" width="185" height="68" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="746.5" y="988.65" font-family="DejaVu Sans,Arial,sans-serif" font-size="19" font-weight="600" text-anchor="middle" fill="#24352B">Generated data</text>
+<rect x="914" y="1019" width="198" height="74" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="1013.0" y="1049.625" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" font-weight="600" text-anchor="middle" fill="#24352B">Discriminator</text>
+<text x="1013.0" y="1074.275" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" font-weight="600" text-anchor="middle" fill="#24352B">real or generated?</text>
+<line x1="266" y1="982" x2="324" y2="982" stroke="#64775F" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="574" y1="982" x2="644" y2="982" stroke="#64775F" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M844 982H1013V1009" fill="none" stroke="#64775F" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="654" y="1092" width="185" height="68" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="746.5" y="1132.65" font-family="DejaVu Sans,Arial,sans-serif" font-size="19" font-weight="600" text-anchor="middle" fill="#24352B">Real examples</text>
+<path d="M844 1126H1013V1103" fill="none" stroke="#64775F" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="76" y="1082.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">Update the discriminator to separate the two sources.</text>
+<text x="76" y="1108.1" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">Update the generator to improve its generated examples.</text>
+<text x="76" y="1189.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="600" text-anchor="start" fill="#A66947">Watch for mode collapse: plausible samples may still lack diversity.</text>
+<line x1="44" y1="1264" x2="1156" y2="1264" stroke="#DCE5D3" stroke-width="2"/>
+<text x="44" y="1295.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#64775F">This compares objectives, not mutually exclusive layer types. All three can use dense or convolutional layers.</text>
+</svg>

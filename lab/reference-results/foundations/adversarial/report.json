@@ -1,0 +1,211 @@
+{
+  "schema": "superlab.report.v1",
+  "experiment": "adversarial",
+  "split": "validation",
+  "seed": 42,
+  "dataset": "Two synthetic Gaussian modes at -2 and +2",
+  "metrics": {
+    "fraction_generated_below_zero": 0.5433333333333333,
+    "generated_mean": -0.15649926662445068,
+    "target_sample_mean": 0.036567363888025284,
+    "generated_standard_deviation": 1.8158245086669922,
+    "target_standard_deviation": 2.030646324157715
+  },
+  "limitations": "This one-dimensional adversarial training lab can collapse to one mode. Loss alone is not a quality score. Independent target samples are drawn after optimization; the task is not image generation.",
+  "artifacts": [
+    "distribution.png"
+  ],
+  "history": [
+    {
+      "step": 1,
+      "loss": 0.6932942271232605,
+      "discriminator_loss": 1.485051155090332
+    },
+    {
+      "step": 21,
+      "loss": 0.7112743854522705,
+      "discriminator_loss": 1.2888689041137695
+    },
+    {
+      "step": 41,
+      "loss": 0.8067836165428162,
+      "discriminator_loss": 1.159106969833374
+    },
+    {
+      "step": 61,
+      "loss": 1.0077712535858154,
+      "discriminator_loss": 1.0360779762268066
+    },
+    {
+      "step": 81,
+      "loss": 1.0684778690338135,
+      "discriminator_loss": 0.938660740852356
+    },
+    {
+      "step": 101,
+      "loss": 0.801544725894928,
+      "discriminator_loss": 1.430847406387329
+    },
+    {
+      "step": 121,
+      "loss": 0.834701657295227,
+      "discriminator_loss": 1.5183148384094238
+    },
+    {
+      "step": 141,
+      "loss": 0.8626813888549805,
+      "discriminator_loss": 1.3602427244186401
+    },
+    {
+      "step": 161,
+      "loss": 0.7872644066810608,
+      "discriminator_loss": 1.3365416526794434
+    },
+    {
+      "step": 181,
+      "loss": 0.7518101930618286,
+      "discriminator_loss": 1.3237066268920898
+    },
+    {
+      "step": 201,
+      "loss": 0.7525131106376648,
+      "discriminator_loss": 1.3212270736694336
+    },
+    {
+      "step": 221,
+      "loss": 0.7697585225105286,
+      "discriminator_loss": 1.3283908367156982
+    },
+    {
+      "step": 241,
+      "loss": 0.7786033749580383,
+      "discriminator_loss": 1.3199526071548462
+    },
+    {
+      "step": 261,
+      "loss": 0.7641533017158508,
+      "discriminator_loss": 1.307157039642334
+    },
+    {
+      "step": 281,
+      "loss": 0.7811570167541504,
+      "discriminator_loss": 1.298054575920105
+    },
+    {
+      "step": 301,
+      "loss": 0.7984433174133301,
+      "discriminator_loss": 1.2920284271240234
+    },
+    {
+      "step": 321,
+      "loss": 0.7689632773399353,
+      "discriminator_loss": 1.292006015777588
+    },
+    {
+      "step": 341,
+      "loss": 0.7762545943260193,
+      "discriminator_loss": 1.3048632144927979
+    },
+    {
+      "step": 361,
+      "loss": 0.7158848643302917,
+      "discriminator_loss": 1.342822551727295
+    },
+    {
+      "step": 381,
+      "loss": 0.7601044178009033,
+      "discriminator_loss": 1.3178091049194336
+    },
+    {
+      "step": 401,
+      "loss": 0.7438486814498901,
+      "discriminator_loss": 1.356532335281372
+    },
+    {
+      "step": 421,
+      "loss": 0.7460092306137085,
+      "discriminator_loss": 1.3715142011642456
+    },
+    {
+      "step": 441,
+      "loss": 0.7298485040664673,
+      "discriminator_loss": 1.3529722690582275
+    },
+    {
+      "step": 461,
+      "loss": 0.6944828629493713,
+      "discriminator_loss": 1.3427258729934692
+    },
+    {
+      "step": 481,
+      "loss": 0.7305588722229004,
+      "discriminator_loss": 1.3699920177459717
+    },
+    {
+      "step": 501,
+      "loss": 0.7021371126174927,
+      "discriminator_loss": 1.369187355041504
+    },
+    {
+      "step": 521,
+      "loss": 0.7283342480659485,
+      "discriminator_loss": 1.355809211730957
+    },
+    {
+      "step": 541,
+      "loss": 0.7383639812469482,
+      "discriminator_loss": 1.3617724180221558
+    },
+    {
+      "step": 561,
+      "loss": 0.7062971591949463,
+      "discriminator_loss": 1.333488941192627
+    },
+    {
+      "step": 581,
+      "loss": 0.705496072769165,
+      "discriminator_loss": 1.3695429563522339
+    },
+    {
+      "step": 600,
+      "loss": 0.7023873329162598,
+      "discriminator_loss": 1.3766707181930542
+    }
+  ],
+  "settings": {
+    "experiment": "adversarial",
+    "seed": 42,
+    "split": "validation",
+    "device": "cpu",
+    "threads": 2,
+    "epochs": 20,
+    "steps": 600,
+    "episodes": 500,
+    "depth": 4,
+    "neighbors": 5,
+    "clusters": 3,
+    "components": 16,
+    "latent": 8,
+    "order": 2,
+    "noise": 0.12,
+    "strength": 1,
+    "beta": 0.1,
+    "ablate_edges": false
+  },
+  "reload_prediction": [
+    [
+      -2.097261667251587
+    ],
+    [
+      -1.5227218866348267
+    ]
+  ],
+  "reload_verified": true,
+  "seconds": 5.642262626999582,
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.2.6",
+    "scikit_learn": "1.7.2"
+  },
+  "output_directory": "<verification-workspace>/SML-Lab-Localhost/lab/outputs/verification-1794634179/adversarial"
+}

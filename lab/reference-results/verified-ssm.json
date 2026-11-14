@@ -1,0 +1,19 @@
+{
+  "architecture": "ssm",
+  "parameters": 120448,
+  "validation_loss_before": 5.688568592071533,
+  "validation_loss_after": 2.5481410026550293,
+  "byte_perplexity_after": 12.783317526877658,
+  "sample": "note 42: aaiganor tretersze inarar5pi scchiztee tongonote nn\u001dteas5\u0001\ufffdnpein.hnu4eatei2ncoen: aoimzate: te reaainoate tenoinotes no",
+  "history": [
+    {
+      "step": 1,
+      "loss": 5.740787029266357
+    },
+    {
+      "step": 20,
+      "loss": 2.5733442306518555
+    }
+  ],
+  "scope": "Same synthetic grammar, distinct generated corpus; not real-language generalization."
+}

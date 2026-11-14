@@ -1,0 +1,19 @@
+{
+  "architecture": "hybrid",
+  "parameters": 128704,
+  "validation_loss_before": 5.627246379852295,
+  "validation_loss_after": 2.57009220123291,
+  "byte_perplexity_after": 13.067029181595434,
+  "sample": "note 42: te me at note t tat te 1ns pprahnop\nne : 3te nononnn\ufffdn.\nnoaas rcinoten\nno23noe 4u5s4e toters.\nne thiagi9zeis.\nnhmote an",
+  "history": [
+    {
+      "step": 1,
+      "loss": 5.617462158203125
+    },
+    {
+      "step": 20,
+      "loss": 2.591470718383789
+    }
+  ],
+  "scope": "Same synthetic grammar, distinct generated corpus; not real-language generalization."
+}

@@ -1,0 +1,6 @@
+# Tested teaching environment; torch is installed separately for your hardware.
+transformers==4.57.1
+peft==0.17.1
+accelerate==1.10.1
+numpy==2.2.6
+pillow==11.3.0

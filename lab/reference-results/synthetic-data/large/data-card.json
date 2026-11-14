@@ -1,0 +1,76 @@
+{
+  "purpose": "Fictional telemetry teaching exercise; never use for operational decisions.",
+  "all_partitions_simulated": true,
+  "generator": "fictional-telemetry-v1",
+  "seed": 42,
+  "settings": {
+    "samples": 2000,
+    "label_noise": 0.0,
+    "coverage": "full",
+    "seed": 42,
+    "split": "validation",
+    "output": "outputs/synthetic-large-check"
+  },
+  "features": [
+    "queue_depth",
+    "error_percent"
+  ],
+  "audit_only_fields": [
+    "id",
+    "origin",
+    "generator",
+    "oracle_label",
+    "label_flipped"
+  ],
+  "rule": "queue_depth/100 + 0.7*error_percent/10 + normal_noise(0,0.04) > 0.85",
+  "lineage": "Independent seed/augmentation/validation/test random streams; no real records or model downloads.",
+  "evaluation_limit": "Held-out simulator draws test this declared world, not real-world transfer.",
+  "dataset_sha256": {
+    "seed": "89f9c1a042208804e8d730ce83699ce41721f6c5f27f97c9e65386205a9f1291",
+    "synthetic": "605e68c52422796663e62efdb4cf11672b1dee01f8018661f7d79151f10638e5",
+    "validation": "e627c59460906b8db5a0501f5bcb7a02fd79a2316ebf6ea9ce622f4a64287790",
+    "test": "7313cbb95c349421a87bfb287162a9f3baf608195cce8064ae5e7b9f5bd2aced"
+  },
+  "quality": {
+    "partitions": {
+      "seed": {
+        "rows": 60,
+        "positive_fraction": 0.21666666666666667,
+        "flipped_fraction": 0.0,
+        "label_agreement_with_oracle": 1.0,
+        "high_error_fraction": 0.0,
+        "origin": "seed",
+        "all_simulated": true
+      },
+      "synthetic": {
+        "rows": 2000,
+        "positive_fraction": 0.5005,
+        "flipped_fraction": 0.0,
+        "label_agreement_with_oracle": 1.0,
+        "high_error_fraction": 0.7295,
+        "origin": "synthetic",
+        "all_simulated": true
+      },
+      "validation": {
+        "rows": 400,
+        "positive_fraction": 0.4875,
+        "flipped_fraction": 0.0,
+        "label_agreement_with_oracle": 1.0,
+        "high_error_fraction": 0.72,
+        "origin": "validation",
+        "all_simulated": true
+      },
+      "test": {
+        "rows": 400,
+        "positive_fraction": 0.5275,
+        "flipped_fraction": 0.0,
+        "label_agreement_with_oracle": 1.0,
+        "high_error_fraction": 0.735,
+        "origin": "test",
+        "all_simulated": true
+      }
+    },
+    "exact_duplicate_count": 0,
+    "note": "Exact deduplication cannot rule out near duplicates, shared templates, or distribution mismatch."
+  }
+}

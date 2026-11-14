@@ -1,0 +1,5 @@
+{
+  "name":"sml-lab-localhost",
+  "private":true,
+  "scripts":{"dev":"python server.py --no-browser --preview --host 0.0.0.0"}
+}

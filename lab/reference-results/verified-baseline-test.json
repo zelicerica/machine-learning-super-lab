@@ -1,0 +1,147 @@
+{
+  "model": "HuggingFaceTB/SmolLM2-135M-Instruct",
+  "revision": "12fd25f77366fa6b3b4b768ec3050bf629380bac",
+  "adapter": null,
+  "split": "test",
+  "seed": 42,
+  "device": "cpu",
+  "n": 12,
+  "accuracy": 0.0,
+  "schema_valid_rate": 0.0,
+  "median_request_seconds": 1.9640871470001002,
+  "aggregate_tokens_per_second": 15.810308741226907,
+  "predictions": [
+    {
+      "text": "The interpreter selected by the IDE is not the one where dependencies were installed. The correct answer is:\n\n{\"label\":\"environment\"}, {\"label\":\"memory\"}, or {\"label\":\"data\"}.",
+      "new_tokens": 40,
+      "seconds": 2.53327125999931,
+      "tokens_per_second": 15.789860577351236,
+      "id": "test-environment-00",
+      "expected": "environment",
+      "prediction": null,
+      "correct": false,
+      "valid_json": false
+    },
+    {
+      "text": "The wheel refuses to install on this Python release.\n\nHere's the JSON object with the correct format:\n\n```json\n{\n  \"label\": \"environment\",\n  \"label\": \"memory\",\n  \"label\": \"data",
+      "new_tokens": 48,
+      "seconds": 2.9131768080005713,
+      "tokens_per_second": 16.476857795989492,
+      "id": "test-environment-01",
+      "expected": "environment",
+      "prediction": null,
+      "correct": false,
+      "valid_json": false
+    },
+    {
+      "text": "The project libraries are no longer imported.",
+      "new_tokens": 9,
+      "seconds": 0.6548039699991932,
+      "tokens_per_second": 13.744571524224401,
+      "id": "test-environment-02",
+      "expected": "environment",
+      "prediction": null,
+      "correct": false,
+      "valid_json": false
+    },
+    {
+      "text": "The dependency resolution fails before any model is downloaded.",
+      "new_tokens": 11,
+      "seconds": 0.7335006309986056,
+      "tokens_per_second": 14.996578782794408,
+      "id": "test-environment-03",
+      "expected": "environment",
+      "prediction": null,
+      "correct": false,
+      "valid_json": false
+    },
+    {
+      "text": "The tensor allocation request is requesting two gigabytes of GPU memory, but the GPU has only one available.",
+      "new_tokens": 22,
+      "seconds": 1.3949030340008903,
+      "tokens_per_second": 15.771705605155317,
+      "id": "test-memory-00",
+      "expected": "memory",
+      "prediction": null,
+      "correct": false,
+      "valid_json": false
+    },
+    {
+      "text": "The machine starts swapping heavily as model parameters load.",
+      "new_tokens": 11,
+      "seconds": 0.7510595919993648,
+      "tokens_per_second": 14.645974989437727,
+      "id": "test-memory-01",
+      "expected": "memory",
+      "prediction": null,
+      "correct": false,
+      "valid_json": false
+    },
+    {
+      "text": "I'm sorry for the inconvenience, but as an AI, I don't have the ability to access or manipulate the device cache. I recommend using a device-specific cache management tool or a device-specific memory management tool to manage the device",
+      "new_tokens": 48,
+      "seconds": 2.903475738999987,
+      "tokens_per_second": 16.531910136274163,
+      "id": "test-memory-02",
+      "expected": "memory",
+      "prediction": null,
+      "correct": false,
+      "valid_json": false
+    },
+    {
+      "text": "The forward pass works for one sample but runs out of RAM for eight. The reason is that the forward pass requires a certain amount of VRAM to be available for the forward pass. If the forward pass is running out of VRAM,",
+      "new_tokens": 48,
+      "seconds": 2.908448090998718,
+      "tokens_per_second": 16.503646789693097,
+      "id": "test-memory-03",
+      "expected": "memory",
+      "prediction": null,
+      "correct": false,
+      "valid_json": false
+    },
+    {
+      "text": "The customer document appears in both learning and scoring examples.",
+      "new_tokens": 12,
+      "seconds": 0.8740273609982978,
+      "tokens_per_second": 13.729547306498304,
+      "id": "test-data-00",
+      "expected": "data",
+      "prediction": null,
+      "correct": false,
+      "valid_json": false
+    },
+    {
+      "text": "The training output should be labeled as follows:\n\n- \"environment\"\n- \"memory\"\n- \"data\"\n\nHere's the updated code:\n\n```python\nimport pandas as pd\n\n# Load the data",
+      "new_tokens": 48,
+      "seconds": 2.9815217870018387,
+      "tokens_per_second": 16.09916124351648,
+      "id": "test-data-01",
+      "expected": "data",
+      "prediction": null,
+      "correct": false,
+      "valid_json": false
+    },
+    {
+      "text": "The file parsing failed due to a missing blank question.",
+      "new_tokens": 12,
+      "seconds": 0.8594293349997315,
+      "tokens_per_second": 13.962753552045962,
+      "id": "test-data-02",
+      "expected": "data",
+      "prediction": null,
+      "correct": false,
+      "valid_json": false
+    },
+    {
+      "text": "The correct answers were:\n\nEnvironment:\n- environment: \"environment\"\n- environment: \"memory\"\n- environment: \"data\"\n\nMemory:\n- memory: \"RAM\"\n- memory: \"GPU\"",
+      "new_tokens": 48,
+      "seconds": 3.0725866020002286,
+      "tokens_per_second": 15.622016957553742,
+      "id": "test-data-03",
+      "expected": "data",
+      "prediction": null,
+      "correct": false,
+      "valid_json": false
+    }
+  ]
+}

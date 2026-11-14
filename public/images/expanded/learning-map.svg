@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="940" viewBox="0 0 1200 940" role="img" aria-labelledby="title description">
+<title id="title">Four questions describe one model</title><desc id="description">Four independent dimensions describe a model: computational mechanism, learning signal, task, and adaptation or deployment. A single handwritten-digit classifier is described by all four.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64775F"/></marker></defs>
+<rect width="1200" height="940" fill="#F5F7F1"/>
+<text x="44" y="42.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="700" text-anchor="start" fill="#64775F" letter-spacing="2">MACHINE LEARNING SUPER LAB</text>
+<text x="44" y="94.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="36" font-weight="700" text-anchor="start" fill="#24352B">Four questions describe one model</text>
+<text x="44" y="128.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">Use independent dimensions. A learning method is not the same thing as an architecture.</text>
+<rect x="44" y="170" width="534" height="270" rx="18" fill="#FFFFFF" stroke="#DCE5D3"/>
+<rect x="66" y="193" width="42" height="32" rx="8" fill="#EAF3DE" stroke="#EAF3DE"/>
+<text x="87" y="216.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="700" text-anchor="middle" fill="#64775F">01</text>
+<text x="124" y="217.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="23" font-weight="700" text-anchor="start" fill="#24352B">What computes?</text>
+<text x="68" y="258.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">The mathematical mechanism</text>
+<text x="68" y="301.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#24352B">Linear weights · decision trees</text>
+<text x="68" y="330.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#24352B">Convolution · attention · recurrence</text>
+<text x="68" y="377.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">Example: a small convolutional network</text>
+<text x="68" y="403.1" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">shares filters across image locations.</text>
+<rect x="622" y="170" width="534" height="270" rx="18" fill="#FFFFFF" stroke="#DCE5D3"/>
+<rect x="644" y="193" width="42" height="32" rx="8" fill="#EAF3DE" stroke="#EAF3DE"/>
+<text x="665" y="216.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="700" text-anchor="middle" fill="#64775F">02</text>
+<text x="702" y="217.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="23" font-weight="700" text-anchor="start" fill="#24352B">What teaches?</text>
+<text x="646" y="258.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">The source of the learning signal</text>
+<text x="646" y="301.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#24352B">Labeled examples · data-derived targets</text>
+<text x="646" y="330.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#24352B">Unlabeled structure · action rewards</text>
+<text x="646" y="377.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">Example: known digit labels provide</text>
+<text x="646" y="403.1" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">supervised feedback during training.</text>
+<rect x="44" y="470" width="534" height="270" rx="18" fill="#FFFFFF" stroke="#DCE5D3"/>
+<rect x="66" y="493" width="42" height="32" rx="8" fill="#EAF3DE" stroke="#EAF3DE"/>
+<text x="87" y="516.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="700" text-anchor="middle" fill="#64775F">03</text>
+<text x="124" y="517.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="23" font-weight="700" text-anchor="start" fill="#24352B">What is the job?</text>
+<text x="68" y="558.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">The prediction or decision required</text>
+<text x="68" y="601.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#24352B">Classification · regression · retrieval</text>
+<text x="68" y="630.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#24352B">Generation · clustering · control</text>
+<text x="68" y="677.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">Example: assign one of ten digit labels</text>
+<text x="68" y="703.1" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">to a handwritten image.</text>
+<rect x="622" y="470" width="534" height="270" rx="18" fill="#FFFFFF" stroke="#DCE5D3"/>
+<rect x="644" y="493" width="42" height="32" rx="8" fill="#EAF3DE" stroke="#EAF3DE"/>
+<text x="665" y="516.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="700" text-anchor="middle" fill="#64775F">04</text>
+<text x="702" y="517.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="23" font-weight="700" text-anchor="start" fill="#24352B">How does it run?</text>
+<text x="646" y="558.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">The resource and adaptation choices</text>
+<text x="646" y="601.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#24352B">Full training · adapters · distillation</text>
+<text x="646" y="630.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#24352B">Quantization · local or rented compute</text>
+<text x="646" y="677.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">Example: train with full-precision numbers</text>
+<text x="646" y="703.1" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">and run locally on a central processor.</text>
+<rect x="44" y="785" width="1112" height="83" rx="14" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="67" y="818.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="700" text-anchor="start" fill="#64775F">ONE MODEL CAN HAVE ALL FOUR LABELS</text>
+<text x="67" y="850.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="21" font-weight="600" text-anchor="start" fill="#24352B">Convolutional network + supervised learning + digit classification + local execution</text>
+<line x1="44" y1="879" x2="1156" y2="879" stroke="#DCE5D3" stroke-width="2"/>
+<text x="44" y="910.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#64775F">These are useful organizing questions, not an exhaustive or mutually exclusive taxonomy.</text>
+</svg>

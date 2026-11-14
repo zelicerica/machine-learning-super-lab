@@ -1,0 +1,19 @@
+{
+  "architecture": "moe",
+  "parameters": 104840,
+  "validation_loss_before": 5.749332427978516,
+  "validation_loss_after": 3.0063581466674805,
+  "byte_perplexity_after": 20.213650563905762,
+  "sample": "note 42:nr.narrgeaeg :.toseed6eolton ir.6st \nea\ufffdnr3a asteote ammwens:dpimoe\nanne irno ei.#itnrd%nta:isbnuonsseetgw.ewarao aaeiin",
+  "history": [
+    {
+      "step": 1,
+      "loss": 5.7220540046691895
+    },
+    {
+      "step": 20,
+      "loss": 3.01301646232605
+    }
+  ],
+  "scope": "Same synthetic grammar, distinct generated corpus; not real-language generalization."
+}

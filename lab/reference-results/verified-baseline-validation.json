@@ -1,0 +1,147 @@
+{
+  "model": "HuggingFaceTB/SmolLM2-135M-Instruct",
+  "revision": "12fd25f77366fa6b3b4b768ec3050bf629380bac",
+  "adapter": null,
+  "split": "validation",
+  "seed": 42,
+  "device": "cpu",
+  "n": 12,
+  "accuracy": 0.0,
+  "schema_valid_rate": 0.0,
+  "median_request_seconds": 2.9899676850000105,
+  "aggregate_tokens_per_second": 14.26771347741076,
+  "predictions": [
+    {
+      "text": "The shell and editor are running different Python installations. The shell is running Python 2.7.1, while the editor is running Python 3.x.",
+      "new_tokens": 34,
+      "seconds": 3.2320445949990244,
+      "tokens_per_second": 10.519656830418908,
+      "id": "validation-environment-00",
+      "expected": "environment",
+      "prediction": null,
+      "correct": false,
+      "valid_json": false
+    },
+    {
+      "text": "The import fails because the library is not installed. The `pip` command is not being executed, and the `pip` command is not being run.\n\nTo fix this issue, you need to install the library using pip:\n",
+      "new_tokens": 48,
+      "seconds": 2.8431349479978962,
+      "tokens_per_second": 16.882772319267175,
+      "id": "validation-environment-01",
+      "expected": "environment",
+      "prediction": null,
+      "correct": false,
+      "valid_json": false
+    },
+    {
+      "text": "The notebook kernel cannot see the packages in your venv. To resolve this issue, you need to install the necessary packages using pip:\n\n```bash\npip install --upgrade pip\n```\n\nReplace `pip` with",
+      "new_tokens": 48,
+      "seconds": 2.8950730100004876,
+      "tokens_per_second": 16.579892746812597,
+      "id": "validation-environment-02",
+      "expected": "environment",
+      "prediction": null,
+      "correct": false,
+      "valid_json": false
+    },
+    {
+      "text": "Two required libraries demand incompatible dependency versions.\n\nThe first requirement is that the libraries must be compatible with the Python 3.x standard. This means that the libraries must be compatible with Python 3.x, which is the standard",
+      "new_tokens": 48,
+      "seconds": 3.0107298660004744,
+      "tokens_per_second": 15.942977994158056,
+      "id": "validation-environment-03",
+      "expected": "environment",
+      "prediction": null,
+      "correct": false,
+      "valid_json": false
+    },
+    {
+      "text": "The accelerator has no free space left for tensors.",
+      "new_tokens": 11,
+      "seconds": 0.7784980890028237,
+      "tokens_per_second": 14.129771357679083,
+      "id": "validation-memory-00",
+      "expected": "memory",
+      "prediction": null,
+      "correct": false,
+      "valid_json": false
+    },
+    {
+      "text": "The code snippet you provided is not working as expected. The sequence length is not being reduced, and the VRAM allocation failure is occurring.\n\nTo fix this issue, you need to modify the code to reduce the sequence length. Here",
+      "new_tokens": 48,
+      "seconds": 3.1360725840022496,
+      "tokens_per_second": 15.305768190716586,
+      "id": "validation-memory-01",
+      "expected": "memory",
+      "prediction": null,
+      "correct": false,
+      "valid_json": false
+    },
+    {
+      "text": "The process is terminated when its resident memory reaches the machine limit.",
+      "new_tokens": 14,
+      "seconds": 0.9968296229999396,
+      "tokens_per_second": 14.044526443613572,
+      "id": "validation-memory-02",
+      "expected": "memory",
+      "prediction": null,
+      "correct": false,
+      "valid_json": false
+    },
+    {
+      "text": "The weights load, but training needs more GPU memory than is free.\n\nThe weights load, but training needs more GPU memory than is free.\n\nThe weights load, but training needs more GPU memory than is free.\n\n",
+      "new_tokens": 48,
+      "seconds": 3.248018674999912,
+      "tokens_per_second": 14.778240152822182,
+      "id": "validation-memory-03",
+      "expected": "memory",
+      "prediction": null,
+      "correct": false,
+      "valid_json": false
+    },
+    {
+      "text": "The annotation \"environment\" disagrees with the actual ticket content.",
+      "new_tokens": 14,
+      "seconds": 1.5853734819975216,
+      "tokens_per_second": 8.830726739771396,
+      "id": "validation-data-00",
+      "expected": "data",
+      "prediction": null,
+      "correct": false,
+      "valid_json": false
+    },
+    {
+      "text": "You're right, the split is not a valid output. The split should be a JSON object that contains the following keys:\n\n- \"label\": the label of the split\n- \"label\": the label of the split\n-",
+      "new_tokens": 48,
+      "seconds": 3.665308993000508,
+      "tokens_per_second": 13.095758117982319,
+      "id": "validation-data-01",
+      "expected": "data",
+      "prediction": null,
+      "correct": false,
+      "valid_json": false
+    },
+    {
+      "text": "The parser rejects a record with an unterminated JSON string.\n\nHere's the correct format:\n\n```json\n{\n  \"label\": \"environment\",\n  \"label\": \"memory\",\n  \"label\": \"data\"",
+      "new_tokens": 48,
+      "seconds": 2.9692055039995466,
+      "tokens_per_second": 16.16594066505116,
+      "id": "validation-data-02",
+      "expected": "data",
+      "prediction": null,
+      "correct": false,
+      "valid_json": false
+    },
+    {
+      "text": "The loader expects the target field to be a string, and the loader expects the label to be a string.\n\nHere's an example of how to format the loader's target field and label:\n\n```python\nimport pandas as",
+      "new_tokens": 48,
+      "seconds": 3.670070697000483,
+      "tokens_per_second": 13.078767130897502,
+      "id": "validation-data-03",
+      "expected": "data",
+      "prediction": null,
+      "correct": false,
+      "valid_json": false
+    }
+  ]
+}

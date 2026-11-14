@@ -1,0 +1,258 @@
+{
+  "schema": "superlab.report.v1",
+  "experiment": "dense",
+  "split": "validation",
+  "seed": 42,
+  "dataset": "Bundled handwritten digits: 8 by 8 pixels",
+  "metrics": {
+    "accuracy": 0.9637883008356546,
+    "balanced_accuracy": 0.9634920634920634,
+    "macro_f1": 0.9639893730077194,
+    "confusion_matrix": [
+      [
+        34,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        35,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        2,
+        34,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        35,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        35,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        36,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        36,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        35,
+        0,
+        0
+      ],
+      [
+        0,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        30,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        36
+      ]
+    ],
+    "trainable_parameters": 2410
+  },
+  "limitations": "Small digit recognition task, not a document-recognition product. A saved parameter dictionary needs the matching architecture to reload.",
+  "artifacts": [
+    "confusion.png"
+  ],
+  "history": [
+    {
+      "step": 1,
+      "loss": 1.9326765090503586
+    },
+    {
+      "step": 2,
+      "loss": 0.9273282522836731
+    },
+    {
+      "step": 3,
+      "loss": 0.44171569282137174
+    },
+    {
+      "step": 4,
+      "loss": 0.30159635042878824
+    },
+    {
+      "step": 5,
+      "loss": 0.23076192484494706
+    },
+    {
+      "step": 6,
+      "loss": 0.18072538937619975
+    },
+    {
+      "step": 7,
+      "loss": 0.14875658757722002
+    },
+    {
+      "step": 8,
+      "loss": 0.12715991308605074
+    },
+    {
+      "step": 9,
+      "loss": 0.11654461935466649
+    },
+    {
+      "step": 10,
+      "loss": 0.10123985726559095
+    },
+    {
+      "step": 11,
+      "loss": 0.09461494004405717
+    },
+    {
+      "step": 12,
+      "loss": 0.0875290592161313
+    },
+    {
+      "step": 13,
+      "loss": 0.07647220632804347
+    },
+    {
+      "step": 14,
+      "loss": 0.07078648535517461
+    },
+    {
+      "step": 15,
+      "loss": 0.06593930378473313
+    },
+    {
+      "step": 16,
+      "loss": 0.0612324639491336
+    },
+    {
+      "step": 17,
+      "loss": 0.055817478054750826
+    },
+    {
+      "step": 18,
+      "loss": 0.05507430519929401
+    },
+    {
+      "step": 19,
+      "loss": 0.04576285734966204
+    },
+    {
+      "step": 20,
+      "loss": 0.045261620327913255
+    }
+  ],
+  "settings": {
+    "experiment": "dense",
+    "seed": 42,
+    "split": "validation",
+    "device": "cpu",
+    "threads": 2,
+    "epochs": 20,
+    "steps": 600,
+    "episodes": 500,
+    "depth": 4,
+    "neighbors": 5,
+    "clusters": 3,
+    "components": 16,
+    "latent": 8,
+    "order": 2,
+    "noise": 0.12,
+    "strength": 1,
+    "beta": 0.1,
+    "ablate_edges": false
+  },
+  "split_sizes": {
+    "train": 1078,
+    "validation": 359,
+    "test": 360
+  },
+  "reload_prediction": [
+    3,
+    4
+  ],
+  "reload_verified": true,
+  "seconds": 5.630580816003203,
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.2.6",
+    "scikit_learn": "1.7.2"
+  },
+  "output_directory": "<verification-workspace>/SML-Lab-Localhost/lab/outputs/variant-check-1794634760594518236/dense"
+}

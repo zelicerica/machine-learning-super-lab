@@ -1,0 +1,238 @@
+{
+  "schema": "superlab.report.v1",
+  "experiment": "convolution",
+  "split": "validation",
+  "seed": 42,
+  "dataset": "Bundled handwritten digits: 8 by 8 pixels",
+  "metrics": {
+    "accuracy": 0.9832869080779945,
+    "balanced_accuracy": 0.9832539682539683,
+    "macro_f1": 0.9832892930343627,
+    "confusion_matrix": [
+      [
+        35,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        36,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        35,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        36,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        35,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        36,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        36,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        34,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        34,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        36
+      ]
+    ],
+    "trainable_parameters": 3818
+  },
+  "limitations": "Small digit recognition task, not a document-recognition product. A saved parameter dictionary needs the matching architecture to reload.",
+  "artifacts": [
+    "confusion.png"
+  ],
+  "history": [
+    {
+      "step": 1,
+      "loss": 1.9310919793948171
+    },
+    {
+      "step": 2,
+      "loss": 0.6104229691409003
+    },
+    {
+      "step": 3,
+      "loss": 0.2886075049721686
+    },
+    {
+      "step": 4,
+      "loss": 0.15600953240065052
+    },
+    {
+      "step": 5,
+      "loss": 0.11190057239030421
+    },
+    {
+      "step": 6,
+      "loss": 0.08070761814077622
+    },
+    {
+      "step": 7,
+      "loss": 0.06725199477736715
+    },
+    {
+      "step": 8,
+      "loss": 0.05054408370591493
+    },
+    {
+      "step": 9,
+      "loss": 0.03956296890352011
+    },
+    {
+      "step": 10,
+      "loss": 0.027496087508265737
+    },
+    {
+      "step": 11,
+      "loss": 0.025006673988196757
+    },
+    {
+      "step": 12,
+      "loss": 0.024347799386075786
+    },
+    {
+      "step": 13,
+      "loss": 0.017361228687754367
+    },
+    {
+      "step": 14,
+      "loss": 0.013463859798832484
+    },
+    {
+      "step": 15,
+      "loss": 0.007960767594057245
+    }
+  ],
+  "settings": {
+    "experiment": "convolution",
+    "seed": 42,
+    "split": "validation",
+    "device": "cpu",
+    "threads": 2,
+    "epochs": 15,
+    "steps": 600,
+    "episodes": 500,
+    "depth": 4,
+    "neighbors": 5,
+    "clusters": 3,
+    "components": 16,
+    "latent": 8,
+    "order": 2,
+    "noise": 0.12,
+    "strength": 1,
+    "beta": 0.1,
+    "ablate_edges": false
+  },
+  "split_sizes": {
+    "train": 1078,
+    "validation": 359,
+    "test": 360
+  },
+  "reload_prediction": [
+    3,
+    4
+  ],
+  "reload_verified": true,
+  "seconds": 4.320364862003771,
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.2.6",
+    "scikit_learn": "1.7.2"
+  },
+  "output_directory": "<verification-workspace>/SML-Lab-Localhost/lab/outputs/verification-1794634179/convolution"
+}

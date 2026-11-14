@@ -1,0 +1,560 @@
+{
+  "schema": "superlab.report.v1",
+  "experiment": "seq2seq",
+  "split": "validation",
+  "settings": {
+    "experiment": "seq2seq",
+    "output": "outputs/new-seq2seq-base",
+    "steps": 400,
+    "adapt_steps": 80,
+    "labels_per_class": 4,
+    "depth": 2,
+    "lr": 0.003,
+    "seed": 42,
+    "threads": 2,
+    "split": "validation"
+  },
+  "metrics": {
+    "loss_before": 3.1907360553741455,
+    "loss_after": 0.10010038316249847,
+    "generated_exact_match": 0.85,
+    "copy_input_baseline_exact_match": 0.0
+  },
+  "artifacts": [
+    "learning-curves.png"
+  ],
+  "limitations": [
+    "Synthetic teaching data; results do not establish production capability."
+  ],
+  "data": {
+    "train_groups": 56,
+    "validation_groups": 20,
+    "test_groups": 20,
+    "vocabulary_fit": "training rows only"
+  },
+  "predictions": [
+    {
+      "source": "please inspect amber in east",
+      "expected": "inspect amber east",
+      "predicted": "inspect cedar east"
+    },
+    {
+      "source": "inspect amber in east now",
+      "expected": "inspect amber east",
+      "predicted": "inspect cedar east"
+    },
+    {
+      "source": "can you inspect amber in east",
+      "expected": "inspect amber east",
+      "predicted": "inspect cedar east"
+    },
+    {
+      "source": "please backup birch in west",
+      "expected": "backup birch west",
+      "predicted": "backup birch west"
+    },
+    {
+      "source": "backup birch in west now",
+      "expected": "backup birch west",
+      "predicted": "backup birch west"
+    },
+    {
+      "source": "can you backup birch in west",
+      "expected": "backup birch west",
+      "predicted": "backup birch west"
+    },
+    {
+      "source": "please backup birch in north",
+      "expected": "backup birch north",
+      "predicted": "backup birch north"
+    },
+    {
+      "source": "backup birch in north now",
+      "expected": "backup birch north",
+      "predicted": "backup birch north"
+    },
+    {
+      "source": "can you backup birch in north",
+      "expected": "backup birch north",
+      "predicted": "backup birch north"
+    },
+    {
+      "source": "please backup flint in west",
+      "expected": "backup flint west",
+      "predicted": "backup flint west"
+    },
+    {
+      "source": "backup flint in west now",
+      "expected": "backup flint west",
+      "predicted": "backup flint west"
+    },
+    {
+      "source": "can you backup flint in west",
+      "expected": "backup flint west",
+      "predicted": "backup flint west"
+    },
+    {
+      "source": "please restart amber in east",
+      "expected": "restart amber east",
+      "predicted": "restart amber east"
+    },
+    {
+      "source": "restart amber in east now",
+      "expected": "restart amber east",
+      "predicted": "restart amber east"
+    },
+    {
+      "source": "can you restart amber in east",
+      "expected": "restart amber east",
+      "predicted": "restart amber east"
+    },
+    {
+      "source": "please restart delta in west",
+      "expected": "restart delta west",
+      "predicted": "restart delta west"
+    },
+    {
+      "source": "restart delta in west now",
+      "expected": "restart delta west",
+      "predicted": "restart delta west"
+    },
+    {
+      "source": "can you restart delta in west",
+      "expected": "restart delta west",
+      "predicted": "restart delta west"
+    },
+    {
+      "source": "please update ember in east",
+      "expected": "update ember east",
+      "predicted": "update ember east"
+    },
+    {
+      "source": "update ember in east now",
+      "expected": "update ember east",
+      "predicted": "update ember east"
+    },
+    {
+      "source": "can you update ember in east",
+      "expected": "update ember east",
+      "predicted": "update ember east"
+    },
+    {
+      "source": "please backup ember in south",
+      "expected": "backup ember south",
+      "predicted": "backup ember south"
+    },
+    {
+      "source": "backup ember in south now",
+      "expected": "backup ember south",
+      "predicted": "backup ember south"
+    },
+    {
+      "source": "can you backup ember in south",
+      "expected": "backup ember south",
+      "predicted": "backup ember south"
+    },
+    {
+      "source": "please update amber in west",
+      "expected": "update amber west",
+      "predicted": "update amber west"
+    },
+    {
+      "source": "update amber in west now",
+      "expected": "update amber west",
+      "predicted": "update amber west"
+    },
+    {
+      "source": "can you update amber in west",
+      "expected": "update amber west",
+      "predicted": "update amber west"
+    },
+    {
+      "source": "please inspect ember in south",
+      "expected": "inspect ember south",
+      "predicted": "inspect ember south"
+    },
+    {
+      "source": "inspect ember in south now",
+      "expected": "inspect ember south",
+      "predicted": "inspect ember south"
+    },
+    {
+      "source": "can you inspect ember in south",
+      "expected": "inspect ember south",
+      "predicted": "inspect ember south"
+    },
+    {
+      "source": "please update cedar in south",
+      "expected": "update cedar south",
+      "predicted": "update cedar east"
+    },
+    {
+      "source": "update cedar in south now",
+      "expected": "update cedar south",
+      "predicted": "update cedar east"
+    },
+    {
+      "source": "can you update cedar in south",
+      "expected": "update cedar south",
+      "predicted": "update cedar east"
+    },
+    {
+      "source": "please backup flint in east",
+      "expected": "backup flint east",
+      "predicted": "backup flint east"
+    },
+    {
+      "source": "backup flint in east now",
+      "expected": "backup flint east",
+      "predicted": "backup flint east"
+    },
+    {
+      "source": "can you backup flint in east",
+      "expected": "backup flint east",
+      "predicted": "backup flint east"
+    },
+    {
+      "source": "please backup amber in east",
+      "expected": "backup amber east",
+      "predicted": "backup cedar east"
+    },
+    {
+      "source": "backup amber in east now",
+      "expected": "backup amber east",
+      "predicted": "backup cedar east"
+    },
+    {
+      "source": "can you backup amber in east",
+      "expected": "backup amber east",
+      "predicted": "backup cedar east"
+    },
+    {
+      "source": "please update flint in east",
+      "expected": "update flint east",
+      "predicted": "update flint east"
+    },
+    {
+      "source": "update flint in east now",
+      "expected": "update flint east",
+      "predicted": "update flint east"
+    },
+    {
+      "source": "can you update flint in east",
+      "expected": "update flint east",
+      "predicted": "update flint east"
+    },
+    {
+      "source": "please restart cedar in west",
+      "expected": "restart cedar west",
+      "predicted": "restart cedar west"
+    },
+    {
+      "source": "restart cedar in west now",
+      "expected": "restart cedar west",
+      "predicted": "restart cedar west"
+    },
+    {
+      "source": "can you restart cedar in west",
+      "expected": "restart cedar west",
+      "predicted": "restart cedar west"
+    },
+    {
+      "source": "please update ember in north",
+      "expected": "update ember north",
+      "predicted": "update ember north"
+    },
+    {
+      "source": "update ember in north now",
+      "expected": "update ember north",
+      "predicted": "update ember north"
+    },
+    {
+      "source": "can you update ember in north",
+      "expected": "update ember north",
+      "predicted": "update ember north"
+    },
+    {
+      "source": "please restart birch in west",
+      "expected": "restart birch west",
+      "predicted": "restart birch west"
+    },
+    {
+      "source": "restart birch in west now",
+      "expected": "restart birch west",
+      "predicted": "restart birch west"
+    },
+    {
+      "source": "can you restart birch in west",
+      "expected": "restart birch west",
+      "predicted": "restart birch west"
+    },
+    {
+      "source": "please update delta in south",
+      "expected": "update delta south",
+      "predicted": "update delta south"
+    },
+    {
+      "source": "update delta in south now",
+      "expected": "update delta south",
+      "predicted": "update delta south"
+    },
+    {
+      "source": "can you update delta in south",
+      "expected": "update delta south",
+      "predicted": "update delta south"
+    },
+    {
+      "source": "please inspect amber in west",
+      "expected": "inspect amber west",
+      "predicted": "inspect amber west"
+    },
+    {
+      "source": "inspect amber in west now",
+      "expected": "inspect amber west",
+      "predicted": "inspect amber west"
+    },
+    {
+      "source": "can you inspect amber in west",
+      "expected": "inspect amber west",
+      "predicted": "inspect amber west"
+    },
+    {
+      "source": "please restart flint in south",
+      "expected": "restart flint south",
+      "predicted": "restart flint south"
+    },
+    {
+      "source": "restart flint in south now",
+      "expected": "restart flint south",
+      "predicted": "restart flint south"
+    },
+    {
+      "source": "can you restart flint in south",
+      "expected": "restart flint south",
+      "predicted": "restart flint south"
+    }
+  ],
+  "reload_verified": true,
+  "new_input": "please backup cedar in south",
+  "reloaded_prediction": {
+    "normalized_command": "backup cedar south"
+  },
+  "curves": {
+    "training": [
+      {
+        "step": 1,
+        "loss": 3.203350067138672,
+        "gradient_norm_before_clip": 0.5931276679039001
+      },
+      {
+        "step": 20,
+        "loss": 2.1933109760284424,
+        "gradient_norm_before_clip": 0.6488351821899414
+      },
+      {
+        "step": 40,
+        "loss": 1.448249340057373,
+        "gradient_norm_before_clip": 0.5709646344184875
+      },
+      {
+        "step": 60,
+        "loss": 1.1797152757644653,
+        "gradient_norm_before_clip": 0.34526729583740234
+      },
+      {
+        "step": 80,
+        "loss": 0.9971789717674255,
+        "gradient_norm_before_clip": 0.3522598147392273
+      },
+      {
+        "step": 100,
+        "loss": 0.8590226173400879,
+        "gradient_norm_before_clip": 0.36818641424179077
+      },
+      {
+        "step": 120,
+        "loss": 0.6431618332862854,
+        "gradient_norm_before_clip": 0.4208592176437378
+      },
+      {
+        "step": 140,
+        "loss": 0.5891265869140625,
+        "gradient_norm_before_clip": 0.33553415536880493
+      },
+      {
+        "step": 160,
+        "loss": 0.4932612478733063,
+        "gradient_norm_before_clip": 0.2976640462875366
+      },
+      {
+        "step": 180,
+        "loss": 0.3814515173435211,
+        "gradient_norm_before_clip": 0.2690826654434204
+      },
+      {
+        "step": 200,
+        "loss": 0.30177202820777893,
+        "gradient_norm_before_clip": 0.19807641208171844
+      },
+      {
+        "step": 220,
+        "loss": 0.23590879142284393,
+        "gradient_norm_before_clip": 0.231099933385849
+      },
+      {
+        "step": 240,
+        "loss": 0.15809006989002228,
+        "gradient_norm_before_clip": 0.16904696822166443
+      },
+      {
+        "step": 260,
+        "loss": 0.1247418150305748,
+        "gradient_norm_before_clip": 0.14631687104701996
+      },
+      {
+        "step": 280,
+        "loss": 0.1138172522187233,
+        "gradient_norm_before_clip": 0.1614617109298706
+      },
+      {
+        "step": 300,
+        "loss": 0.05714428797364235,
+        "gradient_norm_before_clip": 0.06485699862241745
+      },
+      {
+        "step": 320,
+        "loss": 0.05741104111075401,
+        "gradient_norm_before_clip": 0.0616130530834198
+      },
+      {
+        "step": 340,
+        "loss": 0.04872829094529152,
+        "gradient_norm_before_clip": 0.04759446904063225
+      },
+      {
+        "step": 360,
+        "loss": 0.04087132215499878,
+        "gradient_norm_before_clip": 0.04956182464957237
+      },
+      {
+        "step": 380,
+        "loss": 0.03167266026139259,
+        "gradient_norm_before_clip": 0.03911362215876579
+      },
+      {
+        "step": 400,
+        "loss": 0.03438109531998634,
+        "gradient_norm_before_clip": 0.035725586116313934
+      }
+    ]
+  },
+  "history": [
+    {
+      "step": 1,
+      "loss": 3.203350067138672,
+      "gradient_norm_before_clip": 0.5931276679039001
+    },
+    {
+      "step": 20,
+      "loss": 2.1933109760284424,
+      "gradient_norm_before_clip": 0.6488351821899414
+    },
+    {
+      "step": 40,
+      "loss": 1.448249340057373,
+      "gradient_norm_before_clip": 0.5709646344184875
+    },
+    {
+      "step": 60,
+      "loss": 1.1797152757644653,
+      "gradient_norm_before_clip": 0.34526729583740234
+    },
+    {
+      "step": 80,
+      "loss": 0.9971789717674255,
+      "gradient_norm_before_clip": 0.3522598147392273
+    },
+    {
+      "step": 100,
+      "loss": 0.8590226173400879,
+      "gradient_norm_before_clip": 0.36818641424179077
+    },
+    {
+      "step": 120,
+      "loss": 0.6431618332862854,
+      "gradient_norm_before_clip": 0.4208592176437378
+    },
+    {
+      "step": 140,
+      "loss": 0.5891265869140625,
+      "gradient_norm_before_clip": 0.33553415536880493
+    },
+    {
+      "step": 160,
+      "loss": 0.4932612478733063,
+      "gradient_norm_before_clip": 0.2976640462875366
+    },
+    {
+      "step": 180,
+      "loss": 0.3814515173435211,
+      "gradient_norm_before_clip": 0.2690826654434204
+    },
+    {
+      "step": 200,
+      "loss": 0.30177202820777893,
+      "gradient_norm_before_clip": 0.19807641208171844
+    },
+    {
+      "step": 220,
+      "loss": 0.23590879142284393,
+      "gradient_norm_before_clip": 0.231099933385849
+    },
+    {
+      "step": 240,
+      "loss": 0.15809006989002228,
+      "gradient_norm_before_clip": 0.16904696822166443
+    },
+    {
+      "step": 260,
+      "loss": 0.1247418150305748,
+      "gradient_norm_before_clip": 0.14631687104701996
+    },
+    {
+      "step": 280,
+      "loss": 0.1138172522187233,
+      "gradient_norm_before_clip": 0.1614617109298706
+    },
+    {
+      "step": 300,
+      "loss": 0.05714428797364235,
+      "gradient_norm_before_clip": 0.06485699862241745
+    },
+    {
+      "step": 320,
+      "loss": 0.05741104111075401,
+      "gradient_norm_before_clip": 0.0616130530834198
+    },
+    {
+      "step": 340,
+      "loss": 0.04872829094529152,
+      "gradient_norm_before_clip": 0.04759446904063225
+    },
+    {
+      "step": 360,
+      "loss": 0.04087132215499878,
+      "gradient_norm_before_clip": 0.04956182464957237
+    },
+    {
+      "step": 380,
+      "loss": 0.03167266026139259,
+      "gradient_norm_before_clip": 0.03911362215876579
+    },
+    {
+      "step": 400,
+      "loss": 0.03438109531998634,
+      "gradient_norm_before_clip": 0.035725586116313934
+    }
+  ],
+  "seconds": 2.365900881000016,
+  "weights_sha256": "b8564904e4963b3727727f34785c84563e2d9675f557a28747dae2b92d45f664"
+}

@@ -1,0 +1,58 @@
+{
+  "schema": "superlab.report.v1",
+  "experiment": "gaussian",
+  "split": "validation",
+  "seed": 42,
+  "dataset": "Synthetic noisy sine measurements",
+  "metrics": {
+    "mean_absolute_error": 0.09199007414875345,
+    "root_mean_squared_error": 0.117365388913518,
+    "r_squared": 0.9727638214693977,
+    "interval_coverage": 0.9666666666666667,
+    "mean_predictive_standard_deviation": 0.10748264766269006
+  },
+  "limitations": "Intervals rely on the chosen kernel and noise assumptions. A nominal 95% interval need not attain 95% empirical coverage.",
+  "artifacts": [
+    "uncertainty.png"
+  ],
+  "history": [],
+  "settings": {
+    "experiment": "gaussian",
+    "seed": 42,
+    "split": "validation",
+    "device": "cpu",
+    "threads": 2,
+    "epochs": 20,
+    "steps": 600,
+    "episodes": 500,
+    "depth": 4,
+    "neighbors": 5,
+    "clusters": 3,
+    "components": 16,
+    "latent": 8,
+    "order": 2,
+    "noise": 0.12,
+    "strength": 1,
+    "beta": 0.1,
+    "ablate_edges": false
+  },
+  "split_sizes": {
+    "train": 90,
+    "validation": 30,
+    "test": 30
+  },
+  "reload_prediction": {
+    "gaussian_process": [
+      -0.4575377892211285,
+      1.0144490677708187
+    ]
+  },
+  "reload_verified": true,
+  "seconds": 0.3629265579947969,
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.2.6",
+    "scikit_learn": "1.7.2"
+  },
+  "output_directory": "<verification-workspace>/SML-Lab-Localhost/lab/outputs/verification-1794634179/gaussian"
+}

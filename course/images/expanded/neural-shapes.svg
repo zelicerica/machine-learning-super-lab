@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1325" viewBox="0 0 1200 1325" role="img" aria-labelledby="title description">
+<title id="title">Follow the shapes through a network</title><desc id="description">Three networks are shown with exact tensor shapes. A dense digit classifier maps 64 pixels to 32 hidden units to 10 scores. A convolutional digit classifier maps one by eight by eight through convolution and pooling to 256 flattened values and 10 scores. A graph network combines node features and connections with neighbor aggregation.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64775F"/></marker></defs>
+<rect width="1200" height="1325" fill="#F5F7F1"/>
+<text x="44" y="42.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="700" text-anchor="start" fill="#64775F" letter-spacing="2">MACHINE LEARNING SUPER LAB</text>
+<text x="44" y="94.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="36" font-weight="700" text-anchor="start" fill="#24352B">Follow the shapes through a network</text>
+<text x="44" y="128.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">Dimensions tell you what each layer consumes and produces. The batch dimension is omitted.</text>
+<rect x="44" y="170" width="1112" height="244" rx="18" fill="#FFFFFF" stroke="#DCE5D3"/>
+<rect x="66" y="193" width="42" height="32" rx="8" fill="#EAF3DE" stroke="#EAF3DE"/>
+<text x="87" y="216.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="700" text-anchor="middle" fill="#64775F">01</text>
+<text x="124" y="217.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="23" font-weight="700" text-anchor="start" fill="#24352B">Dense network</text>
+<text x="68" y="258.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">An eight-by-eight image becomes a vector with 64 numbers.</text>
+<rect x="76" y="282" width="260" height="82" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="206.0" y="315.125" font-family="DejaVu Sans,Arial,sans-serif" font-size="21" font-weight="600" text-anchor="middle" fill="#24352B">Input vector</text>
+<text x="206.0" y="345.575" font-family="DejaVu Sans,Arial,sans-serif" font-size="21" font-weight="600" text-anchor="middle" fill="#24352B">64 values</text>
+<rect x="465" y="282" width="260" height="82" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="595.0" y="315.125" font-family="DejaVu Sans,Arial,sans-serif" font-size="21" font-weight="600" text-anchor="middle" fill="#24352B">Hidden layer</text>
+<text x="595.0" y="345.575" font-family="DejaVu Sans,Arial,sans-serif" font-size="21" font-weight="600" text-anchor="middle" fill="#24352B">32 activations</text>
+<rect x="854" y="282" width="260" height="82" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="984.0" y="315.125" font-family="DejaVu Sans,Arial,sans-serif" font-size="21" font-weight="600" text-anchor="middle" fill="#24352B">Output layer</text>
+<text x="984.0" y="345.575" font-family="DejaVu Sans,Arial,sans-serif" font-size="21" font-weight="600" text-anchor="middle" fill="#24352B">10 class scores</text>
+<line x1="341" y1="323" x2="454" y2="323" stroke="#64775F" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="730" y1="323" x2="844" y2="323" stroke="#64775F" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="44" y="438" width="1112" height="419" rx="18" fill="#FFFFFF" stroke="#DCE5D3"/>
+<rect x="66" y="461" width="42" height="32" rx="8" fill="#EAF3DE" stroke="#EAF3DE"/>
+<text x="87" y="484.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="700" text-anchor="middle" fill="#64775F">02</text>
+<text x="124" y="485.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="23" font-weight="700" text-anchor="start" fill="#24352B">Convolutional network</text>
+<text x="68" y="526.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">Each shape is channels × height × width. Convolutions use a three-by-three filter with padding one.</text>
+<rect x="76" y="550" width="260" height="80" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="206.0" y="582.125" font-family="DejaVu Sans,Arial,sans-serif" font-size="21" font-weight="600" text-anchor="middle" fill="#24352B">Input</text>
+<text x="206.0" y="612.575" font-family="DejaVu Sans,Arial,sans-serif" font-size="21" font-weight="600" text-anchor="middle" fill="#24352B">1 × 8 × 8</text>
+<rect x="465" y="550" width="260" height="80" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="595.0" y="582.125" font-family="DejaVu Sans,Arial,sans-serif" font-size="21" font-weight="600" text-anchor="middle" fill="#24352B">Convolution</text>
+<text x="595.0" y="612.575" font-family="DejaVu Sans,Arial,sans-serif" font-size="21" font-weight="600" text-anchor="middle" fill="#24352B">8 × 8 × 8</text>
+<rect x="854" y="550" width="260" height="80" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="984.0" y="582.125" font-family="DejaVu Sans,Arial,sans-serif" font-size="21" font-weight="600" text-anchor="middle" fill="#24352B">Two-by-two pooling</text>
+<text x="984.0" y="612.575" font-family="DejaVu Sans,Arial,sans-serif" font-size="21" font-weight="600" text-anchor="middle" fill="#24352B">8 × 4 × 4</text>
+<line x1="341" y1="590" x2="454" y2="590" stroke="#64775F" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="730" y1="590" x2="844" y2="590" stroke="#64775F" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M984 632V668H206V698" fill="none" stroke="#64775F" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="76" y="703" width="260" height="80" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="206.0" y="735.125" font-family="DejaVu Sans,Arial,sans-serif" font-size="21" font-weight="600" text-anchor="middle" fill="#24352B">Convolution</text>
+<text x="206.0" y="765.575" font-family="DejaVu Sans,Arial,sans-serif" font-size="21" font-weight="600" text-anchor="middle" fill="#24352B">16 × 4 × 4</text>
+<rect x="465" y="703" width="260" height="80" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="595.0" y="735.125" font-family="DejaVu Sans,Arial,sans-serif" font-size="21" font-weight="600" text-anchor="middle" fill="#24352B">Flatten</text>
+<text x="595.0" y="765.575" font-family="DejaVu Sans,Arial,sans-serif" font-size="21" font-weight="600" text-anchor="middle" fill="#24352B">256 values</text>
+<rect x="854" y="703" width="260" height="80" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="984.0" y="735.125" font-family="DejaVu Sans,Arial,sans-serif" font-size="21" font-weight="600" text-anchor="middle" fill="#24352B">Output layer</text>
+<text x="984.0" y="765.575" font-family="DejaVu Sans,Arial,sans-serif" font-size="21" font-weight="600" text-anchor="middle" fill="#24352B">10 class scores</text>
+<line x1="341" y1="743" x2="454" y2="743" stroke="#64775F" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="730" y1="743" x2="844" y2="743" stroke="#64775F" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="76" y="826.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" font-weight="400" text-anchor="start" fill="#64775F">Flattening preserves the count: 16 × 4 × 4 = 256. The output scores are converted to probabilities if needed.</text>
+<rect x="44" y="881" width="1112" height="326" rx="18" fill="#FFFFFF" stroke="#DCE5D3"/>
+<rect x="66" y="904" width="42" height="32" rx="8" fill="#EAF3DE" stroke="#EAF3DE"/>
+<text x="87" y="927.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="700" text-anchor="middle" fill="#64775F">03</text>
+<text x="124" y="928.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="23" font-weight="700" text-anchor="start" fill="#24352B">Graph network</text>
+<text x="68" y="969.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">Objects become nodes; known relationships become edges. Neighbor information is aggregated.</text>
+<rect x="76" y="994" width="260" height="111" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="206.0" y="1028.6000000000001" font-family="DejaVu Sans,Arial,sans-serif" font-size="19" font-weight="600" text-anchor="middle" fill="#24352B">Node features</text>
+<text x="206.0" y="1056.15" font-family="DejaVu Sans,Arial,sans-serif" font-size="19" font-weight="600" text-anchor="middle" fill="#24352B">N nodes × F features</text>
+<text x="206.0" y="1083.7" font-family="DejaVu Sans,Arial,sans-serif" font-size="19" font-weight="600" text-anchor="middle" fill="#24352B">+ graph connections</text>
+<rect x="465" y="994" width="260" height="111" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="595.0" y="1028.6000000000001" font-family="DejaVu Sans,Arial,sans-serif" font-size="19" font-weight="600" text-anchor="middle" fill="#24352B">Aggregate neighbors</text>
+<text x="595.0" y="1056.15" font-family="DejaVu Sans,Arial,sans-serif" font-size="19" font-weight="600" text-anchor="middle" fill="#24352B">then transform</text>
+<text x="595.0" y="1083.7" font-family="DejaVu Sans,Arial,sans-serif" font-size="19" font-weight="600" text-anchor="middle" fill="#24352B">N nodes × H features</text>
+<rect x="854" y="994" width="260" height="111" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="984.0" y="1028.6000000000001" font-family="DejaVu Sans,Arial,sans-serif" font-size="19" font-weight="600" text-anchor="middle" fill="#24352B">Predict for each node</text>
+<text x="984.0" y="1056.15" font-family="DejaVu Sans,Arial,sans-serif" font-size="19" font-weight="600" text-anchor="middle" fill="#24352B">N nodes × C scores</text>
+<text x="984.0" y="1083.7" font-family="DejaVu Sans,Arial,sans-serif" font-size="19" font-weight="600" text-anchor="middle" fill="#24352B">C possible classes</text>
+<line x1="341" y1="1048" x2="454" y2="1048" stroke="#64775F" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="730" y1="1048" x2="844" y2="1048" stroke="#64775F" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="76" y="1163.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" font-weight="400" text-anchor="start" fill="#64775F">N = number of nodes; F = input features; H = hidden features; C = classes. These are symbols, not acronyms.</text>
+<line x1="44" y1="1264" x2="1156" y2="1264" stroke="#DCE5D3" stroke-width="2"/>
+<text x="44" y="1295.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#64775F">Architecture is the computational structure. The learning signal and evaluation task are separate choices.</text>
+</svg>

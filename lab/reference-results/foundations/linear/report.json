@@ -1,0 +1,63 @@
+{
+  "schema": "superlab.report.v1",
+  "experiment": "linear",
+  "split": "validation",
+  "seed": 42,
+  "dataset": "Synthetic processing duration: 3 known features",
+  "metrics": {
+    "mean_absolute_error": 6.599542173830357,
+    "root_mean_squared_error": 8.142304952942213,
+    "r_squared": 0.9794047899524069,
+    "baseline_mean_absolute_error": 49.084743158214124,
+    "learned_weights": [
+      1.9947842151661233,
+      2.7681280588469046,
+      7.5052307268402805
+    ],
+    "learned_bias": 5.965046938721372
+  },
+  "limitations": "The relationship was generated to be linear. This is not an operational service-time benchmark.",
+  "artifacts": [
+    "predictions.png"
+  ],
+  "history": [],
+  "settings": {
+    "experiment": "linear",
+    "seed": 42,
+    "split": "validation",
+    "device": "cpu",
+    "threads": 2,
+    "epochs": 20,
+    "steps": 600,
+    "episodes": 500,
+    "depth": 4,
+    "neighbors": 5,
+    "clusters": 3,
+    "components": 16,
+    "latent": 8,
+    "order": 2,
+    "noise": 8.0,
+    "strength": 1,
+    "beta": 0.1,
+    "ablate_edges": false
+  },
+  "split_sizes": {
+    "train": 360,
+    "validation": 120,
+    "test": 120
+  },
+  "reload_prediction": {
+    "linear": [
+      195.29940458624455,
+      139.25926573154646
+    ]
+  },
+  "reload_verified": true,
+  "seconds": 0.4010843389987713,
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.2.6",
+    "scikit_learn": "1.7.2"
+  },
+  "output_directory": "<verification-workspace>/SML-Lab-Localhost/lab/outputs/verification-1794634179/linear"
+}

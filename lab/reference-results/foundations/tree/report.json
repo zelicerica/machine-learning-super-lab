@@ -1,0 +1,71 @@
+{
+  "schema": "superlab.report.v1",
+  "experiment": "tree",
+  "split": "validation",
+  "seed": 42,
+  "dataset": "Synthetic labeled events: 8 generated features; not real security telemetry",
+  "metrics": {
+    "tree": {
+      "accuracy": 0.7722222222222223,
+      "balanced_accuracy": 0.7395984678378021,
+      "macro_f1": 0.7468354430379747,
+      "confusion_matrix": [
+        [
+          98,
+          15
+        ],
+        [
+          26,
+          41
+        ]
+      ],
+      "training_accuracy": 0.8611111111111112
+    },
+    "majority_baseline_accuracy": 0.6277777777777778
+  },
+  "limitations": "Use validation for choices; inspect final test only after freezing settings. Generated features do not establish a real-world fraud or security detector.",
+  "artifacts": [
+    "confusion.png",
+    "tree.png"
+  ],
+  "history": [],
+  "settings": {
+    "experiment": "tree",
+    "seed": 42,
+    "split": "validation",
+    "device": "cpu",
+    "threads": 2,
+    "epochs": 20,
+    "steps": 600,
+    "episodes": 500,
+    "depth": 4,
+    "neighbors": 5,
+    "clusters": 3,
+    "components": 16,
+    "latent": 8,
+    "order": 2,
+    "noise": 0.12,
+    "strength": 1,
+    "beta": 0.1,
+    "ablate_edges": false
+  },
+  "split_sizes": {
+    "train": 540,
+    "validation": 180,
+    "test": 180
+  },
+  "reload_prediction": {
+    "tree": [
+      1,
+      0
+    ]
+  },
+  "reload_verified": true,
+  "seconds": 1.0249780969970743,
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.2.6",
+    "scikit_learn": "1.7.2"
+  },
+  "output_directory": "<verification-workspace>/SML-Lab-Localhost/lab/outputs/verification-1794634179/tree"
+}

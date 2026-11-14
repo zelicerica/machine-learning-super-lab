@@ -1,0 +1,33 @@
+# Per-machine environments and configuration
+.venv/
+venv/
+.runtime-python
+.env
+.env.*
+!.env.example
+.openai/
+
+# Learner inputs, generated models, execution logs, and local caches
+lab/outputs/
+lab/inputs/
+runs/
+outputs/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+node_modules/
+.cache/
+*.pt
+*.pth
+*.safetensors
+*.joblib
+*.gguf
+*.zip
+
+# Editor and operating-system state
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log

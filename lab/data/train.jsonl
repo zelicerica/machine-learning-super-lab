@@ -1,0 +1,36 @@
+{"id": "train-environment-00", "text": "Python cannot import torch after installation.", "label": "environment"}
+{"id": "train-environment-01", "text": "pip installed into a different interpreter.", "label": "environment"}
+{"id": "train-environment-02", "text": "The virtual environment is not activated.", "label": "environment"}
+{"id": "train-environment-03", "text": "The transformers package cannot be found.", "label": "environment"}
+{"id": "train-environment-04", "text": "My notebook uses the wrong Python kernel.", "label": "environment"}
+{"id": "train-environment-05", "text": "The installed package versions conflict.", "label": "environment"}
+{"id": "train-environment-06", "text": "Python is not recognized in the terminal.", "label": "environment"}
+{"id": "train-environment-07", "text": "The interpreter path points outside the project.", "label": "environment"}
+{"id": "train-environment-08", "text": "Importing peft raises ModuleNotFoundError.", "label": "environment"}
+{"id": "train-environment-09", "text": "I need to select the project Python executable.", "label": "environment"}
+{"id": "train-environment-10", "text": "Installation failed because the Python version is unsupported.", "label": "environment"}
+{"id": "train-environment-11", "text": "The package dependency resolver reports incompatible versions.", "label": "environment"}
+{"id": "train-memory-00", "text": "CUDA out of memory while training.", "label": "memory"}
+{"id": "train-memory-01", "text": "The GPU cannot fit the batch in VRAM.", "label": "memory"}
+{"id": "train-memory-02", "text": "Loading model weights exhausts system RAM.", "label": "memory"}
+{"id": "train-memory-03", "text": "Increasing batch size crashes due to memory exhaustion.", "label": "memory"}
+{"id": "train-memory-04", "text": "A long context fills the GPU memory.", "label": "memory"}
+{"id": "train-memory-05", "text": "Training activations use all available VRAM.", "label": "memory"}
+{"id": "train-memory-06", "text": "The operating system kills Python after RAM fills up.", "label": "memory"}
+{"id": "train-memory-07", "text": "My model allocation needs more memory than available.", "label": "memory"}
+{"id": "train-memory-08", "text": "The optimizer states do not fit in GPU memory.", "label": "memory"}
+{"id": "train-memory-09", "text": "Generation exhausts the KV cache memory budget.", "label": "memory"}
+{"id": "train-memory-10", "text": "A larger model makes the process run out of RAM.", "label": "memory"}
+{"id": "train-memory-11", "text": "There is insufficient memory to allocate another tensor.", "label": "memory"}
+{"id": "train-data-00", "text": "The dataset has missing labels.", "label": "data"}
+{"id": "train-data-01", "text": "The JSONL file contains malformed rows.", "label": "data"}
+{"id": "train-data-02", "text": "Train and validation contain duplicate examples.", "label": "data"}
+{"id": "train-data-03", "text": "The CSV column names do not match the schema.", "label": "data"}
+{"id": "train-data-04", "text": "Some examples have empty response fields.", "label": "data"}
+{"id": "train-data-05", "text": "The labels contain spelling inconsistencies.", "label": "data"}
+{"id": "train-data-06", "text": "The evaluation answers leaked into the training set.", "label": "data"}
+{"id": "train-data-07", "text": "The dataset contains incorrectly tagged tickets.", "label": "data"}
+{"id": "train-data-08", "text": "A training row is not valid JSON.", "label": "data"}
+{"id": "train-data-09", "text": "The input text field contains null values.", "label": "data"}
+{"id": "train-data-10", "text": "The data split accidentally includes the same document twice.", "label": "data"}
+{"id": "train-data-11", "text": "The answer column is missing from the dataset.", "label": "data"}

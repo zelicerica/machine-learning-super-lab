@@ -1,0 +1,23 @@
+{
+  "parameters": 136960,
+  "validation_loss_before": 5.705249309539795,
+  "validation_loss_after": 1.4563878774642944,
+  "byte_perplexity_after": 4.290433931954093,
+  "sample": "note 42: mioion cret t wad t mbears\ufffdral pd ghenenerdizen.\nnotenotenote 42: nt t 266: 98: al tume a t nts van ton.\nnode atumokeno",
+  "history": [
+    {
+      "step": 1,
+      "loss": 5.728142738342285
+    },
+    {
+      "step": 50,
+      "loss": 1.9913339614868164
+    },
+    {
+      "step": 100,
+      "loss": 1.4700247049331665
+    }
+  ],
+  "scope": "Same synthetic grammar, distinct generated corpus; not real-language generalization.",
+  "architecture": "transformer"
+}

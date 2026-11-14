@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Machine Learning Super Lab — Learn by running</title>
+  <meta name="description" content="A local, hands-on course in small language models with real Python exercises.">
+  <link rel="stylesheet" href="/styles.css"><script src="/vendor/mermaid.min.js" defer></script><script src="/app.js" defer></script>
+</head>
+<body>
+<aside class="sidebar" id="sidebar">
+  <a class="brand" href="#home" aria-label="Machine Learning Super Lab home"><span class="brandmark">S<span>↗</span></span><span>Machine Learning<br><strong>Super Lab<span class="brand-dot">.</span></strong></span></a>
+  <div class="workspace-label"><span class="live-dot"></span> YOUR LOCAL WORKSPACE</div>
+  <nav aria-label="Main navigation">
+    <a class="nav-item" data-nav="home" href="#home"><span class="nav-icon">◫</span> Overview</a>
+    <a class="nav-item" data-nav="workbench" href="#workbench"><span class="nav-icon">⌘</span> Python workbench</a>
+    <a class="nav-item" data-nav="results" href="#results"><span class="nav-icon">▥</span> Experiment results</a>
+  </nav>
+  <div class="nav-heading">YOUR LEARNING PATH <span id="lessonCount">42</span></div>
+  <nav id="lessonNav" class="lesson-nav" aria-label="Course lessons"></nav>
+  <div class="nav-heading">KEEP HANDY</div>
+  <nav aria-label="Course reference">
+    <a class="nav-item" data-nav="ref/windows" href="#ref/windows"><span class="nav-icon">⊞</span> Windows setup</a>
+    <a class="nav-item" data-nav="ref/ml-atlas" href="#ref/ml-atlas"><span class="nav-icon">◇</span> Machine learning atlas</a>
+    <a class="nav-item" data-nav="ref/families" href="#ref/families"><span class="nav-icon">◇</span> Language model atlas</a>
+    <a class="nav-item" data-nav="ref/pretrained" href="#ref/pretrained"><span class="nav-icon">↗</span> Pretrained vs. scratch</a>
+    <a class="nav-item" data-nav="ref/synthetic-data" href="#ref/synthetic-data"><span class="nav-icon">◇</span> Synthetic data</a>
+    <a class="nav-item" data-nav="ref/deep-learning" href="#ref/deep-learning"><span class="nav-icon">θ</span> Deep learning</a>
+    <a class="nav-item" data-nav="ref/rag" href="#ref/rag"><span class="nav-icon">⌕</span> Retrieval and generation</a>
+    <a class="nav-item" data-nav="ref/glossary" href="#ref/glossary"><span class="nav-icon">Aa</span> Acronym dictionary</a>
+    <a class="nav-item" data-nav="ref/troubleshooting" href="#ref/troubleshooting"><span class="nav-icon">?</span> Troubleshooting</a>
+  </nav>
+  <div class="sidebar-foot"><span class="mini-terminal">&gt;_</span><div>Runs on your computer<small>Local Python · localhost</small></div></div>
+</aside>
+<div class="page-shell">
+  <header class="topbar"><div class="crumb"><button id="menuButton" class="icon-button mobile-menu" aria-label="Toggle navigation">☰</button><span>Workspace</span><span class="crumb-slash">/</span><strong id="breadcrumb">Overview</strong></div><div class="top-actions"><span id="runtimeBadge" class="runtime-badge">Checking runtime</span><button id="terminalButton" class="button subtle small">&gt;_ Open terminal</button></div></header>
+  <main id="main" tabindex="-1"></main>
+  <footer class="main-footer"><span>Machine Learning Super Lab</span><span>Understand it. Run it. Prove it.</span><a href="/download/guide.md">Language model guide ↗</a><a href="/download/foundations.md">Foundation builds guide ↗</a><a href="/download/builds.md">Training and retrieval guide ↗</a></footer>
+</div>
+<aside id="terminalDrawer" class="terminal-drawer" aria-label="Local Python runner" hidden>
+  <div class="terminal-header"><div><span class="terminal-dot"></span> Local Python runner <small>REAL PROCESS OUTPUT</small></div><button id="closeTerminal" class="icon-button" aria-label="Close terminal">×</button></div>
+  <div class="terminal-toolbar"><span id="jobState">Ready</span><div><button id="clearTerminal" class="text-button">Clear</button><button id="exportLog" class="text-button">Save log</button><button id="stopJob" class="text-button stop" disabled>Stop run</button></div></div>
+  <pre id="terminalOutput" aria-live="polite">Welcome to your local lab.
+Run a lesson command or type help below.
+Outputs come from Python on this computer.
+</pre>
+  <form id="commandForm" class="terminal-command"><label for="commandInput">&gt;</label><input id="commandInput" autocomplete="off" spellcheck="false" placeholder="python lab.py doctor" aria-label="Course command"><button type="submit" aria-label="Run command">↵</button></form>
+  <p class="terminal-note">Guided terminal: course Python commands only. Use the workbench for your own code.</p>
+</aside>
+<div id="toast" class="toast" role="status" hidden></div>
+<dialog id="setupDialog"><button id="closeSetup" class="dialog-close icon-button" aria-label="Close setup">×</button><span class="eyebrow">ONE-TIME LOCAL SETUP</span><h2>Give your lab its tools.</h2><p>Fresh local installation: this installs processor-only PyTorch. On a prepared cloud runtime, use Add foundation packages instead. This creates a Python environment in this project and installs the course packages. The first installation downloads several hundred megabytes and can take a few minutes.</p><div class="setup-steps"><div><span>1</span><p><strong>Python is already running</strong><small>This site uses your installed Python interpreter.</small></p></div><div><span>2</span><p><strong>Install the learning environment</strong><small>PyTorch, Transformers, scikit-learn, SciPy, Matplotlib, and parameter-efficient fine-tuning tools.</small></p></div><div><span>3</span><p><strong>Run your first experiment</strong><small>Model weights download when you first use a checkpoint.</small></p></div></div><button id="confirmSetup" class="button primary full">Install local packages <span>↗</span></button><p class="fineprint">Uses your connection and disk space. No paid cloud instance is created.</p></dialog>
+</body></html>

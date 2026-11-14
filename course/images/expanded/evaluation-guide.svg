@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1130" viewBox="0 0 1200 1130" role="img" aria-labelledby="title description">
+<title id="title">Match the measurement to the task</title><desc id="description">Classification example: 30 true positives, 10 false negatives, 5 false positives, 55 true negatives; accuracy 85 percent, precision about 85.7 percent, recall 75 percent. Regression errors of 2, minus 1, and 3 give mean absolute error 2 and root mean squared error about 2.16. Clustering silhouette measures separation, not semantic truth. Generation requires quality and diversity checks.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64775F"/></marker></defs>
+<rect width="1200" height="1130" fill="#F5F7F1"/>
+<text x="44" y="42.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="700" text-anchor="start" fill="#64775F" letter-spacing="2">MACHINE LEARNING SUPER LAB</text>
+<text x="44" y="94.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="36" font-weight="700" text-anchor="start" fill="#24352B">Match the measurement to the task</text>
+<text x="44" y="128.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">Always identify the dataset, split, baseline, sample count, and limitations alongside a score.</text>
+<rect x="44" y="170" width="534" height="415" rx="18" fill="#FFFFFF" stroke="#DCE5D3"/>
+<rect x="66" y="193" width="42" height="32" rx="8" fill="#EAF3DE" stroke="#EAF3DE"/>
+<text x="87" y="216.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="700" text-anchor="middle" fill="#64775F">01</text>
+<text x="124" y="217.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="23" font-weight="700" text-anchor="start" fill="#24352B">Classification</text>
+<text x="68" y="258.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">A confusion matrix shows the kinds of errors.</text>
+<text x="240" y="290.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="600" text-anchor="middle" fill="#64775F">Predicted +</text>
+<text x="422" y="290.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="600" text-anchor="middle" fill="#64775F">Predicted −</text>
+<text x="69" y="345.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" font-weight="400" text-anchor="start" fill="#64775F">Actual +</text>
+<text x="69" y="407.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" font-weight="400" text-anchor="start" fill="#64775F">Actual −</text>
+<rect x="174" y="307" width="164" height="52" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="256.0" y="341.75" font-family="DejaVu Sans,Arial,sans-serif" font-size="25" font-weight="600" text-anchor="middle" fill="#24352B">30</text>
+<rect x="356" y="307" width="164" height="52" rx="10" fill="#F5E7DC" stroke="#DCE5D3"/>
+<text x="438.0" y="341.75" font-family="DejaVu Sans,Arial,sans-serif" font-size="25" font-weight="600" text-anchor="middle" fill="#24352B">10</text>
+<rect x="174" y="370" width="164" height="52" rx="10" fill="#F5E7DC" stroke="#DCE5D3"/>
+<text x="256.0" y="404.75" font-family="DejaVu Sans,Arial,sans-serif" font-size="25" font-weight="600" text-anchor="middle" fill="#24352B">5</text>
+<rect x="356" y="370" width="164" height="52" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="438.0" y="404.75" font-family="DejaVu Sans,Arial,sans-serif" font-size="25" font-weight="600" text-anchor="middle" fill="#24352B">55</text>
+<text x="69" y="467.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="19" font-weight="400" text-anchor="start" fill="#24352B">Accuracy = (30 + 55) ÷ 100 = 85%</text>
+<text x="69" y="494.55" font-family="DejaVu Sans,Arial,sans-serif" font-size="19" font-weight="400" text-anchor="start" fill="#24352B">Precision = 30 ÷ (30 + 5) ≈ 85.7%</text>
+<text x="69" y="522.1" font-family="DejaVu Sans,Arial,sans-serif" font-size="19" font-weight="400" text-anchor="start" fill="#24352B">Recall = 30 ÷ (30 + 10) = 75%</text>
+<rect x="622" y="170" width="534" height="415" rx="18" fill="#FFFFFF" stroke="#DCE5D3"/>
+<rect x="644" y="193" width="42" height="32" rx="8" fill="#EAF3DE" stroke="#EAF3DE"/>
+<text x="665" y="216.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="700" text-anchor="middle" fill="#64775F">02</text>
+<text x="702" y="217.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="23" font-weight="700" text-anchor="start" fill="#24352B">Regression</text>
+<text x="646" y="258.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">Keep the meaning and units of the error.</text>
+<text x="648" y="291.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#24352B">Actual:       10, 20, 30</text>
+<text x="648" y="322.9" font-family="DejaVu Sans,Arial,sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#24352B">Predicted:   12, 19, 33</text>
+<text x="648" y="354.8" font-family="DejaVu Sans,Arial,sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#24352B">Errors:         2, −1, 3</text>
+<text x="648" y="411.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="600" text-anchor="start" fill="#24352B">Mean absolute error = (2 + 1 + 3) ÷ 3 = 2</text>
+<text x="648" y="437.1" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="600" text-anchor="start" fill="#24352B">Root mean squared error</text>
+<text x="648" y="463.2" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="600" text-anchor="start" fill="#24352B">= √((4 + 1 + 9) ÷ 3) ≈ 2.16</text>
+<text x="648" y="523.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">Larger errors receive more emphasis</text>
+<text x="648" y="549.1" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">when squared. Compare a simple baseline.</text>
+<rect x="44" y="611" width="534" height="413" rx="18" fill="#FFFFFF" stroke="#DCE5D3"/>
+<rect x="66" y="634" width="42" height="32" rx="8" fill="#EAF3DE" stroke="#EAF3DE"/>
+<text x="87" y="657.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="700" text-anchor="middle" fill="#64775F">03</text>
+<text x="124" y="658.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="23" font-weight="700" text-anchor="start" fill="#24352B">Clustering</text>
+<text x="68" y="699.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">Separation is not the same as meaning.</text>
+<text x="69" y="735.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="19" font-weight="400" text-anchor="start" fill="#24352B">Silhouette compares within-cluster distance</text>
+<text x="69" y="762.55" font-family="DejaVu Sans,Arial,sans-serif" font-size="19" font-weight="400" text-anchor="start" fill="#24352B">with distance to another cluster.</text>
+<rect x="69" y="810" width="484" height="57" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="311.0" y="845.85" font-family="DejaVu Sans,Arial,sans-serif" font-size="21" font-weight="600" text-anchor="middle" fill="#24352B">Silhouette = (b − a) ÷ max(a, b)</text>
+<text x="69" y="914.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" font-weight="400" text-anchor="start" fill="#64775F">a: average distance within the assigned cluster</text>
+<text x="69" y="938.65" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" font-weight="400" text-anchor="start" fill="#64775F">b: smallest average distance to another cluster</text>
+<text x="69" y="963.3" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" font-weight="400" text-anchor="start" fill="#64775F">A higher value does not prove useful categories.</text>
+<rect x="622" y="611" width="534" height="413" rx="18" fill="#FFFFFF" stroke="#DCE5D3"/>
+<rect x="644" y="634" width="42" height="32" rx="8" fill="#EAF3DE" stroke="#EAF3DE"/>
+<text x="665" y="657.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="700" text-anchor="middle" fill="#64775F">04</text>
+<text x="702" y="658.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="23" font-weight="700" text-anchor="start" fill="#24352B">Generation</text>
+<text x="646" y="699.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">Inspect quality, diversity, and held-out behavior.</text>
+<text x="648" y="737.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="19" font-weight="400" text-anchor="start" fill="#24352B">A model can produce one good-looking example</text>
+<text x="648" y="764.55" font-family="DejaVu Sans,Arial,sans-serif" font-size="19" font-weight="400" text-anchor="start" fill="#24352B">and repeat it, missing most of the data.</text>
+<rect x="649" y="807" width="480" height="59" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="889.0" y="843.5" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" font-weight="600" text-anchor="middle" fill="#24352B">Quality + coverage + independent checks</text>
+<text x="648" y="911.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">Check reconstructions or generated samples.</text>
+<text x="648" y="937.1" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">Compare against held-out data and a baseline.</text>
+<text x="648" y="963.2" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">Training loss alone is not a quality certificate.</text>
+<line x1="44" y1="1069" x2="1156" y2="1069" stroke="#DCE5D3" stroke-width="2"/>
+<text x="44" y="1100.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#64775F">The numerical examples are illustrative. Report real results from your own run, including failures.</text>
+</svg>

@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1020" viewBox="0 0 1200 1020" role="img" aria-labelledby="title description">
+<title id="title">Keep learning separate from measuring</title><desc id="description">A dataset is split into training, validation, and test partitions. Learned preprocessing and model parameters fit the training partition. Validation informs choices; the final test is used after choices are frozen. A leakage example shows why fitting before the split leaks test information.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64775F"/></marker></defs>
+<rect width="1200" height="1020" fill="#F5F7F1"/>
+<text x="44" y="42.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="700" text-anchor="start" fill="#64775F" letter-spacing="2">MACHINE LEARNING SUPER LAB</text>
+<text x="44" y="94.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="36" font-weight="700" text-anchor="start" fill="#24352B">Keep learning separate from measuring</text>
+<text x="44" y="128.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">Split first. Fit preprocessing on training examples only. Preserve the final test.</text>
+<rect x="400" y="169" width="400" height="65" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="600.0" y="194.75" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="600" text-anchor="middle" fill="#24352B">Available examples</text>
+<text x="600.0" y="220.85" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="600" text-anchor="middle" fill="#24352B">Group or time boundaries respected</text>
+<path d="M600 234V265M600 265H216V295" fill="none" stroke="#64775F" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M600 265V295" fill="none" stroke="#64775F" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M600 265H984V295" fill="none" stroke="#64775F" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="44" y="300" width="344" height="230" rx="18" fill="#FFFFFF" stroke="#DCE5D3"/>
+<rect x="66" y="323" width="42" height="32" rx="8" fill="#EAF3DE" stroke="#EAF3DE"/>
+<text x="87" y="346.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="700" text-anchor="middle" fill="#64775F">01</text>
+<text x="124" y="347.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="23" font-weight="700" text-anchor="start" fill="#24352B">TRAIN</text>
+<text x="66" y="400.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" font-weight="400" text-anchor="start" fill="#64775F">Fit scaling, vocabulary, imputation</text>
+<text x="66" y="424.65" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" font-weight="400" text-anchor="start" fill="#64775F">and model parameters here.</text>
+<rect x="66" y="465" width="300" height="42" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="216.0" y="492.3" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="600" text-anchor="middle" fill="#24352B">Fit → learned state</text>
+<rect x="428" y="300" width="344" height="230" rx="18" fill="#FFFFFF" stroke="#DCE5D3"/>
+<rect x="450" y="323" width="42" height="32" rx="8" fill="#EAF3DE" stroke="#EAF3DE"/>
+<text x="471" y="346.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="700" text-anchor="middle" fill="#64775F">02</text>
+<text x="508" y="347.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="23" font-weight="700" text-anchor="start" fill="#24352B">VALIDATION</text>
+<text x="450" y="400.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" font-weight="400" text-anchor="start" fill="#64775F">Choose features, settings, thresholds</text>
+<text x="450" y="424.65" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" font-weight="400" text-anchor="start" fill="#64775F">and stopping rules here.</text>
+<rect x="450" y="465" width="300" height="42" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="600.0" y="492.3" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="600" text-anchor="middle" fill="#24352B">Compare → choose</text>
+<rect x="812" y="300" width="344" height="230" rx="18" fill="#FFFFFF" stroke="#DCE5D3"/>
+<rect x="834" y="323" width="42" height="32" rx="8" fill="#EAF3DE" stroke="#EAF3DE"/>
+<text x="855" y="346.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="700" text-anchor="middle" fill="#64775F">03</text>
+<text x="892" y="347.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="23" font-weight="700" text-anchor="start" fill="#24352B">FINAL TEST</text>
+<text x="834" y="400.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" font-weight="400" text-anchor="start" fill="#64775F">Estimate performance only after</text>
+<text x="834" y="424.65" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" font-weight="400" text-anchor="start" fill="#64775F">the complete recipe is frozen.</text>
+<rect x="834" y="465" width="300" height="42" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="984.0" y="492.3" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="600" text-anchor="middle" fill="#24352B">Measure → report</text>
+<line x1="216" y1="548" x2="216" y2="585" stroke="#64775F" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="600" y1="548" x2="600" y2="585" stroke="#64775F" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="984" y1="548" x2="984" y2="585" stroke="#64775F" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="44" y="590" width="344" height="90" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="216.0" y="628.25" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="600" text-anchor="middle" fill="#24352B">Learned scaler + model</text>
+<text x="216.0" y="654.35" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="600" text-anchor="middle" fill="#24352B">from training data</text>
+<rect x="428" y="590" width="344" height="90" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="600.0" y="628.25" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="600" text-anchor="middle" fill="#24352B">Apply the same learned scaler</text>
+<text x="600.0" y="654.35" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="600" text-anchor="middle" fill="#24352B">without fitting it again</text>
+<rect x="812" y="590" width="344" height="90" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="984.0" y="628.25" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="600" text-anchor="middle" fill="#24352B">Apply the frozen pipeline</text>
+<text x="984.0" y="654.35" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="600" text-anchor="middle" fill="#24352B">without fitting it again</text>
+<line x1="389" y1="634" x2="421" y2="634" stroke="#64775F" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="774" y1="634" x2="805" y2="634" stroke="#64775F" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="44" y="727" width="1112" height="201" rx="18" fill="#FFFFFF" stroke="#DCE5D3"/>
+<text x="69" y="769.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="24" font-weight="700" text-anchor="start" fill="#24352B">A small leak can make a large claim look convincing.</text>
+<text x="69" y="811.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">Leaky recipe: scale every row → split → evaluate. The test distribution influenced scaling.</text>
+<text x="69" y="837.1" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">Better recipe: split → fit the scaler on training rows → transform each partition.</text>
+<text x="69" y="863.2" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">For repeated customers or machines, keep each entity in one partition; for forecasts, split by time.</text>
+<line x1="44" y1="959" x2="1156" y2="959" stroke="#DCE5D3" stroke-width="2"/>
+<text x="44" y="990.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#64775F">Repeated validation can overfit choices too. Keep the final test separate from development decisions.</text>
+</svg>

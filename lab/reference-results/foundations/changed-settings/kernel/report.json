@@ -1,0 +1,91 @@
+{
+  "schema": "superlab.report.v1",
+  "experiment": "kernel",
+  "split": "validation",
+  "seed": 42,
+  "dataset": "Synthetic interleaving half-circles: two measured features",
+  "metrics": {
+    "linear_kernel": {
+      "accuracy": 0.9,
+      "balanced_accuracy": 0.9,
+      "macro_f1": 0.8999940824900882,
+      "confusion_matrix": [
+        [
+          58,
+          7
+        ],
+        [
+          6,
+          59
+        ]
+      ],
+      "training_accuracy": 0.8692307692307693
+    },
+    "radial_basis_kernel": {
+      "accuracy": 0.9923076923076923,
+      "balanced_accuracy": 0.9923076923076923,
+      "macro_f1": 0.9923072371146222,
+      "confusion_matrix": [
+        [
+          64,
+          1
+        ],
+        [
+          0,
+          65
+        ]
+      ],
+      "training_accuracy": 0.9923076923076923
+    },
+    "majority_baseline_accuracy": 0.5
+  },
+  "limitations": "Use validation for choices; inspect final test only after freezing settings. Generated features do not establish a real-world fraud or security detector.",
+  "artifacts": [
+    "confusion.png",
+    "boundaries.png"
+  ],
+  "history": [],
+  "settings": {
+    "experiment": "kernel",
+    "seed": 42,
+    "split": "validation",
+    "device": "cpu",
+    "threads": 2,
+    "epochs": 20,
+    "steps": 600,
+    "episodes": 500,
+    "depth": 4,
+    "neighbors": 5,
+    "clusters": 3,
+    "components": 16,
+    "latent": 8,
+    "order": 2,
+    "noise": 0.12,
+    "strength": 100.0,
+    "beta": 0.1,
+    "ablate_edges": false
+  },
+  "split_sizes": {
+    "train": 390,
+    "validation": 130,
+    "test": 130
+  },
+  "reload_prediction": {
+    "linear_kernel": [
+      0,
+      1
+    ],
+    "radial_basis_kernel": [
+      0,
+      1
+    ]
+  },
+  "reload_verified": true,
+  "seconds": 0.9102926830018987,
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.2.6",
+    "scikit_learn": "1.7.2"
+  },
+  "output_directory": "<verification-workspace>/SML-Lab-Localhost/lab/outputs/variant-check-1794634760594518236/kernel"
+}

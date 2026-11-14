@@ -1,0 +1,178 @@
+{
+  "schema": "superlab.report.v1",
+  "experiment": "synthetic-data",
+  "split": "validation",
+  "settings": {
+    "samples": 400,
+    "label_noise": 0.0,
+    "coverage": "narrow",
+    "seed": 42,
+    "split": "validation",
+    "output": "outputs/synthetic-narrow-check"
+  },
+  "metrics": {
+    "seed_only_balanced_accuracy": 0.8409631019387116,
+    "synthetic_only_balanced_accuracy": 0.9653533458411507,
+    "mixed_balanced_accuracy": 0.9557223264540338
+  },
+  "evaluation": {
+    "seed_only": {
+      "accuracy": 0.8375,
+      "balanced_accuracy": 0.8409631019387116,
+      "precision": 0.7579365079365079,
+      "recall": 0.9794871794871794,
+      "f1": 0.854586129753915,
+      "confusion_matrix": [
+        [
+          144,
+          61
+        ],
+        [
+          4,
+          191
+        ]
+      ],
+      "high_error_accuracy": 0.7986111111111112
+    },
+    "synthetic_only": {
+      "accuracy": 0.965,
+      "balanced_accuracy": 0.9653533458411507,
+      "precision": 0.9502487562189055,
+      "recall": 0.9794871794871794,
+      "f1": 0.9646464646464646,
+      "confusion_matrix": [
+        [
+          195,
+          10
+        ],
+        [
+          4,
+          191
+        ]
+      ],
+      "high_error_accuracy": 0.9652777777777778
+    },
+    "mixed": {
+      "accuracy": 0.955,
+      "balanced_accuracy": 0.9557223264540338,
+      "precision": 0.927536231884058,
+      "recall": 0.9846153846153847,
+      "f1": 0.9552238805970149,
+      "confusion_matrix": [
+        [
+          190,
+          15
+        ],
+        [
+          3,
+          192
+        ]
+      ],
+      "high_error_accuracy": 0.9548611111111112
+    }
+  },
+  "quality": {
+    "partitions": {
+      "seed": {
+        "rows": 60,
+        "positive_fraction": 0.21666666666666667,
+        "flipped_fraction": 0.0,
+        "label_agreement_with_oracle": 1.0,
+        "high_error_fraction": 0.0,
+        "origin": "seed",
+        "all_simulated": true
+      },
+      "synthetic": {
+        "rows": 400,
+        "positive_fraction": 0.25,
+        "flipped_fraction": 0.0,
+        "label_agreement_with_oracle": 1.0,
+        "high_error_fraction": 0.0,
+        "origin": "synthetic",
+        "all_simulated": true
+      },
+      "validation": {
+        "rows": 400,
+        "positive_fraction": 0.4875,
+        "flipped_fraction": 0.0,
+        "label_agreement_with_oracle": 1.0,
+        "high_error_fraction": 0.72,
+        "origin": "validation",
+        "all_simulated": true
+      },
+      "test": {
+        "rows": 400,
+        "positive_fraction": 0.5275,
+        "flipped_fraction": 0.0,
+        "label_agreement_with_oracle": 1.0,
+        "high_error_fraction": 0.735,
+        "origin": "test",
+        "all_simulated": true
+      }
+    },
+    "exact_duplicate_count": 0,
+    "note": "Exact deduplication cannot rule out near duplicates, shared templates, or distribution mismatch."
+  },
+  "training_rows": {
+    "seed_only": 60,
+    "synthetic_only": 400,
+    "mixed": 460
+  },
+  "synthetic_fraction_in_mixed": 0.8695652173913043,
+  "reload_verified": true,
+  "reloaded_prediction": {
+    "seed_only": {
+      "class": [
+        0,
+        1
+      ],
+      "incident_probability": [
+        0.016169594349255228,
+        0.9972178799791668
+      ]
+    },
+    "synthetic_only": {
+      "class": [
+        0,
+        1
+      ],
+      "incident_probability": [
+        0.0003086298182249946,
+        0.9979204044695587
+      ]
+    },
+    "mixed": {
+      "class": [
+        0,
+        1
+      ],
+      "incident_probability": [
+        0.00023605200894731066,
+        0.9987881750601805
+      ]
+    }
+  },
+  "dataset_sha256": {
+    "seed": "89f9c1a042208804e8d730ce83699ce41721f6c5f27f97c9e65386205a9f1291",
+    "synthetic": "aa785b8b5b0c2810081991978ce4a37eab4823fbc6944c06383e507882c0309a",
+    "validation": "e627c59460906b8db5a0501f5bcb7a02fd79a2316ebf6ea9ce622f4a64287790",
+    "test": "7313cbb95c349421a87bfb287162a9f3baf608195cce8064ae5e7b9f5bd2aced"
+  },
+  "artifacts": [
+    "coverage.png",
+    "utility.png",
+    "data-card.json",
+    "seed.csv",
+    "synthetic.csv",
+    "validation.csv",
+    "test.csv",
+    "model-manifest.json"
+  ],
+  "seconds": 0.5741198119994806,
+  "limitations": [
+    "All examples are simulated; an independent real-world evaluation is still needed.",
+    "The oracle is known only in this teaching simulator; real generated labels need independent checks.",
+    "The same simulator generates training and evaluation; no claim of reality or formal privacy.",
+    "A single run does not establish a general benefit; compare several seeds without tuning on the final test."
+  ]
+}

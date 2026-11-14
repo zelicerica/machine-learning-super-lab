@@ -1,0 +1,111 @@
+{
+  "schema": "superlab.report.v1",
+  "experiment": "ensemble",
+  "split": "validation",
+  "seed": 42,
+  "dataset": "Synthetic labeled events: 8 generated features; not real security telemetry",
+  "metrics": {
+    "single_tree": {
+      "accuracy": 0.7611111111111111,
+      "balanced_accuracy": 0.7337868181217805,
+      "macro_f1": 0.738433983305735,
+      "confusion_matrix": [
+        [
+          95,
+          18
+        ],
+        [
+          25,
+          42
+        ]
+      ],
+      "training_accuracy": 0.9851851851851852
+    },
+    "random_forest": {
+      "accuracy": 0.8166666666666667,
+      "balanced_accuracy": 0.7901862369568089,
+      "macro_f1": 0.7977872340425531,
+      "confusion_matrix": [
+        [
+          101,
+          12
+        ],
+        [
+          21,
+          46
+        ]
+      ],
+      "training_accuracy": 0.987037037037037
+    },
+    "gradient_boosting": {
+      "accuracy": 0.7944444444444444,
+      "balanced_accuracy": 0.7724871219125611,
+      "macro_f1": 0.7765025672002417,
+      "confusion_matrix": [
+        [
+          97,
+          16
+        ],
+        [
+          21,
+          46
+        ]
+      ],
+      "training_accuracy": 1.0
+    },
+    "majority_baseline_accuracy": 0.6277777777777778
+  },
+  "limitations": "Use validation for choices; inspect final test only after freezing settings. Generated features do not establish a real-world fraud or security detector.",
+  "artifacts": [
+    "confusion.png",
+    "comparison.png"
+  ],
+  "history": [],
+  "settings": {
+    "experiment": "ensemble",
+    "seed": 42,
+    "split": "validation",
+    "device": "cpu",
+    "threads": 2,
+    "epochs": 20,
+    "steps": 600,
+    "episodes": 500,
+    "depth": 10,
+    "neighbors": 5,
+    "clusters": 3,
+    "components": 16,
+    "latent": 8,
+    "order": 2,
+    "noise": 0.12,
+    "strength": 1,
+    "beta": 0.1,
+    "ablate_edges": false
+  },
+  "split_sizes": {
+    "train": 540,
+    "validation": 180,
+    "test": 180
+  },
+  "reload_prediction": {
+    "single_tree": [
+      1,
+      0
+    ],
+    "random_forest": [
+      1,
+      0
+    ],
+    "gradient_boosting": [
+      1,
+      0
+    ]
+  },
+  "reload_verified": true,
+  "seconds": 2.2390998260016204,
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.2.6",
+    "scikit_learn": "1.7.2"
+  },
+  "output_directory": "<verification-workspace>/SML-Lab-Localhost/lab/outputs/variant-check-1794634760594518236/ensemble"
+}

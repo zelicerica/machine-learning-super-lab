@@ -1,0 +1,361 @@
+{
+  "schema": "superlab.report.v1",
+  "experiment": "adversarial",
+  "split": "validation",
+  "seed": 42,
+  "dataset": "Two synthetic Gaussian modes at -2 and +2",
+  "metrics": {
+    "fraction_generated_below_zero": 0.536,
+    "generated_mean": -0.12422861903905869,
+    "target_sample_mean": 0.13361358642578125,
+    "generated_standard_deviation": 2.388666868209839,
+    "target_standard_deviation": 2.0292258262634277
+  },
+  "limitations": "This one-dimensional adversarial training lab can collapse to one mode. Loss alone is not a quality score. Independent target samples are drawn after optimization; the task is not image generation.",
+  "artifacts": [
+    "distribution.png"
+  ],
+  "history": [
+    {
+      "step": 1,
+      "loss": 0.6932942271232605,
+      "discriminator_loss": 1.485051155090332
+    },
+    {
+      "step": 21,
+      "loss": 0.7112743854522705,
+      "discriminator_loss": 1.2888689041137695
+    },
+    {
+      "step": 41,
+      "loss": 0.8067836165428162,
+      "discriminator_loss": 1.159106969833374
+    },
+    {
+      "step": 61,
+      "loss": 1.0077712535858154,
+      "discriminator_loss": 1.0360779762268066
+    },
+    {
+      "step": 81,
+      "loss": 1.0684778690338135,
+      "discriminator_loss": 0.938660740852356
+    },
+    {
+      "step": 101,
+      "loss": 0.801544725894928,
+      "discriminator_loss": 1.430847406387329
+    },
+    {
+      "step": 121,
+      "loss": 0.834701657295227,
+      "discriminator_loss": 1.5183148384094238
+    },
+    {
+      "step": 141,
+      "loss": 0.8626813888549805,
+      "discriminator_loss": 1.3602427244186401
+    },
+    {
+      "step": 161,
+      "loss": 0.7872644066810608,
+      "discriminator_loss": 1.3365416526794434
+    },
+    {
+      "step": 181,
+      "loss": 0.7518101930618286,
+      "discriminator_loss": 1.3237066268920898
+    },
+    {
+      "step": 201,
+      "loss": 0.7525131106376648,
+      "discriminator_loss": 1.3212270736694336
+    },
+    {
+      "step": 221,
+      "loss": 0.7697585225105286,
+      "discriminator_loss": 1.3283908367156982
+    },
+    {
+      "step": 241,
+      "loss": 0.7786033749580383,
+      "discriminator_loss": 1.3199526071548462
+    },
+    {
+      "step": 261,
+      "loss": 0.7641533017158508,
+      "discriminator_loss": 1.307157039642334
+    },
+    {
+      "step": 281,
+      "loss": 0.7811570167541504,
+      "discriminator_loss": 1.298054575920105
+    },
+    {
+      "step": 301,
+      "loss": 0.7984433174133301,
+      "discriminator_loss": 1.2920284271240234
+    },
+    {
+      "step": 321,
+      "loss": 0.7689632773399353,
+      "discriminator_loss": 1.292006015777588
+    },
+    {
+      "step": 341,
+      "loss": 0.7762545943260193,
+      "discriminator_loss": 1.3048632144927979
+    },
+    {
+      "step": 361,
+      "loss": 0.7158848643302917,
+      "discriminator_loss": 1.342822551727295
+    },
+    {
+      "step": 381,
+      "loss": 0.7601044178009033,
+      "discriminator_loss": 1.3178091049194336
+    },
+    {
+      "step": 401,
+      "loss": 0.7438486814498901,
+      "discriminator_loss": 1.356532335281372
+    },
+    {
+      "step": 421,
+      "loss": 0.7460092306137085,
+      "discriminator_loss": 1.3715142011642456
+    },
+    {
+      "step": 441,
+      "loss": 0.7298485040664673,
+      "discriminator_loss": 1.3529722690582275
+    },
+    {
+      "step": 461,
+      "loss": 0.6944828629493713,
+      "discriminator_loss": 1.3427258729934692
+    },
+    {
+      "step": 481,
+      "loss": 0.7305588722229004,
+      "discriminator_loss": 1.3699920177459717
+    },
+    {
+      "step": 501,
+      "loss": 0.7021371126174927,
+      "discriminator_loss": 1.369187355041504
+    },
+    {
+      "step": 521,
+      "loss": 0.7283342480659485,
+      "discriminator_loss": 1.355809211730957
+    },
+    {
+      "step": 541,
+      "loss": 0.7383639812469482,
+      "discriminator_loss": 1.3617724180221558
+    },
+    {
+      "step": 561,
+      "loss": 0.7062971591949463,
+      "discriminator_loss": 1.333488941192627
+    },
+    {
+      "step": 581,
+      "loss": 0.705496072769165,
+      "discriminator_loss": 1.3695429563522339
+    },
+    {
+      "step": 601,
+      "loss": 0.679131269454956,
+      "discriminator_loss": 1.3726112842559814
+    },
+    {
+      "step": 621,
+      "loss": 0.718974232673645,
+      "discriminator_loss": 1.3577970266342163
+    },
+    {
+      "step": 641,
+      "loss": 0.7203342914581299,
+      "discriminator_loss": 1.3747665882110596
+    },
+    {
+      "step": 661,
+      "loss": 0.7248889207839966,
+      "discriminator_loss": 1.3517937660217285
+    },
+    {
+      "step": 681,
+      "loss": 0.6858779191970825,
+      "discriminator_loss": 1.3804709911346436
+    },
+    {
+      "step": 701,
+      "loss": 0.7375978827476501,
+      "discriminator_loss": 1.3658833503723145
+    },
+    {
+      "step": 721,
+      "loss": 0.7180588245391846,
+      "discriminator_loss": 1.3664599657058716
+    },
+    {
+      "step": 741,
+      "loss": 0.7129188179969788,
+      "discriminator_loss": 1.372308611869812
+    },
+    {
+      "step": 761,
+      "loss": 0.7143135070800781,
+      "discriminator_loss": 1.4031187295913696
+    },
+    {
+      "step": 781,
+      "loss": 0.7025661468505859,
+      "discriminator_loss": 1.367952585220337
+    },
+    {
+      "step": 801,
+      "loss": 0.7419417500495911,
+      "discriminator_loss": 1.351607084274292
+    },
+    {
+      "step": 821,
+      "loss": 0.6969901323318481,
+      "discriminator_loss": 1.3699803352355957
+    },
+    {
+      "step": 841,
+      "loss": 0.674801230430603,
+      "discriminator_loss": 1.378903865814209
+    },
+    {
+      "step": 861,
+      "loss": 0.7149631381034851,
+      "discriminator_loss": 1.361729621887207
+    },
+    {
+      "step": 881,
+      "loss": 0.7007384300231934,
+      "discriminator_loss": 1.3487684726715088
+    },
+    {
+      "step": 901,
+      "loss": 0.6705167889595032,
+      "discriminator_loss": 1.3707787990570068
+    },
+    {
+      "step": 921,
+      "loss": 0.692053496837616,
+      "discriminator_loss": 1.3690333366394043
+    },
+    {
+      "step": 941,
+      "loss": 0.7200939655303955,
+      "discriminator_loss": 1.3549425601959229
+    },
+    {
+      "step": 961,
+      "loss": 0.7047784328460693,
+      "discriminator_loss": 1.3826568126678467
+    },
+    {
+      "step": 981,
+      "loss": 0.689595103263855,
+      "discriminator_loss": 1.3853939771652222
+    },
+    {
+      "step": 1001,
+      "loss": 0.746516227722168,
+      "discriminator_loss": 1.3712701797485352
+    },
+    {
+      "step": 1021,
+      "loss": 0.7055108547210693,
+      "discriminator_loss": 1.3749028444290161
+    },
+    {
+      "step": 1041,
+      "loss": 0.7280861139297485,
+      "discriminator_loss": 1.3621511459350586
+    },
+    {
+      "step": 1061,
+      "loss": 0.7660853862762451,
+      "discriminator_loss": 1.3739840984344482
+    },
+    {
+      "step": 1081,
+      "loss": 0.7162628173828125,
+      "discriminator_loss": 1.3747634887695312
+    },
+    {
+      "step": 1101,
+      "loss": 0.7257001399993896,
+      "discriminator_loss": 1.382617712020874
+    },
+    {
+      "step": 1121,
+      "loss": 0.7073699831962585,
+      "discriminator_loss": 1.371336579322815
+    },
+    {
+      "step": 1141,
+      "loss": 0.6886197924613953,
+      "discriminator_loss": 1.380219578742981
+    },
+    {
+      "step": 1161,
+      "loss": 0.7059991955757141,
+      "discriminator_loss": 1.3861528635025024
+    },
+    {
+      "step": 1181,
+      "loss": 0.7043243050575256,
+      "discriminator_loss": 1.379239797592163
+    },
+    {
+      "step": 1200,
+      "loss": 0.7513901591300964,
+      "discriminator_loss": 1.3989893198013306
+    }
+  ],
+  "settings": {
+    "experiment": "adversarial",
+    "seed": 42,
+    "split": "validation",
+    "device": "cpu",
+    "threads": 2,
+    "epochs": 20,
+    "steps": 1200,
+    "episodes": 500,
+    "depth": 4,
+    "neighbors": 5,
+    "clusters": 3,
+    "components": 16,
+    "latent": 8,
+    "order": 2,
+    "noise": 0.12,
+    "strength": 1,
+    "beta": 0.1,
+    "ablate_edges": false
+  },
+  "reload_prediction": [
+    [
+      2.4591808319091797
+    ],
+    [
+      2.3341312408447266
+    ]
+  ],
+  "reload_verified": true,
+  "seconds": 7.022624775003351,
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.2.6",
+    "scikit_learn": "1.7.2"
+  },
+  "output_directory": "<verification-workspace>/SML-Lab-Localhost/lab/outputs/variant-check-1794634760594518236/adversarial"
+}

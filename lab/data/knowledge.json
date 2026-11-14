@@ -1,0 +1,18 @@
+[
+  {
+    "id": "env-1",
+    "text": "When a Python import fails, compare python -m pip --version with the active Python executable. Install into the project virtual environment."
+  },
+  {
+    "id": "mem-1",
+    "text": "For CUDA out of memory, first reduce batch size to one, then shorten sequence length. LoRA reduces trainable parameter storage, but activations still use memory."
+  },
+  {
+    "id": "data-1",
+    "text": "For missing labels or malformed JSON, validate each dataset record and remove or repair invalid rows before training."
+  },
+  {
+    "id": "eval-1",
+    "text": "Keep test examples separate from training and hyperparameter selection. Use validation to choose settings."
+  }
+]

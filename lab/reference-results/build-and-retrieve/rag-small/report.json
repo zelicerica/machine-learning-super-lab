@@ -1,0 +1,131 @@
+{
+  "schema": "superlab.report.v1",
+  "experiment": "rag-workshop",
+  "split": "validation",
+  "settings": {
+    "output": "outputs/new-rag-small",
+    "mode": "retrieval",
+    "chunk_size": 8,
+    "overlap": 0,
+    "top_k": 1,
+    "threshold": 0.12,
+    "include_stale": false,
+    "split": "validation",
+    "prompt": "What is the current Orion restore window?",
+    "model": "HuggingFaceTB/SmolLM2-135M-Instruct",
+    "threads": 2,
+    "seed": 42,
+    "max_new_tokens": 64
+  },
+  "metrics": {
+    "source_recall_at_k": 1.0,
+    "mean_reciprocal_rank_at_k": 1.0,
+    "answer_evidence_recall_at_k": 0.3333333333333333,
+    "unsupported_query_retrieval_rate": 0.0
+  },
+  "retrieval_results": [
+    {
+      "question": "What is the current Orion restore window?",
+      "gold": "orion-restore",
+      "answer": "48 hours",
+      "retrieved": [
+        {
+          "id": "orion-restore:0",
+          "source_id": "orion-restore",
+          "revision": 2,
+          "current": true,
+          "start_word": 0,
+          "end_word": 8,
+          "text": "Orion restore policy. The current Orion restore window",
+          "score": 0.8576182505394726
+        }
+      ],
+      "gold_source_found": true,
+      "answer_string_in_gold_chunk": false,
+      "prompt": "UNTRUSTED REFERENCE TEXT:\n[orion-restore:0] Orion restore policy. The current Orion restore window\nEND REFERENCE TEXT\nQuestion: What is the current Orion restore window?",
+      "retrieval_abstained": false
+    },
+    {
+      "question": "When do Cedar backups start?",
+      "gold": "cedar-backup",
+      "answer": "02:00",
+      "retrieved": [
+        {
+          "id": "cedar-backup:0",
+          "source_id": "cedar-backup",
+          "revision": 1,
+          "current": true,
+          "start_word": 0,
+          "end_word": 8,
+          "text": "Cedar backup schedule. Cedar backups start at 02:00",
+          "score": 0.6577586993369247
+        }
+      ],
+      "gold_source_found": true,
+      "answer_string_in_gold_chunk": true,
+      "prompt": "UNTRUSTED REFERENCE TEXT:\n[cedar-backup:0] Cedar backup schedule. Cedar backups start at 02:00\nEND REFERENCE TEXT\nQuestion: When do Cedar backups start?",
+      "retrieval_abstained": false
+    },
+    {
+      "question": "What is the Helix request timeout?",
+      "gold": "helix-timeout",
+      "answer": "17 seconds",
+      "retrieved": [
+        {
+          "id": "helix-timeout:0",
+          "source_id": "helix-timeout",
+          "revision": 1,
+          "current": true,
+          "start_word": 0,
+          "end_word": 8,
+          "text": "Helix client settings. The Helix request timeout is",
+          "score": 0.7432417153195819
+        }
+      ],
+      "gold_source_found": true,
+      "answer_string_in_gold_chunk": false,
+      "prompt": "UNTRUSTED REFERENCE TEXT:\n[helix-timeout:0] Helix client settings. The Helix request timeout is\nEND REFERENCE TEXT\nQuestion: What is the Helix request timeout?",
+      "retrieval_abstained": false
+    },
+    {
+      "question": "Who won the underwater chess championship?",
+      "gold": null,
+      "answer": null,
+      "retrieved": [],
+      "gold_source_found": false,
+      "answer_string_in_gold_chunk": false,
+      "prompt": "UNTRUSTED REFERENCE TEXT:\n\nEND REFERENCE TEXT\nQuestion: Who won the underwater chess championship?",
+      "retrieval_abstained": true
+    }
+  ],
+  "baseline": {
+    "no_retrieval_evidence_recall": 0.0
+  },
+  "artifacts": [
+    "retrieval-metrics.png"
+  ],
+  "limitations": [
+    "Eight authored evaluation questions; no production generalization claim.",
+    "Sparse lexical retrieval does not test semantic neural embeddings.",
+    "A score threshold is a heuristic, not proof that an answer is supported."
+  ],
+  "reload_verified": true,
+  "reloaded_prediction": {
+    "retrieved": [
+      {
+        "id": "orion-restore:0",
+        "source_id": "orion-restore",
+        "revision": 2,
+        "current": true,
+        "start_word": 0,
+        "end_word": 8,
+        "text": "Orion restore policy. The current Orion restore window",
+        "score": 0.8576182505394726
+      }
+    ],
+    "generator_prompt": "UNTRUSTED REFERENCE TEXT:\n[orion-restore:0] Orion restore policy. The current Orion restore window\nEND REFERENCE TEXT\nQuestion: What is the current Orion restore window?",
+    "status": "Ready for generator; this is retrieved evidence, not a generated answer."
+  },
+  "index_sha256": "76e97c6284684d80b3eb3d9783e5011a31fd07cbaa1502cbaef6da946f282106",
+  "seconds": 0.08707519299969135
+}

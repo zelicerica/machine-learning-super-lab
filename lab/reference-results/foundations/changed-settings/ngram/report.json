@@ -1,0 +1,69 @@
+{
+  "schema": "superlab.report.v1",
+  "experiment": "ngram",
+  "split": "validation",
+  "seed": 42,
+  "dataset": "64 distinct synthetic four-word operations sentences",
+  "metrics": {
+    "perplexity": 5.826155853806345,
+    "uniform_baseline_perplexity": 15,
+    "vocabulary_size": 15,
+    "context_tokens": 2,
+    "generated_text": "the server waits slowly"
+  },
+  "limitations": "Vocabulary is learned from training sentences; unknown evaluation words map to an unknown symbol. Add-one smoothing prevents zero probabilities but does not guarantee fluent text.",
+  "artifacts": [
+    "token-probabilities.png"
+  ],
+  "history": [],
+  "settings": {
+    "experiment": "ngram",
+    "seed": 42,
+    "split": "validation",
+    "device": "cpu",
+    "threads": 2,
+    "epochs": 20,
+    "steps": 600,
+    "episodes": 500,
+    "depth": 4,
+    "neighbors": 5,
+    "clusters": 3,
+    "components": 16,
+    "latent": 8,
+    "order": 3,
+    "noise": 0.12,
+    "strength": 1,
+    "beta": 0.1,
+    "ablate_edges": false
+  },
+  "split_sizes": {
+    "train": 38,
+    "validation": 13,
+    "test": 13
+  },
+  "reload_prediction": {
+    "</s>": 0.041666666666666664,
+    "<unk>": 0.041666666666666664,
+    "again": 0.041666666666666664,
+    "quickly": 0.041666666666666664,
+    "retries": 0.125,
+    "router": 0.041666666666666664,
+    "safely": 0.041666666666666664,
+    "server": 0.041666666666666664,
+    "service": 0.041666666666666664,
+    "slowly": 0.041666666666666664,
+    "starts": 0.125,
+    "stops": 0.125,
+    "the": 0.041666666666666664,
+    "waits": 0.16666666666666666,
+    "worker": 0.041666666666666664
+  },
+  "reload_verified": true,
+  "seconds": 0.44313826599682216,
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.2.6",
+    "scikit_learn": "1.7.2"
+  },
+  "output_directory": "<verification-workspace>/SML-Lab-Localhost/lab/outputs/variant-check-1794634760594518236/ngram"
+}

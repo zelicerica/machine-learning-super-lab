@@ -1,0 +1,147 @@
+{
+  "model": "HuggingFaceTB/SmolLM2-135M-Instruct",
+  "revision": "12fd25f77366fa6b3b4b768ec3050bf629380bac",
+  "adapter": "outputs/verified-adapter-60",
+  "split": "validation",
+  "seed": 42,
+  "device": "cpu",
+  "n": 12,
+  "accuracy": 1.0,
+  "schema_valid_rate": 1.0,
+  "median_request_seconds": 0.5131278670014581,
+  "aggregate_tokens_per_second": 11.74855864222578,
+  "predictions": [
+    {
+      "text": "{\"label\":\"environment\"}",
+      "new_tokens": 6,
+      "seconds": 0.5287292700013495,
+      "tokens_per_second": 11.347962634988386,
+      "id": "validation-environment-00",
+      "expected": "environment",
+      "prediction": "environment",
+      "correct": true,
+      "valid_json": true
+    },
+    {
+      "text": "{\"label\":\"environment\"}",
+      "new_tokens": 6,
+      "seconds": 0.5127482000025338,
+      "tokens_per_second": 11.701650049615678,
+      "id": "validation-environment-01",
+      "expected": "environment",
+      "prediction": "environment",
+      "correct": true,
+      "valid_json": true
+    },
+    {
+      "text": "{\"label\":\"environment\"}",
+      "new_tokens": 6,
+      "seconds": 0.5135075340003823,
+      "tokens_per_second": 11.684346582528491,
+      "id": "validation-environment-02",
+      "expected": "environment",
+      "prediction": "environment",
+      "correct": true,
+      "valid_json": true
+    },
+    {
+      "text": "{\"label\":\"environment\"}",
+      "new_tokens": 6,
+      "seconds": 0.5275400130012713,
+      "tokens_per_second": 11.373544853716226,
+      "id": "validation-environment-03",
+      "expected": "environment",
+      "prediction": "environment",
+      "correct": true,
+      "valid_json": true
+    },
+    {
+      "text": "{\"label\":\"memory\"}",
+      "new_tokens": 6,
+      "seconds": 0.5074249440003769,
+      "tokens_per_second": 11.824408852859909,
+      "id": "validation-memory-00",
+      "expected": "memory",
+      "prediction": "memory",
+      "correct": true,
+      "valid_json": true
+    },
+    {
+      "text": "{\"label\":\"memory\"}",
+      "new_tokens": 6,
+      "seconds": 0.5195870900024602,
+      "tokens_per_second": 11.547631023649165,
+      "id": "validation-memory-01",
+      "expected": "memory",
+      "prediction": "memory",
+      "correct": true,
+      "valid_json": true
+    },
+    {
+      "text": "{\"label\":\"memory\"}",
+      "new_tokens": 6,
+      "seconds": 0.5139306940000097,
+      "tokens_per_second": 11.674725931041369,
+      "id": "validation-memory-02",
+      "expected": "memory",
+      "prediction": "memory",
+      "correct": true,
+      "valid_json": true
+    },
+    {
+      "text": "{\"label\":\"memory\"}",
+      "new_tokens": 6,
+      "seconds": 0.49084872899766196,
+      "tokens_per_second": 12.223725244745575,
+      "id": "validation-memory-03",
+      "expected": "memory",
+      "prediction": "memory",
+      "correct": true,
+      "valid_json": true
+    },
+    {
+      "text": "{\"label\":\"data\"}",
+      "new_tokens": 6,
+      "seconds": 0.501722200999211,
+      "tokens_per_second": 11.958809054194983,
+      "id": "validation-data-00",
+      "expected": "data",
+      "prediction": "data",
+      "correct": true,
+      "valid_json": true
+    },
+    {
+      "text": "{\"label\":\"data\"}",
+      "new_tokens": 6,
+      "seconds": 0.49192403400229523,
+      "tokens_per_second": 12.197005198514056,
+      "id": "validation-data-01",
+      "expected": "data",
+      "prediction": "data",
+      "correct": true,
+      "valid_json": true
+    },
+    {
+      "text": "{\"label\":\"data\"}",
+      "new_tokens": 6,
+      "seconds": 0.505944175998593,
+      "tokens_per_second": 11.859015845290974,
+      "id": "validation-data-02",
+      "expected": "data",
+      "prediction": "data",
+      "correct": true,
+      "valid_json": true
+    },
+    {
+      "text": "{\"label\":\"data\"}",
+      "new_tokens": 6,
+      "seconds": 0.5145044540004164,
+      "tokens_per_second": 11.661706625371883,
+      "id": "validation-data-03",
+      "expected": "data",
+      "prediction": "data",
+      "correct": true,
+      "valid_json": true
+    }
+  ]
+}

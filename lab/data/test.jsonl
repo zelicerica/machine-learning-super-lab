@@ -1,0 +1,12 @@
+{"id": "test-environment-00", "text": "The interpreter selected by the IDE is not the one where dependencies were installed.", "label": "environment"}
+{"id": "test-environment-01", "text": "The wheel refuses to install on this Python release.", "label": "environment"}
+{"id": "test-environment-02", "text": "After opening a new terminal, the project libraries are no longer importable.", "label": "environment"}
+{"id": "test-environment-03", "text": "Dependency resolution fails before any model is downloaded.", "label": "environment"}
+{"id": "test-memory-00", "text": "A tensor allocation requests two gigabytes but the GPU has only one available.", "label": "memory"}
+{"id": "test-memory-01", "text": "The machine starts swapping heavily as model parameters load.", "label": "memory"}
+{"id": "test-memory-02", "text": "Keeping several long conversations active exhausts the device cache capacity.", "label": "memory"}
+{"id": "test-memory-03", "text": "The forward pass works for one sample but runs out of VRAM for eight.", "label": "memory"}
+{"id": "test-data-00", "text": "The same customer document appears in both learning and scoring examples.", "label": "data"}
+{"id": "test-data-01", "text": "Some training outputs use category names outside the allowed set.", "label": "data"}
+{"id": "test-data-02", "text": "Half the records have blank questions despite passing file parsing.", "label": "data"}
+{"id": "test-data-03", "text": "The supposed correct answers were attached to the wrong input rows.", "label": "data"}

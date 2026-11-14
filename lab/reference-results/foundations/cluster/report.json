@@ -1,0 +1,57 @@
+{
+  "schema": "superlab.report.v1",
+  "experiment": "cluster",
+  "split": "validation",
+  "seed": 42,
+  "dataset": "Synthetic three-cluster observations; true groups used only for evaluation",
+  "metrics": {
+    "heldout_silhouette": 0.8133115731383707,
+    "heldout_adjusted_rand_index": 1.0,
+    "training_inertia": 25.0387206822597,
+    "density_noise_points": 1
+  },
+  "limitations": "Density-based spatial clustering of applications with noise has no built-in predict method here. Its panel is an exploratory fit on training data. Cluster numbers have no intrinsic business meaning.",
+  "artifacts": [
+    "clusters.png"
+  ],
+  "history": [],
+  "settings": {
+    "experiment": "cluster",
+    "seed": 42,
+    "split": "validation",
+    "device": "cpu",
+    "threads": 2,
+    "epochs": 20,
+    "steps": 600,
+    "episodes": 500,
+    "depth": 4,
+    "neighbors": 5,
+    "clusters": 3,
+    "components": 16,
+    "latent": 8,
+    "order": 2,
+    "noise": 1.2,
+    "strength": 1,
+    "beta": 0.1,
+    "ablate_edges": false
+  },
+  "split_sizes": {
+    "train": 270,
+    "validation": 90,
+    "test": 90
+  },
+  "reload_prediction": {
+    "kmeans": [
+      0,
+      2
+    ]
+  },
+  "reload_verified": true,
+  "seconds": 0.7139557279951987,
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.2.6",
+    "scikit_learn": "1.7.2"
+  },
+  "output_directory": "<verification-workspace>/SML-Lab-Localhost/lab/outputs/verification-1794634179/cluster"
+}

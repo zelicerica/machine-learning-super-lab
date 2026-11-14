@@ -1,0 +1,12 @@
+{"id": "validation-environment-00", "text": "The shell and editor are running different Python installations.", "label": "environment"}
+{"id": "validation-environment-01", "text": "An import fails even though pip says the library is installed.", "label": "environment"}
+{"id": "validation-environment-02", "text": "The notebook kernel cannot see the packages in my venv.", "label": "environment"}
+{"id": "validation-environment-03", "text": "Two required libraries demand incompatible dependency versions.", "label": "environment"}
+{"id": "validation-memory-00", "text": "The accelerator has no free space left for tensors.", "label": "memory"}
+{"id": "validation-memory-01", "text": "Reducing sequence length stops my VRAM allocation failure.", "label": "memory"}
+{"id": "validation-memory-02", "text": "The process is terminated when its resident memory reaches the machine limit.", "label": "memory"}
+{"id": "validation-memory-03", "text": "The weights load, but training needs more GPU memory than is free.", "label": "memory"}
+{"id": "validation-data-00", "text": "Several annotations disagree with the actual ticket content.", "label": "data"}
+{"id": "validation-data-01", "text": "My held out split repeats records from the fitting split.", "label": "data"}
+{"id": "validation-data-02", "text": "The parser rejects a record with an unterminated JSON string.", "label": "data"}
+{"id": "validation-data-03", "text": "The examples have a target field, but the loader expects label.", "label": "data"}

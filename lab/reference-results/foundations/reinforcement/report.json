@@ -1,0 +1,82 @@
+{
+  "schema": "superlab.report.v1",
+  "experiment": "reinforcement",
+  "split": "validation",
+  "seed": 42,
+  "dataset": "Deterministic four-by-four grid; upper-left start and lower-right goal",
+  "metrics": {
+    "greedy_success_rate": 1.0,
+    "greedy_mean_return": 5.0,
+    "random_mean_return": -31.73,
+    "greedy_policy": [
+      [
+        1,
+        2,
+        1,
+        2
+      ],
+      [
+        1,
+        2,
+        1,
+        2
+      ],
+      [
+        1,
+        1,
+        1,
+        2
+      ],
+      [
+        1,
+        1,
+        1,
+        0
+      ]
+    ],
+    "action_order": [
+      "up",
+      "right",
+      "down",
+      "left"
+    ]
+  },
+  "limitations": "Evaluation repeats the same environment without exploration. It verifies learned behavior here, not generalization to new maps or physical robots.",
+  "artifacts": [
+    "rewards.png"
+  ],
+  "history": [],
+  "settings": {
+    "experiment": "reinforcement",
+    "seed": 42,
+    "split": "validation",
+    "device": "cpu",
+    "threads": 2,
+    "epochs": 20,
+    "steps": 600,
+    "episodes": 500,
+    "depth": 4,
+    "neighbors": 5,
+    "clusters": 3,
+    "components": 16,
+    "latent": 8,
+    "order": 2,
+    "noise": 0.12,
+    "strength": 1,
+    "beta": 0.1,
+    "ablate_edges": false
+  },
+  "reload_prediction": [
+    1,
+    2,
+    1
+  ],
+  "reload_verified": true,
+  "seconds": 0.4262382540036924,
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.2.6",
+    "scikit_learn": "1.7.2"
+  },
+  "output_directory": "<verification-workspace>/SML-Lab-Localhost/lab/outputs/verification-1794634179/reinforcement"
+}
