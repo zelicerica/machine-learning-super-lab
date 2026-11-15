@@ -1,0 +1,33 @@
+python.exe : Traceback (most recent call last):
+
+At line:2 char:161
+
++ ... didate.log; & '<user-home>\AppData\Local\Programs\Python\Python312 ...
+
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    + CategoryInfo          : NotSpecified: (Traceback (most recent call last)::String) [], RemoteException
+
+    + FullyQualifiedErrorId : NativeCommandError
+
+
+
+  File "<review-workspace>\security-review\http_candidate_check.py", line
+
+41, in <module>
+
+    prediction=json.loads(output[output.index('{'):])['predictions']['linear']
+
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "<user-home>\AppData\Local\Programs\Python\Python312\Lib\json\__init__.py", line 346, in loads
+
+    return _default_decoder.decode(s)
+
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "<user-home>\AppData\Local\Programs\Python\Python312\Lib\json\decoder.py", line 341, in decode
+
+    raise JSONDecodeError("Extra data", s, end)
+
+json.decoder.JSONDecodeError: Extra data: line 10 column 1 (char 101)

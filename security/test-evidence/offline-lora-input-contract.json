@@ -1,0 +1,9 @@
+{
+  "scope": "tiny model initialized randomly; LoRA adaptation API regression",
+  "input": "integer token IDs 0..63, batch x sequence, context <=128",
+  "target": "next token, labels shifted by model",
+  "split": "independent training seed 101 and evaluation seed 202; new input is separate",
+  "model": "one-layer Llama, 32 hidden units; no pretrained weights or tokenizer",
+  "deployment": "local CPU CLI only",
+  "production_gaps": "synthetic random token data; no useful language quality or production claim"
+}

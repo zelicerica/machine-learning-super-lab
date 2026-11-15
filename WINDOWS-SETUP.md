@@ -1,3 +1,5 @@
+> **CURRENT WINDOWS CPU UPDATE — Python 3.12.** Read [SECURITY-TESTING.md](SECURITY-TESTING.md) first. Use a new folder and its own environment on localhost port 8766. Earlier platform and dependency recipes below are historical; use the hashed Windows lock for this candidate. Pretrained language/vision and GPU compatibility are not yet certified.
+
 # Run Machine Learning Super Lab on Windows
 
 Use PowerShell or Command Prompt. Git Bash, Git, Node.js, and a cloud account are not required. The browser site runs actual Python programs on your computer; it is not an isolated virtual machine.
@@ -80,65 +82,37 @@ The same extraction-path rule applies. To use a common direct Python path in Com
 
 ## 4. Install the machine learning packages from the website
 
-Open lab 1 → Practice → Install local packages. The site creates a `.venv` virtual environment inside the project and installs the pinned course packages. This downloads several hundred megabytes or more. Watch the real terminal output until it says `succeeded`.
+**Browser users: complete Lesson 21 — Build your workspace — first.** Open **Practice → Install local packages** and wait for **SUCCEEDED**. Setup creates a fresh `.lab-environments/env-...` environment, installs the hash-pinned Windows CPU packages, validates them and selects the runtime through `.runtime-python`. Normal Downloads paths are supported, and existing environments are preserved. This downloads several hundred megabytes or more; watch the actual console log.
 
-Run the environment diagnostic. Then move to lab 2. Model weights download separately on first use. The first workbench example uses only built-in Python and can run before package installation.
+Run the environment diagnostic. Then return to Foundations Lesson 1 or your chosen learning path. Model weights download separately on first use. The first workbench example uses only built-in Python and can run before package installation.
 
 No PowerShell activation script is needed. No execution-policy change is needed.
 
 ### Manual package installation if preferred
 
-From the folder containing `server.py`, in PowerShell, after setting `$python312` to a working Python 3.12 executable:
+From the folder containing `server.py`, use the same setup helper as the browser:
 
 ```powershell
-& $python312 -m venv .venv
-& .\.venv\Scripts\python.exe -m pip install torch==2.6.0 --index-url https://download.pytorch.org/whl/cpu
-& .\.venv\Scripts\python.exe -m pip install -r .\lab\requirements.txt -r .\lab\requirements-foundations.txt
-& .\.venv\Scripts\python.exe .\lab\lab.py doctor
+py -3.12 lab/setup_environment.py
+$labPython = (Get-Content .runtime-python -Raw).Trim()
+& $labPython -m pip check
 ```
 
-The matching Command Prompt commands are:
+In Command Prompt:
 
 ```bat
-"%LOCALAPPDATA%\Programs\Python\Python312\python.exe" -m venv .venv
-.venv\Scripts\python.exe -m pip install torch==2.6.0 --index-url https://download.pytorch.org/whl/cpu
-.venv\Scripts\python.exe -m pip install -r lab\requirements.txt -r lab\requirements-foundations.txt
-.venv\Scripts\python.exe lab\lab.py doctor
+py -3.12 lab\setup_environment.py
+if errorlevel 1 exit /b 1
+start-lab.cmd
 ```
+
+If `py` is unavailable, replace it with the verified Python 3.12 executable described above. Setup never needs an administrator or an execution-policy change.
 
 ## Upgrade an existing working installation
 
-Close the running lab with Control+C. Extract the new archive into a separate folder first. Keep a backup of your existing project. Copy the new source files and the `public`, `course`, `tests`, and `lab` folders into your existing website folder, merging folders rather than deleting the old ones. The release archive does not contain your `.venv`, `lab/outputs`, `lab/inputs`, or `runs`; keep those directories. If you previously edited course source files, preserve your edits before replacing those files.
+Extract into a new folder and keep the old folder, environment, learner inputs/outputs, run logs and notes. For the updated dependencies, use Lesson 21 or the setup helper to create a fresh environment rather than modifying a working one in place. For side-by-side testing use `start-security-test.cmd` and http://localhost:8766. Read [SECURITY-TESTING.md](SECURITY-TESTING.md) for exact backup, promotion, restart and rollback commands.
 
-Your lesson progress stays in the same browser profile at http://localhost:8765. Use that same address after upgrading. Export evidence notes and terminal logs when you need a portable copy. Browser progress does not move automatically between ports, browser profiles, or computers.
-
-If the website already uses its own working `.venv`, add the new packages from PowerShell in the folder containing `server.py`:
-
-```powershell
-& .\.venv\Scripts\python.exe -m pip install -r .\lab\requirements-foundations.txt
-& .\.venv\Scripts\python.exe .\server.py
-```
-
-If you still use the original `sml-lab-zero-to-hero` environment shown in your diagnostic, reuse its direct executable. Set this in the **same PowerShell window** that launches the website, adjusting the path only if your folder differs:
-
-```powershell
-$env:SML_LAB_PYTHON = "$env:USERPROFILE\Downloads\sml-lab-zero-to-hero\sml-lab-zero-to-hero\.venv\Scripts\python.exe"
-Test-Path $env:SML_LAB_PYTHON
-& $env:SML_LAB_PYTHON -m pip install -r .\lab\requirements-foundations.txt
-& $env:SML_LAB_PYTHON .\server.py
-```
-
-Continue only if `Test-Path` prints `True`. The environment variable tells the website which executable to use for every lab. It avoids the missing `py` launcher and the Microsoft Store `python` alias. It lasts for this terminal session. This add-on installation preserves the installed PyTorch build.
-
-The matching Command Prompt commands, from the website folder:
-
-```bat
-set "SML_LAB_PYTHON=%USERPROFILE%\Downloads\sml-lab-zero-to-hero\sml-lab-zero-to-hero\.venv\Scripts\python.exe"
-"%SML_LAB_PYTHON%" -m pip install -r lab\requirements-foundations.txt
-"%SML_LAB_PYTHON%" server.py
-```
-
-In the website, filter the learning path to **Foundations**. Start with **Understand how models learn**, then **Choose a model and design the evidence**, then **Linear regression**. Run both experiments, load a saved example, change an input, predict, and export your checkpoint notes. The new builds use bundled or generated data, so after installing packages they do not need model downloads or a cloud account.
+Browser progress belongs to the browser profile and exact origin. Keep http://localhost:8765 when you eventually switch copies; do not clear its storage. Port 8766 has separate progress. Copy learner files only into empty destinations and keep the originals.
 
 ## Troubleshooting
 

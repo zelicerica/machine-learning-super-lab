@@ -2,7 +2,7 @@
 import argparse
 from PIL import Image
 import torch
-from transformers import AutoProcessor, AutoModelForVision2Seq
+from transformers import AutoProcessor, AutoModelForImageTextToText
 from lab import resolve
 
 parser = argparse.ArgumentParser()
@@ -13,7 +13,7 @@ model_id = "HuggingFaceTB/SmolVLM-256M-Instruct"
 revision = resolve(model_id)
 torch.set_num_threads(4)
 processor = AutoProcessor.from_pretrained(model_id, revision=revision, trust_remote_code=False)
-model = AutoModelForVision2Seq.from_pretrained(model_id, revision=revision,
+model = AutoModelForImageTextToText.from_pretrained(model_id, revision=revision,
     torch_dtype=torch.float32, trust_remote_code=False, use_safetensors=True).eval()
 picture = Image.open(args.image).convert("RGB")
 messages = [{"role":"user", "content":[{"type":"image"}, {"type":"text", "text":args.prompt}]}]

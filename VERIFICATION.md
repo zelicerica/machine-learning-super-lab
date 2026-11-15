@@ -1,3 +1,25 @@
+# GitHub integration — 2026.11-transformer.2
+
+Preserved the newer upstream Lesson 59 Transformer explorer (`2d7b17a`) while integrating the owner-tested Windows setup/security/video update. The combined checkout passed **62 Python course/server/setup tests**, a **76-route / 69-diagram DOM check**, and the dedicated Transformer numerical/projection/control/lifecycle checks using DOM/canvas simulation. Eight original model-mechanism tests also passed in the publication checkout before integration; their model code is unchanged. The Lesson 21 setup instruction matches the generated catalog. No new visual browser, native GPU or pretrained model certification is inferred.
+
+The tests and results for the earlier owner-tested 58-lesson ZIP below retain their original scope. Public test logs redact local home/workspace paths and normalize presentation whitespace; raw local review logs were retained separately.
+
+---
+
+# Windows browser setup/security update — 2026-11-15
+
+Release `2026.11-midnight.4-security-test.3` is the package the owner reported working. The owner feedback does not specify which model families were exercised; do not infer a full model/GPU certification from it.
+
+- 62 course/server/setup tests passed on Windows; eight original model-mechanism tests passed earlier in this review.
+- A real localhost HTTP setup request installed the 57 hash-pinned artifacts in a fresh long-path fixture, preserved the prior environment and exposed a ready runtime. This test used verified cached wheels with indexes disabled; a fresh internet download was not repeated by the reviewer.
+- A tiny randomly initialized model completed adapter training, independent synthetic-token evaluation, safetensors saving/reload, identical reloaded logits and new-input generation. This is API compatibility evidence, not pretrained quality.
+- Actual HTTP workbench execution, Foundations training/reload and changed-input prediction passed. Simulated DOM checks passed 75 routes and 69 Mermaid parses.
+- The video brightness toggle passed state/storage/playback-independence checks. No new visual browser review or GPU run is claimed. Actual pretrained language/vision, learner-artifact cross-version compatibility and macOS/Linux model installs remain unverified in this review.
+
+See [SECURITY-REPORT.md](SECURITY-REPORT.md) for evidence and limits. Browser users should complete **Lesson 21 — Build your workspace → Practice → Install local packages** before running model exercises.
+
+---
+
 # Content and reference audit — 2026-11-15
 
 Release **2026.11-midnight.4** contains 58 lessons, 17 reference chapters, 69 Mermaid instances, 18 distinct runnable-Foundations illustrations and 148 annotated per-lesson reference placements. See [CONTENT-AUDIT.md](CONTENT-AUDIT.md) for all 58 reviewed modules, corrections and execution limits.

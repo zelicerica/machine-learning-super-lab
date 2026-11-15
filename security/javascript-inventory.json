@@ -1,0 +1,26 @@
+[
+  {
+    "scope": "original",
+    "file": "public/vendor/mermaid.min.js",
+    "sha256": "07e37dfa97b337ccc85365d57eddf99b9706f09db3b59b260d0333b23b343c4b",
+    "embedded_version_labels": {
+      "mermaid": "11.12.0",
+      "dompurify": "3.2.6",
+      "js-yaml": "4.1.0"
+    },
+    "provenance": "candidate copied from npm mermaid 12.3.0 dist/mermaid.min.js; original source corresponds to GitHub baseline",
+    "limits": "npm resolution lock inventories review tooling, not necessarily exact transitive versions embedded by upstream in its prebuilt bundle"
+  },
+  {
+    "scope": "candidate",
+    "file": "public/vendor/mermaid.min.js",
+    "sha256": "336df803d87a38b70a01e736e666c8f7601d2ce42f5e47c8fafe5d721074b9a3",
+    "embedded_version_labels": {
+      "mermaid": "12.3.0",
+      "dompurify": "3.4.17",
+      "js-yaml": "not independently identified"
+    },
+    "provenance": "candidate copied from npm mermaid 12.3.0 dist/mermaid.min.js; original source corresponds to GitHub baseline",
+    "limits": "npm resolution lock inventories review tooling, not necessarily exact transitive versions embedded by upstream in its prebuilt bundle"
+  }
+]

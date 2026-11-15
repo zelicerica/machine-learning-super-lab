@@ -269,3 +269,8 @@ body[data-view=home] .track-card.cyan{border-top-color:var(--cyan)}body[data-vie
 :root[data-theme=light] .hero .button.secondary,:root[data-theme=light] .resume-strip,:root[data-theme=light] body[data-view=home] .stat-card,:root[data-theme=light] body[data-view=home] .track-card{background:#ffffffdf}
 @media(max-width:1050px){.hero{min-height:550px}.hero>div{max-width:520px}.hero h1{font-size:45px}.lab-atmosphere:after{background:linear-gradient(90deg,#0b1020ee 0%,#0b102095 55%,#0b102030 100%),linear-gradient(0deg,#0b1020e8,#0b102000 65%)}.resume-strip{grid-template-columns:1fr auto}.resume-strip>div:first-child{display:none}}
 @media(max-width:760px){.lab-atmosphere{left:0}.hero{min-height:510px;padding:45px 0}.hero h1{font-size:40px}.hero>div{max-width:95%}.resume-strip{grid-template-columns:1fr;padding:18px}.top-actions{gap:5px}.top-actions .button{padding:7px;font-size:10px}body[data-view=home] .lab-atmosphere video{opacity:.7}.hero .page-desc{font-size:16px}}
+/* Original brightness is the default; the reading treatment is an explicit choice. */
+:root body[data-background-tone=original] .lab-atmosphere video{opacity:1}
+:root body[data-background-tone=original] .lab-atmosphere::after{background:none}
+.top-actions{flex-wrap:wrap;justify-content:flex-end}
+.topbar{height:auto;min-height:74px;padding-top:12px;padding-bottom:12px}

@@ -1,0 +1,43 @@
+python.exe : test_causal_mask_prevents_future_leakage (test_lab.LabTests.test_causal_mask_prevents_future_leakage) ...
+
+ok
+
+At line:2 char:57
+
++ ... FFLINE='1'; & '\\?\<user-home>\Downloads\SML-Lab-Localhost\SML-Lab ...
+
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    + CategoryInfo          : NotSpecified: (test_causal_mas...leakage) ... ok:String) [], RemoteException
+
+    + FullyQualifiedErrorId : NativeCommandError
+
+
+
+test_experimental_models_are_causal_and_trainable
+
+(test_lab.LabTests.test_experimental_models_are_causal_and_trainable) ... ok
+
+test_moe_routes_each_token_once_and_backpropagates
+
+(test_lab.LabTests.test_moe_routes_each_token_once_and_backpropagates) ... ok
+
+test_padding_does_not_mask_real_eos (test_lab.LabTests.test_padding_does_not_mask_real_eos) ... ok
+
+test_retrieval_has_explicit_no_match (test_lab.LabTests.test_retrieval_has_explicit_no_match) ... ok
+
+test_splits_are_disjoint_and_balanced (test_lab.LabTests.test_splits_are_disjoint_and_balanced) ... ok
+
+test_streaming_state_matches_whole_sequence (test_lab.LabTests.test_streaming_state_matches_whole_sequence) ... ok
+
+test_strict_schema (test_lab.LabTests.test_strict_schema) ... ok
+
+
+
+----------------------------------------------------------------------
+
+Ran 8 tests in 1.199s
+
+
+
+OK

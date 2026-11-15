@@ -1,0 +1,145 @@
+{
+  "workspace": {
+    "release": "2026.11-midnight.4-security-test.1",
+    "name": "Midnight Motion \u2014 Security Test",
+    "lessons": 58,
+    "expected_lessons": 58,
+    "references": 17,
+    "catalog_matches_release": true,
+    "project_folder": "<review-workspace>\\security-review\\test-copy",
+    "catalog_file": "<review-workspace>\\security-review\\test-copy\\public\\course.json",
+    "python": "\\\\?\\<review-workspace>\\security-review\\e\\Scripts\\python.exe",
+    "local_only": true
+  },
+  "runtime": {
+    "ready": true,
+    "foundations_ready": true,
+    "python": "3.12.10",
+    "device": "Central processing unit by default",
+    "executable": "\\\\?\\<review-workspace>\\security-review\\e\\Scripts\\python.exe",
+    "local_only": true
+  },
+  "workbench": {
+    "id": "103770c81845",
+    "label": "Workbench Python exercise",
+    "kind": "code",
+    "status": "succeeded",
+    "created_at": 1794754676.1434524,
+    "cancel_requested": false,
+    "lesson_id": null,
+    "exit_code": 0,
+    "started_at": 1794754676.1434524,
+    "finished_at": 1794754676.2382293,
+    "output": "\n$ python '<review-workspace>\\security-review\\test-copy\\runs\\exercise-614bdfe79a.py'\nsecurity-http-ok 5\n\n[succeeded]\n",
+    "offset": 159
+  },
+  "training": {
+    "id": "be132484bce8",
+    "label": "python foundations.py linear --noise 0 --output outputs/security-http-linear-b0c5d962",
+    "kind": "command",
+    "status": "succeeded",
+    "created_at": 1794754680.2572212,
+    "cancel_requested": false,
+    "lesson_id": null,
+    "exit_code": 0,
+    "started_at": 1794754680.260914,
+    "finished_at": 1794754685.9304547,
+    "output": "\n$ python foundations.py linear --noise 0 --output outputs/security-http-linear-b0c5d962\nmkdir -p failed for path <user-home>\\.matplotlib: [WinError 5] Access is denied: 'C:\\\\Users\\\\ezeli\\\\.matplotlib'\nMatplotlib created a temporary cache directory at <user-home>\\AppData\\Local\\Temp\\matplotlib-4t_l6eqt because there was an issue with the default path (<user-home>\\.matplotlib); it is highly recommended to set the MPLCONFIGDIR environment variable to a writable directory, in particular to speed up the import of Matplotlib and to better support multiprocessing.\n{\n  \"schema\": \"superlab.report.v1\",\n  \"experiment\": \"linear\",\n  \"split\": \"validation\",\n  \"seed\": 42,\n  \"dataset\": \"Synthetic processing duration: 3 known features\",\n  \"metrics\": {\n    \"mean_absolute_error\": 5.175119592119396e-14,\n    \"root_mean_squared_error\": 6.174639540621108e-14,\n    \"r_squared\": 1.0,\n    \"baseline_mean_absolute_error\": 47.105946375859624,\n    \"learned_weights\": [\n      2.000000000000002,\n      3.0000000000000044,\n      8.0\n    ],\n    \"learned_bias\": 4.999999999999858\n  },\n  \"limitations\": \"The relationship was generated to be linear. This is not an operational service-time benchmark.\",\n  \"artifacts\": [\n    \"predictions.png\"\n  ],\n  \"history\": [],\n  \"settings\": {\n    \"experiment\": \"linear\",\n    \"seed\": 42,\n    \"split\": \"validation\",\n    \"device\": \"cpu\",\n    \"threads\": 2,\n    \"epochs\": 20,\n    \"steps\": 600,\n    \"episodes\": 500,\n    \"depth\": 4,\n    \"neighbors\": 5,\n    \"clusters\": 3,\n    \"components\": 16,\n    \"latent\": 8,\n    \"order\": 2,\n    \"noise\": 0.0,\n    \"strength\": 1,\n    \"beta\": 0.1,\n    \"ablate_edges\": false\n  },\n  \"split_sizes\": {\n    \"train\": 360,\n    \"validation\": 120,\n    \"test\": 120\n  },\n  \"reload_prediction\": {\n    \"linear\": [\n      195.1490549426078,\n      139.20249063093436\n    ]\n  },\n  \"reload_verified\": true,\n  \"seconds\": 0.571155000012368,\n  \"environment\": {\n    \"python\": \"3.12.10\",\n    \"numpy\": \"2.2.6\",\n    \"scikit_learn\": \"1.7.2\"\n  },\n  \"output_directory\": \"outputs/security-http-linear-b0c5d962\"\n}\n\n[succeeded]\n",
+    "offset": 2044
+  },
+  "example": [
+    [
+      92.48084293120272,
+      0.24859491386256316,
+      0.5551980423268247
+    ],
+    [
+      63.08322403647424,
+      1.7750658243696749,
+      0.33885563560960497
+    ]
+  ],
+  "prediction": {
+    "id": "644a9c70fd8a",
+    "label": "Reload saved model and predict a new input",
+    "kind": "predict",
+    "status": "succeeded",
+    "created_at": 1794754690.7429957,
+    "cancel_requested": false,
+    "lesson_id": null,
+    "exit_code": 0,
+    "started_at": 1794754690.7429957,
+    "finished_at": 1794754693.0814629,
+    "output": "\n$ python predict_saved.py --model-dir outputs/security-http-linear-b0c5d962 --input '<review-workspace>\\security-review\\test-copy\\lab\\outputs\\prediction-input-f564487855.json' --output outputs/prediction-f564487855.json\n{\n  \"predictions\": {\n    \"linear\": [\n      38.999999999999886,\n      58.999999999999915\n    ]\n  }\n}\n\n[succeeded]\n",
+    "offset": 376
+  },
+  "saved_report": {
+    "schema": "superlab.report.v1",
+    "experiment": "linear",
+    "split": "validation",
+    "seed": 42,
+    "dataset": "Synthetic processing duration: 3 known features",
+    "metrics": {
+      "mean_absolute_error": 5.175119592119396e-14,
+      "root_mean_squared_error": 6.174639540621108e-14,
+      "r_squared": 1.0,
+      "baseline_mean_absolute_error": 47.105946375859624,
+      "learned_weights": [
+        2.000000000000002,
+        3.0000000000000044,
+        8.0
+      ],
+      "learned_bias": 4.999999999999858
+    },
+    "limitations": "The relationship was generated to be linear. This is not an operational service-time benchmark.",
+    "artifacts": [
+      "predictions.png"
+    ],
+    "history": [],
+    "settings": {
+      "experiment": "linear",
+      "seed": 42,
+      "split": "validation",
+      "device": "cpu",
+      "threads": 2,
+      "epochs": 20,
+      "steps": 600,
+      "episodes": 500,
+      "depth": 4,
+      "neighbors": 5,
+      "clusters": 3,
+      "components": 16,
+      "latent": 8,
+      "order": 2,
+      "noise": 0.0,
+      "strength": 1,
+      "beta": 0.1,
+      "ablate_edges": false
+    },
+    "split_sizes": {
+      "train": 360,
+      "validation": 120,
+      "test": 120
+    },
+    "reload_prediction": {
+      "linear": [
+        195.1490549426078,
+        139.20249063093436
+      ]
+    },
+    "reload_verified": true,
+    "seconds": 0.571155000012368,
+    "environment": {
+      "python": "3.12.10",
+      "numpy": "2.2.6",
+      "scikit_learn": "1.7.2"
+    },
+    "output_directory": "outputs/security-http-linear-b0c5d962"
+  },
+  "verified_predictions": [
+    38.999999999999886,
+    58.999999999999915
+  ],
+  "homepage_http_status": 200,
+  "passed": true
+}

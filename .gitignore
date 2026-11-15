@@ -1,7 +1,9 @@
 # Per-machine environments and configuration
 .venv/
 venv/
+.lab-environments/
 .runtime-python
+.runtime-python.*
 .env
 .env.*
 !.env.example
@@ -31,3 +33,4 @@ Thumbs.db
 .idea/
 .vscode/
 *.log
+!security/test-evidence/*.log

@@ -1,6 +1,7 @@
-# Tested teaching environment; torch is installed separately for your hardware.
-transformers==4.57.1
-peft==0.17.1
-accelerate==1.10.1
+# Security test candidate; see SECURITY-TESTING.md for verification limits.
+# Windows CPU installation uses requirements-windows-cpu.lock instead.
+transformers==5.23.0
+peft==0.21.3
+accelerate==1.15.0
 numpy==2.2.6
-pillow==11.3.0
+pillow==13.0.0

@@ -1,6 +1,14 @@
 'use strict';
 /* One local MP4 instance persists across routes; no third-party player or requests. */
 let backgroundPreference=null,backgroundMedia=null,backgroundBlocked=false;
+function updateBackgroundTone(tone){
+  const dimmed=tone==='dimmed',button=document.getElementById('backgroundToneToggle');
+  document.body.dataset.backgroundTone=dimmed?'dimmed':'original';
+  button.textContent=dimmed?'Original video':'Dim video';
+  button.setAttribute('aria-pressed',String(dimmed));
+  button.setAttribute('aria-label',dimmed?'Show original video brightness':'Dim background video for reading');
+  button.title=dimmed?'Restore the original video brightness':'Use the dimmed reading background';
+}
 function backgroundWanted(){return backgroundPreference==='on'||(backgroundPreference!=='off'&&!backgroundMedia.matches);}
 function backgroundButton(){
   const video=document.getElementById('labBackgroundVideo'),button=document.getElementById('backgroundToggle');
@@ -25,6 +33,11 @@ function updateBackgroundRoute(){
 }
 function initBackgroundVideo(){
   const video=document.getElementById('labBackgroundVideo'),button=document.getElementById('backgroundToggle');
+  updateBackgroundTone(localStorage.getItem('super-lab-background-tone'));
+  document.getElementById('backgroundToneToggle').addEventListener('click',()=>{
+    const tone=document.body.dataset.backgroundTone==='dimmed'?'original':'dimmed';
+    localStorage.setItem('super-lab-background-tone',tone);updateBackgroundTone(tone);
+  });
   backgroundPreference=localStorage.getItem('super-lab-background-motion');
   backgroundMedia=matchMedia('(prefers-reduced-motion: reduce)');
   button.addEventListener('click',()=>{

@@ -1,0 +1,10 @@
+{
+  "input-contract.json": "1a03e7e8dca792d65a7b73d60cf81e4cfe1dabd5c8d85df41b78938337dde442",
+  "report.json": "7c5336ff00e609f36d77a402dc062ca4e9bbbdfb017fe868908c6dff4028d419",
+  "adapter/adapter_config.json": "453709d86224c7f4b88b533feff07cc9ab941146c41a135139d5da1bb37000e6",
+  "adapter/adapter_model.safetensors": "bd6285eb5ed45b75a03fa72df2d7c995298099083ae91a1c55bfce4741daaafa",
+  "adapter/README.md": "027a153b7993073a1030570c2850037449f040d64592286408cb7fe37ca064b3",
+  "base/config.json": "e52271bf76278467c991101d1a8d38b783be1ec81c01008d85d46a2575e9f08c",
+  "base/generation_config.json": "1b0ffbf6657bf98d3f23293514ce8f0bcfad4826a25c7b094fefeca7582b860f",
+  "base/model.safetensors": "eb56f2b9943c11fbaf4dbc3cba05d9832791d8036f9a911a409ab25759d3382f"
+}

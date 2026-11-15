@@ -80,6 +80,28 @@ class LocalRunnerTests(unittest.TestCase):
         self.assertEqual(self.request('/api/run',body,{'X-Lab-Token':''})[0],403)
     def test_untrusted_host_cannot_read_session(self):
         self.assertEqual(self.request('/api/session',headers={'Host':'untrusted.example'})[0],403)
+    def test_host_authority_and_fetch_metadata(self):
+        for host in ['localhost:1','localhost.evil:8766','localhost@evil:8766','127.0.0.1:1']:
+            self.assertEqual(self.request('/api/session',headers={'Host':host})[0],403)
+        self.assertEqual(self.request('/api/session',headers={'Sec-Fetch-Site':'cross-site'})[0],403)
+    def test_origin_requires_exact_http_origin(self):
+        body={'kind':'code','code':'print(1)'}
+        authority=self.base.split('://')[1]
+        for origin in ['null','https://'+authority,'http://'+authority+'/path','http://user@'+authority]:
+            self.assertEqual(self.request('/api/run',body,{'Origin':origin})[0],403)
+    def test_preview_retains_host_checks_and_cannot_execute(self):
+        with patch.object(s,'PREVIEW',True):
+            self.assertEqual(self.request('/api/session',headers={'Host':'evil.example'})[0],403)
+            self.assertEqual(self.request('/api/run',{'kind':'code','code':'print(1)'})[0],403)
+    def test_setup_preserves_existing_environment(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder);env=root/'.venv';env.mkdir();marker=env/'keep.txt';marker.write_text('keep')
+            with patch.object(s,'ROOT',root),patch.object(s.sys,'platform','win32'),patch.object(s.threading,'Thread') as thread:
+                job=s.create_job('setup',{})
+                commands=thread.call_args.kwargs['args'][1]
+                self.assertEqual(commands,[[sys.executable,'-I',str(s.LAB/'setup_environment.py')]])
+                s.JOBS.pop(job['id'])
+            self.assertEqual(marker.read_text(),'keep')
     def test_static_traversal_and_unknown_source_rejected(self):
         self.assertEqual(self.request('/../server.py')[0],404)
         self.assertEqual(self.request('/api/source?name=../server.py')[0],400)

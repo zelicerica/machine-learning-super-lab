@@ -23,7 +23,7 @@ import server
 
 class ContentAuditTests(unittest.TestCase):
     def test_every_lesson_ends_in_multiple_distinct_annotated_sources(self):
-        course = json.loads((ROOT / 'public/course.json').read_text())
+        course = json.loads((ROOT / 'public/course.json').read_text(encoding='utf-8'))
         for lesson in course['lessons']:
             with self.subTest(lesson=lesson['id']):
                 refs = lesson['references']
@@ -37,7 +37,7 @@ class ContentAuditTests(unittest.TestCase):
                     self.assertIn(ref['url'], footer[1])
 
     def test_foundations_use_only_their_own_worked_example_image(self):
-        course = json.loads((ROOT / 'public/course.json').read_text())
+        course = json.loads((ROOT / 'public/course.json').read_text(encoding='utf-8'))
         lessons = [l for l in course['lessons'] if l['track']=='Foundations' and l['kind']=='implementation']
         self.assertEqual(len(lessons), 18)
         for lesson in lessons:

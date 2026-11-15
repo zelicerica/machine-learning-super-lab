@@ -44,7 +44,7 @@ TEMPLATES['foundation']='from foundations import parser, run\nimport time\n\n# C
 def runtime_python():
     override=os.environ.get('SML_LAB_PYTHON')
     config=ROOT/'.runtime-python'
-    if not override and config.is_file(): override=config.read_text().strip()
+    if not override and config.is_file(): override=config.read_text(encoding='utf-8').strip()
     if override and Path(override).is_file(): return override
     local=ROOT/'.venv'/('Scripts/python.exe' if os.name=='nt' else 'bin/python')
     return str(local) if local.is_file() else sys.executable
@@ -152,9 +152,9 @@ def stop_process(job):
     p=job.get('process')
     if p and p.poll() is None:
         try:
-            if os.name=='nt': subprocess.run(['taskkill','/PID',str(p.pid),'/T','/F'],capture_output=True,timeout=10)
+            if os.name=='nt': subprocess.run(['taskkill','/PID',str(p.pid),'/T','/F'],capture_output=True,timeout=10,check=True)
             else: os.killpg(p.pid,signal.SIGTERM)
-        except (OSError,subprocess.TimeoutExpired): p.kill()
+        except (OSError,subprocess.TimeoutExpired,subprocess.CalledProcessError): p.kill()
 
 def append(job,text):
     with JOB_LOCK:
@@ -192,11 +192,9 @@ def create_job(kind,payload):
         RUNS.mkdir(exist_ok=True);path=RUNS/('exercise-'+uuid.uuid4().hex[:10]+'.py');path.write_text(code,encoding='utf-8')
         commands=[[runtime_python(),str(path)]];label='Workbench Python exercise'
     elif kind=='setup':
-        exe=ROOT/'.venv'/('Scripts/python.exe' if os.name=='nt' else 'bin/python')
-        commands=[[sys.executable,'-m','venv',str(ROOT/'.venv')],
-          [str(exe),'-m','pip','install','torch==2.6.0','--index-url','https://download.pytorch.org/whl/cpu'],
-          [str(exe),'-m','pip','install','-r',str(LAB/'requirements.txt'),'-r',str(LAB/'requirements-foundations.txt')]]
-        if sys.platform=='darwin': commands[1]=[str(exe),'-m','pip','install','torch==2.6.0']
+        if sys.platform!='win32':
+            raise ValueError('Automatic setup for this security test candidate is Windows CPU only. Use the separately documented and validated environment for other platforms.')
+        commands=[[sys.executable,'-I',str(LAB/'setup_environment.py')]]
         label='Install the local learning environment'
     elif kind=='foundations-setup':
         commands=[[runtime_python(),'-m','pip','install','-r',str(LAB/'requirements-foundations.txt')]]
@@ -251,8 +249,12 @@ class Handler(BaseHTTPRequestHandler):
     def log_message(self,format,*args):
         if '/api/jobs/' not in self.path: super().log_message(format,*args)
     def valid_host(self):
-        host=self.headers.get('Host','').split(':')[0]
-        return PREVIEW or host in ('localhost','127.0.0.1','[::1]')
+        hosts=self.headers.get_all('Host',[])
+        if len(hosts)!=1: return False
+        port=self.server.server_port
+        allowed={f'{host}:{port}' for host in ('localhost','127.0.0.1','[::1]')}
+        if port==80: allowed.update(('localhost','127.0.0.1','[::1]'))
+        return hosts[0].lower() in allowed
     def respond(self,body,status=200,ctype='application/json; charset=utf-8',headers=None):
         if isinstance(body,(dict,list)): body=json.dumps(body).encode()
         elif isinstance(body,str): body=body.encode()
@@ -279,6 +281,7 @@ class Handler(BaseHTTPRequestHandler):
         return self.respond(data[start:end+1],206,'video/mp4',headers)
     def do_GET(self):
         if not self.valid_host(): return self.respond({'error':'Invalid host'},403)
+        if self.headers.get('Sec-Fetch-Site')=='cross-site': return self.respond({'error':'Cross-site request rejected'},403)
         parsed=urlparse(self.path);path=parsed.path
         if path=='/api/session': return self.respond({'token':TOKEN,'runtime':runtime_status(),'templates':TEMPLATES,'workspace':workspace_info()})
         if path=='/api/workspace': return self.respond(workspace_info())
@@ -318,8 +321,10 @@ class Handler(BaseHTTPRequestHandler):
         return self.respond(target.read_bytes(),ctype=mimetypes.guess_type(target.name)[0] or 'application/octet-stream')
     def do_POST(self):
         if not self.valid_host(): return self.respond({'error':'Invalid host'},403)
+        if PREVIEW: return self.respond({'error':'Execution is disabled in preview mode'},403)
+        if self.headers.get('Sec-Fetch-Site')=='cross-site': return self.respond({'error':'Cross-site request rejected'},403)
         origin=self.headers.get('Origin')
-        if origin and urlparse(origin).netloc!=self.headers.get('Host'): return self.respond({'error':'Cross-origin request rejected'},403)
+        if origin and origin!=f'http://{self.headers.get("Host")}': return self.respond({'error':'Cross-origin request rejected'},403)
         if not secrets.compare_digest(self.headers.get('X-Lab-Token',''),TOKEN): return self.respond({'error':'Refresh this page before running an exercise.'},403)
         if not self.headers.get('Content-Type','').startswith('application/json'): return self.respond({'error':'JSON request required'},415)
         try:
@@ -354,7 +359,7 @@ def main():
     p.add_argument('--host',default='127.0.0.1');p.add_argument('--no-browser',action='store_true');p.add_argument('--preview',action='store_true')
     p.add_argument('--strictPort',action='store_true',help=argparse.SUPPRESS)
     a=p.parse_args();PREVIEW=a.preview
-    if not a.preview and a.host not in ('127.0.0.1','localhost'): p.error('The learner server binds to localhost only.')
+    if a.host not in ('127.0.0.1','localhost'): p.error('All server modes bind to localhost only.')
     RUNS.mkdir(exist_ok=True)
     try: server=ThreadingHTTPServer((a.host,a.port),Handler)
     except OSError as exc:

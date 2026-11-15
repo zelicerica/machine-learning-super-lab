@@ -1,3 +1,5 @@
+> **CURRENT WINDOWS CPU UPDATE — Python 3.12.** Read [SECURITY-TESTING.md](SECURITY-TESTING.md) first. Use a new folder and its own environment on localhost port 8766. Earlier platform and dependency recipes below are historical; use the hashed Windows lock for this candidate. Pretrained language/vision and GPU compatibility are not yet certified.
+
 # Content-reviewed update — 2026.11-midnight.4
 
 This update corrects repeated/misplaced lesson content, adds individual Foundations graphics and multiple matching references to every module, and fixes several numerical/evaluation details. The catalog remains 58 lessons; the reference count is now 17. Review [CONTENT-AUDIT.md](CONTENT-AUDIT.md).

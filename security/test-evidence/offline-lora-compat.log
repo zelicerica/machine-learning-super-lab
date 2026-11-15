@@ -1,0 +1,117 @@
+python.exe :
+
+At line:2 char:57
+
++ ... FFLINE='1'; & '\\?\<user-home>\Downloads\SML-Lab-Localhost\SML-Lab ...
+
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+
+    + FullyQualifiedErrorId : NativeCommandError
+
+
+
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]
+
+Writing model shards: 100%|██████████| 1/1 [00:00<00:00, 199.94it/s]
+
+\\?\<review-workspace>\security-review\e\Lib\site-packages\transformers\model
+
+ing_utils.py:3303: FutureWarning: `is_gradient_checkpointing` is deprecated and will be removed in v6. Use
+
+`is_activation_checkpointing` instead.
+
+  warnings.warn(
+
+
+
+Loading weights:   0%|          | 0/12 [00:00<?, ?it/s]
+
+Loading weights: 100%|██████████| 12/12 [00:00<00:00, 11995.15it/s]
+
+{
+
+  "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+
+  "platform": "Windows-11-10.0.26200-SP0",
+
+  "packages": {
+
+    "torch": "2.13.0+cpu",
+
+    "transformers": "5.23.0",
+
+    "peft": "0.21.3",
+
+    "accelerate": "1.15.0",
+
+    "pillow": "13.0.0"
+
+  },
+
+  "training_losses": [
+
+    4.144476413726807,
+
+    4.186728000640869,
+
+    4.168811321258545,
+
+    4.196756839752197
+
+  ],
+
+  "independent_eval_loss_before": 4.191212177276611,
+
+  "independent_eval_loss_after": 4.195366382598877,
+
+  "frozen_base_unchanged": true,
+
+  "reload_verified": true,
+
+  "max_logit_error": 0.0,
+
+  "new_input": [
+
+    [
+
+      1,
+
+      8,
+
+      17,
+
+      23
+
+    ]
+
+  ],
+
+  "generated_ids": [
+
+    [
+
+      1,
+
+      8,
+
+      17,
+
+      23,
+
+      18,
+
+      25,
+
+      63
+
+    ]
+
+  ],
+
+  "vision_auto_class_imported": "AutoModelForImageTextToText",
+
+  "limits": "No pretrained language or image checkpoint, GPU, remote service, browser visual or production-quality test."
+
+}

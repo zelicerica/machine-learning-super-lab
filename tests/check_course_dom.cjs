@@ -26,6 +26,13 @@ require('vm').runInContext(fs.readFileSync(root+'/public/app.js','utf8'),dom.get
  assert.equal(w.document.querySelectorAll('#labBackgroundVideo').length,1);
  assert.ok(fs.existsSync(root+'/public'+w.document.querySelector('#labBackgroundVideo source').getAttribute('src')));
  const video=w.document.querySelector('#labBackgroundVideo');assert.equal(video.dataset.testPlaying,'yes');
+ const tone=w.document.querySelector('#backgroundToneToggle');
+ assert.equal(w.document.body.dataset.backgroundTone,'original');assert.equal(tone.textContent,'Dim video');assert.equal(tone.getAttribute('aria-pressed'),'false');
+ tone.click();assert.equal(w.document.body.dataset.backgroundTone,'dimmed');assert.equal(tone.textContent,'Original video');assert.equal(tone.getAttribute('aria-pressed'),'true');assert.equal(w.localStorage.getItem('super-lab-background-tone'),'dimmed');assert.equal(video.dataset.testPlaying,'yes');
+ w.eval("updateBackgroundTone(localStorage.getItem('super-lab-background-tone'))");assert.equal(w.document.body.dataset.backgroundTone,'dimmed');
+ w.location.hash='lesson/math';w.eval('updateBackgroundRoute()');assert.equal(w.document.body.dataset.backgroundTone,'dimmed');
+ tone.click();assert.equal(w.document.body.dataset.backgroundTone,'original');assert.equal(w.localStorage.getItem('super-lab-background-tone'),'original');
+ w.location.hash='';w.eval('updateBackgroundRoute()');
  w.document.querySelector('#backgroundToggle').click();assert.equal(video.dataset.testPlaying,'no');assert.equal(w.localStorage.getItem('super-lab-background-motion'),'off');
  w.document.querySelector('#backgroundToggle').click();assert.equal(video.dataset.testPlaying,'yes');
  w.eval("backgroundPreference=null;backgroundMedia.matches=true;updateBackgroundPlayback()");assert.equal(video.dataset.testPlaying,'no');

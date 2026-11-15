@@ -1,3 +1,5 @@
+> **CURRENT WINDOWS CPU UPDATE — Python 3.12.** Read [SECURITY-TESTING.md](../SECURITY-TESTING.md) first. Use a new folder and its own environment on localhost port 8766. Earlier platform and dependency recipes below are historical; use the hashed Windows lock for this candidate. Pretrained language/vision and GPU compatibility are not yet certified.
+
 # SML Lab Zero to Hero
 
 Start with **SML-Lab-Zero-to-Hero.md**. It contains the complete course, setup
