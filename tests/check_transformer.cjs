@@ -14,6 +14,27 @@ const camera={yaw:0,pitch:0,zoom:1,panX:0,panY:0};assert.deepEqual(project([0,0,
 assert.ok(project([1,0,2],camera,800,600)[0]>project([1,0,-2],camera,800,600)[0]);
 assert.equal(new Set(parts.map(p=>p.id)).size,63);
 assert.equal(model.layers.length,12);assert.equal(sceneFor().nodes.length,63);
+// Repeated complete layers recede in depth; only their internal operations rise.
+const overview=sceneFor(),separated=sceneFor('',true);
+for(const stack of ['encoder','decoder']){
+ const layerZ=[];
+ for(let layer=1;layer<=6;layer++){
+  const nodes=overview.nodes.filter(p=>p.stack===stack&&p.layer===layer);
+  assert.equal(new Set(nodes.map(p=>p.z)).size,1);
+  layerZ.push(nodes[0].z);
+  for(const p of nodes){
+   const first=overview.nodes.find(n=>n.layer===1&&n.templateId===p.templateId);
+   near(p.y,first.y);
+   if(p.order)assert.ok(p.y>nodes[p.order-1].y);
+   near(separated.nodes.find(n=>n.id===p.id).y,p.y);
+  }
+ }
+ assert.equal(new Set(layerZ).size,6);assert.ok(layerZ.every((z,i)=>!i||z<layerZ[i-1]));
+ const expanded=separated.nodes.filter(p=>p.stack===stack&&p.layer).map(p=>p.z);
+ assert.ok(Math.max(...expanded)-Math.min(...expanded)>layerZ[0]-layerZ[5]);
+ near(overview.nodes.find(p=>p.id===(stack==='encoder'?'source':'target')).z,layerZ[0]);
+ if(stack==='decoder')near(overview.nodes.find(p=>p.id==='output').z,layerZ[5]);
+}
 assert.equal(model.edges.filter(e=>e.kind==='residual').length,30);
 const memoryEdges=model.edges.filter(e=>e.kind==='memory');assert.equal(memoryEdges.length,6);
 assert.ok(memoryEdges.every(e=>e.from==='encoder-6-enc-norm-2'));
@@ -40,6 +61,14 @@ const $=s=>w.document.querySelector(s),canvas=$('canvas'),initial=JSON.stringify
 assert.equal($('.tx-explorer').querySelectorAll('#tx-component option').length,63);assert.ok($('#tx-part-description').textContent.includes('sinusoidal'));
 assert.equal(w.document.querySelectorAll('[data-layer]').length,12);
 assert.ok(draws.some(d=>d[0]==='text'));assert.equal($('.tx-canvas-fallback').hidden,true);
+function checkOverviewLabels(){
+ const texts=draws.filter(d=>d[0]==='text').map(d=>d[1]);
+ for(const label of ['ENCODER · 6 layers','DECODER · 6 layers','Self-attention','Masked attention','Cross-attention','Feed-forward','Add & Norm','Source + positions','Prefix + positions','Linear + softmax',...['E','D'].flatMap(s=>Array.from({length:6},(_,i)=>s+(i+1)))])assert.ok(texts.includes(label),`Missing default label: ${label}`);
+ assert.equal(texts.filter(t=>t==='Add & Norm').length,5);
+ assert.equal(texts.filter(t=>t==='Feed-forward').length,2);
+ assert.ok(draws.filter(d=>d[0]==='text').every(d=>d[2]>0&&d[2]<width&&d[3]>0&&d[3]<570),'Default labels must fit inside the canvas');
+}
+assert.equal($('#tx-labels').checked,true);checkOverviewLabels();
 pointer(canvas,'pointerdown',20,20);pointer(canvas,'pointermove',120,40);pointer(canvas,'pointerup',120,40);assert.notEqual(JSON.stringify(draws),initial);
 $('[data-tx=reset]').click();flush();assert.equal(JSON.stringify(draws),initial);
 pointer(canvas,'pointerdown',20,20,1,{shiftKey:true});pointer(canvas,'pointermove',70,20,1,{shiftKey:true});pointer(canvas,'pointerup',70,20);assert.notEqual(JSON.stringify(draws),initial);
@@ -73,6 +102,6 @@ const withConnections=JSON.stringify(draws);$('#tx-connections').click();flush()
 w.TransformerExplorer.mount();flush();assert.equal(w.document.querySelectorAll('.tx-explorer').length,1);assert.equal(observerDisconnected,1);
 w.TransformerExplorer.cleanup();assert.equal($('.tx-explorer'),null);assert.equal(frames.size,0);assert.equal(observerDisconnected,2);
 available=false;w.TransformerExplorer.mount();assert.equal($('.tx-canvas-fallback').hidden,false);assert.equal($('[data-tx=in]').disabled,true);$('#tx-mask').click();assert.match($('.tx-result').textContent,/1.3395, 0.6605/);w.TransformerExplorer.cleanup();
-available=true;width=375;w.TransformerExplorer.mount();flush();assert.ok(draws.some(d=>d[0]==='text'&&d[1]==='E6'));w.TransformerExplorer.cleanup();
+available=true;width=375;w.TransformerExplorer.mount();flush();checkOverviewLabels();w.TransformerExplorer.cleanup();
 w.location.hash='lesson/setup';w.TransformerExplorer.mount();assert.equal($('.tx-explorer'),null);dom.window.close();
-console.log('Transformer: full 12-layer topology, final-encoder cross-attention, residual paths, layer drilldown, tour, numerical cases, projection, orbit/pan/zoom, touch gestures, keyboard, controls, fallback, and cleanup passed (DOM/canvas simulation).');
+console.log('Transformer: six depth planes per stack, upward operations within layers, default component/stack/layer labels at desktop and mobile widths, full 12-layer topology, final-encoder cross-attention, residual paths, layer drilldown, tour, numerical cases, projection, orbit/pan/zoom, touch gestures, keyboard, controls, fallback, and cleanup passed (DOM/canvas simulation).');

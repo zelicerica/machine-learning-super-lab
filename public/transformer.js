@@ -52,9 +52,11 @@
     let nodes,edges;
     if(!focus){
       nodes=parts.map(p=>{
-        const groupGap=spread?2.05:1.63;
-        const y=p.id==='output'?3.5*groupGap+.25:p.layer?(p.layer-3.5)*groupGap+(p.order-(pattern[p.stack].length-1)/2)*.21:-3.5*groupGap;
-        return {...p,x:p.stack==='encoder'?-2.35:2.35,y,z:p.layer?(p.layer-3.5)*.13:0,dx:1.35,dy:p.family==='norm'?.045:.073,dz:.78};
+        // A whole layer occupies one depth plane. Its internal operations run upward.
+        const depthGap=spread?2.65:1.75,front=2.5*depthGap;
+        const y=p.id==='output'?4.15:p.layer?(p.order-(pattern[p.stack].length-1)/2)*(p.stack==='encoder'?1.4:1):-4;
+        const z=p.layer?front-(p.layer-1)*depthGap:p.id==='output'?-front:front;
+        return {...p,x:p.stack==='encoder'?-3.7:3.7,y,z,dx:1.35,dy:p.family==='norm'?.08:.14,dz:.22};
       });
       edges=model.edges.filter(e=>e.kind!=='residual');
     }else{
@@ -74,12 +76,12 @@
     }
     return {nodes,edges};
   }
-  const defaultCamera=()=>({yaw:-.38,pitch:.19,zoom:1,panX:0,panY:0});
+  const defaultCamera=()=>({yaw:-.60,pitch:.31,zoom:1,panX:0,panY:0});
   function attention(q,causal){const scores=[q/Math.sqrt(2),0,causal?-Infinity:q/Math.sqrt(2)],top=Math.max(...scores),exp=scores.map(x=>Math.exp(x-top)),sum=exp.reduce((a,b)=>a+b,0),weights=exp.map(x=>x/sum);return{scores,weights,output:[2*(weights[0]+weights[2]),2*(weights[1]+weights[2])]};}
   function project(p,camera,width,height){
     const x=p[0]*Math.cos(camera.yaw)+p[2]*Math.sin(camera.yaw),depth=-p[0]*Math.sin(camera.yaw)+p[2]*Math.cos(camera.yaw);
     const y=p[1]*Math.cos(camera.pitch)-depth*Math.sin(camera.pitch),z=p[1]*Math.sin(camera.pitch)+depth*Math.cos(camera.pitch);
-    const scale=Math.min(width/12.8,height/14.7)*camera.zoom*22/(22-z);
+    const scale=Math.min(width/17,height/13)*camera.zoom*22/(22-z);
     return[width/2+x*scale+camera.panX,height/2-y*scale+camera.panY,z];
   }
   function inside(point,polygon){let hit=false;for(let i=0,j=polygon.length-1;i<polygon.length;j=i++){const a=polygon[i],b=polygon[j];if((a[1]>point[1])!==(b[1]>point[1])&&point[0]<(b[0]-a[0])*(point[1]-a[1])/(b[1]-a[1])+a[0])hit=!hit;}return hit;}
@@ -89,11 +91,11 @@
     cleanup();if(root.location.hash!=='#lesson/transformer-world'||!document.querySelector('.reading'))return;
     const host=document.createElement('section');host.className='tx-explorer';host.setAttribute('aria-label','Interactive Transformer explorer');
     const componentOptions=()=>['source','target','output'].map(id=>parts.find(p=>p.id===id)).map(p=>`<option value="${p.id}">${p.label}</option>`).join('')+model.layers.map(l=>`<optgroup label="${layerName(l.key)}">${l.ids.map(id=>{const p=parts.find(p=>p.id===id);return `<option value="${id}">${p.label}</option>`}).join('')}</optgroup>`).join('');
-    host.innerHTML=`<div class="tx-heading"><div><span class="tx-kicker">INSIDE THE 2017 TRANSFORMER</span><h2>The whole model. Layer by layer.</h2><p>Six encoder layers. Six decoder layers. Open any layer to see the computation inside.</p></div><span class="tx-badge">12 layers · 63 components</span></div>
+    host.innerHTML=`<div class="tx-heading"><div><span class="tx-kicker">INSIDE THE 2017 TRANSFORMER</span><h2>The whole model. Layer by layer.</h2><p>Six encoder blocks and six decoder blocks extend into depth. Operations inside each block run bottom to top.</p></div><span class="tx-badge">12 layers · 63 components</span></div>
       <div class="tx-layer-nav"><button type="button" class="tx-overview" data-tx="all" aria-pressed="true">Whole model</button><div class="tx-layer-rows">${['encoder','decoder'].map(stack=>`<div><span>${stack==='encoder'?'Encoder':'Decoder'}</span>${model.layers.filter(l=>l.stack===stack).map(l=>`<button type="button" data-layer="${l.key}" aria-label="Inspect ${layerName(l.key).toLowerCase()}" aria-pressed="false">${l.number}</button>`).join('')}</div>`).join('')}</div><p>Select a layer to unfold its attention, feed-forward, and residual paths.</p></div>
-      <div class="tx-stage"><canvas tabindex="0" aria-label="3D Transformer with six encoder and six decoder layers. Arrow keys rotate, Shift and arrows pan, plus and minus zoom, Home resets. Layer buttons and the component menu provide keyboard selection." aria-describedby="tx-help"></canvas><p class="tx-canvas-fallback" hidden>Your browser cannot draw the 3D view. Use the layer buttons, component menu, and numerical activity below.</p><div class="tx-stage-legend" aria-hidden="true"><span>● Encoder attention</span><span>● Decoder attention</span><span>● Cross-attention</span><span>● Feed-forward</span><span>● Add & Norm</span></div><div class="tx-stage-caption" role="status">All 12 layers shown · separate learned parameters in every layer</div></div>
-      <div class="tx-toolbar" aria-label="3D view controls"><button type="button" data-tx="in" aria-label="Zoom in">＋</button><button type="button" data-tx="out" aria-label="Zoom out">−</button><button type="button" data-tx="reset">Reset view</button><button type="button" data-tx="front">Front view</button><label><input type="checkbox" id="tx-spread"> Explode layers</label><label><input type="checkbox" id="tx-labels" checked> Labels</label><label><input type="checkbox" id="tx-connections" checked> Connections</label><output id="tx-zoom" aria-label="Zoom level">100%</output></div>
-      <p class="tx-help" id="tx-help">Drag to rotate · Shift-drag or right-drag to pan · Scroll to zoom · Touch: one finger rotates, two pan and zoom. Keyboard: arrows rotate, Shift + arrows pan, + / − zoom, Home resets.</p>
+      <div class="tx-stage"><canvas tabindex="0" aria-label="3D Transformer with six encoder and six decoder layers. Arrow keys rotate, Shift and arrows pan, plus and minus zoom, Home resets. Layer buttons and the component menu provide keyboard selection." aria-describedby="tx-help"></canvas><p class="tx-canvas-fallback" hidden>Your browser cannot draw the 3D view. Use the layer buttons, component menu, and numerical activity below.</p><div class="tx-stage-legend" aria-hidden="true"><span>● Encoder attention</span><span>● Decoder attention</span><span>● Cross-attention</span><span>● Feed-forward</span><span>● Add & Norm</span></div><div class="tx-stage-caption" role="status">Layer 1 at the front → layer 6 at the back · 6 blocks per stack</div></div>
+      <div class="tx-toolbar" aria-label="3D view controls"><button type="button" data-tx="in" aria-label="Zoom in">＋</button><button type="button" data-tx="out" aria-label="Zoom out">−</button><button type="button" data-tx="reset">Reset view</button><button type="button" data-tx="front">Front view</button><label><input type="checkbox" id="tx-spread"> Separate depth layers</label><label><input type="checkbox" id="tx-labels" checked> Labels</label><label><input type="checkbox" id="tx-connections" checked> Connections</label><output id="tx-zoom" aria-label="Zoom level">100%</output></div>
+      <p class="tx-help" id="tx-help">Drag to rotate · Shift-drag or right-drag to pan · Scroll to zoom · Touch: one finger rotates, two pan and zoom. Keyboard: arrows rotate, Shift + arrows pan, + / − zoom, Home resets. A head-on view overlaps the depth layers; rotate to see their separation.</p>
       <div class="tx-tour"><div><span class="tx-kicker">FOLLOW THE CALCULATION</span><p id="tx-tour-status" aria-live="polite"></p></div><button type="button" data-tx="previous" aria-label="Previous component">← Previous</button><button type="button" data-tx="next" aria-label="Next component">Next →</button></div>
       <div class="tx-inspect"><div><label for="tx-component">INSPECT A COMPONENT</label><select id="tx-component">${componentOptions()}</select><button type="button" data-tx="detail" class="tx-detail-button">Open selected layer</button><p class="tx-model-note">Schematic geometry, not real activations or parameter sizes. Orange links carry final encoder memory to every decoder layer. Dashed paths in detail views are residual additions.</p></div><div class="tx-detail" aria-live="polite"><span id="tx-family"></span><h3 id="tx-part-title"></h3><p id="tx-part-description"></p><div id="tx-heads" hidden><span>8 PARALLEL ATTENTION HEADS</span><div>${Array.from({length:8},(_,i)=>`<i>${i+1}</i>`).join('')}</div><small>Each head has its own query, key, and value projections. Concatenate their outputs, then project.</small></div></div></div>
       <div class="tx-attention"><div><span class="tx-kicker">TRY ONE ATTENTION HEAD</span><h3>Which information gets through?</h3><p>Query at position B: <code>q = [<output id="tx-q-value">1.0</output>, 0]</code>. Keys and values stay fixed. These vectors are invented, not trained.</p><label for="tx-query">Query's first coordinate</label><input type="range" id="tx-query" min="-2" max="2" value="1" step="0.1"><label class="tx-mask"><input type="checkbox" id="tx-mask"> Apply a causal mask (hide future position C)</label></div><div><div class="tx-weights" aria-label="Attention weights">${['A · past','B · current','C · future'].map((s,i)=>`<div><span>${s}</span><div class="tx-meter"><i data-weight="${i}"></i></div><output data-probability="${i}"></output></div>`).join('')}</div><p class="tx-result" role="status" aria-live="polite"></p><p class="tx-model-note">Scores = qKᵀ / √2; softmax turns allowed scores into weights. Output = weighted sum of values. The worked vectors appear in the lesson below.</p></div></div>`;
@@ -106,7 +108,7 @@
     const on=(target,event,callback,options={})=>target.addEventListener(event,callback,{...options,signal});
     function schedule(){if(!dead&&!frame&&context)frame=root.requestAnimationFrame(()=>{frame=0;draw();});}
     function resetCamera(){camera=defaultCamera();zoom(1);}
-    function setFocus(key){focus=key;scene=sceneFor(focus,spread);host.querySelectorAll('[data-layer]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.layer===focus)));find('[data-tx=all]').setAttribute('aria-pressed',String(!focus));find('.tx-stage-caption').textContent=focus?`${layerName(focus)} · solid: main path · dashed: residual · orange: encoder memory`:'All 12 layers shown · separate learned parameters in every layer';resetCamera();}
+    function setFocus(key){focus=key;scene=sceneFor(focus,spread);host.querySelectorAll('[data-layer]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.layer===focus)));find('[data-tx=all]').setAttribute('aria-pressed',String(!focus));find('.tx-stage-caption').textContent=focus?`${layerName(focus)} · solid: main path · dashed: residual · orange: encoder memory`:'Layer 1 at the front → layer 6 at the back · 6 blocks per stack';resetCamera();}
     function choose(id){
       const p=parts.find(p=>p.id===id);if(!p)return;selected=id;
       if(focus&&layerKey(p)!==focus)setFocus(layerKey(p));
@@ -123,26 +125,42 @@
     }
     function zoom(factor){camera.zoom=Math.max(.55,Math.min(3,camera.zoom*factor));find('#tx-zoom').textContent=Math.round(camera.zoom*100)+'%';schedule();}
     const position=p=>[p.x,p.y,p.z];
-    function projectPoint(p){const fit=focus?1.45:spread?.83:1;return project(p,{...camera,zoom:camera.zoom*fit},width,height);}
+    function projectPoint(p){const fit=focus?1.45:(spread?.59:.78)*(width<650?1.12:1);return project(p,{...camera,zoom:camera.zoom*fit,panY:camera.panY-(focus?0:height*.035)},width,height);}
     function line(points,color,dashed=false,lineWidth=1){context.beginPath();points.map(projectPoint).forEach((p,i)=>i?context.lineTo(p[0],p[1]):context.moveTo(p[0],p[1]));context.strokeStyle=color;context.lineWidth=lineWidth;context.setLineDash(dashed?[5,4]:[]);context.stroke();context.setLineDash([]);}
     function arrow(points,color,dashed=false){line(points,color,dashed,focus?1.6:1);const a=projectPoint(points[points.length-2]),b=projectPoint(points[points.length-1]),angle=Math.atan2(b[1]-a[1],b[0]-a[0]),size=focus?6:4;context.beginPath();context.moveTo(b[0],b[1]);context.lineTo(b[0]-size*Math.cos(angle-.5),b[1]-size*Math.sin(angle-.5));context.lineTo(b[0]-size*Math.cos(angle+.5),b[1]-size*Math.sin(angle+.5));context.closePath();context.fillStyle=color;context.fill();}
     function label(text,at,{color='#e5edf6',size=11,align='center'}={}){const p=projectPoint(at);context.font=`600 ${size}px system-ui, sans-serif`;context.textAlign=align;context.textBaseline='middle';const tw=context.measureText(text).width,x=align==='left'?p[0]:align==='right'?p[0]-tw:p[0]-tw/2;context.fillStyle='#081423e8';context.fillRect(x-4,p[1]-size/2-3,tw+8,size+6);context.fillStyle=color;context.fillText(text,p[0],p[1]);}
     function draw(){
       context.clearRect(0,0,width,height);hitFaces=[];
-      const floor=focus?-4.9:spread?-8:-6.65;
-      for(let x=-5;x<=5;x++)line([[x,floor,-3],[x,floor,3]],'#162b40');
-      for(let z=-3;z<=3;z++)line([[-5,floor,z],[5,floor,z]],'#162b40');
+      const floor=focus?-4.9:-4.8,extent=focus?3:spread?8:6;
+      for(let x=-6;x<=6;x++)line([[x,floor,-extent],[x,floor,extent]],'#162b40');
+      for(let z=-extent;z<=extent;z++)line([[-6,floor,z],[6,floor,z]],'#162b40');
+      // Enclose every complete layer so its four/six component plates form one block.
+      if(!focus)for(const group of [...model.layers].reverse()){
+        const first=scene.nodes.find(n=>n.id===group.ids[0]),last=scene.nodes.find(n=>n.id===group.ids[group.ids.length-1]);
+        const x0=first.x-1.65,x1=first.x+1.65,y0=first.y-.43,y1=last.y+.43,z0=first.z-.32,z1=first.z+.32;
+        const color=group.ids.includes(selected)?'#dceafa':group.stack==='encoder'?'#947449':'#3f8d81';
+        line([[x0,y0,z1],[x1,y0,z1],[x1,y1,z1],[x0,y1,z1],[x0,y0,z1]],color,false,group.ids.includes(selected)?1.8:.8);
+        line([[x0,y1,z1],[x0,y1,z0],[x1,y1,z0],[x1,y1,z1]],color);
+        line([[x1,y1,z0],[x1,y0,z0],[x1,y0,z1]],color);
+      }
       if(connections)for(const edge of scene.edges){
         const a=scene.nodes.find(p=>p.id===edge.from),b=scene.nodes.find(p=>p.id===edge.to);if(!a||!b)continue;
         const start=position(a),end=position(b);let points,color;
         if(edge.kind==='memory'){
           start[0]+=a.dx;end[0]-=b.dx;
           const rail=focus?-1.5:0;
-          points=[start,[rail,start[1],-.6],[rail,end[1],-.6],end];color='#d7a559';
+          points=[start,[rail,start[1],a.z],[rail,end[1],b.z],end];color='#d7a559';
         }else if(edge.kind==='residual'){
           start[0]+=a.dx;end[0]+=b.dx;const rail=b.x+b.dx+.45;
           points=[start,[rail,start[1],0],[rail,end[1],0],end];color='#aebdd0';
-        }else{start[1]+=a.dy;end[1]-=b.dy;points=[start,end];color=b.stack==='encoder'?'#8f7958':'#4f9488';}
+        }else{
+          start[1]+=a.dy;end[1]-=b.dy;
+          if(!focus&&a.layer&&b.layer&&a.layer!==b.layer){
+            const rail=a.x+(a.stack==='encoder'?-1.95:1.95);
+            points=[start,[rail,start[1]+.35,a.z],[rail,start[1]+.35,b.z],[rail,end[1]-.35,b.z],end];
+          }else points=[start,end];
+          color=b.stack==='encoder'?'#8f7958':'#4f9488';
+        }
         arrow(points,color,edge.kind==='residual');
       }
       const faces=[];
@@ -159,17 +177,23 @@
         context.globalAlpha=1;context.strokeStyle=highlight?'#f6f8ff':palette[part.family];context.lineWidth=highlight?1.8:.55;context.stroke();if(!part.context)hitFaces.push(face);
         if(index===4&&part.layer&&['encoder','decoder','cross'].includes(part.family)){
           // Eight visible strips identify parallel attention heads, not measured activations.
-          for(let i=1;i<8;i++){const x=part.x-part.dx+2*part.dx*i/8;line([[x,part.y+part.dy,-part.dz],[x,part.y+part.dy,part.dz]],'#0a1828',false,.7);}
+          for(let i=1;i<8;i++){const x=part.x-part.dx+2*part.dx*i/8;line([[x,part.y+part.dy,part.z-part.dz],[x,part.y+part.dy,part.z+part.dz]],'#0a1828',false,.7);}
         }
       }
       if(labels){
         if(!focus){
           for(const group of model.layers){
             const p=scene.nodes.find(n=>n.id===group.ids[0]),last=scene.nodes.find(n=>n.id===group.ids[group.ids.length-1]);
-            const left=group.stack==='encoder';label(`${left?'E':'D'}${group.number}`,[p.x+(left?-1.7:1.7),(p.y+last.y)/2,p.z],{color:left?'#efbd70':'#70dcc5',size:width<500?10:12,align:left?'right':'left'});
+            const left=group.stack==='encoder';label(`${left?'E':'D'}${group.number}`,[p.x-1.6,last.y+.68,p.z+.36],{color:left?'#efbd70':'#70dcc5',size:width<500?10:12,align:'left'});
           }
-          for(const id of ['source','target','output']){const p=scene.nodes.find(n=>n.id===id);label(shortNames[id],[p.x,p.y-.29,p.z+.9],{size:width<650?9:11});}
-          const p=scene.nodes.find(n=>n.id===selected);if(p?.layer&&width>=650)label(shortNames[p.templateId],[p.x,p.y,p.z+.95],{size:10});
+          for(const stack of ['encoder','decoder']){
+            const front=scene.nodes.filter(p=>p.stack===stack&&p.layer===1),top=front[front.length-1];
+            label(`${stack.toUpperCase()} · 6 layers`,[top.x,5.7,0],{color:palette[stack],size:width<650?10:14});
+            // Label the complete foreground layer without requiring a click or hover.
+            for(const p of front)label(shortNames[p.templateId],[p.x,p.y,p.z+p.dz+.06],{color:p.family==='norm'?'#e5edf6':palette[p.family],size:width<650?10:12});
+          }
+          for(const id of ['source','target','output']){const p=scene.nodes.find(n=>n.id===id);label(shortNames[id],[p.x,p.y+(id==='output'?.65:-.42),p.z+.3],{size:width<650?10:12});}
+          const p=scene.nodes.find(n=>n.id===selected);if(p?.layer>1)label(`${p.stack==='encoder'?'E':'D'}${p.layer} · ${shortNames[p.templateId]}`,[p.x,p.y,p.z+p.dz+.06],{color:'#fff',size:width<650?10:12});
         }else for(const p of scene.nodes)label(p.context?p.label:shortNames[p.templateId],[p.x,p.y,p.z+p.dz+.05],{color:p.id===selected?'#fff':'#d1deeb',size:width<600?9:12});
       }
     }
