@@ -1,6 +1,29 @@
 {
-  "origin": "Original synthetic teaching examples and deterministic generators included in modern_lab.py",
+  "origin": "Original authored or simulated teaching data",
   "license": "Included for course exercises",
-  "split_policy": "Sentence-level notes, template-level tickets, operand-pair arithmetic; shared rules and vocabulary remain",
-  "real_world_validation": "Not performed; do not interpret simulator scores as deployment evidence."
+  "real_world_validation": "Not performed; these scores do not establish deployment reliability.",
+  "dataset": "Authored factual-comparison cases, not human preference collection",
+  "split_policy": "Disjoint question banks; two answer-order presentations per case",
+  "selected_split": "validation",
+  "case_ids": {
+    "validation": [
+      "validation:0",
+      "validation:1",
+      "validation:2",
+      "validation:3",
+      "validation:4",
+      "validation:5"
+    ],
+    "test": [
+      "test:0",
+      "test:1",
+      "test:2",
+      "test:3",
+      "test:4",
+      "test:5"
+    ]
+  },
+  "independent_cases": 6,
+  "presentations": 12,
+  "audit_note": "Dataset description corrected in midnight.4; measurements are historical and were not rerun by this metadata correction."
 }

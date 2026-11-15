@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 700" role="img" aria-labelledby="title desc">
+<title id="title">From a score to a probability to a decision</title><desc id="desc">Sigmoid score zero is probability 0.5. Score 2.20 gives approximately 0.90 and exceeds the illustrative review threshold 0.80.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#8192ae"/></marker></defs>
+<g font-family="DejaVu Sans, sans-serif">
+<rect x="0" y="0" width="1120" height="700" rx="18" fill="#0b1020"/>
+<text x="40" y="38" font-size="13" fill="#4ade80" font-weight="700" text-anchor="start" letter-spacing="2">FOUNDATIONS / LOGISTIC</text>
+<text x="40" y="84" font-size="30" fill="#e6edf7" font-weight="700" text-anchor="start" letter-spacing="0">From a score to a probability to a decision</text>
+<text x="40" y="117" font-size="17" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">The sigmoid curve maps every real-valued score into the interval (0, 1).</text>
+<line x1="40" y1="645" x2="1080" y2="645" stroke="#344563" stroke-width="1"/>
+<text x="40" y="674" font-size="14" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">Teaching illustration • Use your own lab run for measured results.</text>
+<line x1="90" y1="530" x2="730" y2="530" stroke="#344563" stroke-width="1" stroke-dasharray="4 5"/>
+<text x="74" y="535" font-size="15" fill="#b4c1d5" font-weight="400" text-anchor="end" letter-spacing="0">0.0</text>
+<line x1="90" y1="370" x2="730" y2="370" stroke="#344563" stroke-width="1" stroke-dasharray="4 5"/>
+<text x="74" y="375" font-size="15" fill="#b4c1d5" font-weight="400" text-anchor="end" letter-spacing="0">0.5</text>
+<line x1="90" y1="274" x2="730" y2="274" stroke="#344563" stroke-width="1" stroke-dasharray="4 5"/>
+<text x="74" y="279" font-size="15" fill="#b4c1d5" font-weight="400" text-anchor="end" letter-spacing="0">0.8</text>
+<line x1="90" y1="210" x2="730" y2="210" stroke="#344563" stroke-width="1" stroke-dasharray="4 5"/>
+<text x="74" y="215" font-size="15" fill="#b4c1d5" font-weight="400" text-anchor="end" letter-spacing="0">1.0</text>
+<line x1="90" y1="530" x2="750" y2="530" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="90" y1="530" x2="90" y2="185" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M90.00 527.86 L93.20 527.75 L96.40 527.63 L99.60 527.51 L102.80 527.39 L106.00 527.26 L109.20 527.12 L112.40 526.97 L115.60 526.82 L118.80 526.65 L122.00 526.48 L125.20 526.31 L128.40 526.12 L131.60 525.92 L134.80 525.72 L138.00 525.50 L141.20 525.27 L144.40 525.03 L147.60 524.78 L150.80 524.52 L154.00 524.24 L157.20 523.95 L160.40 523.65 L163.60 523.33 L166.80 523.00 L170.00 522.65 L173.20 522.28 L176.40 521.89 L179.60 521.49 L182.80 521.06 L186.00 520.62 L189.20 520.15 L192.40 519.67 L195.60 519.15 L198.80 518.62 L202.00 518.06 L205.20 517.47 L208.40 516.85 L211.60 516.21 L214.80 515.53 L218.00 514.82 L221.20 514.08 L224.40 513.31 L227.60 512.50 L230.80 511.66 L234.00 510.77 L237.20 509.85 L240.40 508.88 L243.60 507.88 L246.80 506.82 L250.00 505.73 L253.20 504.58 L256.40 503.38 L259.60 502.14 L262.80 500.84 L266.00 499.49 L269.20 498.08 L272.40 496.61 L275.60 495.09 L278.80 493.50 L282.00 491.86 L285.20 490.14 L288.40 488.37 L291.60 486.52 L294.80 484.61 L298.00 482.62 L301.20 480.57 L304.40 478.45 L307.60 476.25 L310.80 473.97 L314.00 471.62 L317.20 469.20 L320.40 466.70 L323.60 464.12 L326.80 461.47 L330.00 458.74 L333.20 455.93 L336.40 453.04 L339.60 450.08 L342.80 447.05 L346.00 443.94 L349.20 440.76 L352.40 437.50 L355.60 434.18 L358.80 430.79 L362.00 427.34 L365.20 423.82 L368.40 420.24 L371.60 416.61 L374.80 412.92 L378.00 409.19 L381.20 405.40 L384.40 401.58 L387.60 397.72 L390.80 393.82 L394.00 389.90 L397.20 385.95 L400.40 381.98 L403.60 377.99 L406.80 374.00 L410.00 370.00 L413.20 366.00 L416.40 362.01 L419.60 358.02 L422.80 354.05 L426.00 350.10 L429.20 346.18 L432.40 342.28 L435.60 338.42 L438.80 334.60 L442.00 330.81 L445.20 327.08 L448.40 323.39 L451.60 319.76 L454.80 316.18 L458.00 312.66 L461.20 309.21 L464.40 305.82 L467.60 302.50 L470.80 299.24 L474.00 296.06 L477.20 292.95 L480.40 289.92 L483.60 286.96 L486.80 284.07 L490.00 281.26 L493.20 278.53 L496.40 275.88 L499.60 273.30 L502.80 270.80 L506.00 268.38 L509.20 266.03 L512.40 263.75 L515.60 261.55 L518.80 259.43 L522.00 257.38 L525.20 255.39 L528.40 253.48 L531.60 251.63 L534.80 249.86 L538.00 248.14 L541.20 246.50 L544.40 244.91 L547.60 243.39 L550.80 241.92 L554.00 240.51 L557.20 239.16 L560.40 237.86 L563.60 236.62 L566.80 235.42 L570.00 234.27 L573.20 233.18 L576.40 232.12 L579.60 231.12 L582.80 230.15 L586.00 229.23 L589.20 228.34 L592.40 227.50 L595.60 226.69 L598.80 225.92 L602.00 225.18 L605.20 224.47 L608.40 223.79 L611.60 223.15 L614.80 222.53 L618.00 221.94 L621.20 221.38 L624.40 220.85 L627.60 220.33 L630.80 219.85 L634.00 219.38 L637.20 218.94 L640.40 218.51 L643.60 218.11 L646.80 217.72 L650.00 217.35 L653.20 217.00 L656.40 216.67 L659.60 216.35 L662.80 216.05 L666.00 215.76 L669.20 215.48 L672.40 215.22 L675.60 214.97 L678.80 214.73 L682.00 214.50 L685.20 214.28 L688.40 214.08 L691.60 213.88 L694.80 213.69 L698.00 213.52 L701.20 213.35 L704.40 213.18 L707.60 213.03 L710.80 212.88 L714.00 212.74 L717.20 212.61 L720.40 212.49 L723.60 212.37 L726.80 212.25 L730.00 212.14" fill="none" stroke="#4ade80" stroke-width="4"/>
+<line x1="90" y1="274" x2="730" y2="274" stroke="#fbbf24" stroke-width="2" stroke-dasharray="8 6"/>
+<text x="154" y="555" font-size="15" fill="#b4c1d5" font-weight="400" text-anchor="middle" letter-spacing="0">-4</text>
+<text x="282" y="555" font-size="15" fill="#b4c1d5" font-weight="400" text-anchor="middle" letter-spacing="0">-2</text>
+<text x="410" y="555" font-size="15" fill="#b4c1d5" font-weight="400" text-anchor="middle" letter-spacing="0">0</text>
+<text x="538" y="555" font-size="15" fill="#b4c1d5" font-weight="400" text-anchor="middle" letter-spacing="0">2</text>
+<text x="666" y="555" font-size="15" fill="#b4c1d5" font-weight="400" text-anchor="middle" letter-spacing="0">4</text>
+<text x="400" y="585" font-size="17" fill="#b4c1d5" font-weight="400" text-anchor="middle" letter-spacing="0">Weighted score</text>
+<text x="92" y="169" font-size="17" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">Estimated probability</text>
+<circle cx="410" cy="370" r="8" fill="#b5a0ff"/>
+<line x1="410" y1="380" x2="410" y2="530" stroke="#b5a0ff" stroke-width="1" stroke-dasharray="4 5"/>
+<circle cx="550.8" cy="241.92" r="8" fill="#4ade80"/>
+<line x1="550.8" y1="251.92" x2="550.8" y2="530" stroke="#4ade80" stroke-width="1" stroke-dasharray="4 5"/>
+<text x="425" y="396" font-size="18" fill="#b5a0ff" font-weight="700" text-anchor="start" letter-spacing="0">0 → 0.50</text>
+<text x="543.8" y="222" font-size="18" fill="#4ade80" font-weight="700" text-anchor="middle" letter-spacing="0">2.20 → ≈0.90</text>
+<rect x="780" y="190" width="300" height="340" rx="12" fill="#131c31"/>
+<text x="804" y="226" font-size="20" fill="#fbbf24" font-weight="700" text-anchor="start" letter-spacing="0">Review threshold: 0.80</text>
+<text x="804" y="270" font-size="17" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">0.50 &lt; 0.80</text>
+<text x="804" y="298" font-size="17" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">Do not flag this example.</text>
+<text x="804" y="353" font-size="17" fill="#4ade80" font-weight="400" text-anchor="start" letter-spacing="0">0.90 ≥ 0.80</text>
+<text x="804" y="381" font-size="17" fill="#4ade80" font-weight="400" text-anchor="start" letter-spacing="0">Flag this example.</text>
+<text x="804" y="446" font-size="16" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">A probability estimate</text>
+<text x="804" y="474" font-size="16" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">still needs calibration</text>
+<text x="804" y="502" font-size="16" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">and held-out evaluation.</text>
+<text x="804" y="580" font-size="17" fill="#e6edf7" font-weight="400" text-anchor="start" letter-spacing="0">p = 1 / (1 + exp(−score))</text>
+</g></svg>

@@ -1,3 +1,13 @@
+# Content-reviewed update — 2026.11-midnight.4
+
+This update corrects repeated/misplaced lesson content, adds individual Foundations graphics and multiple matching references to every module, and fixes several numerical/evaluation details. The catalog remains 58 lessons; the reference count is now 17. Review [CONTENT-AUDIT.md](CONTENT-AUDIT.md).
+
+After extracting the new ZIP into a new folder, stop the old server and launch from the new folder. Click the lesson-count badge and confirm **2026.11-midnight.4**, **58 lessons**, and the new folder. Preserve the previous environment, outputs and notes using the instructions below. Refresh the browser after restarting. Existing lesson IDs and browser progress remain compatible.
+
+Evaluation now refuses to overwrite an existing report. Use a fresh report filename for a rerun and update the paired comparison command. GAN/grid-world and serial-serving exercises no longer accept a misleading `--split` flag. Old reports remain historical evidence; the corrected REINFORCE exercise needs a fresh run.
+
+---
+
 # Upgrade to Midnight Motion — 58 lessons
 
 Release: `2026.11-midnight.3`.

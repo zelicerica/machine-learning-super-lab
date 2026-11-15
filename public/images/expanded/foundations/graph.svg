@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 700" role="img" aria-labelledby="title desc">
+<title id="title">Combine a node with its neighbors</title><desc id="desc">A service with feature vector 1,0 and neighbors 0,1 and 1,1 gives component sum 2,2 and an unweighted mean 2/3,2/3. The actual implementation uses degree-normalized weights and self-connections, so it need not use this unweighted mean.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#8192ae"/></marker></defs>
+<g font-family="DejaVu Sans, sans-serif">
+<rect x="0" y="0" width="1120" height="700" rx="18" fill="#0b1020"/>
+<text x="40" y="38" font-size="13" fill="#4ade80" font-weight="700" text-anchor="start" letter-spacing="2">FOUNDATIONS / GRAPH</text>
+<text x="40" y="84" font-size="30" fill="#e6edf7" font-weight="700" text-anchor="start" letter-spacing="0">Combine a node with its neighbors</text>
+<text x="40" y="117" font-size="17" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">Use the lesson’s simple unweighted mean to make message aggregation visible.</text>
+<line x1="40" y1="645" x2="1080" y2="645" stroke="#344563" stroke-width="1"/>
+<text x="40" y="674" font-size="14" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">Teaching illustration • Use your own lab run for measured results.</text>
+<line x1="222" y1="238" x2="393" y2="335" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="222" y1="442" x2="393" y2="375" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M426 312 C388 230 505 226 475 312" fill="none" stroke="#4ade80" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="450" y="242" font-size="15" fill="#4ade80" font-weight="400" text-anchor="middle" letter-spacing="0">Include self</text>
+<circle cx="170" cy="228" r="50" fill="#131c31" stroke="#b5a0ff"/>
+<text x="170" y="236" font-size="22" fill="#b5a0ff" font-weight="700" text-anchor="middle" letter-spacing="0">[0, 1]</text>
+<text x="170" y="310" font-size="18" fill="#b4c1d5" font-weight="400" text-anchor="middle" letter-spacing="0">Neighbor A</text>
+<circle cx="170" cy="452" r="50" fill="#131c31" stroke="#fbbf24"/>
+<text x="170" y="460" font-size="22" fill="#fbbf24" font-weight="700" text-anchor="middle" letter-spacing="0">[1, 1]</text>
+<text x="170" y="534" font-size="18" fill="#b4c1d5" font-weight="400" text-anchor="middle" letter-spacing="0">Neighbor B</text>
+<circle cx="445" cy="355" r="50" fill="#131c31" stroke="#4ade80"/>
+<text x="445" y="363" font-size="22" fill="#4ade80" font-weight="700" text-anchor="middle" letter-spacing="0">[1, 0]</text>
+<text x="445" y="437" font-size="18" fill="#b4c1d5" font-weight="400" text-anchor="middle" letter-spacing="0">Service</text>
+<line x1="507" y1="355" x2="596" y2="355" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="620" y="190" width="460" height="338" rx="12" fill="#131c31"/>
+<text x="645" y="231" font-size="20" fill="#4ade80" font-weight="700" text-anchor="start" letter-spacing="0">Coordinate-wise aggregation</text>
+<text x="645" y="279" font-size="25" fill="#e6edf7" font-weight="400" text-anchor="start" letter-spacing="0">[1, 0] + [0, 1] + [1, 1]</text>
+<text x="645" y="326" font-size="25" fill="#e6edf7" font-weight="400" text-anchor="start" letter-spacing="0">                 = [2, 2]</text>
+<line x1="645" y1="361" x2="1054" y2="361" stroke="#344563" stroke-width="1"/>
+<text x="850" y="407" font-size="30" fill="#4ade80" font-weight="700" text-anchor="middle" letter-spacing="0">[2, 2] / 3</text>
+<text x="850" y="466" font-size="32" fill="#4ade80" font-weight="700" text-anchor="middle" letter-spacing="0">= [2/3, 2/3]</text>
+<rect x="40" y="555" width="1040" height="82" rx="12" fill="#131c31"/>
+<rect x="40" y="555" width="4" height="82" rx="2" fill="#4ade80"/>
+<text x="60" y="584" font-size="17" fill="#e6edf7" font-weight="400" text-anchor="start" letter-spacing="0">This unweighted mean is a teaching example. The bundled graph model uses</text>
+<text x="60" y="609" font-size="17" fill="#e6edf7" font-weight="400" text-anchor="start" letter-spacing="0">degree-normalized aggregation with self-connections, followed by learned transformations.</text>
+</g></svg>

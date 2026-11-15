@@ -1,7 +1,7 @@
 {
   "schema": "superlab.report.v1",
   "experiment": "adversarial",
-  "split": "validation",
+  "split": "independent_target_samples",
   "seed": 42,
   "dataset": "Two synthetic Gaussian modes at -2 and +2",
   "metrics": {
@@ -357,5 +357,7 @@
     "numpy": "2.2.6",
     "scikit_learn": "1.7.2"
   },
-  "output_directory": "<verification-workspace>/SML-Lab-Localhost/lab/outputs/variant-check-1794634760594518236/adversarial"
+  "output_directory": "<verification-workspace>/SML-Lab-Localhost/lab/outputs/variant-check-1794634760594518236/adversarial",
+  "original_split_label": "validation",
+  "audit_note": "Historical measurements retained. The old validation label was misleading: evaluation draws came from the same simulator after training, not a reserved final test. Midnight.4 additionally fixes the evaluation RNG independently of training duration."
 }

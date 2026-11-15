@@ -52,6 +52,16 @@ flowchart TD
 Submit four small problem specifications, one per learning signal. For each, name the model candidate, input, objective, evaluation split, and deployment constraint. Reject the statement “reinforcement learning is a type of Transformer” with a concrete counterexample from the grid lab.
 
 
+## References for this lesson
+
+Use these sources to check the mechanism and extend the exercise. Research results are not results measured by this lab.
+
+- [Supervised learning — scikit-learn](https://scikit-learn.org/1.7/supervised_learning.html) — Examples of learning from supplied targets, including regression and classification.
+- [Unsupervised learning — scikit-learn](https://scikit-learn.org/1.7/unsupervised_learning.html) — Places clustering and representation learning within unlabeled-data methods.
+- [A Simple Framework for Contrastive Learning of Visual Representations — Chen et al.](https://arxiv.org/abs/2002.05709) — An original self-supervised representation-learning example; optional further reading, not an implemented lab.
+- [Q-learning — Watkins and Dayan](https://link.springer.com/article/10.1007/BF00992698) — Shows that learning from actions and rewards does not require a neural-network architecture.
+
+
 # Choosing a model and building an honest experiment
 
 **Tag: Concept.** Complete the design worksheet before investing in a larger training run.
@@ -113,6 +123,14 @@ A team wants a duration estimate before a job begins. A record contains input si
 Before running a model, write: “For this dataset and deployment setting, I will accept the candidate if [quality metric], [latency], and [resource limit] meet [thresholds], with no known leakage.” Choose thresholds for the task, not after seeing the final test score. Include a baseline comparison and three failure cases in the report. A tiny demonstration proves that you can implement and explain a mechanism; it does not certify a production system.
 
 
+## References for this lesson
+
+Use these sources to check the mechanism and extend the exercise. Research results are not results measured by this lab.
+
+- [Common pitfalls and recommended practices — scikit-learn](https://scikit-learn.org/1.7/common_pitfalls.html) — Explains data leakage, train-only preprocessing, and consistent transformations at prediction time.
+- [Cross-validation: evaluating estimator performance — scikit-learn](https://scikit-learn.org/1.7/modules/cross_validation.html) — Explains evaluation boundaries, validation choices, and group- or time-aware splitting.
+
+
 # Linear regression: learn a weighted prediction
 
 **Tag: Runnable implementation lab.** Scope: an inspectable teaching implementation with real fitting, evaluation, and generated artifacts. This is not a production deployment certification.
@@ -131,7 +149,7 @@ The prediction is an intercept plus a weighted sum of features. A coefficient an
 
 With intercept 5, record-count coefficient 2, transformation coefficient 3, and compression coefficient 8, input [10, 2, 1] gives 5 + 20 + 6 + 8 = 39. If the measured duration is 43, the residual is 4 and its squared error is 16. Real training fits many examples simultaneously.
 
-![Visual explanation for Linear regression: learn a weighted prediction](images/expanded/model-mechanisms.svg)
+![Visual explanation for Linear regression: learn a weighted prediction](images/expanded/foundations/linear.svg)
 
 ## Follow the algorithm
 
@@ -156,7 +174,7 @@ Ordinary least squares minimizes the sum of squared residuals; a numerical solve
 
 ## Run the implementation
 
-Open the Practice tab. Install the foundation packages once if the site requests them. The runner executes the actual program in lab/foundations.py. The commands below are for the website’s guided terminal; it selects your Python environment automatically. For external PowerShell, replace python with & .\.venv\Scripts\python.exe and use .\lab\foundations.py from the website folder. Replace {run} with a unique name when typing commands manually; the website buttons generate it automatically.
+Use this lesson’s Practice buttons. For interpreter setup, external Windows commands, and fresh output folders, read the [shared experiment workflow](#ref/lab-workflow).
 
 ```text
 python foundations.py linear --noise 8 --output outputs/linear-{run}
@@ -166,13 +184,11 @@ python foundations.py linear --noise 8 --output outputs/linear-{run}
 python foundations.py linear --noise 25 --output outputs/linear-noisy-{run}
 ```
 
-The random seed controls the generated data, splits, and applicable model initialization. Keep it fixed when investigating one changed parameter. Neural results can still vary across hardware and library implementations.
 
 ## Inspect the evidence
 
 Open predictions.png. Points on the diagonal are perfect predictions. In report.json compare mean_absolute_error with baseline_mean_absolute_error and inspect learned_weights near the data generator’s [2, 3, 8]. Exact recovery is not expected with noise.
 
-Every completed run writes report.json with the experiment, split, seed, settings, dataset description, measured metrics, timing, and limitations. Where applicable it also saves a trained parameter dictionary. The Experiment results page shows the measured report and generated plots. Record an explanation of the result instead of copying only the score.
 
 ## Change one thing and prove what happened
 
@@ -182,62 +198,34 @@ Predict which metric will increase when measurement noise increases from 8 to 25
 
 Never estimate preprocessing statistics on the complete dataset before splitting. Do not interpret generated feature names as measured business facts.
 
-If the program reports a missing module, install foundation packages in the runtime shown by the website. If it refuses an existing output directory, choose a new one; this protects earlier evidence. If a numerical result surprises you, inspect data shape, split sizes, and the baseline before changing model complexity.
 
 ## Compute plan
 
-For this exact bundled exercise, use your local central processing unit. Renting a graphics processing unit is unnecessary. The implementation uses ordinary processor-based scikit-learn or small tables. Renting a graphics processor will not automatically accelerate this code.
+The bundled exercise runs on a local central processing unit. This scikit-learn or small-table implementation does not gain automatic graphics-processor acceleration.
 
-## Build it from start to finish: Batch-job duration estimator
+## Build from start to finish: Batch-job duration estimator
 
-**Runnable implementation lab — local prototype.** This build connects the real-world scenario to an executable teaching model. Simulated data is explicitly identified; a good score on it does not establish business performance.
+1. **Decision and data contract.** One completed job per row: record count, transformation count, compression setting, and observed duration. Record units and exclude information available only after the prediction time. Define the acceptable error or failure rate before selecting a model.
+2. **Architecture and training.** Fit an intercept and three coefficients by ordinary least squares. The Practice commands and algorithm above are the runnable implementation for this prototype.
+3. **Independent evidence and comparison.** Compare noise 8 and 25 against the included training-mean predictor.
+4. **Save, reload, and use a new input.** Retain the generated manifest, learned state, and input example. Use **Load saved example** and **Predict new input**. A nonnegative duration estimate; route out-of-range workloads to a conservative fallback.
+5. **Local deployment and production gap.** The local saved-input interface is the serving prototype. Before external use, validate representative inputs, enforce request/access limits, and keep a versioned rollback artifact. The teaching score alone is not a deployment approval.
+6. **Monitor.** Absolute error by job size; feature-range shifts; late-job rate. Name a response owner and a condition that would trigger review or rollback.
 
-1. **Write the decision and success criterion.** State who consumes the prediction and which mistake is expensive. Define a measurable baseline before choosing a model. For this project: batch-job duration estimator.
-2. **Define and inspect the data.** One completed job per row: record count, transformation count, compression setting, and observed duration. Record units and exclude information available only after the prediction time. Use the bundled dataset first. Before replacing it, document permission, provenance, missing values, units, class coverage, duplicates, and when each feature becomes available.
-3. **Create the evaluation boundary.** The program fixes a seed and separates fitting from held-out evaluation where that protocol applies. For real workloads, choose time-based or entity-based separation when random splitting would leak related observations. The graph, adversarial, and reinforcement modules explain their distinct protocols.
-4. **Construct the model.** Read the algorithm and the matching function in foundations.py. Trace the input shape through every preprocessing and model stage. The numerical example above lets you check a small part by hand.
-5. **Train and compare.** Run the first Practice experiment. Record its baseline, metrics, runtime, and failure cases. Run the changed setting and explain the result. Choose settings using validation; reserve final test evidence for the chosen configuration.
-6. **Save a usable artifact.** The program writes a model-manifest.json, an example-input.json, a fitted model or learned counting/action table, and report.json. It reloads the artifact in a separate inference function before declaring success. Learned scaling stays with applicable classical models. A neural state dictionary alone would be insufficient without the matching architecture; this build also exports an executable inference module.
-7. **Use it on a new input.** In Practice, select **Load saved example**, edit one value while preserving the documented shape, and select **Predict new input**. This reloads the saved model and runs inference without training again. A nonnegative duration estimate; route out-of-range workloads to a conservative fallback.
-8. **Deploy the prototype locally.** The localhost website is the demonstration serving layer: input validation → saved artifact → inference → output. Keep the model's environment and feature contract with the release. Only load artifacts you created or trust; executable model formats are not passive documents.
-9. **Plan a production handoff.** Add representative-data evaluation, request limits, authentication, authorization, observability, model versioning, rollback, and a suitable reject/fallback behavior before exposing a service to other users. These are engineering extensions, not completed production features of this local lab.
-10. **Monitor and decide when to retrain.** Absolute error by job size; feature-range shifts; late-job rate. Define a threshold and response owner. Track whether the new data resembles the training population, and compare a candidate model with the deployed baseline before replacement.
+### Evidence for this build
 
-### The build architecture
-
-```mermaid
-flowchart TD
- A[Problem and permitted data] --> B[Split and validate]
- B --> C[Fit preprocessing and model]
- C --> D[Evaluate held-out evidence]
- D --> E{Meets agreed criterion}
- E -->|Revise using validation| C
- E -->|Accept| F[Save versioned artifact]
- F --> G[Reload for new input]
- G --> H[Local prediction and monitoring plan]
-```
-
-### Command-line inference alternative
-
-The website remembers the last successful model folder for this lesson. In its guided terminal, replace MODEL-FOLDER below with that actual folder name and NEW-RUN with a unique output name. Edit a copy of example-input.json to supply your own values.
-
-```text
-python predict_saved.py --model-dir outputs/MODEL-FOLDER --input outputs/MODEL-FOLDER/example-input.json --output outputs/prediction-NEW-RUN.json
-```
-
-### Build acceptance evidence
-
-Submit a one-paragraph problem definition, feature/target contract, baseline and selected-model reports, one failure analysis, saved artifact, a changed-input prediction, and a deployment/monitoring decision. Passing a command demonstrates executable code; this evidence explains whether the model is appropriate for its intended use.
+Recovered weights, absolute error, a changed workload prediction, and the noisy-run comparison. Include the measured reports and one limitation. For interpreter setup, command-line prediction, artifact handling, and a common submission checklist, use [Run, compare, save, and explain](#ref/lab-workflow).
 
 
 
-## Submit an engineering assessment
 
-Save the two reports, their visual artifacts, a prediction made before the second run, and a paragraph explaining the observed difference. State the dataset’s limits and what additional evidence a real deployment would need. Use validation to choose settings; for a final assessment, rerun the selected settings with --split test and a new output folder. The adversarial and reinforcement labs describe their special evaluation protocols explicitly rather than claiming an ordinary random test split.
 
-## Primary reference
+## References for this lesson
 
-[Read the primary documentation or research](https://scikit-learn.org/1.7/modules/linear_model.html). The lesson’s scenario and simplified implementation are teaching examples.
+Use these sources to check the mechanism and extend the exercise. Research results are not results measured by this lab.
+
+- [Linear models — scikit-learn](https://scikit-learn.org/1.7/modules/linear_model.html) — Explains weighted predictions and the ordinary least-squares objective.
+- [LinearRegression API — scikit-learn](https://scikit-learn.org/1.7/modules/generated/sklearn.linear_model.LinearRegression.html) — Documents the fitted coefficients, intercept, solver, and prediction API used in this experiment.
 
 
 # Logistic regression: turn scores into probabilities
@@ -258,7 +246,7 @@ First compute a weighted score. Then use the sigmoid function to map that score 
 
 A score of 0 maps to probability 0.5. A score of approximately 2.20 maps to approximately 0.90. A review threshold of 0.80 would flag the second example. The probability is not automatically calibrated to real-world frequencies.
 
-![Visual explanation for Logistic regression: turn scores into probabilities](images/expanded/evaluation-guide.svg)
+![Visual explanation for Logistic regression: turn scores into probabilities](images/expanded/foundations/logistic.svg)
 
 ## Follow the algorithm
 
@@ -284,7 +272,7 @@ The loss is negative log likelihood, often called binary cross-entropy. Regulari
 
 ## Run the implementation
 
-Open the Practice tab. Install the foundation packages once if the site requests them. The runner executes the actual program in lab/foundations.py. The commands below are for the website’s guided terminal; it selects your Python environment automatically. For external PowerShell, replace python with & .\.venv\Scripts\python.exe and use .\lab\foundations.py from the website folder. Replace {run} with a unique name when typing commands manually; the website buttons generate it automatically.
+Use this lesson’s Practice buttons. For interpreter setup, external Windows commands, and fresh output folders, read the [shared experiment workflow](#ref/lab-workflow).
 
 ```text
 python foundations.py logistic --strength 1 --output outputs/logistic-{run}
@@ -294,13 +282,11 @@ python foundations.py logistic --strength 1 --output outputs/logistic-{run}
 python foundations.py logistic --strength 0.01 --output outputs/logistic-regularized-{run}
 ```
 
-The random seed controls the generated data, splits, and applicable model initialization. Keep it fixed when investigating one changed parameter. Neural results can still vary across hardware and library implementations.
 
 ## Inspect the evidence
 
 Compare the confusion matrix with the majority-class baseline. Rows are actual classes and columns are predicted classes. A model can beat the baseline but still produce too many false alerts for an operational review queue.
 
-Every completed run writes report.json with the experiment, split, seed, settings, dataset description, measured metrics, timing, and limitations. Where applicable it also saves a trained parameter dictionary. The Experiment results page shows the measured report and generated plots. Record an explanation of the result instead of copying only the score.
 
 ## Change one thing and prove what happened
 
@@ -310,62 +296,35 @@ Compare training accuracy and validation accuracy under the two regularization s
 
 Choosing a threshold by inspecting final test labels invalidates that test as an independent final check. Select the threshold using validation data.
 
-If the program reports a missing module, install foundation packages in the runtime shown by the website. If it refuses an existing output directory, choose a new one; this protects earlier evidence. If a numerical result surprises you, inspect data shape, split sizes, and the baseline before changing model complexity.
 
 ## Compute plan
 
-For this exact bundled exercise, use your local central processing unit. Renting a graphics processing unit is unnecessary. The implementation uses ordinary processor-based scikit-learn or small tables. Renting a graphics processor will not automatically accelerate this code.
+The bundled exercise runs on a local central processing unit. This scikit-learn or small-table implementation does not gain automatic graphics-processor acceleration.
 
-## Build it from start to finish: Operations review-queue ranker
+## Build from start to finish: Operations review-queue ranker
 
-**Runnable implementation lab — local prototype.** This build connects the real-world scenario to an executable teaching model. Simulated data is explicitly identified; a good score on it does not establish business performance.
+1. **Decision and data contract.** One event per row with features observable at event time and a later reviewed outcome. Split by time and keep related events together in a real dataset. Define the acceptable error or failure rate before selecting a model.
+2. **Architecture and training.** Fit train-only scaling and a regularized logistic classifier. The Practice commands and algorithm above are the runnable implementation for this prototype.
+3. **Independent evidence and comparison.** Compare regularization settings and the included majority-class baseline; select thresholds using validation.
+4. **Save, reload, and use a new input.** Retain the generated manifest, learned state, and input example. Use **Load saved example** and **Predict new input**. A review score with a validation-selected threshold; preserve human review and record false-alert costs.
+5. **Local deployment and production gap.** The local saved-input interface is the serving prototype. Before external use, validate representative inputs, enforce request/access limits, and keep a versioned rollback artifact. The teaching score alone is not a deployment approval.
+6. **Monitor.** Precision, recall, calibration, review volume, and label delay. Name a response owner and a condition that would trigger review or rollback.
 
-1. **Write the decision and success criterion.** State who consumes the prediction and which mistake is expensive. Define a measurable baseline before choosing a model. For this project: operations review-queue ranker.
-2. **Define and inspect the data.** One event per row with features observable at event time and a later reviewed outcome. Split by time and keep related events together in a real dataset. Use the bundled dataset first. Before replacing it, document permission, provenance, missing values, units, class coverage, duplicates, and when each feature becomes available.
-3. **Create the evaluation boundary.** The program fixes a seed and separates fitting from held-out evaluation where that protocol applies. For real workloads, choose time-based or entity-based separation when random splitting would leak related observations. The graph, adversarial, and reinforcement modules explain their distinct protocols.
-4. **Construct the model.** Read the algorithm and the matching function in foundations.py. Trace the input shape through every preprocessing and model stage. The numerical example above lets you check a small part by hand.
-5. **Train and compare.** Run the first Practice experiment. Record its baseline, metrics, runtime, and failure cases. Run the changed setting and explain the result. Choose settings using validation; reserve final test evidence for the chosen configuration.
-6. **Save a usable artifact.** The program writes a model-manifest.json, an example-input.json, a fitted model or learned counting/action table, and report.json. It reloads the artifact in a separate inference function before declaring success. Learned scaling stays with applicable classical models. A neural state dictionary alone would be insufficient without the matching architecture; this build also exports an executable inference module.
-7. **Use it on a new input.** In Practice, select **Load saved example**, edit one value while preserving the documented shape, and select **Predict new input**. This reloads the saved model and runs inference without training again. A review score with a validation-selected threshold; preserve human review and record false-alert costs.
-8. **Deploy the prototype locally.** The localhost website is the demonstration serving layer: input validation → saved artifact → inference → output. Keep the model's environment and feature contract with the release. Only load artifacts you created or trust; executable model formats are not passive documents.
-9. **Plan a production handoff.** Add representative-data evaluation, request limits, authentication, authorization, observability, model versioning, rollback, and a suitable reject/fallback behavior before exposing a service to other users. These are engineering extensions, not completed production features of this local lab.
-10. **Monitor and decide when to retrain.** Precision, recall, calibration, review volume, and label delay. Define a threshold and response owner. Track whether the new data resembles the training population, and compare a candidate model with the deployed baseline before replacement.
+### Evidence for this build
 
-### The build architecture
-
-```mermaid
-flowchart TD
- A[Problem and permitted data] --> B[Split and validate]
- B --> C[Fit preprocessing and model]
- C --> D[Evaluate held-out evidence]
- D --> E{Meets agreed criterion}
- E -->|Revise using validation| C
- E -->|Accept| F[Save versioned artifact]
- F --> G[Reload for new input]
- G --> H[Local prediction and monitoring plan]
-```
-
-### Command-line inference alternative
-
-The website remembers the last successful model folder for this lesson. In its guided terminal, replace MODEL-FOLDER below with that actual folder name and NEW-RUN with a unique output name. Edit a copy of example-input.json to supply your own values.
-
-```text
-python predict_saved.py --model-dir outputs/MODEL-FOLDER --input outputs/MODEL-FOLDER/example-input.json --output outputs/prediction-NEW-RUN.json
-```
-
-### Build acceptance evidence
-
-Submit a one-paragraph problem definition, feature/target contract, baseline and selected-model reports, one failure analysis, saved artifact, a changed-input prediction, and a deployment/monitoring decision. Passing a command demonstrates executable code; this evidence explains whether the model is appropriate for its intended use.
+Confusion counts at chosen thresholds, minority-class recall, and a new event score. Include the measured reports and one limitation. For interpreter setup, command-line prediction, artifact handling, and a common submission checklist, use [Run, compare, save, and explain](#ref/lab-workflow).
 
 
 
-## Submit an engineering assessment
 
-Save the two reports, their visual artifacts, a prediction made before the second run, and a paragraph explaining the observed difference. State the dataset’s limits and what additional evidence a real deployment would need. Use validation to choose settings; for a final assessment, rerun the selected settings with --split test and a new output folder. The adversarial and reinforcement labs describe their special evaluation protocols explicitly rather than claiming an ordinary random test split.
 
-## Primary reference
+## References for this lesson
 
-[Read the primary documentation or research](https://scikit-learn.org/1.7/modules/linear_model.html#logistic-regression). The lesson’s scenario and simplified implementation are teaching examples.
+Use these sources to check the mechanism and extend the exercise. Research results are not results measured by this lab.
+
+- [Logistic regression — scikit-learn](https://scikit-learn.org/1.7/modules/linear_model.html#logistic-regression) — Connects linear scores to class probabilities and regularized training.
+- [LogisticRegression API — scikit-learn](https://scikit-learn.org/1.7/modules/generated/sklearn.linear_model.LogisticRegression.html) — Defines C as inverse regularization strength and documents predict_proba.
+- [Common pitfalls and recommended practices — scikit-learn](https://scikit-learn.org/1.7/common_pitfalls.html) — Explains why the lab fits its feature scaler only on training examples.
 
 
 # Decision trees: inspect the questions
@@ -386,7 +345,7 @@ A tree repeatedly partitions examples using questions such as feature three less
 
 Imagine a node with six normal and four fault examples. A useful split might create one branch with five normal and no faults and another with one normal and four faults. The branches are more informative than the original mixed group.
 
-![Visual explanation for Decision trees: inspect the questions](images/expanded/model-mechanisms.svg)
+![Visual explanation for Decision trees: inspect the questions](images/expanded/foundations/tree.svg)
 
 ## Follow the algorithm
 
@@ -411,7 +370,7 @@ This implementation uses Gini impurity by default. A pure node has impurity zero
 
 ## Run the implementation
 
-Open the Practice tab. Install the foundation packages once if the site requests them. The runner executes the actual program in lab/foundations.py. The commands below are for the website’s guided terminal; it selects your Python environment automatically. For external PowerShell, replace python with & .\.venv\Scripts\python.exe and use .\lab\foundations.py from the website folder. Replace {run} with a unique name when typing commands manually; the website buttons generate it automatically.
+Use this lesson’s Practice buttons. For interpreter setup, external Windows commands, and fresh output folders, read the [shared experiment workflow](#ref/lab-workflow).
 
 ```text
 python foundations.py tree --depth 3 --output outputs/tree-shallow-{run}
@@ -421,13 +380,11 @@ python foundations.py tree --depth 3 --output outputs/tree-shallow-{run}
 python foundations.py tree --depth 15 --output outputs/tree-deep-{run}
 ```
 
-The random seed controls the generated data, splits, and applicable model initialization. Keep it fixed when investigating one changed parameter. Neural results can still vary across hardware and library implementations.
 
 ## Inspect the evidence
 
 Open tree.png: only the first three displayed levels are plotted to keep the picture readable. Inspect training_accuracy and validation accuracy in the report. A deep tree can achieve excellent training performance while worsening held-out results.
 
-Every completed run writes report.json with the experiment, split, seed, settings, dataset description, measured metrics, timing, and limitations. Where applicable it also saves a trained parameter dictionary. The Experiment results page shows the measured report and generated plots. Record an explanation of the result instead of copying only the score.
 
 ## Change one thing and prove what happened
 
@@ -437,62 +394,34 @@ Walk one example through the displayed thresholds by hand. Then compare depth 3 
 
 A decision path explains this fitted model’s computation. It does not prove that the chosen feature causes the observed outcome.
 
-If the program reports a missing module, install foundation packages in the runtime shown by the website. If it refuses an existing output directory, choose a new one; this protects earlier evidence. If a numerical result surprises you, inspect data shape, split sizes, and the baseline before changing model complexity.
 
 ## Compute plan
 
-For this exact bundled exercise, use your local central processing unit. Renting a graphics processing unit is unnecessary. The implementation uses ordinary processor-based scikit-learn or small tables. Renting a graphics processor will not automatically accelerate this code.
+The bundled exercise runs on a local central processing unit. This scikit-learn or small-table implementation does not gain automatic graphics-processor acceleration.
 
-## Build it from start to finish: Inspectable equipment-fault triage
+## Build from start to finish: Inspectable equipment-fault triage
 
-**Runnable implementation lab — local prototype.** This build connects the real-world scenario to an executable teaching model. Simulated data is explicitly identified; a good score on it does not establish business performance.
+1. **Decision and data contract.** One machine observation per row with sensor values and a confirmed fault label. Split by machine and time to avoid near-duplicate leakage. Define the acceptable error or failure rate before selecting a model.
+2. **Architecture and training.** Grow feature-threshold splits with the configured maximum depth. The Practice commands and algorithm above are the runnable implementation for this prototype.
+3. **Independent evidence and comparison.** Compare depths 3 and 15 on the same split and inspect the included majority baseline.
+4. **Save, reload, and use a new input.** Retain the generated manifest, learned state, and input example. Use **Load saved example** and **Predict new input**. A fault category plus the sequence of thresholds; uncertain cases go to a technician.
+5. **Local deployment and production gap.** The local saved-input interface is the serving prototype. Before external use, validate representative inputs, enforce request/access limits, and keep a versioned rollback artifact. The teaching score alone is not a deployment approval.
+6. **Monitor.** Missed faults, false alarms per machine, and newly appearing operating regimes. Name a response owner and a condition that would trigger review or rollback.
 
-1. **Write the decision and success criterion.** State who consumes the prediction and which mistake is expensive. Define a measurable baseline before choosing a model. For this project: inspectable equipment-fault triage.
-2. **Define and inspect the data.** One machine observation per row with sensor values and a confirmed fault label. Split by machine and time to avoid near-duplicate leakage. Use the bundled dataset first. Before replacing it, document permission, provenance, missing values, units, class coverage, duplicates, and when each feature becomes available.
-3. **Create the evaluation boundary.** The program fixes a seed and separates fitting from held-out evaluation where that protocol applies. For real workloads, choose time-based or entity-based separation when random splitting would leak related observations. The graph, adversarial, and reinforcement modules explain their distinct protocols.
-4. **Construct the model.** Read the algorithm and the matching function in foundations.py. Trace the input shape through every preprocessing and model stage. The numerical example above lets you check a small part by hand.
-5. **Train and compare.** Run the first Practice experiment. Record its baseline, metrics, runtime, and failure cases. Run the changed setting and explain the result. Choose settings using validation; reserve final test evidence for the chosen configuration.
-6. **Save a usable artifact.** The program writes a model-manifest.json, an example-input.json, a fitted model or learned counting/action table, and report.json. It reloads the artifact in a separate inference function before declaring success. Learned scaling stays with applicable classical models. A neural state dictionary alone would be insufficient without the matching architecture; this build also exports an executable inference module.
-7. **Use it on a new input.** In Practice, select **Load saved example**, edit one value while preserving the documented shape, and select **Predict new input**. This reloads the saved model and runs inference without training again. A fault category plus the sequence of thresholds; uncertain cases go to a technician.
-8. **Deploy the prototype locally.** The localhost website is the demonstration serving layer: input validation → saved artifact → inference → output. Keep the model's environment and feature contract with the release. Only load artifacts you created or trust; executable model formats are not passive documents.
-9. **Plan a production handoff.** Add representative-data evaluation, request limits, authentication, authorization, observability, model versioning, rollback, and a suitable reject/fallback behavior before exposing a service to other users. These are engineering extensions, not completed production features of this local lab.
-10. **Monitor and decide when to retrain.** Missed faults, false alarms per machine, and newly appearing operating regimes. Define a threshold and response owner. Track whether the new data resembles the training population, and compare a candidate model with the deployed baseline before replacement.
+### Evidence for this build
 
-### The build architecture
-
-```mermaid
-flowchart TD
- A[Problem and permitted data] --> B[Split and validate]
- B --> C[Fit preprocessing and model]
- C --> D[Evaluate held-out evidence]
- D --> E{Meets agreed criterion}
- E -->|Revise using validation| C
- E -->|Accept| F[Save versioned artifact]
- F --> G[Reload for new input]
- G --> H[Local prediction and monitoring plan]
-```
-
-### Command-line inference alternative
-
-The website remembers the last successful model folder for this lesson. In its guided terminal, replace MODEL-FOLDER below with that actual folder name and NEW-RUN with a unique output name. Edit a copy of example-input.json to supply your own values.
-
-```text
-python predict_saved.py --model-dir outputs/MODEL-FOLDER --input outputs/MODEL-FOLDER/example-input.json --output outputs/prediction-NEW-RUN.json
-```
-
-### Build acceptance evidence
-
-Submit a one-paragraph problem definition, feature/target contract, baseline and selected-model reports, one failure analysis, saved artifact, a changed-input prediction, and a deployment/monitoring decision. Passing a command demonstrates executable code; this evidence explains whether the model is appropriate for its intended use.
+One hand-traced decision path, the training/validation gap, and a prediction for changed sensor values. Include the measured reports and one limitation. For interpreter setup, command-line prediction, artifact handling, and a common submission checklist, use [Run, compare, save, and explain](#ref/lab-workflow).
 
 
 
-## Submit an engineering assessment
 
-Save the two reports, their visual artifacts, a prediction made before the second run, and a paragraph explaining the observed difference. State the dataset’s limits and what additional evidence a real deployment would need. Use validation to choose settings; for a final assessment, rerun the selected settings with --split test and a new output folder. The adversarial and reinforcement labs describe their special evaluation protocols explicitly rather than claiming an ordinary random test split.
 
-## Primary reference
+## References for this lesson
 
-[Read the primary documentation or research](https://scikit-learn.org/1.7/modules/tree.html). The lesson’s scenario and simplified implementation are teaching examples.
+Use these sources to check the mechanism and extend the exercise. Research results are not results measured by this lab.
+
+- [Decision trees — scikit-learn](https://scikit-learn.org/1.7/modules/tree.html) — Explains recursive feature splits, leaf predictions, and overfitting.
+- [DecisionTreeClassifier API — scikit-learn](https://scikit-learn.org/1.7/modules/generated/sklearn.tree.DecisionTreeClassifier.html) — Documents the Gini criterion, depth limit, and tree controls used by the lab.
 
 
 # Ensembles: compare forests and boosting
@@ -507,13 +436,13 @@ Tabular prediction appears in inventory planning, service reliability, and trans
 
 ## Build the mental model
 
-A random forest trains many varied trees and aggregates their votes. Gradient boosting builds a sequence of models that improve the current predictive objective. The first strategy reduces dependence on one tree; the second makes successive corrections.
+A random forest trains many varied trees. The scikit-learn classifier used here averages their class probabilities before choosing a class. Gradient boosting builds a sequence of models that improve the current predictive objective. The first strategy reduces dependence on one tree; the second makes successive corrections.
 
 ### Work through a concrete example
 
-If five trees vote [normal, fault, normal, normal, fault], the majority prediction is normal. That simple vote explains a forest. A boosting update instead adds a scaled new function to the current prediction; it is not simply another independent vote.
+If five trees vote [normal, fault, normal, normal, fault], the majority prediction is normal. That is a simplified hard-voting illustration. The bundled forest instead averages class probabilities: normal-class estimates [0.8, 0.4, 0.7, 0.9, 0.3] average to 0.62, so normal wins. This score is not automatically calibrated. A boosting update instead adds a scaled new function to the current prediction; it is not simply another independent vote.
 
-![Visual explanation for Ensembles: compare forests and boosting](images/expanded/model-mechanisms.svg)
+![Visual explanation for Ensembles: compare forests and boosting](images/expanded/foundations/ensemble.svg)
 
 ## Follow the algorithm
 
@@ -540,7 +469,7 @@ Forests use bootstrap sampling and feature randomness to reduce correlation amon
 
 ## Run the implementation
 
-Open the Practice tab. Install the foundation packages once if the site requests them. The runner executes the actual program in lab/foundations.py. The commands below are for the website’s guided terminal; it selects your Python environment automatically. For external PowerShell, replace python with & .\.venv\Scripts\python.exe and use .\lab\foundations.py from the website folder. Replace {run} with a unique name when typing commands manually; the website buttons generate it automatically.
+Use this lesson’s Practice buttons. For interpreter setup, external Windows commands, and fresh output folders, read the [shared experiment workflow](#ref/lab-workflow).
 
 ```text
 python foundations.py ensemble --depth 3 --output outputs/ensemble-shallow-{run}
@@ -550,78 +479,49 @@ python foundations.py ensemble --depth 3 --output outputs/ensemble-shallow-{run}
 python foundations.py ensemble --depth 10 --output outputs/ensemble-deep-{run}
 ```
 
-The random seed controls the generated data, splits, and applicable model initialization. Keep it fixed when investigating one changed parameter. Neural results can still vary across hardware and library implementations.
 
 ## Inspect the evidence
 
 Inspect comparison.png and the nested metrics for single_tree, random_forest, and gradient_boosting. Explain any differences in the training–validation gap. The plotted scores are generated by your run.
 
-Every completed run writes report.json with the experiment, split, seed, settings, dataset description, measured metrics, timing, and limitations. Where applicable it also saves a trained parameter dictionary. The Experiment results page shows the measured report and generated plots. Record an explanation of the result instead of copying only the score.
 
 ## Change one thing and prove what happened
 
-Choose the simplest candidate meeting your declared accuracy and false-alert requirements. Record fit time and discuss whether a small gain warrants more complex deployment. For another experiment, change tree counts in a copied function while holding the split fixed.
+Choose the simplest candidate meeting your declared accuracy and false-alert requirements. Record total experiment runtime and discuss whether a small gain warrants more complex deployment. Per-model fit time would require timing each fit separately; total runtime includes plotting, saving, and reload. For another experiment, change tree counts in a copied function while holding the split fixed.
 
 ## Debugging checkpoint
 
 Do not compare one model on validation data with another on test data. Also avoid assuming every boosting update trains only on previously misclassified examples.
 
-If the program reports a missing module, install foundation packages in the runtime shown by the website. If it refuses an existing output directory, choose a new one; this protects earlier evidence. If a numerical result surprises you, inspect data shape, split sizes, and the baseline before changing model complexity.
 
 ## Compute plan
 
-For this exact bundled exercise, use your local central processing unit. Renting a graphics processing unit is unnecessary. The implementation uses ordinary processor-based scikit-learn or small tables. Renting a graphics processor will not automatically accelerate this code.
+The bundled exercise runs on a local central processing unit. This scikit-learn or small-table implementation does not gain automatic graphics-processor acceleration.
 
-## Build it from start to finish: Robust tabular event classifier
+## Build from start to finish: Robust tabular event classifier
 
-**Runnable implementation lab — local prototype.** This build connects the real-world scenario to an executable teaching model. Simulated data is explicitly identified; a good score on it does not establish business performance.
+1. **Decision and data contract.** The same feature and label contract for all candidate models. Freeze train, validation, and test membership before comparing tree ensembles. Define the acceptable error or failure rate before selecting a model.
+2. **Architecture and training.** Fit a single tree, an 80-tree random forest, and histogram gradient boosting. The Practice commands and algorithm above are the runnable implementation for this prototype.
+3. **Independent evidence and comparison.** Compare their validation metrics and the majority baseline on identical examples. Total run seconds includes plotting/export; per-model fit time requires extra instrumentation.
+4. **Save, reload, and use a new input.** Retain the generated manifest, learned state, and input example. Use **Load saved example** and **Predict new input**. A class prediction from the chosen model; retain the simpler baseline and rollback artifact.
+5. **Local deployment and production gap.** The local saved-input interface is the serving prototype. Before external use, validate representative inputs, enforce request/access limits, and keep a versioned rollback artifact. The teaching score alone is not a deployment approval.
+6. **Monitor.** Held-out class recall, latency, feature availability, and performance under changed event mix. Name a response owner and a condition that would trigger review or rollback.
 
-1. **Write the decision and success criterion.** State who consumes the prediction and which mistake is expensive. Define a measurable baseline before choosing a model. For this project: robust tabular event classifier.
-2. **Define and inspect the data.** The same feature and label contract for all candidate models. Freeze train, validation, and test membership before comparing tree ensembles. Use the bundled dataset first. Before replacing it, document permission, provenance, missing values, units, class coverage, duplicates, and when each feature becomes available.
-3. **Create the evaluation boundary.** The program fixes a seed and separates fitting from held-out evaluation where that protocol applies. For real workloads, choose time-based or entity-based separation when random splitting would leak related observations. The graph, adversarial, and reinforcement modules explain their distinct protocols.
-4. **Construct the model.** Read the algorithm and the matching function in foundations.py. Trace the input shape through every preprocessing and model stage. The numerical example above lets you check a small part by hand.
-5. **Train and compare.** Run the first Practice experiment. Record its baseline, metrics, runtime, and failure cases. Run the changed setting and explain the result. Choose settings using validation; reserve final test evidence for the chosen configuration.
-6. **Save a usable artifact.** The program writes a model-manifest.json, an example-input.json, a fitted model or learned counting/action table, and report.json. It reloads the artifact in a separate inference function before declaring success. Learned scaling stays with applicable classical models. A neural state dictionary alone would be insufficient without the matching architecture; this build also exports an executable inference module.
-7. **Use it on a new input.** In Practice, select **Load saved example**, edit one value while preserving the documented shape, and select **Predict new input**. This reloads the saved model and runs inference without training again. A class prediction from the chosen model; retain the simpler baseline and rollback artifact.
-8. **Deploy the prototype locally.** The localhost website is the demonstration serving layer: input validation → saved artifact → inference → output. Keep the model's environment and feature contract with the release. Only load artifacts you created or trust; executable model formats are not passive documents.
-9. **Plan a production handoff.** Add representative-data evaluation, request limits, authentication, authorization, observability, model versioning, rollback, and a suitable reject/fallback behavior before exposing a service to other users. These are engineering extensions, not completed production features of this local lab.
-10. **Monitor and decide when to retrain.** Held-out class recall, latency, feature availability, and performance under changed event mix. Define a threshold and response owner. Track whether the new data resembles the training population, and compare a candidate model with the deployed baseline before replacement.
+### Evidence for this build
 
-### The build architecture
-
-```mermaid
-flowchart TD
- A[Problem and permitted data] --> B[Split and validate]
- B --> C[Fit preprocessing and model]
- C --> D[Evaluate held-out evidence]
- D --> E{Meets agreed criterion}
- E -->|Revise using validation| C
- E -->|Accept| F[Save versioned artifact]
- F --> G[Reload for new input]
- G --> H[Local prediction and monitoring plan]
-```
-
-### Command-line inference alternative
-
-The website remembers the last successful model folder for this lesson. In its guided terminal, replace MODEL-FOLDER below with that actual folder name and NEW-RUN with a unique output name. Edit a copy of example-input.json to supply your own values.
-
-```text
-python predict_saved.py --model-dir outputs/MODEL-FOLDER --input outputs/MODEL-FOLDER/example-input.json --output outputs/prediction-NEW-RUN.json
-```
-
-### Build acceptance evidence
-
-Submit a one-paragraph problem definition, feature/target contract, baseline and selected-model reports, one failure analysis, saved artifact, a changed-input prediction, and a deployment/monitoring decision. Passing a command demonstrates executable code; this evidence explains whether the model is appropriate for its intended use.
+Per-model error counts, depth sensitivity, the selected model, and an explanation of probability averaging versus sequential boosting. Include the measured reports and one limitation. For interpreter setup, command-line prediction, artifact handling, and a common submission checklist, use [Run, compare, save, and explain](#ref/lab-workflow).
 
 
 
-## Submit an engineering assessment
 
-Save the two reports, their visual artifacts, a prediction made before the second run, and a paragraph explaining the observed difference. State the dataset’s limits and what additional evidence a real deployment would need. Use validation to choose settings; for a final assessment, rerun the selected settings with --split test and a new output folder. The adversarial and reinforcement labs describe their special evaluation protocols explicitly rather than claiming an ordinary random test split.
 
-## Primary reference
+## References for this lesson
 
-[Read the primary documentation or research](https://scikit-learn.org/1.7/modules/ensemble.html). The lesson’s scenario and simplified implementation are teaching examples.
+Use these sources to check the mechanism and extend the exercise. Research results are not results measured by this lab.
+
+- [Ensemble methods — scikit-learn](https://scikit-learn.org/1.7/modules/ensemble.html) — Distinguishes forests from sequential boosting and explains forest probability averaging.
+- [RandomForestClassifier API — scikit-learn](https://scikit-learn.org/1.7/modules/generated/sklearn.ensemble.RandomForestClassifier.html) — Defines prediction as the class with the highest average probability across trees.
+- [HistGradientBoostingClassifier API — scikit-learn](https://scikit-learn.org/1.7/modules/generated/sklearn.ensemble.HistGradientBoostingClassifier.html) — Documents the histogram boosting implementation and its iteration and leaf limits.
 
 
 # Nearest neighbors: classify by similarity
@@ -642,7 +542,7 @@ Store the training examples. For a new example, measure its distance to those ex
 
 For five nearby cases labeled [fault, normal, fault, fault, normal], the majority label is fault. If one feature is measured in thousands and another in tenths, raw Euclidean distance may be dominated by the large-number feature.
 
-![Visual explanation for Nearest neighbors: classify by similarity](images/expanded/model-mechanisms.svg)
+![Visual explanation for Nearest neighbors: classify by similarity](images/expanded/foundations/neighbors.svg)
 
 ## Follow the algorithm
 
@@ -667,7 +567,7 @@ One neighbor can follow noisy local detail; many neighbors smooth the boundary a
 
 ## Run the implementation
 
-Open the Practice tab. Install the foundation packages once if the site requests them. The runner executes the actual program in lab/foundations.py. The commands below are for the website’s guided terminal; it selects your Python environment automatically. For external PowerShell, replace python with & .\.venv\Scripts\python.exe and use .\lab\foundations.py from the website folder. Replace {run} with a unique name when typing commands manually; the website buttons generate it automatically.
+Use this lesson’s Practice buttons. For interpreter setup, external Windows commands, and fresh output folders, read the [shared experiment workflow](#ref/lab-workflow).
 
 ```text
 python foundations.py neighbors --neighbors 1 --output outputs/neighbors-one-{run}
@@ -677,13 +577,11 @@ python foundations.py neighbors --neighbors 1 --output outputs/neighbors-one-{ru
 python foundations.py neighbors --neighbors 25 --output outputs/neighbors-many-{run}
 ```
 
-The random seed controls the generated data, splits, and applicable model initialization. Keep it fixed when investigating one changed parameter. Neural results can still vary across hardware and library implementations.
 
 ## Inspect the evidence
 
 Open boundaries.png. Dots are held-out examples; background color is the fitted prediction across a grid. Compare jagged regions with smoothed regions and relate them to the confusion matrix.
 
-Every completed run writes report.json with the experiment, split, seed, settings, dataset description, measured metrics, timing, and limitations. Where applicable it also saves a trained parameter dictionary. The Experiment results page shows the measured report and generated plots. Record an explanation of the result instead of copying only the score.
 
 ## Change one thing and prove what happened
 
@@ -693,62 +591,34 @@ Predict which neighbor count will be more sensitive to a mislabeled training poi
 
 Similarity is a design decision, not an objective universal property. A representation that groups images well may be poor for semantic document retrieval.
 
-If the program reports a missing module, install foundation packages in the runtime shown by the website. If it refuses an existing output directory, choose a new one; this protects earlier evidence. If a numerical result surprises you, inspect data shape, split sizes, and the baseline before changing model complexity.
 
 ## Compute plan
 
-For this exact bundled exercise, use your local central processing unit. Renting a graphics processing unit is unnecessary. The implementation uses ordinary processor-based scikit-learn or small tables. Renting a graphics processor will not automatically accelerate this code.
+The bundled exercise runs on a local central processing unit. This scikit-learn or small-table implementation does not gain automatic graphics-processor acceleration.
 
-## Build it from start to finish: Similarity-based sensor-state classification
+## Build from start to finish: Similarity-based sensor-state classification
 
-**Runnable implementation lab — local prototype.** This build connects the real-world scenario to an executable teaching model. Simulated data is explicitly identified; a good score on it does not establish business performance.
+1. **Decision and data contract.** Two normalized sensor measurements and an expert state label in the prototype. Production requires representative coverage and a distance policy for unfamiliar inputs. Define the acceptable error or failure rate before selecting a model.
+2. **Architecture and training.** Store standardized training measurements; classify using the requested nearest-neighbor count. The Practice commands and algorithm above are the runnable implementation for this prototype.
+3. **Independent evidence and comparison.** Compare k=1 and k=25 on the same split; use the reported majority baseline.
+4. **Save, reload, and use a new input.** Retain the generated manifest, learned state, and input example. Use **Load saved example** and **Predict new input**. A neighbor vote; return an unknown state when the nearest observations are too far away.
+5. **Local deployment and production gap.** The local saved-input interface is the serving prototype. Before external use, validate representative inputs, enforce request/access limits, and keep a versioned rollback artifact. The teaching score alone is not a deployment approval.
+6. **Monitor.** Distance to training examples, rare-state recall, and lookup latency as the reference set grows. Name a response owner and a condition that would trigger review or rollback.
 
-1. **Write the decision and success criterion.** State who consumes the prediction and which mistake is expensive. Define a measurable baseline before choosing a model. For this project: similarity-based sensor-state classification.
-2. **Define and inspect the data.** Two normalized sensor measurements and an expert state label in the prototype. Production requires representative coverage and a distance policy for unfamiliar inputs. Use the bundled dataset first. Before replacing it, document permission, provenance, missing values, units, class coverage, duplicates, and when each feature becomes available.
-3. **Create the evaluation boundary.** The program fixes a seed and separates fitting from held-out evaluation where that protocol applies. For real workloads, choose time-based or entity-based separation when random splitting would leak related observations. The graph, adversarial, and reinforcement modules explain their distinct protocols.
-4. **Construct the model.** Read the algorithm and the matching function in foundations.py. Trace the input shape through every preprocessing and model stage. The numerical example above lets you check a small part by hand.
-5. **Train and compare.** Run the first Practice experiment. Record its baseline, metrics, runtime, and failure cases. Run the changed setting and explain the result. Choose settings using validation; reserve final test evidence for the chosen configuration.
-6. **Save a usable artifact.** The program writes a model-manifest.json, an example-input.json, a fitted model or learned counting/action table, and report.json. It reloads the artifact in a separate inference function before declaring success. Learned scaling stays with applicable classical models. A neural state dictionary alone would be insufficient without the matching architecture; this build also exports an executable inference module.
-7. **Use it on a new input.** In Practice, select **Load saved example**, edit one value while preserving the documented shape, and select **Predict new input**. This reloads the saved model and runs inference without training again. A neighbor vote; return an unknown state when the nearest observations are too far away.
-8. **Deploy the prototype locally.** The localhost website is the demonstration serving layer: input validation → saved artifact → inference → output. Keep the model's environment and feature contract with the release. Only load artifacts you created or trust; executable model formats are not passive documents.
-9. **Plan a production handoff.** Add representative-data evaluation, request limits, authentication, authorization, observability, model versioning, rollback, and a suitable reject/fallback behavior before exposing a service to other users. These are engineering extensions, not completed production features of this local lab.
-10. **Monitor and decide when to retrain.** Distance to training examples, rare-state recall, and lookup latency as the reference set grows. Define a threshold and response owner. Track whether the new data resembles the training population, and compare a candidate model with the deployed baseline before replacement.
+### Evidence for this build
 
-### The build architecture
-
-```mermaid
-flowchart TD
- A[Problem and permitted data] --> B[Split and validate]
- B --> C[Fit preprocessing and model]
- C --> D[Evaluate held-out evidence]
- D --> E{Meets agreed criterion}
- E -->|Revise using validation| C
- E -->|Accept| F[Save versioned artifact]
- F --> G[Reload for new input]
- G --> H[Local prediction and monitoring plan]
-```
-
-### Command-line inference alternative
-
-The website remembers the last successful model folder for this lesson. In its guided terminal, replace MODEL-FOLDER below with that actual folder name and NEW-RUN with a unique output name. Edit a copy of example-input.json to supply your own values.
-
-```text
-python predict_saved.py --model-dir outputs/MODEL-FOLDER --input outputs/MODEL-FOLDER/example-input.json --output outputs/prediction-NEW-RUN.json
-```
-
-### Build acceptance evidence
-
-Submit a one-paragraph problem definition, feature/target contract, baseline and selected-model reports, one failure analysis, saved artifact, a changed-input prediction, and a deployment/monitoring decision. Passing a command demonstrates executable code; this evidence explains whether the model is appropriate for its intended use.
+Boundary plots, neighbor-count sensitivity, and a new query with an explanation of the distance units. Include the measured reports and one limitation. For interpreter setup, command-line prediction, artifact handling, and a common submission checklist, use [Run, compare, save, and explain](#ref/lab-workflow).
 
 
 
-## Submit an engineering assessment
 
-Save the two reports, their visual artifacts, a prediction made before the second run, and a paragraph explaining the observed difference. State the dataset’s limits and what additional evidence a real deployment would need. Use validation to choose settings; for a final assessment, rerun the selected settings with --split test and a new output folder. The adversarial and reinforcement labs describe their special evaluation protocols explicitly rather than claiming an ordinary random test split.
 
-## Primary reference
+## References for this lesson
 
-[Read the primary documentation or research](https://scikit-learn.org/1.7/modules/neighbors.html). The lesson’s scenario and simplified implementation are teaching examples.
+Use these sources to check the mechanism and extend the exercise. Research results are not results measured by this lab.
+
+- [Nearest neighbors — scikit-learn](https://scikit-learn.org/1.7/modules/neighbors.html) — Explains distance-based prediction, neighbor selection, and the effects of dimensionality.
+- [KNeighborsClassifier API — scikit-learn](https://scikit-learn.org/1.7/modules/generated/sklearn.neighbors.KNeighborsClassifier.html) — Documents k, vote weighting, distance metrics, and the classifier used here.
 
 
 # Kernel methods: learn a curved boundary
@@ -769,7 +639,7 @@ A support vector classifier seeks a boundary with a useful margin between classe
 
 Two classes arranged as nested circles cannot be separated by one straight line in the plane. A radius-related representation can make separation easier. A radial basis function kernel provides a general smooth similarity mechanism without explicitly constructing every transformed coordinate.
 
-![Visual explanation for Kernel methods: learn a curved boundary](images/expanded/model-mechanisms.svg)
+![Visual explanation for Kernel methods: learn a curved boundary](images/expanded/foundations/kernel.svg)
 
 ## Follow the algorithm
 
@@ -795,7 +665,7 @@ The C parameter controls the tradeoff between margin and penalized training mist
 
 ## Run the implementation
 
-Open the Practice tab. Install the foundation packages once if the site requests them. The runner executes the actual program in lab/foundations.py. The commands below are for the website’s guided terminal; it selects your Python environment automatically. For external PowerShell, replace python with & .\.venv\Scripts\python.exe and use .\lab\foundations.py from the website folder. Replace {run} with a unique name when typing commands manually; the website buttons generate it automatically.
+Use this lesson’s Practice buttons. For interpreter setup, external Windows commands, and fresh output folders, read the [shared experiment workflow](#ref/lab-workflow).
 
 ```text
 python foundations.py kernel --strength 1 --output outputs/kernel-{run}
@@ -805,13 +675,11 @@ python foundations.py kernel --strength 1 --output outputs/kernel-{run}
 python foundations.py kernel --strength 100 --output outputs/kernel-flexible-{run}
 ```
 
-The random seed controls the generated data, splits, and applicable model initialization. Keep it fixed when investigating one changed parameter. Neural results can still vary across hardware and library implementations.
 
 ## Inspect the evidence
 
 Compare linear_kernel and radial_basis_kernel metrics. Open boundaries.png and explain why the curved solution is plausible for this particular data geometry.
 
-Every completed run writes report.json with the experiment, split, seed, settings, dataset description, measured metrics, timing, and limitations. Where applicable it also saves a trained parameter dictionary. The Experiment results page shows the measured report and generated plots. Record an explanation of the result instead of copying only the score.
 
 ## Change one thing and prove what happened
 
@@ -821,62 +689,34 @@ Increase observation noise while preserving the random seed. Compare whether inc
 
 Kernel methods are not a special kind of graphics processor. A kernel here is a mathematical similarity function; a hardware computation kernel means something different.
 
-If the program reports a missing module, install foundation packages in the runtime shown by the website. If it refuses an existing output directory, choose a new one; this protects earlier evidence. If a numerical result surprises you, inspect data shape, split sizes, and the baseline before changing model complexity.
 
 ## Compute plan
 
-For this exact bundled exercise, use your local central processing unit. Renting a graphics processing unit is unnecessary. The implementation uses ordinary processor-based scikit-learn or small tables. Renting a graphics processor will not automatically accelerate this code.
+The bundled exercise runs on a local central processing unit. This scikit-learn or small-table implementation does not gain automatic graphics-processor acceleration.
 
-## Build it from start to finish: Nonlinear boundary for two sensor signals
+## Build from start to finish: Nonlinear boundary for two sensor signals
 
-**Runnable implementation lab — local prototype.** This build connects the real-world scenario to an executable teaching model. Simulated data is explicitly identified; a good score on it does not establish business performance.
+1. **Decision and data contract.** Two measurements with a binary state label. Fit scaling on training data and compare a linear boundary with the radial-basis boundary. Define the acceptable error or failure rate before selecting a model.
+2. **Architecture and training.** Fit train-only scaling, a linear support-vector classifier, and a radial-basis classifier. The Practice commands and algorithm above are the runnable implementation for this prototype.
+3. **Independent evidence and comparison.** Compare both kernels and the majority baseline; repeat with changed C on the same split.
+4. **Save, reload, and use a new input.** Retain the generated manifest, learned state, and input example. Use **Load saved example** and **Predict new input**. A predicted state from the selected support-vector model; a class output is not automatically a calibrated probability.
+5. **Local deployment and production gap.** The local saved-input interface is the serving prototype. Before external use, validate representative inputs, enforce request/access limits, and keep a versioned rollback artifact. The teaching score alone is not a deployment approval.
+6. **Monitor.** Errors near the boundary, input drift, support-vector count, and inference time. Name a response owner and a condition that would trigger review or rollback.
 
-1. **Write the decision and success criterion.** State who consumes the prediction and which mistake is expensive. Define a measurable baseline before choosing a model. For this project: nonlinear boundary for two sensor signals.
-2. **Define and inspect the data.** Two measurements with a binary state label. Fit scaling on training data and compare a linear boundary with the radial-basis boundary. Use the bundled dataset first. Before replacing it, document permission, provenance, missing values, units, class coverage, duplicates, and when each feature becomes available.
-3. **Create the evaluation boundary.** The program fixes a seed and separates fitting from held-out evaluation where that protocol applies. For real workloads, choose time-based or entity-based separation when random splitting would leak related observations. The graph, adversarial, and reinforcement modules explain their distinct protocols.
-4. **Construct the model.** Read the algorithm and the matching function in foundations.py. Trace the input shape through every preprocessing and model stage. The numerical example above lets you check a small part by hand.
-5. **Train and compare.** Run the first Practice experiment. Record its baseline, metrics, runtime, and failure cases. Run the changed setting and explain the result. Choose settings using validation; reserve final test evidence for the chosen configuration.
-6. **Save a usable artifact.** The program writes a model-manifest.json, an example-input.json, a fitted model or learned counting/action table, and report.json. It reloads the artifact in a separate inference function before declaring success. Learned scaling stays with applicable classical models. A neural state dictionary alone would be insufficient without the matching architecture; this build also exports an executable inference module.
-7. **Use it on a new input.** In Practice, select **Load saved example**, edit one value while preserving the documented shape, and select **Predict new input**. This reloads the saved model and runs inference without training again. A predicted state from the selected support-vector model; a class output is not automatically a calibrated probability.
-8. **Deploy the prototype locally.** The localhost website is the demonstration serving layer: input validation → saved artifact → inference → output. Keep the model's environment and feature contract with the release. Only load artifacts you created or trust; executable model formats are not passive documents.
-9. **Plan a production handoff.** Add representative-data evaluation, request limits, authentication, authorization, observability, model versioning, rollback, and a suitable reject/fallback behavior before exposing a service to other users. These are engineering extensions, not completed production features of this local lab.
-10. **Monitor and decide when to retrain.** Errors near the boundary, input drift, support-vector count, and inference time. Define a threshold and response owner. Track whether the new data resembles the training population, and compare a candidate model with the deployed baseline before replacement.
+### Evidence for this build
 
-### The build architecture
-
-```mermaid
-flowchart TD
- A[Problem and permitted data] --> B[Split and validate]
- B --> C[Fit preprocessing and model]
- C --> D[Evaluate held-out evidence]
- D --> E{Meets agreed criterion}
- E -->|Revise using validation| C
- E -->|Accept| F[Save versioned artifact]
- F --> G[Reload for new input]
- G --> H[Local prediction and monitoring plan]
-```
-
-### Command-line inference alternative
-
-The website remembers the last successful model folder for this lesson. In its guided terminal, replace MODEL-FOLDER below with that actual folder name and NEW-RUN with a unique output name. Edit a copy of example-input.json to supply your own values.
-
-```text
-python predict_saved.py --model-dir outputs/MODEL-FOLDER --input outputs/MODEL-FOLDER/example-input.json --output outputs/prediction-NEW-RUN.json
-```
-
-### Build acceptance evidence
-
-Submit a one-paragraph problem definition, feature/target contract, baseline and selected-model reports, one failure analysis, saved artifact, a changed-input prediction, and a deployment/monitoring decision. Passing a command demonstrates executable code; this evidence explains whether the model is appropriate for its intended use.
+The two boundaries, held-out errors, the chosen complexity, and a new sensor-pair prediction. Include the measured reports and one limitation. For interpreter setup, command-line prediction, artifact handling, and a common submission checklist, use [Run, compare, save, and explain](#ref/lab-workflow).
 
 
 
-## Submit an engineering assessment
 
-Save the two reports, their visual artifacts, a prediction made before the second run, and a paragraph explaining the observed difference. State the dataset’s limits and what additional evidence a real deployment would need. Use validation to choose settings; for a final assessment, rerun the selected settings with --split test and a new output folder. The adversarial and reinforcement labs describe their special evaluation protocols explicitly rather than claiming an ordinary random test split.
 
-## Primary reference
+## References for this lesson
 
-[Read the primary documentation or research](https://scikit-learn.org/1.7/modules/svm.html). The lesson’s scenario and simplified implementation are teaching examples.
+Use these sources to check the mechanism and extend the exercise. Research results are not results measured by this lab.
+
+- [Support vector machines — scikit-learn](https://scikit-learn.org/1.7/modules/svm.html) — Explains margin classifiers, the radial-basis kernel, and the effects of C and gamma.
+- [SVC API — scikit-learn](https://scikit-learn.org/1.7/modules/generated/sklearn.svm.SVC.html) — Documents the linear/RBF kernels and scale-based gamma rule used in the comparison.
 
 
 # Naive Bayes: combine evidence with probabilities
@@ -895,9 +735,9 @@ Estimate how likely each feature value is under each class, combine that evidenc
 
 ### Work through a concrete example
 
-If the prior chance of a fault is 0.1, then a highly unusual measurement under the normal class can increase the posterior fault probability. Multiplying probabilities requires normalization to obtain a probability distribution across classes. Correlated features can cause evidence to be counted more than once.
+If the prior chance of a fault is 0.1, then a highly unusual measurement under the normal class can increase the posterior fault probability. For a binary unusual-reading event, suppose its probability is 0.8 under fault and 0.1 under normal. The class scores are 0.1 × 0.8 = 0.08 and 0.9 × 0.1 = 0.09; normalization gives fault probability 0.08 / 0.17 ≈ 47.1 percent. These illustrative event probabilities explain the update; the runnable Gaussian model uses continuous feature likelihoods. Multiplying likelihoods and priors requires normalization across classes. Correlated features can cause evidence to be counted more than once.
 
-![Visual explanation for Naive Bayes: combine evidence with probabilities](images/expanded/evaluation-guide.svg)
+![Visual explanation for Naive Bayes: combine evidence with probabilities](images/expanded/foundations/bayes.svg)
 
 ## Follow the algorithm
 
@@ -923,7 +763,7 @@ Bayes’ rule connects posterior probability, likelihood, and prior. Implementat
 
 ## Run the implementation
 
-Open the Practice tab. Install the foundation packages once if the site requests them. The runner executes the actual program in lab/foundations.py. The commands below are for the website’s guided terminal; it selects your Python environment automatically. For external PowerShell, replace python with & .\.venv\Scripts\python.exe and use .\lab\foundations.py from the website folder. Replace {run} with a unique name when typing commands manually; the website buttons generate it automatically.
+Use this lesson’s Practice buttons. For interpreter setup, external Windows commands, and fresh output folders, read the [shared experiment workflow](#ref/lab-workflow).
 
 ```text
 python foundations.py bayes --noise 0.05 --output outputs/bayes-{run}
@@ -933,13 +773,11 @@ python foundations.py bayes --noise 0.05 --output outputs/bayes-{run}
 python foundations.py bayes --noise 0.25 --output outputs/bayes-noisy-{run}
 ```
 
-The random seed controls the generated data, splits, and applicable model initialization. Keep it fixed when investigating one changed parameter. Neural results can still vary across hardware and library implementations.
 
 ## Inspect the evidence
 
 Inspect naive_bayes and logistic_comparison in report.json. Which errors differ? Accuracy may remain useful even when the probability estimates are poorly calibrated.
 
-Every completed run writes report.json with the experiment, split, seed, settings, dataset description, measured metrics, timing, and limitations. Where applicable it also saves a trained parameter dictionary. The Experiment results page shows the measured report and generated plots. Record an explanation of the result instead of copying only the score.
 
 ## Change one thing and prove what happened
 
@@ -949,62 +787,34 @@ Write down what would change if the inputs were word counts rather than continuo
 
 A confident score from a naive Bayes model is not automatically reliable uncertainty. Evaluate calibration before using probabilities for consequential decisions.
 
-If the program reports a missing module, install foundation packages in the runtime shown by the website. If it refuses an existing output directory, choose a new one; this protects earlier evidence. If a numerical result surprises you, inspect data shape, split sizes, and the baseline before changing model complexity.
 
 ## Compute plan
 
-For this exact bundled exercise, use your local central processing unit. Renting a graphics processing unit is unnecessary. The implementation uses ordinary processor-based scikit-learn or small tables. Renting a graphics processor will not automatically accelerate this code.
+The bundled exercise runs on a local central processing unit. This scikit-learn or small-table implementation does not gain automatic graphics-processor acceleration.
 
-## Build it from start to finish: Fast event-category baseline
+## Build from start to finish: Fast event-category baseline
 
-**Runnable implementation lab — local prototype.** This build connects the real-world scenario to an executable teaching model. Simulated data is explicitly identified; a good score on it does not establish business performance.
+1. **Decision and data contract.** Eight numeric measurements and a reviewed category for the Gaussian naive Bayes prototype. A text spam model would instead need token counts and a suitable multinomial model. Define the acceptable error or failure rate before selecting a model.
+2. **Architecture and training.** Estimate Gaussian feature likelihoods and priors for naive Bayes; fit the separate logistic comparator. The Practice commands and algorithm above are the runnable implementation for this prototype.
+3. **Independent evidence and comparison.** Compare both models and the majority baseline. The saved confusion.png shows the logistic comparator; read the naive-Bayes confusion counts in report.json.
+4. **Save, reload, and use a new input.** Retain the generated manifest, learned state, and input example. Use **Load saved example** and **Predict new input**. A category and an explicitly documented conditional-independence assumption.
+5. **Local deployment and production gap.** The local saved-input interface is the serving prototype. Before external use, validate representative inputs, enforce request/access limits, and keep a versioned rollback artifact. The teaching score alone is not a deployment approval.
+6. **Monitor.** Calibration, correlated-feature failures, changing class frequencies, and minority-class recall. Name a response owner and a condition that would trigger review or rollback.
 
-1. **Write the decision and success criterion.** State who consumes the prediction and which mistake is expensive. Define a measurable baseline before choosing a model. For this project: fast event-category baseline.
-2. **Define and inspect the data.** Eight numeric measurements and a reviewed category for the Gaussian naive Bayes prototype. A text spam model would instead need token counts and a suitable multinomial model. Use the bundled dataset first. Before replacing it, document permission, provenance, missing values, units, class coverage, duplicates, and when each feature becomes available.
-3. **Create the evaluation boundary.** The program fixes a seed and separates fitting from held-out evaluation where that protocol applies. For real workloads, choose time-based or entity-based separation when random splitting would leak related observations. The graph, adversarial, and reinforcement modules explain their distinct protocols.
-4. **Construct the model.** Read the algorithm and the matching function in foundations.py. Trace the input shape through every preprocessing and model stage. The numerical example above lets you check a small part by hand.
-5. **Train and compare.** Run the first Practice experiment. Record its baseline, metrics, runtime, and failure cases. Run the changed setting and explain the result. Choose settings using validation; reserve final test evidence for the chosen configuration.
-6. **Save a usable artifact.** The program writes a model-manifest.json, an example-input.json, a fitted model or learned counting/action table, and report.json. It reloads the artifact in a separate inference function before declaring success. Learned scaling stays with applicable classical models. A neural state dictionary alone would be insufficient without the matching architecture; this build also exports an executable inference module.
-7. **Use it on a new input.** In Practice, select **Load saved example**, edit one value while preserving the documented shape, and select **Predict new input**. This reloads the saved model and runs inference without training again. A category and an explicitly documented conditional-independence assumption.
-8. **Deploy the prototype locally.** The localhost website is the demonstration serving layer: input validation → saved artifact → inference → output. Keep the model's environment and feature contract with the release. Only load artifacts you created or trust; executable model formats are not passive documents.
-9. **Plan a production handoff.** Add representative-data evaluation, request limits, authentication, authorization, observability, model versioning, rollback, and a suitable reject/fallback behavior before exposing a service to other users. These are engineering extensions, not completed production features of this local lab.
-10. **Monitor and decide when to retrain.** Calibration, correlated-feature failures, changing class frequencies, and minority-class recall. Define a threshold and response owner. Track whether the new data resembles the training population, and compare a candidate model with the deployed baseline before replacement.
+### Evidence for this build
 
-### The build architecture
-
-```mermaid
-flowchart TD
- A[Problem and permitted data] --> B[Split and validate]
- B --> C[Fit preprocessing and model]
- C --> D[Evaluate held-out evidence]
- D --> E{Meets agreed criterion}
- E -->|Revise using validation| C
- E -->|Accept| F[Save versioned artifact]
- F --> G[Reload for new input]
- G --> H[Local prediction and monitoring plan]
-```
-
-### Command-line inference alternative
-
-The website remembers the last successful model folder for this lesson. In its guided terminal, replace MODEL-FOLDER below with that actual folder name and NEW-RUN with a unique output name. Edit a copy of example-input.json to supply your own values.
-
-```text
-python predict_saved.py --model-dir outputs/MODEL-FOLDER --input outputs/MODEL-FOLDER/example-input.json --output outputs/prediction-NEW-RUN.json
-```
-
-### Build acceptance evidence
-
-Submit a one-paragraph problem definition, feature/target contract, baseline and selected-model reports, one failure analysis, saved artifact, a changed-input prediction, and a deployment/monitoring decision. Passing a command demonstrates executable code; this evidence explains whether the model is appropriate for its intended use.
+Normalized posterior arithmetic, both models’ error counts, a correlated-feature failure, and new-input predictions. Include the measured reports and one limitation. For interpreter setup, command-line prediction, artifact handling, and a common submission checklist, use [Run, compare, save, and explain](#ref/lab-workflow).
 
 
 
-## Submit an engineering assessment
 
-Save the two reports, their visual artifacts, a prediction made before the second run, and a paragraph explaining the observed difference. State the dataset’s limits and what additional evidence a real deployment would need. Use validation to choose settings; for a final assessment, rerun the selected settings with --split test and a new output folder. The adversarial and reinforcement labs describe their special evaluation protocols explicitly rather than claiming an ordinary random test split.
 
-## Primary reference
+## References for this lesson
 
-[Read the primary documentation or research](https://scikit-learn.org/1.7/modules/naive_bayes.html). The lesson’s scenario and simplified implementation are teaching examples.
+Use these sources to check the mechanism and extend the exercise. Research results are not results measured by this lab.
+
+- [Naive Bayes — scikit-learn](https://scikit-learn.org/1.7/modules/naive_bayes.html) — Explains conditional independence and warns that classifier probabilities may need calibration.
+- [GaussianNB API — scikit-learn](https://scikit-learn.org/1.7/modules/generated/sklearn.naive_bayes.GaussianNB.html) — Documents Gaussian feature likelihoods, priors, and the exact classifier fitted in this lab.
 
 
 # Gaussian processes: predict with uncertainty
@@ -1025,7 +835,7 @@ The model begins with assumptions about how values at nearby inputs relate. Obse
 
 If the predictive mean is 10 and predictive standard deviation is 2, a Gaussian interval using 1.96 standard deviations is approximately [6.08, 13.92]. This interval is conditional on the model assumptions; empirical coverage must still be checked.
 
-![Visual explanation for Gaussian processes: predict with uncertainty](images/expanded/evaluation-guide.svg)
+![Visual explanation for Gaussian processes: predict with uncertainty](images/expanded/foundations/gaussian.svg)
 
 ## Follow the algorithm
 
@@ -1051,7 +861,7 @@ Unlike a fixed-size linear coefficient vector, a standard Gaussian process imple
 
 ## Run the implementation
 
-Open the Practice tab. Install the foundation packages once if the site requests them. The runner executes the actual program in lab/foundations.py. The commands below are for the website’s guided terminal; it selects your Python environment automatically. For external PowerShell, replace python with & .\.venv\Scripts\python.exe and use .\lab\foundations.py from the website folder. Replace {run} with a unique name when typing commands manually; the website buttons generate it automatically.
+Use this lesson’s Practice buttons. For interpreter setup, external Windows commands, and fresh output folders, read the [shared experiment workflow](#ref/lab-workflow).
 
 ```text
 python foundations.py gaussian --noise 0.12 --output outputs/gaussian-{run}
@@ -1061,13 +871,11 @@ python foundations.py gaussian --noise 0.12 --output outputs/gaussian-{run}
 python foundations.py gaussian --noise 0.5 --output outputs/gaussian-noisy-{run}
 ```
 
-The random seed controls the generated data, splits, and applicable model initialization. Keep it fixed when investigating one changed parameter. Neural results can still vary across hardware and library implementations.
 
 ## Inspect the evidence
 
 Open uncertainty.png. Compare intervals within the observed range and beyond it. Read interval_coverage and mean_predictive_standard_deviation along with prediction error.
 
-Every completed run writes report.json with the experiment, split, seed, settings, dataset description, measured metrics, timing, and limitations. Where applicable it also saves a trained parameter dictionary. The Experiment results page shows the measured report and generated plots. Record an explanation of the result instead of copying only the score.
 
 ## Change one thing and prove what happened
 
@@ -1077,62 +885,34 @@ Explain why a wider uncertainty interval can be appropriate after increasing mea
 
 Do not equate a narrow interval with truth. Misspecified noise or kernel assumptions can make a model confidently wrong.
 
-If the program reports a missing module, install foundation packages in the runtime shown by the website. If it refuses an existing output directory, choose a new one; this protects earlier evidence. If a numerical result surprises you, inspect data shape, split sizes, and the baseline before changing model complexity.
 
 ## Compute plan
 
-For this exact bundled exercise, use your local central processing unit. Renting a graphics processing unit is unnecessary. The implementation uses ordinary processor-based scikit-learn or small tables. Renting a graphics processor will not automatically accelerate this code.
+The bundled exercise runs on a local central processing unit. This scikit-learn or small-table implementation does not gain automatic graphics-processor acceleration.
 
-## Build it from start to finish: Sensor calibration with uncertainty
+## Build from start to finish: Sensor calibration with uncertainty
 
-**Runnable implementation lab — local prototype.** This build connects the real-world scenario to an executable teaching model. Simulated data is explicitly identified; a good score on it does not establish business performance.
+1. **Decision and data contract.** Measurement position and noisy observed reading. Keep units, calibration provenance, and operating range. A real forecasting task needs a chronological split. Define the acceptable error or failure rate before selecting a model.
+2. **Architecture and training.** Fit a Gaussian process with a radial-basis covariance plus observation noise. The Practice commands and algorithm above are the runnable implementation for this prototype.
+3. **Independent evidence and comparison.** Compare noise 0.12 and 0.5 using error and interval coverage. A constant-mean baseline is an extra activity, not an included metric.
+4. **Save, reload, and use a new input.** Retain the generated manifest, learned state, and input example. Use **Load saved example** and **Predict new input**. A predicted mean plus a model-based uncertainty interval; the saved batch helper returns the mean, while the training script demonstrates intervals.
+5. **Local deployment and production gap.** The local saved-input interface is the serving prototype. Before external use, validate representative inputs, enforce request/access limits, and keep a versioned rollback artifact. The teaching score alone is not a deployment approval.
+6. **Monitor.** Empirical interval coverage, absolute error, out-of-range inputs, and increasing fit cost as observations grow. Name a response owner and a condition that would trigger review or rollback.
 
-1. **Write the decision and success criterion.** State who consumes the prediction and which mistake is expensive. Define a measurable baseline before choosing a model. For this project: sensor calibration with uncertainty.
-2. **Define and inspect the data.** Measurement position and noisy observed reading. Keep units, calibration provenance, and operating range. A real forecasting task needs a chronological split. Use the bundled dataset first. Before replacing it, document permission, provenance, missing values, units, class coverage, duplicates, and when each feature becomes available.
-3. **Create the evaluation boundary.** The program fixes a seed and separates fitting from held-out evaluation where that protocol applies. For real workloads, choose time-based or entity-based separation when random splitting would leak related observations. The graph, adversarial, and reinforcement modules explain their distinct protocols.
-4. **Construct the model.** Read the algorithm and the matching function in foundations.py. Trace the input shape through every preprocessing and model stage. The numerical example above lets you check a small part by hand.
-5. **Train and compare.** Run the first Practice experiment. Record its baseline, metrics, runtime, and failure cases. Run the changed setting and explain the result. Choose settings using validation; reserve final test evidence for the chosen configuration.
-6. **Save a usable artifact.** The program writes a model-manifest.json, an example-input.json, a fitted model or learned counting/action table, and report.json. It reloads the artifact in a separate inference function before declaring success. Learned scaling stays with applicable classical models. A neural state dictionary alone would be insufficient without the matching architecture; this build also exports an executable inference module.
-7. **Use it on a new input.** In Practice, select **Load saved example**, edit one value while preserving the documented shape, and select **Predict new input**. This reloads the saved model and runs inference without training again. A predicted mean plus a model-based uncertainty interval; the saved batch helper returns the mean, while the training script demonstrates intervals.
-8. **Deploy the prototype locally.** The localhost website is the demonstration serving layer: input validation → saved artifact → inference → output. Keep the model's environment and feature contract with the release. Only load artifacts you created or trust; executable model formats are not passive documents.
-9. **Plan a production handoff.** Add representative-data evaluation, request limits, authentication, authorization, observability, model versioning, rollback, and a suitable reject/fallback behavior before exposing a service to other users. These are engineering extensions, not completed production features of this local lab.
-10. **Monitor and decide when to retrain.** Empirical interval coverage, absolute error, out-of-range inputs, and increasing fit cost as observations grow. Define a threshold and response owner. Track whether the new data resembles the training population, and compare a candidate model with the deployed baseline before replacement.
+### Evidence for this build
 
-### The build architecture
-
-```mermaid
-flowchart TD
- A[Problem and permitted data] --> B[Split and validate]
- B --> C[Fit preprocessing and model]
- C --> D[Evaluate held-out evidence]
- D --> E{Meets agreed criterion}
- E -->|Revise using validation| C
- E -->|Accept| F[Save versioned artifact]
- F --> G[Reload for new input]
- G --> H[Local prediction and monitoring plan]
-```
-
-### Command-line inference alternative
-
-The website remembers the last successful model folder for this lesson. In its guided terminal, replace MODEL-FOLDER below with that actual folder name and NEW-RUN with a unique output name. Edit a copy of example-input.json to supply your own values.
-
-```text
-python predict_saved.py --model-dir outputs/MODEL-FOLDER --input outputs/MODEL-FOLDER/example-input.json --output outputs/prediction-NEW-RUN.json
-```
-
-### Build acceptance evidence
-
-Submit a one-paragraph problem definition, feature/target contract, baseline and selected-model reports, one failure analysis, saved artifact, a changed-input prediction, and a deployment/monitoring decision. Passing a command demonstrates executable code; this evidence explains whether the model is appropriate for its intended use.
+The uncertainty plot, observed coverage, an out-of-range input, and a statement of the kernel/noise assumptions. Include the measured reports and one limitation. For interpreter setup, command-line prediction, artifact handling, and a common submission checklist, use [Run, compare, save, and explain](#ref/lab-workflow).
 
 
 
-## Submit an engineering assessment
 
-Save the two reports, their visual artifacts, a prediction made before the second run, and a paragraph explaining the observed difference. State the dataset’s limits and what additional evidence a real deployment would need. Use validation to choose settings; for a final assessment, rerun the selected settings with --split test and a new output folder. The adversarial and reinforcement labs describe their special evaluation protocols explicitly rather than claiming an ordinary random test split.
 
-## Primary reference
+## References for this lesson
 
-[Read the primary documentation or research](https://scikit-learn.org/1.7/modules/gaussian_process.html). The lesson’s scenario and simplified implementation are teaching examples.
+Use these sources to check the mechanism and extend the exercise. Research results are not results measured by this lab.
+
+- [Gaussian processes — scikit-learn](https://scikit-learn.org/1.7/modules/gaussian_process.html) — Explains conditioning a function prior on observations and predicting uncertainty.
+- [GaussianProcessRegressor API — scikit-learn](https://scikit-learn.org/1.7/modules/generated/sklearn.gaussian_process.GaussianProcessRegressor.html) — Documents kernel fitting, target normalization, and returned predictive standard deviations.
 
 
 # Clustering: discover groups without supplied labels
@@ -1153,7 +933,7 @@ K-means alternates between assigning points to nearby centers and moving the cen
 
 For points [1, 2, 3] assigned to one one-dimensional cluster, its new center is 2. If two nearby clusters overlap heavily, a geometrically tidy grouping may no longer correspond to the hidden groups that generated the observations.
 
-![Visual explanation for Clustering: discover groups without supplied labels](images/expanded/split-leakage.svg)
+![Visual explanation for Clustering: discover groups without supplied labels](images/expanded/foundations/cluster.svg)
 
 ## Follow the algorithm
 
@@ -1179,7 +959,7 @@ Silhouette compares within-cluster cohesion with separation from other clusters.
 
 ## Run the implementation
 
-Open the Practice tab. Install the foundation packages once if the site requests them. The runner executes the actual program in lab/foundations.py. The commands below are for the website’s guided terminal; it selects your Python environment automatically. For external PowerShell, replace python with & .\.venv\Scripts\python.exe and use .\lab\foundations.py from the website folder. Replace {run} with a unique name when typing commands manually; the website buttons generate it automatically.
+Use this lesson’s Practice buttons. For interpreter setup, external Windows commands, and fresh output folders, read the [shared experiment workflow](#ref/lab-workflow).
 
 ```text
 python foundations.py cluster --clusters 3 --noise 1.2 --output outputs/cluster-three-{run}
@@ -1189,13 +969,11 @@ python foundations.py cluster --clusters 3 --noise 1.2 --output outputs/cluster-
 python foundations.py cluster --clusters 5 --noise 1.2 --output outputs/cluster-five-{run}
 ```
 
-The random seed controls the generated data, splits, and applicable model initialization. Keep it fixed when investigating one changed parameter. Neural results can still vary across hardware and library implementations.
 
 ## Inspect the evidence
 
 Open clusters.png. Compare heldout_silhouette and heldout_adjusted_rand_index. The label identifiers may be permuted between runs without changing the partition’s meaning.
 
-Every completed run writes report.json with the experiment, split, seed, settings, dataset description, measured metrics, timing, and limitations. Where applicable it also saves a trained parameter dictionary. The Experiment results page shows the measured report and generated plots. Record an explanation of the result instead of copying only the score.
 
 ## Change one thing and prove what happened
 
@@ -1205,62 +983,35 @@ Predict what requesting five clusters does to a dataset generated from three gro
 
 Unsupervised does not mean assumption-free. The distance measure, cluster count, and density thresholds express strong assumptions about useful structure.
 
-If the program reports a missing module, install foundation packages in the runtime shown by the website. If it refuses an existing output directory, choose a new one; this protects earlier evidence. If a numerical result surprises you, inspect data shape, split sizes, and the baseline before changing model complexity.
 
 ## Compute plan
 
-For this exact bundled exercise, use your local central processing unit. Renting a graphics processing unit is unnecessary. The implementation uses ordinary processor-based scikit-learn or small tables. Renting a graphics processor will not automatically accelerate this code.
+The bundled exercise runs on a local central processing unit. This scikit-learn or small-table implementation does not gain automatic graphics-processor acceleration.
 
-## Build it from start to finish: Exploratory grouping of operating patterns
+## Build from start to finish: Exploratory grouping of operating patterns
 
-**Runnable implementation lab — local prototype.** This build connects the real-world scenario to an executable teaching model. Simulated data is explicitly identified; a good score on it does not establish business performance.
+1. **Decision and data contract.** Unlabeled numeric observations. K-means assigns groups; domain experts must inspect the groups before giving them business names. Define the acceptable error or failure rate before selecting a model.
+2. **Architecture and training.** Fit train-only scaling and K-means; fit DBSCAN separately on training observations for exploration. The Practice commands and algorithm above are the runnable implementation for this prototype.
+3. **Independent evidence and comparison.** Compare k=3 and k=5 using held-out assignments. Do not rank the training-only DBSCAN plot as if it used the same evaluation protocol.
+4. **Save, reload, and use a new input.** Retain the generated manifest, learned state, and input example. Use **Load saved example** and **Predict new input**. An arbitrary cluster identifier from the saved scaler and K-means model. The density-based exploratory comparison has no out-of-sample predictor here.
+5. **Local deployment and production gap.** The local saved-input interface is the serving prototype. Before external use, validate representative inputs, enforce request/access limits, and keep a versioned rollback artifact. The teaching score alone is not a deployment approval.
+6. **Monitor.** Cluster size, distance to centers, instability after retraining, and unexplained new groups. Name a response owner and a condition that would trigger review or rollback.
 
-1. **Write the decision and success criterion.** State who consumes the prediction and which mistake is expensive. Define a measurable baseline before choosing a model. For this project: exploratory grouping of operating patterns.
-2. **Define and inspect the data.** Unlabeled numeric observations. K-means assigns groups; domain experts must inspect the groups before giving them business names. Use the bundled dataset first. Before replacing it, document permission, provenance, missing values, units, class coverage, duplicates, and when each feature becomes available.
-3. **Create the evaluation boundary.** The program fixes a seed and separates fitting from held-out evaluation where that protocol applies. For real workloads, choose time-based or entity-based separation when random splitting would leak related observations. The graph, adversarial, and reinforcement modules explain their distinct protocols.
-4. **Construct the model.** Read the algorithm and the matching function in foundations.py. Trace the input shape through every preprocessing and model stage. The numerical example above lets you check a small part by hand.
-5. **Train and compare.** Run the first Practice experiment. Record its baseline, metrics, runtime, and failure cases. Run the changed setting and explain the result. Choose settings using validation; reserve final test evidence for the chosen configuration.
-6. **Save a usable artifact.** The program writes a model-manifest.json, an example-input.json, a fitted model or learned counting/action table, and report.json. It reloads the artifact in a separate inference function before declaring success. Learned scaling stays with applicable classical models. A neural state dictionary alone would be insufficient without the matching architecture; this build also exports an executable inference module.
-7. **Use it on a new input.** In Practice, select **Load saved example**, edit one value while preserving the documented shape, and select **Predict new input**. This reloads the saved model and runs inference without training again. An arbitrary cluster identifier from the saved scaler and K-means model. The density-based exploratory comparison has no out-of-sample predictor here.
-8. **Deploy the prototype locally.** The localhost website is the demonstration serving layer: input validation → saved artifact → inference → output. Keep the model's environment and feature contract with the release. Only load artifacts you created or trust; executable model formats are not passive documents.
-9. **Plan a production handoff.** Add representative-data evaluation, request limits, authentication, authorization, observability, model versioning, rollback, and a suitable reject/fallback behavior before exposing a service to other users. These are engineering extensions, not completed production features of this local lab.
-10. **Monitor and decide when to retrain.** Cluster size, distance to centers, instability after retraining, and unexplained new groups. Define a threshold and response owner. Track whether the new data resembles the training population, and compare a candidate model with the deployed baseline before replacement.
+### Evidence for this build
 
-### The build architecture
-
-```mermaid
-flowchart TD
- A[Problem and permitted data] --> B[Split and validate]
- B --> C[Fit preprocessing and model]
- C --> D[Evaluate held-out evidence]
- D --> E{Meets agreed criterion}
- E -->|Revise using validation| C
- E -->|Accept| F[Save versioned artifact]
- F --> G[Reload for new input]
- G --> H[Local prediction and monitoring plan]
-```
-
-### Command-line inference alternative
-
-The website remembers the last successful model folder for this lesson. In its guided terminal, replace MODEL-FOLDER below with that actual folder name and NEW-RUN with a unique output name. Edit a copy of example-input.json to supply your own values.
-
-```text
-python predict_saved.py --model-dir outputs/MODEL-FOLDER --input outputs/MODEL-FOLDER/example-input.json --output outputs/prediction-NEW-RUN.json
-```
-
-### Build acceptance evidence
-
-Submit a one-paragraph problem definition, feature/target contract, baseline and selected-model reports, one failure analysis, saved artifact, a changed-input prediction, and a deployment/monitoring decision. Passing a command demonstrates executable code; this evidence explains whether the model is appropriate for its intended use.
+A center update by hand, cluster assignments, silhouette and adjusted Rand scores, and an explanation of arbitrary cluster IDs. Include the measured reports and one limitation. For interpreter setup, command-line prediction, artifact handling, and a common submission checklist, use [Run, compare, save, and explain](#ref/lab-workflow).
 
 
 
-## Submit an engineering assessment
 
-Save the two reports, their visual artifacts, a prediction made before the second run, and a paragraph explaining the observed difference. State the dataset’s limits and what additional evidence a real deployment would need. Use validation to choose settings; for a final assessment, rerun the selected settings with --split test and a new output folder. The adversarial and reinforcement labs describe their special evaluation protocols explicitly rather than claiming an ordinary random test split.
 
-## Primary reference
+## References for this lesson
 
-[Read the primary documentation or research](https://scikit-learn.org/1.7/modules/clustering.html). The lesson’s scenario and simplified implementation are teaching examples.
+Use these sources to check the mechanism and extend the exercise. Research results are not results measured by this lab.
+
+- [Clustering — scikit-learn](https://scikit-learn.org/1.7/modules/clustering.html) — Explains K-means, density-based clustering, silhouette, and adjusted Rand index.
+- [KMeans API — scikit-learn](https://scikit-learn.org/1.7/modules/generated/sklearn.cluster.KMeans.html) — Documents fitted centers, inertia, and predictions for new observations.
+- [DBSCAN API — scikit-learn](https://scikit-learn.org/1.7/modules/generated/sklearn.cluster.DBSCAN.html) — Explains neighborhood density, noise labels, and the separate training-data exploration.
 
 
 # Principal component analysis: compress measurements
@@ -1281,7 +1032,7 @@ Find perpendicular directions that capture large amounts of variation in trainin
 
 If two measurements usually rise together, much of their variation may lie along a diagonal line. One coordinate along that line can preserve more information than simply discarding either measurement. With images, the directions represent patterns across pixels.
 
-![Visual explanation for Principal component analysis: compress measurements](images/expanded/neural-shapes.svg)
+![Visual explanation for Principal component analysis: compress measurements](images/expanded/foundations/projection.svg)
 
 ## Follow the algorithm
 
@@ -1307,7 +1058,7 @@ The implementation centers the training data and uses a numerical decomposition 
 
 ## Run the implementation
 
-Open the Practice tab. Install the foundation packages once if the site requests them. The runner executes the actual program in lab/foundations.py. The commands below are for the website’s guided terminal; it selects your Python environment automatically. For external PowerShell, replace python with & .\.venv\Scripts\python.exe and use .\lab\foundations.py from the website folder. Replace {run} with a unique name when typing commands manually; the website buttons generate it automatically.
+Use this lesson’s Practice buttons. For interpreter setup, external Windows commands, and fresh output folders, read the [shared experiment workflow](#ref/lab-workflow).
 
 ```text
 python foundations.py projection --components 4 --output outputs/projection-four-{run}
@@ -1317,13 +1068,11 @@ python foundations.py projection --components 4 --output outputs/projection-four
 python foundations.py projection --components 32 --output outputs/projection-thirtytwo-{run}
 ```
 
-The random seed controls the generated data, splits, and applicable model initialization. Keep it fixed when investigating one changed parameter. Neural results can still vary across hardware and library implementations.
 
 ## Inspect the evidence
 
 Compare retained_training_variance with reconstruction_mean_squared_error. In reconstructions.png, original digits are above reconstructions. Use visible details and metrics together.
 
-Every completed run writes report.json with the experiment, split, seed, settings, dataset description, measured metrics, timing, and limitations. Where applicable it also saves a trained parameter dictionary. The Experiment results page shows the measured report and generated plots. Record an explanation of the result instead of copying only the score.
 
 ## Change one thing and prove what happened
 
@@ -1333,62 +1082,34 @@ Choose a compression level and justify it using storage dimensions and reconstru
 
 Fitting the principal directions on the whole dataset before the split leaks validation and test information into the representation.
 
-If the program reports a missing module, install foundation packages in the runtime shown by the website. If it refuses an existing output directory, choose a new one; this protects earlier evidence. If a numerical result surprises you, inspect data shape, split sizes, and the baseline before changing model complexity.
 
 ## Compute plan
 
-For this exact bundled exercise, use your local central processing unit. Renting a graphics processing unit is unnecessary. The implementation uses ordinary processor-based scikit-learn or small tables. Renting a graphics processor will not automatically accelerate this code.
+The bundled exercise runs on a local central processing unit. This scikit-learn or small-table implementation does not gain automatic graphics-processor acceleration.
 
-## Build it from start to finish: Compact representation of scanned digits
+## Build from start to finish: Compact representation of scanned digits
 
-**Runnable implementation lab — local prototype.** This build connects the real-world scenario to an executable teaching model. Simulated data is explicitly identified; a good score on it does not establish business performance.
+1. **Decision and data contract.** Flattened eight-by-eight grayscale images normalized to zero through one. Fit the principal-component basis only on training images. Define the acceptable error or failure rate before selecting a model.
+2. **Architecture and training.** Fit a centered principal-component basis on training digits and retain the requested dimensions. The Practice commands and algorithm above are the runnable implementation for this prototype.
+3. **Independent evidence and comparison.** Compare 4 and 32 components by reconstruction error and retained training variance; no classifier is trained.
+4. **Save, reload, and use a new input.** Retain the generated manifest, learned state, and input example. Use **Load saved example** and **Predict new input**. A lower-dimensional vector; inverse transformation reconstructs an approximation. This is compression, not digit classification.
+5. **Local deployment and production gap.** The local saved-input interface is the serving prototype. Before external use, validate representative inputs, enforce request/access limits, and keep a versioned rollback artifact. The teaching score alone is not a deployment approval.
+6. **Monitor.** Reconstruction error, retained variance, downstream task quality, and representation version compatibility. Name a response owner and a condition that would trigger review or rollback.
 
-1. **Write the decision and success criterion.** State who consumes the prediction and which mistake is expensive. Define a measurable baseline before choosing a model. For this project: compact representation of scanned digits.
-2. **Define and inspect the data.** Flattened eight-by-eight grayscale images normalized to zero through one. Fit the principal-component basis only on training images. Use the bundled dataset first. Before replacing it, document permission, provenance, missing values, units, class coverage, duplicates, and when each feature becomes available.
-3. **Create the evaluation boundary.** The program fixes a seed and separates fitting from held-out evaluation where that protocol applies. For real workloads, choose time-based or entity-based separation when random splitting would leak related observations. The graph, adversarial, and reinforcement modules explain their distinct protocols.
-4. **Construct the model.** Read the algorithm and the matching function in foundations.py. Trace the input shape through every preprocessing and model stage. The numerical example above lets you check a small part by hand.
-5. **Train and compare.** Run the first Practice experiment. Record its baseline, metrics, runtime, and failure cases. Run the changed setting and explain the result. Choose settings using validation; reserve final test evidence for the chosen configuration.
-6. **Save a usable artifact.** The program writes a model-manifest.json, an example-input.json, a fitted model or learned counting/action table, and report.json. It reloads the artifact in a separate inference function before declaring success. Learned scaling stays with applicable classical models. A neural state dictionary alone would be insufficient without the matching architecture; this build also exports an executable inference module.
-7. **Use it on a new input.** In Practice, select **Load saved example**, edit one value while preserving the documented shape, and select **Predict new input**. This reloads the saved model and runs inference without training again. A lower-dimensional vector; inverse transformation reconstructs an approximation. This is compression, not digit classification.
-8. **Deploy the prototype locally.** The localhost website is the demonstration serving layer: input validation → saved artifact → inference → output. Keep the model's environment and feature contract with the release. Only load artifacts you created or trust; executable model formats are not passive documents.
-9. **Plan a production handoff.** Add representative-data evaluation, request limits, authentication, authorization, observability, model versioning, rollback, and a suitable reject/fallback behavior before exposing a service to other users. These are engineering extensions, not completed production features of this local lab.
-10. **Monitor and decide when to retrain.** Reconstruction error, retained variance, downstream task quality, and representation version compatibility. Define a threshold and response owner. Track whether the new data resembles the training population, and compare a candidate model with the deployed baseline before replacement.
+### Evidence for this build
 
-### The build architecture
-
-```mermaid
-flowchart TD
- A[Problem and permitted data] --> B[Split and validate]
- B --> C[Fit preprocessing and model]
- C --> D[Evaluate held-out evidence]
- D --> E{Meets agreed criterion}
- E -->|Revise using validation| C
- E -->|Accept| F[Save versioned artifact]
- F --> G[Reload for new input]
- G --> H[Local prediction and monitoring plan]
-```
-
-### Command-line inference alternative
-
-The website remembers the last successful model folder for this lesson. In its guided terminal, replace MODEL-FOLDER below with that actual folder name and NEW-RUN with a unique output name. Edit a copy of example-input.json to supply your own values.
-
-```text
-python predict_saved.py --model-dir outputs/MODEL-FOLDER --input outputs/MODEL-FOLDER/example-input.json --output outputs/prediction-NEW-RUN.json
-```
-
-### Build acceptance evidence
-
-Submit a one-paragraph problem definition, feature/target contract, baseline and selected-model reports, one failure analysis, saved artifact, a changed-input prediction, and a deployment/monitoring decision. Passing a command demonstrates executable code; this evidence explains whether the model is appropriate for its intended use.
+Original/reconstructed digits, the dimension tradeoff, a projected new input, and information lost during reconstruction. Include the measured reports and one limitation. For interpreter setup, command-line prediction, artifact handling, and a common submission checklist, use [Run, compare, save, and explain](#ref/lab-workflow).
 
 
 
-## Submit an engineering assessment
 
-Save the two reports, their visual artifacts, a prediction made before the second run, and a paragraph explaining the observed difference. State the dataset’s limits and what additional evidence a real deployment would need. Use validation to choose settings; for a final assessment, rerun the selected settings with --split test and a new output folder. The adversarial and reinforcement labs describe their special evaluation protocols explicitly rather than claiming an ordinary random test split.
 
-## Primary reference
+## References for this lesson
 
-[Read the primary documentation or research](https://scikit-learn.org/1.7/modules/decomposition.html#pca). The lesson’s scenario and simplified implementation are teaching examples.
+Use these sources to check the mechanism and extend the exercise. Research results are not results measured by this lab.
+
+- [Principal component analysis — scikit-learn](https://scikit-learn.org/1.7/modules/decomposition.html#pca) — Explains orthogonal principal directions, centering, and dimensionality reduction.
+- [PCA API — scikit-learn](https://scikit-learn.org/1.7/modules/generated/sklearn.decomposition.PCA.html) — Documents retained variance, transform, and inverse_transform used to reconstruct digits.
 
 
 # Dense neural networks: train a hidden representation
@@ -1409,7 +1130,7 @@ A layer computes weighted sums, adds biases, then applies a nonlinear function. 
 
 An 8-by-8 image becomes 64 input numbers. The first layer maps 64 inputs to 32 hidden values; the final layer maps 32 values to 10 class scores. One hidden neuron has 64 weights and one bias. Tensor dimensions describe the structure, not the number of training examples.
 
-![Visual explanation for Dense neural networks: train a hidden representation](images/expanded/neural-shapes.svg)
+![Visual explanation for Dense neural networks: train a hidden representation](images/expanded/foundations/dense.svg)
 
 ## Follow the algorithm
 
@@ -1435,7 +1156,7 @@ The final outputs are logits, unnormalized class scores. Cross-entropy combines 
 
 ## Run the implementation
 
-Open the Practice tab. Install the foundation packages once if the site requests them. The runner executes the actual program in lab/foundations.py. The commands below are for the website’s guided terminal; it selects your Python environment automatically. For external PowerShell, replace python with & .\.venv\Scripts\python.exe and use .\lab\foundations.py from the website folder. Replace {run} with a unique name when typing commands manually; the website buttons generate it automatically.
+Use this lesson’s Practice buttons. For interpreter setup, external Windows commands, and fresh output folders, read the [shared experiment workflow](#ref/lab-workflow).
 
 ```text
 python foundations.py dense --epochs 5 --output outputs/dense-five-{run}
@@ -1445,13 +1166,11 @@ python foundations.py dense --epochs 5 --output outputs/dense-five-{run}
 python foundations.py dense --epochs 20 --output outputs/dense-twenty-{run}
 ```
 
-The random seed controls the generated data, splits, and applicable model initialization. Keep it fixed when investigating one changed parameter. Neural results can still vary across hardware and library implementations.
 
 ## Inspect the evidence
 
 Inspect the loss chart and confusion.png. Find digit pairs that are mistaken for one another. Count the trainable parameters and explain the first layer’s contribution.
 
-Every completed run writes report.json with the experiment, split, seed, settings, dataset description, measured metrics, timing, and limitations. Where applicable it also saves a trained parameter dictionary. The Experiment results page shows the measured report and generated plots. Record an explanation of the result instead of copying only the score.
 
 ## Change one thing and prove what happened
 
@@ -1461,62 +1180,35 @@ Predict whether additional epochs improve validation accuracy and test that pred
 
 A falling training loss does not guarantee that the model generalizes. More neurons are not automatically more useful than better data or a simpler baseline.
 
-If the program reports a missing module, install foundation packages in the runtime shown by the website. If it refuses an existing output directory, choose a new one; this protects earlier evidence. If a numerical result surprises you, inspect data shape, split sizes, and the baseline before changing model complexity.
 
 ## Compute plan
 
-For this exact bundled exercise, use your local central processing unit. Renting a graphics processing unit is unnecessary. For substantially larger images, graphs, or models, first record the local runtime and memory. Use the Vast.ai guide only when the measured limit justifies a rental, and pass --device cuda to use the remote graphics processor. More expensive hardware does not fix a flawed objective or split.
+The bundled exercise runs on a local central processing unit. For a larger version, measure runtime and memory before considering the optional graphics-processor path.
 
-## Build it from start to finish: Small digit-recognition baseline
+## Build from start to finish: Small digit-recognition baseline
 
-**Runnable implementation lab — local prototype.** This build connects the real-world scenario to an executable teaching model. Simulated data is explicitly identified; a good score on it does not establish business performance.
+1. **Decision and data contract.** An image becomes 64 normalized pixel values; the target is a digit from zero through nine. The bundled handwritten-digit data provides a reproducible start. Define the acceptable error or failure rate before selecting a model.
+2. **Architecture and training.** Train a 64-input, 32-hidden-value, 10-score network with a nonlinear activation. The Practice commands and algorithm above are the runnable implementation for this prototype.
+3. **Independent evidence and comparison.** Compare 5 and 20 epochs on the same split. This report has no automatic majority-baseline field.
+4. **Save, reload, and use a new input.** Retain the generated manifest, learned state, and input example. Use **Load saved example** and **Predict new input**. Ten learned scores reduced to a class index. An unfamiliar document crop requires separate evaluation and possibly rejection.
+5. **Local deployment and production gap.** The local saved-input interface is the serving prototype. Before external use, validate representative inputs, enforce request/access limits, and keep a versioned rollback artifact. The teaching score alone is not a deployment approval.
+6. **Monitor.** Per-digit recall, confusion patterns, crop quality, and input normalization errors. Name a response owner and a condition that would trigger review or rollback.
 
-1. **Write the decision and success criterion.** State who consumes the prediction and which mistake is expensive. Define a measurable baseline before choosing a model. For this project: small digit-recognition baseline.
-2. **Define and inspect the data.** An image becomes 64 normalized pixel values; the target is a digit from zero through nine. The bundled handwritten-digit data provides a reproducible start. Use the bundled dataset first. Before replacing it, document permission, provenance, missing values, units, class coverage, duplicates, and when each feature becomes available.
-3. **Create the evaluation boundary.** The program fixes a seed and separates fitting from held-out evaluation where that protocol applies. For real workloads, choose time-based or entity-based separation when random splitting would leak related observations. The graph, adversarial, and reinforcement modules explain their distinct protocols.
-4. **Construct the model.** Read the algorithm and the matching function in foundations.py. Trace the input shape through every preprocessing and model stage. The numerical example above lets you check a small part by hand.
-5. **Train and compare.** Run the first Practice experiment. Record its baseline, metrics, runtime, and failure cases. Run the changed setting and explain the result. Choose settings using validation; reserve final test evidence for the chosen configuration.
-6. **Save a usable artifact.** The program writes a model-manifest.json, an example-input.json, a fitted model or learned counting/action table, and report.json. It reloads the artifact in a separate inference function before declaring success. Learned scaling stays with applicable classical models. A neural state dictionary alone would be insufficient without the matching architecture; this build also exports an executable inference module.
-7. **Use it on a new input.** In Practice, select **Load saved example**, edit one value while preserving the documented shape, and select **Predict new input**. This reloads the saved model and runs inference without training again. Ten learned scores reduced to a class index. An unfamiliar document crop requires separate evaluation and possibly rejection.
-8. **Deploy the prototype locally.** The localhost website is the demonstration serving layer: input validation → saved artifact → inference → output. Keep the model's environment and feature contract with the release. Only load artifacts you created or trust; executable model formats are not passive documents.
-9. **Plan a production handoff.** Add representative-data evaluation, request limits, authentication, authorization, observability, model versioning, rollback, and a suitable reject/fallback behavior before exposing a service to other users. These are engineering extensions, not completed production features of this local lab.
-10. **Monitor and decide when to retrain.** Per-digit recall, confusion patterns, crop quality, and input normalization errors. Define a threshold and response owner. Track whether the new data resembles the training population, and compare a candidate model with the deployed baseline before replacement.
+### Evidence for this build
 
-### The build architecture
-
-```mermaid
-flowchart TD
- A[Problem and permitted data] --> B[Split and validate]
- B --> C[Fit preprocessing and model]
- C --> D[Evaluate held-out evidence]
- D --> E{Meets agreed criterion}
- E -->|Revise using validation| C
- E -->|Accept| F[Save versioned artifact]
- F --> G[Reload for new input]
- G --> H[Local prediction and monitoring plan]
-```
-
-### Command-line inference alternative
-
-The website remembers the last successful model folder for this lesson. In its guided terminal, replace MODEL-FOLDER below with that actual folder name and NEW-RUN with a unique output name. Edit a copy of example-input.json to supply your own values.
-
-```text
-python predict_saved.py --model-dir outputs/MODEL-FOLDER --input outputs/MODEL-FOLDER/example-input.json --output outputs/prediction-NEW-RUN.json
-```
-
-### Build acceptance evidence
-
-Submit a one-paragraph problem definition, feature/target contract, baseline and selected-model reports, one failure analysis, saved artifact, a changed-input prediction, and a deployment/monitoring decision. Passing a command demonstrates executable code; this evidence explains whether the model is appropriate for its intended use.
+Tensor dimensions, loss behavior, per-digit errors, and a reloaded prediction for changed pixels. Include the measured reports and one limitation. For interpreter setup, command-line prediction, artifact handling, and a common submission checklist, use [Run, compare, save, and explain](#ref/lab-workflow).
 
 
 
-## Submit an engineering assessment
 
-Save the two reports, their visual artifacts, a prediction made before the second run, and a paragraph explaining the observed difference. State the dataset’s limits and what additional evidence a real deployment would need. Use validation to choose settings; for a final assessment, rerun the selected settings with --split test and a new output folder. The adversarial and reinforcement labs describe their special evaluation protocols explicitly rather than claiming an ordinary random test split.
 
-## Primary reference
+## References for this lesson
 
-[Read the primary documentation or research](https://docs.pytorch.org/tutorials/beginner/basics/buildmodel_tutorial.html). The lesson’s scenario and simplified implementation are teaching examples.
+Use these sources to check the mechanism and extend the exercise. Research results are not results measured by this lab.
+
+- [Build the Neural Network — PyTorch](https://docs.pytorch.org/tutorials/beginner/basics/buildmodel_tutorial.html) — Introduces dense layers, nonlinear activations, and class-score outputs.
+- [Linear layer — PyTorch](https://docs.pytorch.org/docs/stable/generated/torch.nn.Linear.html) — Specifies input/output dimensions, learned weights, and bias for affine layers.
+- [CrossEntropyLoss — PyTorch](https://docs.pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html) — Explains why the classifier supplies unnormalized logits directly to the loss.
 
 
 # Convolutional networks: share a visual detector
@@ -1537,7 +1229,7 @@ A small filter slides across an image, combining a local neighborhood at each po
 
 For a single-channel 8-by-8 image, eight padded filters produce eight 8-by-8 maps. Pooling reduces them to eight 4-by-4 maps. A second convolution creates sixteen 4-by-4 maps; flattening gives 256 numbers before the ten class scores.
 
-![Visual explanation for Convolutional networks: share a visual detector](images/expanded/neural-shapes.svg)
+![Visual explanation for Convolutional networks: share a visual detector](images/expanded/foundations/convolution.svg)
 
 ## Follow the algorithm
 
@@ -1564,7 +1256,7 @@ Weight sharing means a filter is reused at different locations, reducing paramet
 
 ## Run the implementation
 
-Open the Practice tab. Install the foundation packages once if the site requests them. The runner executes the actual program in lab/foundations.py. The commands below are for the website’s guided terminal; it selects your Python environment automatically. For external PowerShell, replace python with & .\.venv\Scripts\python.exe and use .\lab\foundations.py from the website folder. Replace {run} with a unique name when typing commands manually; the website buttons generate it automatically.
+Use this lesson’s Practice buttons. For interpreter setup, external Windows commands, and fresh output folders, read the [shared experiment workflow](#ref/lab-workflow).
 
 ```text
 python foundations.py convolution --epochs 5 --output outputs/convolution-five-{run}
@@ -1574,13 +1266,11 @@ python foundations.py convolution --epochs 5 --output outputs/convolution-five-{
 python foundations.py convolution --epochs 20 --output outputs/convolution-twenty-{run}
 ```
 
-The random seed controls the generated data, splits, and applicable model initialization. Keep it fixed when investigating one changed parameter. Neural results can still vary across hardware and library implementations.
 
 ## Inspect the evidence
 
 Compare the confusion matrix, parameter count, and timing with the dense-network lab using the same data split and epoch count. Different architectures can do different amounts of computation per epoch.
 
-Every completed run writes report.json with the experiment, split, seed, settings, dataset description, measured metrics, timing, and limitations. Where applicable it also saves a trained parameter dictionary. The Experiment results page shows the measured report and generated plots. Record an explanation of the result instead of copying only the score.
 
 ## Change one thing and prove what happened
 
@@ -1590,62 +1280,34 @@ Draw every tensor shape before reading the code. In a copied experiment shift ea
 
 Changing image resolution requires revisiting the flattened layer’s input size. A shape error is often an architectural mismatch rather than a package-installation failure.
 
-If the program reports a missing module, install foundation packages in the runtime shown by the website. If it refuses an existing output directory, choose a new one; this protects earlier evidence. If a numerical result surprises you, inspect data shape, split sizes, and the baseline before changing model complexity.
 
 ## Compute plan
 
-For this exact bundled exercise, use your local central processing unit. Renting a graphics processing unit is unnecessary. For substantially larger images, graphs, or models, first record the local runtime and memory. Use the Vast.ai guide only when the measured limit justifies a rental, and pass --device cuda to use the remote graphics processor. More expensive hardware does not fix a flawed objective or split.
+The bundled exercise runs on a local central processing unit. For a larger version, measure runtime and memory before considering the optional graphics-processor path.
 
-## Build it from start to finish: Visual inspection through a digit-recognition prototype
+## Build from start to finish: Visual inspection through a digit-recognition prototype
 
-**Runnable implementation lab — local prototype.** This build connects the real-world scenario to an executable teaching model. Simulated data is explicitly identified; a good score on it does not establish business performance.
+1. **Decision and data contract.** Keep the two-dimensional pixel layout while supplying the same 64-value input contract. Moving to defective-part photographs requires licensed images, new labels, new shapes, and retraining. Define the acceptable error or failure rate before selecting a model.
+2. **Architecture and training.** Train two shared 3-by-3 filter layers with a pooling layer and a 10-score output. The Practice commands and algorithm above are the runnable implementation for this prototype.
+3. **Independent evidence and comparison.** Compare the two epoch budgets. A dense-model comparison requires its own run with matched split and training budget.
+4. **Save, reload, and use a new input.** Retain the generated manifest, learned state, and input example. Use **Load saved example** and **Predict new input**. A digit class for the teaching build; demonstrate spatial feature extraction without claiming a factory-ready detector.
+5. **Local deployment and production gap.** The local saved-input interface is the serving prototype. Before external use, validate representative inputs, enforce request/access limits, and keep a versioned rollback artifact. The teaching score alone is not a deployment approval.
+6. **Monitor.** Per-class errors, lighting and camera shifts, latency, and false rejection cost. Name a response owner and a condition that would trigger review or rollback.
 
-1. **Write the decision and success criterion.** State who consumes the prediction and which mistake is expensive. Define a measurable baseline before choosing a model. For this project: visual inspection through a digit-recognition prototype.
-2. **Define and inspect the data.** Keep the two-dimensional pixel layout while supplying the same 64-value input contract. Moving to defective-part photographs requires licensed images, new labels, new shapes, and retraining. Use the bundled dataset first. Before replacing it, document permission, provenance, missing values, units, class coverage, duplicates, and when each feature becomes available.
-3. **Create the evaluation boundary.** The program fixes a seed and separates fitting from held-out evaluation where that protocol applies. For real workloads, choose time-based or entity-based separation when random splitting would leak related observations. The graph, adversarial, and reinforcement modules explain their distinct protocols.
-4. **Construct the model.** Read the algorithm and the matching function in foundations.py. Trace the input shape through every preprocessing and model stage. The numerical example above lets you check a small part by hand.
-5. **Train and compare.** Run the first Practice experiment. Record its baseline, metrics, runtime, and failure cases. Run the changed setting and explain the result. Choose settings using validation; reserve final test evidence for the chosen configuration.
-6. **Save a usable artifact.** The program writes a model-manifest.json, an example-input.json, a fitted model or learned counting/action table, and report.json. It reloads the artifact in a separate inference function before declaring success. Learned scaling stays with applicable classical models. A neural state dictionary alone would be insufficient without the matching architecture; this build also exports an executable inference module.
-7. **Use it on a new input.** In Practice, select **Load saved example**, edit one value while preserving the documented shape, and select **Predict new input**. This reloads the saved model and runs inference without training again. A digit class for the teaching build; demonstrate spatial feature extraction without claiming a factory-ready detector.
-8. **Deploy the prototype locally.** The localhost website is the demonstration serving layer: input validation → saved artifact → inference → output. Keep the model's environment and feature contract with the release. Only load artifacts you created or trust; executable model formats are not passive documents.
-9. **Plan a production handoff.** Add representative-data evaluation, request limits, authentication, authorization, observability, model versioning, rollback, and a suitable reject/fallback behavior before exposing a service to other users. These are engineering extensions, not completed production features of this local lab.
-10. **Monitor and decide when to retrain.** Per-class errors, lighting and camera shifts, latency, and false rejection cost. Define a threshold and response owner. Track whether the new data resembles the training population, and compare a candidate model with the deployed baseline before replacement.
+### Evidence for this build
 
-### The build architecture
-
-```mermaid
-flowchart TD
- A[Problem and permitted data] --> B[Split and validate]
- B --> C[Fit preprocessing and model]
- C --> D[Evaluate held-out evidence]
- D --> E{Meets agreed criterion}
- E -->|Revise using validation| C
- E -->|Accept| F[Save versioned artifact]
- F --> G[Reload for new input]
- G --> H[Local prediction and monitoring plan]
-```
-
-### Command-line inference alternative
-
-The website remembers the last successful model folder for this lesson. In its guided terminal, replace MODEL-FOLDER below with that actual folder name and NEW-RUN with a unique output name. Edit a copy of example-input.json to supply your own values.
-
-```text
-python predict_saved.py --model-dir outputs/MODEL-FOLDER --input outputs/MODEL-FOLDER/example-input.json --output outputs/prediction-NEW-RUN.json
-```
-
-### Build acceptance evidence
-
-Submit a one-paragraph problem definition, feature/target contract, baseline and selected-model reports, one failure analysis, saved artifact, a changed-input prediction, and a deployment/monitoring decision. Passing a command demonstrates executable code; this evidence explains whether the model is appropriate for its intended use.
+Feature-map dimensions, held-out confusion counts, a spatially changed input, and limitations under image shifts. Include the measured reports and one limitation. For interpreter setup, command-line prediction, artifact handling, and a common submission checklist, use [Run, compare, save, and explain](#ref/lab-workflow).
 
 
 
-## Submit an engineering assessment
 
-Save the two reports, their visual artifacts, a prediction made before the second run, and a paragraph explaining the observed difference. State the dataset’s limits and what additional evidence a real deployment would need. Use validation to choose settings; for a final assessment, rerun the selected settings with --split test and a new output folder. The adversarial and reinforcement labs describe their special evaluation protocols explicitly rather than claiming an ordinary random test split.
 
-## Primary reference
+## References for this lesson
 
-[Read the primary documentation or research](https://docs.pytorch.org/tutorials/beginner/blitz/neural_networks_tutorial.html). The lesson’s scenario and simplified implementation are teaching examples.
+Use these sources to check the mechanism and extend the exercise. Research results are not results measured by this lab.
+
+- [Conv2d — PyTorch 2.6](https://docs.pytorch.org/docs/2.6/generated/torch.nn.Conv2d.html) — Defines channel dimensions, padding, stride, and spatial filtering for the lab's convolutions.
+- [MaxPool2d — PyTorch](https://docs.pytorch.org/docs/stable/generated/torch.nn.MaxPool2d.html) — Explains how the 2-by-2 pooling layer reduces each 8-by-8 map to 4-by-4.
 
 
 # Graph neural networks: learn from connections
@@ -1666,7 +1328,7 @@ Each node begins with measured features. A layer combines information from neigh
 
 If a service has feature vector [1, 0] and its two neighbors have [0, 1] and [1, 1], a simple unweighted mean is [2/3, 2/3]. Our implementation uses degree-normalized aggregation with self-connections, so its numerical weights follow the graph’s degrees.
 
-![Visual explanation for Graph neural networks: learn from connections](images/expanded/neural-shapes.svg)
+![Visual explanation for Graph neural networks: learn from connections](images/expanded/foundations/graph.svg)
 
 ## Follow the algorithm
 
@@ -1693,7 +1355,7 @@ This is transductive evaluation: all node features and graph edges are visible d
 
 ## Run the implementation
 
-Open the Practice tab. Install the foundation packages once if the site requests them. The runner executes the actual program in lab/foundations.py. The commands below are for the website’s guided terminal; it selects your Python environment automatically. For external PowerShell, replace python with & .\.venv\Scripts\python.exe and use .\lab\foundations.py from the website folder. Replace {run} with a unique name when typing commands manually; the website buttons generate it automatically.
+Use this lesson’s Practice buttons. For interpreter setup, external Windows commands, and fresh output folders, read the [shared experiment workflow](#ref/lab-workflow).
 
 ```text
 python foundations.py graph --epochs 100 --output outputs/graph-{run}
@@ -1703,13 +1365,11 @@ python foundations.py graph --epochs 100 --output outputs/graph-{run}
 python foundations.py graph --epochs 100 --ablate-edges --output outputs/graph-noedges-{run}
 ```
 
-The random seed controls the generated data, splits, and applicable model initialization. Keep it fixed when investigating one changed parameter. Neural results can still vary across hardware and library implementations.
 
 ## Inspect the evidence
 
 Open adjacency.png and inspect blocks of connections. Compare held-out accuracy with and without edges. The generated communities influence both edges and labels; this is an educational benchmark, not independent field evidence.
 
-Every completed run writes report.json with the experiment, split, seed, settings, dataset description, measured metrics, timing, and limitations. Where applicable it also saves a trained parameter dictionary. The Experiment results page shows the measured report and generated plots. Record an explanation of the result instead of copying only the score.
 
 ## Change one thing and prove what happened
 
@@ -1719,62 +1379,34 @@ Explain why the ablation keeps self-connections but removes other links. Submit 
 
 Randomly splitting nodes is not always enough to prevent operational leakage. Time, organizations, shared entities, and how edges were collected can all matter.
 
-If the program reports a missing module, install foundation packages in the runtime shown by the website. If it refuses an existing output directory, choose a new one; this protects earlier evidence. If a numerical result surprises you, inspect data shape, split sizes, and the baseline before changing model complexity.
 
 ## Compute plan
 
-For this exact bundled exercise, use your local central processing unit. Renting a graphics processing unit is unnecessary. For substantially larger images, graphs, or models, first record the local runtime and memory. Use the Vast.ai guide only when the measured limit justifies a rental, and pass --device cuda to use the remote graphics processor. More expensive hardware does not fix a flawed objective or split.
+The bundled exercise runs on a local central processing unit. For a larger version, measure runtime and memory before considering the optional graphics-processor path.
 
-## Build it from start to finish: Relationship-aware community classification
+## Build from start to finish: Relationship-aware community classification
 
-**Runnable implementation lab — local prototype.** This build connects the real-world scenario to an executable teaching model. Simulated data is explicitly identified; a good score on it does not establish business performance.
+1. **Decision and data contract.** Node features, edge list, and reviewed node labels. The lab generates a graph from hidden communities and evaluates unseen labels on the same visible graph. Define the acceptable error or failure rate before selecting a model.
+2. **Architecture and training.** Train two degree-normalized aggregation layers on the fixed 180-node graph. The Practice commands and algorithm above are the runnable implementation for this prototype.
+3. **Independent evidence and comparison.** Run the edge-ablation comparison separately. All features/edges are visible; only training labels enter the loss. This is transductive evaluation.
+4. **Save, reload, and use a new input.** Retain the generated manifest, learned state, and input example. Use **Load saved example** and **Predict new input**. Class indices for the original 180-node ordering. The saved graph is fixed; adding entities requires a new graph workflow and inductive evaluation.
+5. **Local deployment and production gap.** The local saved-input interface is the serving prototype. Before external use, validate representative inputs, enforce request/access limits, and keep a versioned rollback artifact. The teaching score alone is not a deployment approval.
+6. **Monitor.** Label leakage, edge-source quality, community assumptions, and performance on new graphs. Name a response owner and a condition that would trigger review or rollback.
 
-1. **Write the decision and success criterion.** State who consumes the prediction and which mistake is expensive. Define a measurable baseline before choosing a model. For this project: relationship-aware community classification.
-2. **Define and inspect the data.** Node features, edge list, and reviewed node labels. The lab generates a graph from hidden communities and evaluates unseen labels on the same visible graph. Use the bundled dataset first. Before replacing it, document permission, provenance, missing values, units, class coverage, duplicates, and when each feature becomes available.
-3. **Create the evaluation boundary.** The program fixes a seed and separates fitting from held-out evaluation where that protocol applies. For real workloads, choose time-based or entity-based separation when random splitting would leak related observations. The graph, adversarial, and reinforcement modules explain their distinct protocols.
-4. **Construct the model.** Read the algorithm and the matching function in foundations.py. Trace the input shape through every preprocessing and model stage. The numerical example above lets you check a small part by hand.
-5. **Train and compare.** Run the first Practice experiment. Record its baseline, metrics, runtime, and failure cases. Run the changed setting and explain the result. Choose settings using validation; reserve final test evidence for the chosen configuration.
-6. **Save a usable artifact.** The program writes a model-manifest.json, an example-input.json, a fitted model or learned counting/action table, and report.json. It reloads the artifact in a separate inference function before declaring success. Learned scaling stays with applicable classical models. A neural state dictionary alone would be insufficient without the matching architecture; this build also exports an executable inference module.
-7. **Use it on a new input.** In Practice, select **Load saved example**, edit one value while preserving the documented shape, and select **Predict new input**. This reloads the saved model and runs inference without training again. Class indices for the original 180-node ordering. The saved graph is fixed; adding entities requires a new graph workflow and inductive evaluation.
-8. **Deploy the prototype locally.** The localhost website is the demonstration serving layer: input validation → saved artifact → inference → output. Keep the model's environment and feature contract with the release. Only load artifacts you created or trust; executable model formats are not passive documents.
-9. **Plan a production handoff.** Add representative-data evaluation, request limits, authentication, authorization, observability, model versioning, rollback, and a suitable reject/fallback behavior before exposing a service to other users. These are engineering extensions, not completed production features of this local lab.
-10. **Monitor and decide when to retrain.** Label leakage, edge-source quality, community assumptions, and performance on new graphs. Define a threshold and response owner. Track whether the new data resembles the training population, and compare a candidate model with the deployed baseline before replacement.
+### Evidence for this build
 
-### The build architecture
-
-```mermaid
-flowchart TD
- A[Problem and permitted data] --> B[Split and validate]
- B --> C[Fit preprocessing and model]
- C --> D[Evaluate held-out evidence]
- D --> E{Meets agreed criterion}
- E -->|Revise using validation| C
- E -->|Accept| F[Save versioned artifact]
- F --> G[Reload for new input]
- G --> H[Local prediction and monitoring plan]
-```
-
-### Command-line inference alternative
-
-The website remembers the last successful model folder for this lesson. In its guided terminal, replace MODEL-FOLDER below with that actual folder name and NEW-RUN with a unique output name. Edit a copy of example-input.json to supply your own values.
-
-```text
-python predict_saved.py --model-dir outputs/MODEL-FOLDER --input outputs/MODEL-FOLDER/example-input.json --output outputs/prediction-NEW-RUN.json
-```
-
-### Build acceptance evidence
-
-Submit a one-paragraph problem definition, feature/target contract, baseline and selected-model reports, one failure analysis, saved artifact, a changed-input prediction, and a deployment/monitoring decision. Passing a command demonstrates executable code; this evidence explains whether the model is appropriate for its intended use.
+Full-graph versus ablated scores, a manual neighbor calculation, and predictions in the original node ordering. Include the measured reports and one limitation. For interpreter setup, command-line prediction, artifact handling, and a common submission checklist, use [Run, compare, save, and explain](#ref/lab-workflow).
 
 
 
-## Submit an engineering assessment
 
-Save the two reports, their visual artifacts, a prediction made before the second run, and a paragraph explaining the observed difference. State the dataset’s limits and what additional evidence a real deployment would need. Use validation to choose settings; for a final assessment, rerun the selected settings with --split test and a new output folder. The adversarial and reinforcement labs describe their special evaluation protocols explicitly rather than claiming an ordinary random test split.
 
-## Primary reference
+## References for this lesson
 
-[Read the primary documentation or research](https://pytorch-geometric.readthedocs.io/en/latest/get_started/introduction.html). The lesson’s scenario and simplified implementation are teaching examples.
+Use these sources to check the mechanism and extend the exercise. Research results are not results measured by this lab.
+
+- [Semi-Supervised Classification with Graph Convolutional Networks — Kipf and Welling](https://arxiv.org/abs/1609.02907) — Introduces graph convolution that combines node features and local connectivity.
+- [GCNConv operator — PyTorch Geometric](https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.nn.conv.GCNConv.html) — Shows symmetric degree normalization and self-connections; the lab implements the mechanism directly without this package.
 
 
 # Autoencoders: reconstruct through a bottleneck
@@ -1795,7 +1427,7 @@ An encoder maps an input into a smaller representation. A decoder maps that repr
 
 A 64-pixel digit is mapped through 32 hidden values into an 8-number representation, then reconstructed into 64 pixels. The target is the original image, not its digit label. In the denoising version the encoder sees a corrupted input but the decoder is scored against the clean original.
 
-![Visual explanation for Autoencoders: reconstruct through a bottleneck](images/expanded/generative-comparison.svg)
+![Visual explanation for Autoencoders: reconstruct through a bottleneck](images/expanded/foundations/autoencoder.svg)
 
 ## Follow the algorithm
 
@@ -1822,7 +1454,7 @@ This is self-supervised target construction because the clean input supplies the
 
 ## Run the implementation
 
-Open the Practice tab. Install the foundation packages once if the site requests them. The runner executes the actual program in lab/foundations.py. The commands below are for the website’s guided terminal; it selects your Python environment automatically. For external PowerShell, replace python with & .\.venv\Scripts\python.exe and use .\lab\foundations.py from the website folder. Replace {run} with a unique name when typing commands manually; the website buttons generate it automatically.
+Use this lesson’s Practice buttons. For interpreter setup, external Windows commands, and fresh output folders, read the [shared experiment workflow](#ref/lab-workflow).
 
 ```text
 python foundations.py autoencoder --latent 4 --noise 0.2 --epochs 25 --output outputs/autoencoder-small-{run}
@@ -1832,13 +1464,11 @@ python foundations.py autoencoder --latent 4 --noise 0.2 --epochs 25 --output ou
 python foundations.py autoencoder --latent 16 --noise 0.2 --epochs 25 --output outputs/autoencoder-wide-{run}
 ```
 
-The random seed controls the generated data, splits, and applicable model initialization. Keep it fixed when investigating one changed parameter. Neural results can still vary across hardware and library implementations.
 
 ## Inspect the evidence
 
 Open representations.png: original, reconstruction, and noisy input appear in separate rows. Compare reconstruction_mean_squared_error with mean_image_baseline_error.
 
-Every completed run writes report.json with the experiment, split, seed, settings, dataset description, measured metrics, timing, and limitations. Where applicable it also saves a trained parameter dictionary. The Experiment results page shows the measured report and generated plots. Record an explanation of the result instead of copying only the score.
 
 ## Change one thing and prove what happened
 
@@ -1848,62 +1478,34 @@ Explain how the bottleneck size changes information capacity. Compare four and s
 
 An ordinary autoencoder does not guarantee that arbitrary random points in its representation space decode into plausible examples.
 
-If the program reports a missing module, install foundation packages in the runtime shown by the website. If it refuses an existing output directory, choose a new one; this protects earlier evidence. If a numerical result surprises you, inspect data shape, split sizes, and the baseline before changing model complexity.
 
 ## Compute plan
 
-For this exact bundled exercise, use your local central processing unit. Renting a graphics processing unit is unnecessary. For substantially larger images, graphs, or models, first record the local runtime and memory. Use the Vast.ai guide only when the measured limit justifies a rental, and pass --device cuda to use the remote graphics processor. More expensive hardware does not fix a flawed objective or split.
+The bundled exercise runs on a local central processing unit. For a larger version, measure runtime and memory before considering the optional graphics-processor path.
 
-## Build it from start to finish: Denoising grayscale inputs
+## Build from start to finish: Denoising grayscale inputs
 
-**Runnable implementation lab — local prototype.** This build connects the real-world scenario to an executable teaching model. Simulated data is explicitly identified; a good score on it does not establish business performance.
+1. **Decision and data contract.** Clean training images paired with artificially corrupted versions. Production needs a justified noise model and examples from the actual capture process. Define the acceptable error or failure rate before selecting a model.
+2. **Architecture and training.** Encode noisy 64-pixel images into a compact vector and decode toward clean targets. The Practice commands and algorithm above are the runnable implementation for this prototype.
+3. **Independent evidence and comparison.** Compare latent dimensions 4 and 16 and the included training-mean-image reconstruction baseline.
+4. **Save, reload, and use a new input.** Retain the generated manifest, learned state, and input example. Use **Load saved example** and **Predict new input**. A reconstructed 64-value image from a noisy input, using the saved deterministic encoder and decoder.
+5. **Local deployment and production gap.** The local saved-input interface is the serving prototype. Before external use, validate representative inputs, enforce request/access limits, and keep a versioned rollback artifact. The teaching score alone is not a deployment approval.
+6. **Monitor.** Reconstruction error by corruption type, lost details, and downstream recognition quality. Name a response owner and a condition that would trigger review or rollback.
 
-1. **Write the decision and success criterion.** State who consumes the prediction and which mistake is expensive. Define a measurable baseline before choosing a model. For this project: denoising grayscale inputs.
-2. **Define and inspect the data.** Clean training images paired with artificially corrupted versions. Production needs a justified noise model and examples from the actual capture process. Use the bundled dataset first. Before replacing it, document permission, provenance, missing values, units, class coverage, duplicates, and when each feature becomes available.
-3. **Create the evaluation boundary.** The program fixes a seed and separates fitting from held-out evaluation where that protocol applies. For real workloads, choose time-based or entity-based separation when random splitting would leak related observations. The graph, adversarial, and reinforcement modules explain their distinct protocols.
-4. **Construct the model.** Read the algorithm and the matching function in foundations.py. Trace the input shape through every preprocessing and model stage. The numerical example above lets you check a small part by hand.
-5. **Train and compare.** Run the first Practice experiment. Record its baseline, metrics, runtime, and failure cases. Run the changed setting and explain the result. Choose settings using validation; reserve final test evidence for the chosen configuration.
-6. **Save a usable artifact.** The program writes a model-manifest.json, an example-input.json, a fitted model or learned counting/action table, and report.json. It reloads the artifact in a separate inference function before declaring success. Learned scaling stays with applicable classical models. A neural state dictionary alone would be insufficient without the matching architecture; this build also exports an executable inference module.
-7. **Use it on a new input.** In Practice, select **Load saved example**, edit one value while preserving the documented shape, and select **Predict new input**. This reloads the saved model and runs inference without training again. A reconstructed 64-value image from a noisy input, using the saved deterministic encoder and decoder.
-8. **Deploy the prototype locally.** The localhost website is the demonstration serving layer: input validation → saved artifact → inference → output. Keep the model's environment and feature contract with the release. Only load artifacts you created or trust; executable model formats are not passive documents.
-9. **Plan a production handoff.** Add representative-data evaluation, request limits, authentication, authorization, observability, model versioning, rollback, and a suitable reject/fallback behavior before exposing a service to other users. These are engineering extensions, not completed production features of this local lab.
-10. **Monitor and decide when to retrain.** Reconstruction error by corruption type, lost details, and downstream recognition quality. Define a threshold and response owner. Track whether the new data resembles the training population, and compare a candidate model with the deployed baseline before replacement.
+### Evidence for this build
 
-### The build architecture
-
-```mermaid
-flowchart TD
- A[Problem and permitted data] --> B[Split and validate]
- B --> C[Fit preprocessing and model]
- C --> D[Evaluate held-out evidence]
- D --> E{Meets agreed criterion}
- E -->|Revise using validation| C
- E -->|Accept| F[Save versioned artifact]
- F --> G[Reload for new input]
- G --> H[Local prediction and monitoring plan]
-```
-
-### Command-line inference alternative
-
-The website remembers the last successful model folder for this lesson. In its guided terminal, replace MODEL-FOLDER below with that actual folder name and NEW-RUN with a unique output name. Edit a copy of example-input.json to supply your own values.
-
-```text
-python predict_saved.py --model-dir outputs/MODEL-FOLDER --input outputs/MODEL-FOLDER/example-input.json --output outputs/prediction-NEW-RUN.json
-```
-
-### Build acceptance evidence
-
-Submit a one-paragraph problem definition, feature/target contract, baseline and selected-model reports, one failure analysis, saved artifact, a changed-input prediction, and a deployment/monitoring decision. Passing a command demonstrates executable code; this evidence explains whether the model is appropriate for its intended use.
+Clean/noisy/reconstructed images, reconstruction errors, and the detail lost at each bottleneck size. Include the measured reports and one limitation. For interpreter setup, command-line prediction, artifact handling, and a common submission checklist, use [Run, compare, save, and explain](#ref/lab-workflow).
 
 
 
-## Submit an engineering assessment
 
-Save the two reports, their visual artifacts, a prediction made before the second run, and a paragraph explaining the observed difference. State the dataset’s limits and what additional evidence a real deployment would need. Use validation to choose settings; for a final assessment, rerun the selected settings with --split test and a new output folder. The adversarial and reinforcement labs describe their special evaluation protocols explicitly rather than claiming an ordinary random test split.
 
-## Primary reference
+## References for this lesson
 
-[Read the primary documentation or research](https://www.deeplearningbook.org/contents/autoencoders.html). The lesson’s scenario and simplified implementation are teaching examples.
+Use these sources to check the mechanism and extend the exercise. Research results are not results measured by this lab.
+
+- [Autoencoders — Deep Learning, chapter 14](https://www.deeplearningbook.org/contents/autoencoders.html) — Explains encoder/decoder reconstruction, bottlenecks, and limitations of unconstrained copying.
+- [Stacked Denoising Autoencoders — Vincent et al.](https://www.jmlr.org/papers/v11/vincent10a.html) — An original research treatment of learning representations by reconstructing clean inputs from corrupted versions.
 
 
 # Variational autoencoders: learn a distribution
@@ -1924,7 +1526,7 @@ The encoder predicts parameters of a distribution over latent values rather than
 
 For one latent coordinate, suppose the mean is 2 and standard deviation is 0.5. A sampled standard-normal noise value of -1 gives a latent value of 2 + 0.5 × -1 = 1.5. This separates random noise from differentiable distribution parameters.
 
-![Visual explanation for Variational autoencoders: learn a distribution](images/expanded/generative-comparison.svg)
+![Visual explanation for Variational autoencoders: learn a distribution](images/expanded/foundations/variational.svg)
 
 ## Follow the algorithm
 
@@ -1952,7 +1554,7 @@ The reparameterization trick lets gradients reach the encoder through the sample
 
 ## Run the implementation
 
-Open the Practice tab. Install the foundation packages once if the site requests them. The runner executes the actual program in lab/foundations.py. The commands below are for the website’s guided terminal; it selects your Python environment automatically. For external PowerShell, replace python with & .\.venv\Scripts\python.exe and use .\lab\foundations.py from the website folder. Replace {run} with a unique name when typing commands manually; the website buttons generate it automatically.
+Use this lesson’s Practice buttons. For interpreter setup, external Windows commands, and fresh output folders, read the [shared experiment workflow](#ref/lab-workflow).
 
 ```text
 python foundations.py variational --latent 8 --beta 0.1 --epochs 25 --output outputs/variational-{run}
@@ -1962,13 +1564,11 @@ python foundations.py variational --latent 8 --beta 0.1 --epochs 25 --output out
 python foundations.py variational --latent 8 --beta 2 --epochs 25 --output outputs/variational-strong-{run}
 ```
 
-The random seed controls the generated data, splits, and applicable model initialization. Keep it fixed when investigating one changed parameter. Neural results can still vary across hardware and library implementations.
 
 ## Inspect the evidence
 
 Open representations.png: the bottom row contains samples decoded from the prior. Inspect reconstruction quality separately from sample plausibility. Your samples may be blurry or incomplete.
 
-Every completed run writes report.json with the experiment, split, seed, settings, dataset description, measured metrics, timing, and limitations. Where applicable it also saves a trained parameter dictionary. The Experiment results page shows the measured report and generated plots. Record an explanation of the result instead of copying only the score.
 
 ## Change one thing and prove what happened
 
@@ -1978,62 +1578,34 @@ Compare weak and strong divergence penalties. Explain why a better reconstructio
 
 Do not call a latent distribution “understanding” without defining a task-based evaluation. Generated examples can preserve undesirable patterns from training data.
 
-If the program reports a missing module, install foundation packages in the runtime shown by the website. If it refuses an existing output directory, choose a new one; this protects earlier evidence. If a numerical result surprises you, inspect data shape, split sizes, and the baseline before changing model complexity.
 
 ## Compute plan
 
-For this exact bundled exercise, use your local central processing unit. Renting a graphics processing unit is unnecessary. For substantially larger images, graphs, or models, first record the local runtime and memory. Use the Vast.ai guide only when the measured limit justifies a rental, and pass --device cuda to use the remote graphics processor. More expensive hardware does not fix a flawed objective or split.
+The bundled exercise runs on a local central processing unit. For a larger version, measure runtime and memory before considering the optional graphics-processor path.
 
-## Build it from start to finish: Learn a smooth space of digit variations
+## Build from start to finish: Learn a smooth space of digit variations
 
-**Runnable implementation lab — local prototype.** This build connects the real-world scenario to an executable teaching model. Simulated data is explicitly identified; a good score on it does not establish business performance.
+1. **Decision and data contract.** Normalized training images without digit labels as reconstruction targets. The encoder learns distribution parameters; the decoder learns reconstruction. Define the acceptable error or failure rate before selecting a model.
+2. **Architecture and training.** Learn latent distribution parameters; sample for training and combine reconstruction with a prior-divergence penalty. The Practice commands and algorithm above are the runnable implementation for this prototype.
+3. **Independent evidence and comparison.** Compare beta 0.1 and 2 with the included mean-image baseline. Evaluate reconstruction at the latent mean and inspect prior samples separately.
+4. **Save, reload, and use a new input.** Retain the generated manifest, learned state, and input example. Use **Load saved example** and **Predict new input**. The saved helper reconstructs at the latent mean. The training implementation also draws prior samples; inspect both diversity and quality.
+5. **Local deployment and production gap.** The local saved-input interface is the serving prototype. Before external use, validate representative inputs, enforce request/access limits, and keep a versioned rollback artifact. The teaching score alone is not a deployment approval.
+6. **Monitor.** Reconstruction loss, divergence contribution, latent utilization, and sample coverage. Name a response owner and a condition that would trigger review or rollback.
 
-1. **Write the decision and success criterion.** State who consumes the prediction and which mistake is expensive. Define a measurable baseline before choosing a model. For this project: learn a smooth space of digit variations.
-2. **Define and inspect the data.** Normalized training images without digit labels as reconstruction targets. The encoder learns distribution parameters; the decoder learns reconstruction. Use the bundled dataset first. Before replacing it, document permission, provenance, missing values, units, class coverage, duplicates, and when each feature becomes available.
-3. **Create the evaluation boundary.** The program fixes a seed and separates fitting from held-out evaluation where that protocol applies. For real workloads, choose time-based or entity-based separation when random splitting would leak related observations. The graph, adversarial, and reinforcement modules explain their distinct protocols.
-4. **Construct the model.** Read the algorithm and the matching function in foundations.py. Trace the input shape through every preprocessing and model stage. The numerical example above lets you check a small part by hand.
-5. **Train and compare.** Run the first Practice experiment. Record its baseline, metrics, runtime, and failure cases. Run the changed setting and explain the result. Choose settings using validation; reserve final test evidence for the chosen configuration.
-6. **Save a usable artifact.** The program writes a model-manifest.json, an example-input.json, a fitted model or learned counting/action table, and report.json. It reloads the artifact in a separate inference function before declaring success. Learned scaling stays with applicable classical models. A neural state dictionary alone would be insufficient without the matching architecture; this build also exports an executable inference module.
-7. **Use it on a new input.** In Practice, select **Load saved example**, edit one value while preserving the documented shape, and select **Predict new input**. This reloads the saved model and runs inference without training again. The saved helper reconstructs at the latent mean. The training implementation also draws prior samples; inspect both diversity and quality.
-8. **Deploy the prototype locally.** The localhost website is the demonstration serving layer: input validation → saved artifact → inference → output. Keep the model's environment and feature contract with the release. Only load artifacts you created or trust; executable model formats are not passive documents.
-9. **Plan a production handoff.** Add representative-data evaluation, request limits, authentication, authorization, observability, model versioning, rollback, and a suitable reject/fallback behavior before exposing a service to other users. These are engineering extensions, not completed production features of this local lab.
-10. **Monitor and decide when to retrain.** Reconstruction loss, divergence contribution, latent utilization, and sample coverage. Define a threshold and response owner. Track whether the new data resembles the training population, and compare a candidate model with the deployed baseline before replacement.
+### Evidence for this build
 
-### The build architecture
-
-```mermaid
-flowchart TD
- A[Problem and permitted data] --> B[Split and validate]
- B --> C[Fit preprocessing and model]
- C --> D[Evaluate held-out evidence]
- D --> E{Meets agreed criterion}
- E -->|Revise using validation| C
- E -->|Accept| F[Save versioned artifact]
- F --> G[Reload for new input]
- G --> H[Local prediction and monitoring plan]
-```
-
-### Command-line inference alternative
-
-The website remembers the last successful model folder for this lesson. In its guided terminal, replace MODEL-FOLDER below with that actual folder name and NEW-RUN with a unique output name. Edit a copy of example-input.json to supply your own values.
-
-```text
-python predict_saved.py --model-dir outputs/MODEL-FOLDER --input outputs/MODEL-FOLDER/example-input.json --output outputs/prediction-NEW-RUN.json
-```
-
-### Build acceptance evidence
-
-Submit a one-paragraph problem definition, feature/target contract, baseline and selected-model reports, one failure analysis, saved artifact, a changed-input prediction, and a deployment/monitoring decision. Passing a command demonstrates executable code; this evidence explains whether the model is appropriate for its intended use.
+A reparameterization calculation, reconstruction and divergence behavior, sample coverage, and a saved-mean reconstruction. Include the measured reports and one limitation. For interpreter setup, command-line prediction, artifact handling, and a common submission checklist, use [Run, compare, save, and explain](#ref/lab-workflow).
 
 
 
-## Submit an engineering assessment
 
-Save the two reports, their visual artifacts, a prediction made before the second run, and a paragraph explaining the observed difference. State the dataset’s limits and what additional evidence a real deployment would need. Use validation to choose settings; for a final assessment, rerun the selected settings with --split test and a new output folder. The adversarial and reinforcement labs describe their special evaluation protocols explicitly rather than claiming an ordinary random test split.
 
-## Primary reference
+## References for this lesson
 
-[Read the primary documentation or research](https://arxiv.org/abs/1312.6114). The lesson’s scenario and simplified implementation are teaching examples.
+Use these sources to check the mechanism and extend the exercise. Research results are not results measured by this lab.
+
+- [Auto-Encoding Variational Bayes — Kingma and Welling](https://arxiv.org/abs/1312.6114) — Introduces the variational objective and differentiable reparameterization used in the lesson.
+- [Probability distributions — PyTorch 2.6](https://docs.pytorch.org/docs/2.6/distributions.html) — Explains reparameterized samples, Normal distributions, and divergence operations behind the numerical example.
 
 
 # Adversarial generation: train two competing models
@@ -2054,7 +1626,7 @@ A generator maps random noise into samples. A discriminator learns to distinguis
 
 The target has roughly half its samples near -2 and half near +2. A generator that produces only values near +2 can look locally plausible while completely missing half the target. This is mode collapse, and a histogram makes it easier to see.
 
-![Visual explanation for Adversarial generation: train two competing models](images/expanded/generative-comparison.svg)
+![Visual explanation for Adversarial generation: train two competing models](images/expanded/foundations/adversarial.svg)
 
 ## Follow the algorithm
 
@@ -2081,7 +1653,7 @@ The discriminator uses binary cross-entropy with logits. Detaching generated sam
 
 ## Run the implementation
 
-Open the Practice tab. Install the foundation packages once if the site requests them. The runner executes the actual program in lab/foundations.py. The commands below are for the website’s guided terminal; it selects your Python environment automatically. For external PowerShell, replace python with & .\.venv\Scripts\python.exe and use .\lab\foundations.py from the website folder. Replace {run} with a unique name when typing commands manually; the website buttons generate it automatically.
+Use this lesson’s Practice buttons. For interpreter setup, external Windows commands, and fresh output folders, read the [shared experiment workflow](#ref/lab-workflow).
 
 ```text
 python foundations.py adversarial --steps 200 --output outputs/adversarial-short-{run}
@@ -2091,13 +1663,11 @@ python foundations.py adversarial --steps 200 --output outputs/adversarial-short
 python foundations.py adversarial --steps 1200 --output outputs/adversarial-long-{run}
 ```
 
-The random seed controls the generated data, splits, and applicable model initialization. Keep it fixed when investigating one changed parameter. Neural results can still vary across hardware and library implementations.
 
 ## Inspect the evidence
 
 Open distribution.png. Compare both modes, spread, and fraction_generated_below_zero. A value near one-half does not by itself prove a correct distribution; inspect shape and standard deviation too.
 
-Every completed run writes report.json with the experiment, split, seed, settings, dataset description, measured metrics, timing, and limitations. Where applicable it also saves a trained parameter dictionary. The Experiment results page shows the measured report and generated plots. Record an explanation of the result instead of copying only the score.
 
 ## Change one thing and prove what happened
 
@@ -2107,62 +1677,34 @@ Run the longer experiment with a second seed after documenting the first. Explai
 
 Never mark the lab successful merely because generator loss decreases. A discriminator can become weak, saturated, or uninformative while sample quality remains poor.
 
-If the program reports a missing module, install foundation packages in the runtime shown by the website. If it refuses an existing output directory, choose a new one; this protects earlier evidence. If a numerical result surprises you, inspect data shape, split sizes, and the baseline before changing model complexity.
 
 ## Compute plan
 
-For this exact bundled exercise, use your local central processing unit. Renting a graphics processing unit is unnecessary. For substantially larger images, graphs, or models, first record the local runtime and memory. Use the Vast.ai guide only when the measured limit justifies a rental, and pass --device cuda to use the remote graphics processor. More expensive hardware does not fix a flawed objective or split.
+The bundled exercise runs on a local central processing unit. For a larger version, measure runtime and memory before considering the optional graphics-processor path.
 
-## Build it from start to finish: Synthetic scalar generator for simulator experiments
+## Build from start to finish: Synthetic scalar generator for simulator experiments
 
-**Runnable implementation lab — local prototype.** This build connects the real-world scenario to an executable teaching model. Simulated data is explicitly identified; a good score on it does not establish business performance.
+1. **Decision and data contract.** Samples from a known two-mode distribution provide a controlled target. Replacing it with business data requires permission, coverage checks, and privacy evaluation. Define the acceptable error or failure rate before selecting a model.
+2. **Architecture and training.** Alternate discriminator and generator updates for a one-dimensional two-mode target. The Practice commands and algorithm above are the runnable implementation for this prototype.
+3. **Independent evidence and comparison.** Compare fresh target and generated draws after each training budget. There is no train/validation/test partition; --split does not apply. This simulator comparison is not a production final test.
+4. **Save, reload, and use a new input.** Retain the generated manifest, learned state, and input example. Use **Load saved example** and **Predict new input**. Two noise values produce one synthetic scalar. The model is deliberately one-dimensional and is not an image generator.
+5. **Local deployment and production gap.** The local saved-input interface is the serving prototype. Before external use, validate representative inputs, enforce request/access limits, and keep a versioned rollback artifact. The teaching score alone is not a deployment approval.
+6. **Monitor.** Mode coverage, sample distribution, seed sensitivity, and collapse despite plausible training losses. Name a response owner and a condition that would trigger review or rollback.
 
-1. **Write the decision and success criterion.** State who consumes the prediction and which mistake is expensive. Define a measurable baseline before choosing a model. For this project: synthetic scalar generator for simulator experiments.
-2. **Define and inspect the data.** Samples from a known two-mode distribution provide a controlled target. Replacing it with business data requires permission, coverage checks, and privacy evaluation. Use the bundled dataset first. Before replacing it, document permission, provenance, missing values, units, class coverage, duplicates, and when each feature becomes available.
-3. **Create the evaluation boundary.** The program fixes a seed and separates fitting from held-out evaluation where that protocol applies. For real workloads, choose time-based or entity-based separation when random splitting would leak related observations. The graph, adversarial, and reinforcement modules explain their distinct protocols.
-4. **Construct the model.** Read the algorithm and the matching function in foundations.py. Trace the input shape through every preprocessing and model stage. The numerical example above lets you check a small part by hand.
-5. **Train and compare.** Run the first Practice experiment. Record its baseline, metrics, runtime, and failure cases. Run the changed setting and explain the result. Choose settings using validation; reserve final test evidence for the chosen configuration.
-6. **Save a usable artifact.** The program writes a model-manifest.json, an example-input.json, a fitted model or learned counting/action table, and report.json. It reloads the artifact in a separate inference function before declaring success. Learned scaling stays with applicable classical models. A neural state dictionary alone would be insufficient without the matching architecture; this build also exports an executable inference module.
-7. **Use it on a new input.** In Practice, select **Load saved example**, edit one value while preserving the documented shape, and select **Predict new input**. This reloads the saved model and runs inference without training again. Two noise values produce one synthetic scalar. The model is deliberately one-dimensional and is not an image generator.
-8. **Deploy the prototype locally.** The localhost website is the demonstration serving layer: input validation → saved artifact → inference → output. Keep the model's environment and feature contract with the release. Only load artifacts you created or trust; executable model formats are not passive documents.
-9. **Plan a production handoff.** Add representative-data evaluation, request limits, authentication, authorization, observability, model versioning, rollback, and a suitable reject/fallback behavior before exposing a service to other users. These are engineering extensions, not completed production features of this local lab.
-10. **Monitor and decide when to retrain.** Mode coverage, sample distribution, seed sensitivity, and collapse despite plausible training losses. Define a threshold and response owner. Track whether the new data resembles the training population, and compare a candidate model with the deployed baseline before replacement.
+### Evidence for this build
 
-### The build architecture
-
-```mermaid
-flowchart TD
- A[Problem and permitted data] --> B[Split and validate]
- B --> C[Fit preprocessing and model]
- C --> D[Evaluate held-out evidence]
- D --> E{Meets agreed criterion}
- E -->|Revise using validation| C
- E -->|Accept| F[Save versioned artifact]
- F --> G[Reload for new input]
- G --> H[Local prediction and monitoring plan]
-```
-
-### Command-line inference alternative
-
-The website remembers the last successful model folder for this lesson. In its guided terminal, replace MODEL-FOLDER below with that actual folder name and NEW-RUN with a unique output name. Edit a copy of example-input.json to supply your own values.
-
-```text
-python predict_saved.py --model-dir outputs/MODEL-FOLDER --input outputs/MODEL-FOLDER/example-input.json --output outputs/prediction-NEW-RUN.json
-```
-
-### Build acceptance evidence
-
-Submit a one-paragraph problem definition, feature/target contract, baseline and selected-model reports, one failure analysis, saved artifact, a changed-input prediction, and a deployment/monitoring decision. Passing a command demonstrates executable code; this evidence explains whether the model is appropriate for its intended use.
+Both histograms, mode coverage, a collapse case, and a saved-generator output from a new two-value noise vector. Include the measured reports and one limitation. For interpreter setup, command-line prediction, artifact handling, and a common submission checklist, use [Run, compare, save, and explain](#ref/lab-workflow).
 
 
 
-## Submit an engineering assessment
 
-Save the two reports, their visual artifacts, a prediction made before the second run, and a paragraph explaining the observed difference. State the dataset’s limits and what additional evidence a real deployment would need. Use validation to choose settings; for a final assessment, rerun the selected settings with --split test and a new output folder. The adversarial and reinforcement labs describe their special evaluation protocols explicitly rather than claiming an ordinary random test split.
 
-## Primary reference
+## References for this lesson
 
-[Read the primary documentation or research](https://arxiv.org/abs/1406.2661). The lesson’s scenario and simplified implementation are teaching examples.
+Use these sources to check the mechanism and extend the exercise. Research results are not results measured by this lab.
+
+- [Generative Adversarial Networks — Goodfellow et al.](https://arxiv.org/abs/1406.2661) — Introduces joint generator/discriminator training; the lab uses a small one-dimensional teaching model.
+- [BCEWithLogitsLoss — PyTorch](https://docs.pytorch.org/docs/stable/generated/torch.nn.BCEWithLogitsLoss.html) — Documents the numerically stable binary objective used for discriminator and generator updates.
 
 
 # Statistical language models: count before you train a network
@@ -2183,7 +1725,7 @@ Count how often a word follows a short context in training text. Convert those c
 
 If “server” is followed by “starts” three times and “stops” once, the unsmoothed probabilities are 0.75 and 0.25. Add-one smoothing adds one count to every vocabulary option before normalization, reserving probability for events not observed in training.
 
-![Visual explanation for Statistical language models: count before you train a network](images/expanded/model-mechanisms.svg)
+![Visual explanation for Statistical language models: count before you train a network](images/expanded/foundations/ngram.svg)
 
 ## Follow the algorithm
 
@@ -2209,7 +1751,7 @@ An order-two model uses one previous word; an order-three model uses two. Start 
 
 ## Run the implementation
 
-Open the Practice tab. Install the foundation packages once if the site requests them. The runner executes the actual program in lab/foundations.py. The commands below are for the website’s guided terminal; it selects your Python environment automatically. For external PowerShell, replace python with & .\.venv\Scripts\python.exe and use .\lab\foundations.py from the website folder. Replace {run} with a unique name when typing commands manually; the website buttons generate it automatically.
+Use this lesson’s Practice buttons. For interpreter setup, external Windows commands, and fresh output folders, read the [shared experiment workflow](#ref/lab-workflow).
 
 ```text
 python foundations.py ngram --order 1 --output outputs/ngram-one-{run}
@@ -2219,13 +1761,11 @@ python foundations.py ngram --order 1 --output outputs/ngram-one-{run}
 python foundations.py ngram --order 3 --output outputs/ngram-three-{run}
 ```
 
-The random seed controls the generated data, splits, and applicable model initialization. Keep it fixed when investigating one changed parameter. Neural results can still vary across hardware and library implementations.
 
 ## Inspect the evidence
 
 Inspect token-probabilities.png and compare perplexity with uniform_baseline_perplexity. The generated text is sampled from actual counts; it may be awkward because the corpus is small and smoothing spreads probability widely.
 
-Every completed run writes report.json with the experiment, split, seed, settings, dataset description, measured metrics, timing, and limitations. Where applicable it also saves a trained parameter dictionary. The Experiment results page shows the measured report and generated plots. Record an explanation of the result instead of copying only the score.
 
 ## Change one thing and prove what happened
 
@@ -2235,62 +1775,34 @@ Hand-calculate one context’s smoothed probability from counts. Compare order o
 
 Do not compare this word-level perplexity directly with the byte-level perplexity of the scratch neural language model. The prediction units differ.
 
-If the program reports a missing module, install foundation packages in the runtime shown by the website. If it refuses an existing output directory, choose a new one; this protects earlier evidence. If a numerical result surprises you, inspect data shape, split sizes, and the baseline before changing model complexity.
 
 ## Compute plan
 
-For this exact bundled exercise, use your local central processing unit. Renting a graphics processing unit is unnecessary. The implementation uses ordinary processor-based scikit-learn or small tables. Renting a graphics processor will not automatically accelerate this code.
+The bundled exercise runs on a local central processing unit. This scikit-learn or small-table implementation does not gain automatic graphics-processor acceleration.
 
-## Build it from start to finish: Small operations-text completion model
+## Build from start to finish: Small operations-text completion model
 
-**Runnable implementation lab — local prototype.** This build connects the real-world scenario to an executable teaching model. Simulated data is explicitly identified; a good score on it does not establish business performance.
+1. **Decision and data contract.** Training sentences tokenized into words; vocabulary and context counts are learned from the training split. Real logs require removal of secrets and stable tokenization. Define the acceptable error or failure rate before selecting a model.
+2. **Architecture and training.** Count training contexts, construct the vocabulary, and apply add-one smoothing. The Practice commands and algorithm above are the runnable implementation for this prototype.
+3. **Independent evidence and comparison.** Compare orders 1 and 3 on identical held-out sentences and the included uniform-vocabulary perplexity baseline.
+4. **Save, reload, and use a new input.** Retain the generated manifest, learned state, and input example. Use **Load saved example** and **Predict new input**. A distribution over the next word for a supplied context. The saved counting model needs no neural framework.
+5. **Local deployment and production gap.** The local saved-input interface is the serving prototype. Before external use, validate representative inputs, enforce request/access limits, and keep a versioned rollback artifact. The teaching score alone is not a deployment approval.
+6. **Monitor.** Held-out perplexity, unknown-word rate, memory growth with context order, and inappropriate memorized text. Name a response owner and a condition that would trigger review or rollback.
 
-1. **Write the decision and success criterion.** State who consumes the prediction and which mistake is expensive. Define a measurable baseline before choosing a model. For this project: small operations-text completion model.
-2. **Define and inspect the data.** Training sentences tokenized into words; vocabulary and context counts are learned from the training split. Real logs require removal of secrets and stable tokenization. Use the bundled dataset first. Before replacing it, document permission, provenance, missing values, units, class coverage, duplicates, and when each feature becomes available.
-3. **Create the evaluation boundary.** The program fixes a seed and separates fitting from held-out evaluation where that protocol applies. For real workloads, choose time-based or entity-based separation when random splitting would leak related observations. The graph, adversarial, and reinforcement modules explain their distinct protocols.
-4. **Construct the model.** Read the algorithm and the matching function in foundations.py. Trace the input shape through every preprocessing and model stage. The numerical example above lets you check a small part by hand.
-5. **Train and compare.** Run the first Practice experiment. Record its baseline, metrics, runtime, and failure cases. Run the changed setting and explain the result. Choose settings using validation; reserve final test evidence for the chosen configuration.
-6. **Save a usable artifact.** The program writes a model-manifest.json, an example-input.json, a fitted model or learned counting/action table, and report.json. It reloads the artifact in a separate inference function before declaring success. Learned scaling stays with applicable classical models. A neural state dictionary alone would be insufficient without the matching architecture; this build also exports an executable inference module.
-7. **Use it on a new input.** In Practice, select **Load saved example**, edit one value while preserving the documented shape, and select **Predict new input**. This reloads the saved model and runs inference without training again. A distribution over the next word for a supplied context. The saved counting model needs no neural framework.
-8. **Deploy the prototype locally.** The localhost website is the demonstration serving layer: input validation → saved artifact → inference → output. Keep the model's environment and feature contract with the release. Only load artifacts you created or trust; executable model formats are not passive documents.
-9. **Plan a production handoff.** Add representative-data evaluation, request limits, authentication, authorization, observability, model versioning, rollback, and a suitable reject/fallback behavior before exposing a service to other users. These are engineering extensions, not completed production features of this local lab.
-10. **Monitor and decide when to retrain.** Held-out perplexity, unknown-word rate, memory growth with context order, and inappropriate memorized text. Define a threshold and response owner. Track whether the new data resembles the training population, and compare a candidate model with the deployed baseline before replacement.
+### Evidence for this build
 
-### The build architecture
-
-```mermaid
-flowchart TD
- A[Problem and permitted data] --> B[Split and validate]
- B --> C[Fit preprocessing and model]
- C --> D[Evaluate held-out evidence]
- D --> E{Meets agreed criterion}
- E -->|Revise using validation| C
- E -->|Accept| F[Save versioned artifact]
- F --> G[Reload for new input]
- G --> H[Local prediction and monitoring plan]
-```
-
-### Command-line inference alternative
-
-The website remembers the last successful model folder for this lesson. In its guided terminal, replace MODEL-FOLDER below with that actual folder name and NEW-RUN with a unique output name. Edit a copy of example-input.json to supply your own values.
-
-```text
-python predict_saved.py --model-dir outputs/MODEL-FOLDER --input outputs/MODEL-FOLDER/example-input.json --output outputs/prediction-NEW-RUN.json
-```
-
-### Build acceptance evidence
-
-Submit a one-paragraph problem definition, feature/target contract, baseline and selected-model reports, one failure analysis, saved artifact, a changed-input prediction, and a deployment/monitoring decision. Passing a command demonstrates executable code; this evidence explains whether the model is appropriate for its intended use.
+A normalized next-word distribution, unknown-word behavior, comparable perplexities, and new-context predictions. Include the measured reports and one limitation. For interpreter setup, command-line prediction, artifact handling, and a common submission checklist, use [Run, compare, save, and explain](#ref/lab-workflow).
 
 
 
-## Submit an engineering assessment
 
-Save the two reports, their visual artifacts, a prediction made before the second run, and a paragraph explaining the observed difference. State the dataset’s limits and what additional evidence a real deployment would need. Use validation to choose settings; for a final assessment, rerun the selected settings with --split test and a new output folder. The adversarial and reinforcement labs describe their special evaluation protocols explicitly rather than claiming an ordinary random test split.
 
-## Primary reference
+## References for this lesson
 
-[Read the primary documentation or research](https://www.nltk.org/api/nltk.lm.html). The lesson’s scenario and simplified implementation are teaching examples.
+Use these sources to check the mechanism and extend the exercise. Research results are not results measured by this lab.
+
+- [N-gram Language Models — Jurafsky and Martin](https://web.stanford.edu/~jurafsky/slp3/3.pdf) — Explains context counts, language-model evaluation, perplexity, and smoothing.
+- [Language modeling package — NLTK](https://www.nltk.org/api/nltk.lm.html) — Documents vocabulary handling, n-gram counts, and Laplace add-one smoothing.
 
 
 # Reinforcement learning: learn actions from rewards
@@ -2311,7 +1823,7 @@ The agent observes a state, chooses an action, receives a reward, and sees a new
 
 If an action currently has value 2, its target is 6, and the learning rate is 0.2, the updated value is 2 + 0.2 × (6 - 2) = 2.8. At the terminal goal, the target uses the immediate reward without adding a future-state value.
 
-![Visual explanation for Reinforcement learning: learn actions from rewards](images/expanded/evaluation-guide.svg)
+![Visual explanation for Reinforcement learning: learn actions from rewards](images/expanded/foundations/reinforcement.svg)
 
 ## Follow the algorithm
 
@@ -2335,11 +1847,11 @@ flowchart TD
 
 ## Go one level deeper
 
-The update is tabular Q-learning; Q denotes an action-value function, not an acronym. The discount factor controls how future rewards contribute. An episode ends at the goal or after the step limit. The environment is deterministic and all evaluation episodes begin at the same state, so repeated success does not establish generalization to new maps. A neural value function is an extension, not a requirement for reinforcement learning.
+The update is tabular Q-learning; Q denotes an action-value function, not an acronym. The discount factor controls how future rewards contribute. The goal is a terminal state; the 50-step cap truncates an unfinished trajectory. The terminal goal removes the future-value term, whereas this time-limit truncation is not a new terminal goal. The environment is deterministic and all evaluation episodes begin at the same state, so repeated success does not establish generalization to new maps. A neural value function is an extension, not a requirement for reinforcement learning.
 
 ## Run the implementation
 
-Open the Practice tab. Install the foundation packages once if the site requests them. The runner executes the actual program in lab/foundations.py. The commands below are for the website’s guided terminal; it selects your Python environment automatically. For external PowerShell, replace python with & .\.venv\Scripts\python.exe and use .\lab\foundations.py from the website folder. Replace {run} with a unique name when typing commands manually; the website buttons generate it automatically.
+Use this lesson’s Practice buttons. For interpreter setup, external Windows commands, and fresh output folders, read the [shared experiment workflow](#ref/lab-workflow).
 
 ```text
 python foundations.py reinforcement --episodes 50 --output outputs/reinforcement-short-{run}
@@ -2349,13 +1861,11 @@ python foundations.py reinforcement --episodes 50 --output outputs/reinforcement
 python foundations.py reinforcement --episodes 500 --output outputs/reinforcement-long-{run}
 ```
 
-The random seed controls the generated data, splits, and applicable model initialization. Keep it fixed when investigating one changed parameter. Neural results can still vary across hardware and library implementations.
 
 ## Inspect the evidence
 
 Open rewards.png. Training rewards include exploration, while greedy_success_rate is measured without it. Interpret greedy_policy using the report’s action_order. Compare greedy_mean_return with random_mean_return.
 
-Every completed run writes report.json with the experiment, split, seed, settings, dataset description, measured metrics, timing, and limitations. Where applicable it also saves a trained parameter dictionary. The Experiment results page shows the measured report and generated plots. Record an explanation of the result instead of copying only the score.
 
 ## Change one thing and prove what happened
 
@@ -2365,62 +1875,35 @@ Trace a greedy path from the upper-left corner to the lower-right goal. Explain 
 
 Reward design can encourage unintended behavior. A large reward score is only useful when the environment and reward represent the desired task faithfully.
 
-If the program reports a missing module, install foundation packages in the runtime shown by the website. If it refuses an existing output directory, choose a new one; this protects earlier evidence. If a numerical result surprises you, inspect data shape, split sizes, and the baseline before changing model complexity.
 
 ## Compute plan
 
-For this exact bundled exercise, use your local central processing unit. Renting a graphics processing unit is unnecessary. The implementation uses ordinary processor-based scikit-learn or small tables. Renting a graphics processor will not automatically accelerate this code.
+The bundled exercise runs on a local central processing unit. This scikit-learn or small-table implementation does not gain automatic graphics-processor acceleration.
 
-## Build it from start to finish: Sequential route decisions in a small simulator
+## Build from start to finish: Sequential route decisions in a small simulator
 
-**Runnable implementation lab — local prototype.** This build connects the real-world scenario to an executable teaching model. Simulated data is explicitly identified; a good score on it does not establish business performance.
+1. **Decision and data contract.** States, permitted actions, transition rules, rewards, termination, and episode length define the data-generating environment. Define the acceptable error or failure rate before selecting a model.
+2. **Architecture and training.** Train a tabular action-value policy through rewards in the deterministic 4-by-4 grid. The Practice commands and algorithm above are the runnable implementation for this prototype.
+3. **Independent evidence and comparison.** Compare greedy and random policies over 100 episodes each in the same map and start state. --split does not apply; a new-map evaluation is a separate extension.
+4. **Save, reload, and use a new input.** Retain the generated manifest, learned state, and input example. Use **Load saved example** and **Predict new input**. An action index for an integer state: zero up, one right, two down, three left. Physical deployment is outside this lab.
+5. **Local deployment and production gap.** The local saved-input interface is the serving prototype. Before external use, validate representative inputs, enforce request/access limits, and keep a versioned rollback artifact. The teaching score alone is not a deployment approval.
+6. **Monitor.** Success rate, episode return, unsafe actions, reward exploitation, and transfer failure on changed maps. Name a response owner and a condition that would trigger review or rollback.
 
-1. **Write the decision and success criterion.** State who consumes the prediction and which mistake is expensive. Define a measurable baseline before choosing a model. For this project: sequential route decisions in a small simulator.
-2. **Define and inspect the data.** States, permitted actions, transition rules, rewards, termination, and episode length define the data-generating environment. Use the bundled dataset first. Before replacing it, document permission, provenance, missing values, units, class coverage, duplicates, and when each feature becomes available.
-3. **Create the evaluation boundary.** The program fixes a seed and separates fitting from held-out evaluation where that protocol applies. For real workloads, choose time-based or entity-based separation when random splitting would leak related observations. The graph, adversarial, and reinforcement modules explain their distinct protocols.
-4. **Construct the model.** Read the algorithm and the matching function in foundations.py. Trace the input shape through every preprocessing and model stage. The numerical example above lets you check a small part by hand.
-5. **Train and compare.** Run the first Practice experiment. Record its baseline, metrics, runtime, and failure cases. Run the changed setting and explain the result. Choose settings using validation; reserve final test evidence for the chosen configuration.
-6. **Save a usable artifact.** The program writes a model-manifest.json, an example-input.json, a fitted model or learned counting/action table, and report.json. It reloads the artifact in a separate inference function before declaring success. Learned scaling stays with applicable classical models. A neural state dictionary alone would be insufficient without the matching architecture; this build also exports an executable inference module.
-7. **Use it on a new input.** In Practice, select **Load saved example**, edit one value while preserving the documented shape, and select **Predict new input**. This reloads the saved model and runs inference without training again. An action index for an integer state: zero up, one right, two down, three left. Physical deployment is outside this lab.
-8. **Deploy the prototype locally.** The localhost website is the demonstration serving layer: input validation → saved artifact → inference → output. Keep the model's environment and feature contract with the release. Only load artifacts you created or trust; executable model formats are not passive documents.
-9. **Plan a production handoff.** Add representative-data evaluation, request limits, authentication, authorization, observability, model versioning, rollback, and a suitable reject/fallback behavior before exposing a service to other users. These are engineering extensions, not completed production features of this local lab.
-10. **Monitor and decide when to retrain.** Success rate, episode return, unsafe actions, reward exploitation, and transfer failure on changed maps. Define a threshold and response owner. Track whether the new data resembles the training population, and compare a candidate model with the deployed baseline before replacement.
+### Evidence for this build
 
-### The build architecture
-
-```mermaid
-flowchart TD
- A[Problem and permitted data] --> B[Split and validate]
- B --> C[Fit preprocessing and model]
- C --> D[Evaluate held-out evidence]
- D --> E{Meets agreed criterion}
- E -->|Revise using validation| C
- E -->|Accept| F[Save versioned artifact]
- F --> G[Reload for new input]
- G --> H[Local prediction and monitoring plan]
-```
-
-### Command-line inference alternative
-
-The website remembers the last successful model folder for this lesson. In its guided terminal, replace MODEL-FOLDER below with that actual folder name and NEW-RUN with a unique output name. Edit a copy of example-input.json to supply your own values.
-
-```text
-python predict_saved.py --model-dir outputs/MODEL-FOLDER --input outputs/MODEL-FOLDER/example-input.json --output outputs/prediction-NEW-RUN.json
-```
-
-### Build acceptance evidence
-
-Submit a one-paragraph problem definition, feature/target contract, baseline and selected-model reports, one failure analysis, saved artifact, a changed-input prediction, and a deployment/monitoring decision. Passing a command demonstrates executable code; this evidence explains whether the model is appropriate for its intended use.
+A terminal-aware value update, reward curve, greedy/random returns, a saved-table decision, and limits of same-map success. Include the measured reports and one limitation. For interpreter setup, command-line prediction, artifact handling, and a common submission checklist, use [Run, compare, save, and explain](#ref/lab-workflow).
 
 
 
-## Submit an engineering assessment
 
-Save the two reports, their visual artifacts, a prediction made before the second run, and a paragraph explaining the observed difference. State the dataset’s limits and what additional evidence a real deployment would need. Use validation to choose settings; for a final assessment, rerun the selected settings with --split test and a new output folder. The adversarial and reinforcement labs describe their special evaluation protocols explicitly rather than claiming an ordinary random test split.
 
-## Primary reference
+## References for this lesson
 
-[Read the primary documentation or research](https://docs.pytorch.org/tutorials/intermediate/reinforcement_q_learning.html). The lesson’s scenario and simplified implementation are teaching examples.
+Use these sources to check the mechanism and extend the exercise. Research results are not results measured by this lab.
+
+- [Q-learning — Watkins and Dayan](https://link.springer.com/article/10.1007/BF00992698) — The original tabular action-value learning paper; the publisher provides an abstract and publication record.
+- [Handling Time Limits — Gymnasium](https://gymnasium.farama.org/tutorials/gymnasium_basics/handling_time_limits/) — Distinguishes true termination from time-limit truncation and explains when to bootstrap.
+- [Reinforcement Learning (DQN) Tutorial — PyTorch](https://docs.pytorch.org/tutorials/intermediate/reinforcement_q_learning.html) — Further reading on Q targets and terminal states; the lab uses a table rather than this tutorial's neural network.
 
 
 # Additional model build plans

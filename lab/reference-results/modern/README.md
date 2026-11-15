@@ -1,5 +1,7 @@
 # Measured teaching results: modern language engineering
 
+**Content audit, midnight.4:** REINFORCE reports are historical output from the earlier two-updates-per-rollout implementation. Midnight.4 corrects it to one fresh on-policy update; rerun to measure the corrected algorithm. Serving reports are timing probes, not held-out quality evaluations. Dataset cards now identify each actual fixture or simulator instead of repeating a universal description. Old metrics are preserved and explicitly annotated.
+
 These are actual CPU development runs using Python 3.12 and PyTorch 2.6.0+cpu. The 14 experiment types each completed a baseline run; 13 additional runs changed one setting, and the judge was also run with the real pinned 135-million-parameter checkpoint. Each folder contains its recorded settings, limitations, report and applicable plots. Model weights are omitted; 26 saved model outputs were independently reloaded through the common prediction interface.
 
 These are small teaching mechanisms with original synthetic data. Program completion verifies execution. It does not establish that a model is useful. No results here are scores on AIME, HLE, MMLU, SWE-bench, or GPQA.

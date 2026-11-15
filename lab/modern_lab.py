@@ -259,10 +259,16 @@ class RewardScorer(nn.Module):
         return self.score(torch.stack(values)).squeeze(-1)
 
 
+def reward_pairs():
+    return {
+        'train':[("Check the package version.","I refuse."),("Inspect the input schema.","Not my problem."),("Reduce the batch size.","Whatever."),("Check the Python environment.","Go away.")],
+        'validation':[("Review the error message.","I will not help."),("Try a smaller input.","Figure it out yourself.")],
+        'test':[("Read the missing field name.","Do not bother me."),("Verify the selected interpreter.","This is your problem.")]}
+
+
 def reward(a):
     torch.manual_seed(a.seed); model=RewardScorer(); optimizer=torch.optim.AdamW(model.parameters(),lr=.01)
-    train=[("Check the package version.","I refuse."),("Inspect the input schema.","Not my problem."),("Reduce the batch size.","Whatever."),("Check the Python environment.","Go away.")]
-    held=[("Review the error message.","I will not help."),("Try a smaller input.","Figure it out yourself.")]
+    pairs=reward_pairs();train=pairs['train'];held=pairs[a.split]
     history=[]
     for step in range(a.steps):
         loss=-F.logsigmoid(model([p for p,n in train])-model([n for p,n in train])).mean()
@@ -329,8 +335,9 @@ def reinforcement(a):
             advantages=(rewards-predicted.detach())
             value_loss=F.mse_loss(predicted,rewards);critic_optimizer.zero_grad();value_loss.backward();critic_optimizer.step()
         else:advantages=rewards-rewards.mean()
-        # Two updates on the same rollout make old/new ratios meaningful.
-        for _ in range(2):
+        # REINFORCE is on-policy: update once, then collect a fresh rollout.
+        # Clipped objectives permit the two declared surrogate optimization steps.
+        for _ in range(policy_updates_per_rollout(a.experiment)):
             new,entropy=digit_logps(model,ps,answers)
             # Nonnegative sample-based KL estimator; expectation is taken under rollout policy.
             delta=ref-new;kl=(delta.exp()-delta-1).mean()
@@ -341,7 +348,7 @@ def reinforcement(a):
     after=digit_rollout(model,prompts,True);export_model(a.out,model,"3+4=",task="arithmetic")
     rows=[{"prompt":p,"expected":r,"before":b,"after":z} for p,r,b,z in zip(prompts,expected,before,after)]
     plt.figure(figsize=(7,4));plt.plot([h['step'] for h in history],[h['training_reward'] for h in history]);plt.xlabel('Policy update');plt.ylabel('Training reward');plt.ylim(-.05,1.05);plt.tight_layout();plt.savefig(a.out/'rewards.png',dpi=130);plt.close()
-    return {"metrics":{"heldout_exact_match_before":sum(x==y for x,y in zip(before,expected))/len(expected),"heldout_exact_match_after":sum(x==y for x,y in zip(after,expected))/len(expected),"reward_rule":a.reward,"predictions":rows},
+    return {"metrics":{"heldout_exact_match_before":sum(x==y for x,y in zip(before,expected))/len(expected),"heldout_exact_match_after":sum(x==y for x,y in zip(after,expected))/len(expected),"reward_rule":a.reward,"predictions":rows,"policy_updates_per_rollout":policy_updates_per_rollout(a.experiment)},
             "history":history,"artifacts":["rewards.png"],"reload_verified":True,
             "limitations":"Two-digit constrained autoregressive policy; same fixed-length arithmetic simulator. PPO uses a prompt-state value baseline and terminal return, with no generalized advantage estimation. This is a PPO clipping/critic teaching implementation, not a production trainer. Group algorithms use four samples per prompt. Zero-variance groups provide zero normalized reward advantage. The deliberately flawed zero-prefix reward does not measure arithmetic correctness."}
 
@@ -373,15 +380,50 @@ def evaluation(a):
     return {"metrics":metrics,"reload_verified":True,"limitations":"Original arithmetic mini-suite, not AIME, MMLU, GPQA, HLE, or SWE-bench. Eight stochastic samples per problem; Wilson interval applies to greedy problem-level outcomes, not correlated samples. Full-vocabulary byte perplexity and constrained-generation accuracy measure different distributions."}
 
 
+def policy_updates_per_rollout(algorithm):
+    return 1 if algorithm=='reinforce' else 2
+
+
+def data_card(a):
+    card={'origin':'Original authored or simulated teaching data','license':'Included for course exercises',
+          'real_world_validation':'Not performed; these scores do not establish deployment reliability.'}
+    if a.experiment=='serving':
+        return card|{'dataset':'Event-sentence training data and fixed local timing prompts',
+            'split_policy':'Systems timing probe; no held-out quality evaluation',
+            'selected_split':'systems_timing_probe','training_rows':len(notes()['train']),
+            'timing_prompts':['service api: ','service api event start: service queue event restore: '],
+            'requests':12,'protocol':'Two prompts, cached/uncached, three warmed serial requests per combination'}
+    if a.experiment=='judging':
+        from modern_evaluation import CASE_BANKS
+        return card|{'dataset':'Authored factual-comparison cases, not human preference collection',
+            'split_policy':'Disjoint question banks; two answer-order presentations per case',
+            'selected_split':a.split,'case_ids':{key:[f'{key}:{i}' for i in range(len(rows))] for key,rows in CASE_BANKS.items()},
+            'independent_cases':len(CASE_BANKS[a.split]),'presentations':2*len(CASE_BANKS[a.split])}
+    if a.experiment=='reward':
+        rows=reward_pairs();dataset='Authored style-preference pairs; no factuality labels';policy='Distinct train, validation, and test response-pair fixtures'
+    elif a.experiment in {'tuning','preference'}:
+        rows=tickets();dataset='Fictional support tickets';policy='Ticket-template split; shared categories remain'
+    elif a.experiment in {'reinforce','ppo','grpo','gspo','evaluation'}:
+        rows=arithmetic();dataset='Two-operand addition simulator';policy='Operand-pair split; shared arithmetic rule remains'
+    else:
+        rows=notes();dataset='Fictional event sentences';policy='Whole-sentence split; shared rules and vocabulary remain'
+    return card|{'dataset':dataset,'split_policy':policy,'selected_split':a.split,
+        'partition_sizes':{key:len(value) for key,value in rows.items()},
+        'row_ids':{key:[hashlib.sha256(json.dumps(row).encode()).hexdigest()[:16] for row in value] for key,value in rows.items()}}
+
+
 def parser():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument("experiment",choices=EXPERIMENTS);p.add_argument("--output",required=True)
     p.add_argument("--steps",type=int,default=100);p.add_argument("--seed",type=int,default=42);p.add_argument("--threads",type=int,default=2)
-    p.add_argument("--split",choices=("validation","test"),default="validation");p.add_argument("--beta",type=float,default=.1)
+    p.add_argument("--split",choices=("validation","test"),default=None);p.add_argument("--beta",type=float,default=.1)
     p.add_argument("--reward",choices=("exact","zero-prefix"),default="exact");p.add_argument("--judge",choices=("fixture","model"),default="fixture")
     return p
 
 
 def run(a):
+    if a.experiment=='serving':
+        if a.split is not None:raise ValueError('--split does not apply to fixed systems timing probes.')
+    else:a.split=a.split or 'validation'
     if not 1<=a.steps<=1000 or not 1<=a.threads<=16 or not 0<=a.beta<=2 or not 0<=a.seed<2**32:raise ValueError("Use 1–1000 steps, 1–16 threads, beta in [0,2], and an unsigned 32-bit seed.")
     torch.set_num_threads(a.threads);torch.manual_seed(a.seed);random.seed(a.seed);np.random.seed(a.seed)
     a.out=Path(a.output)
@@ -399,10 +441,11 @@ def run(a):
     elif a.experiment=="serving":
         from modern_serving import serving_experiment
         result=serving_experiment(a)
-    report={"schema":"superlab.report.v1","experiment":a.experiment,"seed":a.seed,"split":a.split,"settings":{k:v for k,v in vars(a).items() if k not in {'out','output'}},
+    provenance=data_card(a)
+    report={"schema":"superlab.report.v1","experiment":a.experiment,"seed":a.seed,"split":provenance['selected_split'],"data":provenance,"settings":{k:v for k,v in vars(a).items() if k not in {'out','output'}},
             "runtime":{"torch":torch.__version__,"device":"cpu","seconds":time.perf_counter()-started},"artifacts":[],**result}
     (a.out/'report.json').write_text(json.dumps(report,indent=2,allow_nan=False),encoding='utf-8')
-    (a.out/'data-card.json').write_text(json.dumps({"origin":"Original synthetic teaching examples and deterministic generators included in modern_lab.py","license":"Included for course exercises","split_policy":"Sentence-level notes, template-level tickets, operand-pair arithmetic; shared rules and vocabulary remain","real_world_validation":"Not performed; do not interpret simulator scores as deployment evidence."},indent=2))
+    (a.out/'data-card.json').write_text(json.dumps(provenance,indent=2))
     print(json.dumps(report,indent=2,allow_nan=False));return report
 
 

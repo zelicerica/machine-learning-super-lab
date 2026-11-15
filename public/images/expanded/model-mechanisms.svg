@@ -29,18 +29,26 @@
 <text x="665" y="216.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="700" text-anchor="middle" fill="#64775F">02</text>
 <text x="702" y="217.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="23" font-weight="700" text-anchor="start" fill="#24352B">Branching questions</text>
 <text x="646" y="258.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">Decision trees learn feature thresholds.</text>
-<rect x="771" y="275" width="235" height="49" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
-<text x="888.5" y="305.8" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="600" text-anchor="middle" fill="#24352B">Latency &gt; 200?</text>
-<path d="M800 324V359H712V387" fill="none" stroke="#64775F" stroke-width="2" marker-end="url(#arrow)"/>
-<path d="M972 324V359H1042V387" fill="none" stroke="#64775F" stroke-width="2" marker-end="url(#arrow)"/>
-<text x="728" y="350.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" font-weight="400" text-anchor="start" fill="#24352B">No</text>
-<text x="1009" y="350.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" font-weight="400" text-anchor="start" fill="#24352B">Yes</text>
-<rect x="649" y="392" width="126" height="47" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
-<text x="712.0" y="421.8" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="600" text-anchor="middle" fill="#24352B">Routine</text>
-<rect x="916" y="392" width="212" height="47" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
-<text x="1022.0" y="421.8" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="600" text-anchor="middle" fill="#24352B">Errors &gt; 3?</text>
-<text x="648" y="486.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">For latency = 220 and errors = 4,</text>
-<text x="648" y="512.1" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#64775F">both questions answer “yes” → escalate.</text>
+<rect x="771" y="270" width="235" height="43" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="888.5" y="297.8" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="600" text-anchor="middle" fill="#24352B">Latency &gt; 200?</text>
+<path d="M800 313V333H724V352" fill="none" stroke="#64775F" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M972 313V333H1022V352" fill="none" stroke="#64775F" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="728" y="329.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#24352B">No</text>
+<text x="1009" y="329.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#24352B">Yes</text>
+<rect x="649" y="357" width="150" height="39" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="724.0" y="382.45" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" font-weight="600" text-anchor="middle" fill="#24352B">Routine</text>
+<rect x="916" y="357" width="212" height="39" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="1022.0" y="382.45" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" font-weight="600" text-anchor="middle" fill="#24352B">Errors &gt; 3?</text>
+<path d="M970 396V417H900V441" fill="none" stroke="#64775F" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M1076 396V417H1070V441" fill="none" stroke="#64775F" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="879" y="413.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="15" font-weight="400" text-anchor="start" fill="#24352B">No</text>
+<text x="1087" y="413.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="15" font-weight="400" text-anchor="start" fill="#24352B">Yes</text>
+<rect x="834" y="446" width="134" height="37" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="901.0" y="470.1" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="600" text-anchor="middle" fill="#24352B">Routine</text>
+<rect x="993" y="446" width="139" height="37" rx="10" fill="#EAF3DE" stroke="#DCE5D3"/>
+<text x="1062.5" y="470.1" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" font-weight="600" text-anchor="middle" fill="#24352B">Escalate</text>
+<text x="648" y="515.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" font-weight="400" text-anchor="start" fill="#64775F">For latency = 220 and errors = 4,</text>
+<text x="648" y="539.65" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" font-weight="400" text-anchor="start" fill="#64775F">follow yes → yes → Escalate.</text>
 <rect x="44" y="582" width="534" height="440" rx="18" fill="#FFFFFF" stroke="#DCE5D3"/>
 <rect x="66" y="605" width="42" height="32" rx="8" fill="#EAF3DE" stroke="#EAF3DE"/>
 <text x="87" y="628.0" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="700" text-anchor="middle" fill="#64775F">03</text>

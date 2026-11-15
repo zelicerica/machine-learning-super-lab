@@ -1,4 +1,5 @@
 """Small numerical experiments, not pretrained or production model implementations."""
+import argparse
 import json
 import torch
 from torch import nn
@@ -43,12 +44,16 @@ class ToySSM(nn.Module):
         return torch.stack(ys, dim=1), state
 
 
-def quantize_demo():
+def quantize_demo(qmax=127):
+    if qmax not in (7,127):
+        raise ValueError('Use qmax 7 or 127; both are stored in int8 in this demonstration.')
     weights = torch.randn(64, 64)
-    scale = weights.abs().max().clamp_min(1e-8) / 127
-    integers = torch.round(weights / scale).clamp(-127, 127).to(torch.int8)
+    scale = weights.abs().max().clamp_min(1e-8) / qmax
+    integers = torch.round(weights / scale).clamp(-qmax, qmax).to(torch.int8)
     restored = integers.float() * scale
-    return {"fp32_weight_bytes": weights.numel() * weights.element_size(),
+    return {"integer_range": [-qmax,qmax], "scale":float(scale),
+            "storage_dtype":"int8; no four-bit packing",
+            "fp32_weight_bytes": weights.numel() * weights.element_size(),
             "int8_weight_bytes_plus_scale": integers.numel() + 4,
             "mean_squared_error": float((weights - restored).square().mean())}
 
@@ -65,14 +70,36 @@ def distillation_demo():
             "student_gradient": student_logits.grad.tolist(), "loss":float(loss.detach())}
 
 
-if __name__ == "__main__":
-    torch.manual_seed(42)
+def math_demo():
+    weight=torch.tensor(1.,requires_grad=True)
+    loss=(weight*2-6).square();loss.backward()
+    updated=weight.detach()-.1*weight.grad
+    return {"token_ids_shape":[2,16],"embedding_shape":[2,16,576],
+        "logits":[2.,1.,0.],"softmax":torch.tensor([2.,1.,0.]).softmax(-1).tolist(),
+        "negative_log_likelihood":{"p_0.1":float(-torch.tensor(.1).log()),"p_0.8":float(-torch.tensor(.8).log())},
+        "one_weight_update":{"initial_weight":1.,"input":2.,"target":6.,"initial_squared_error":float(loss.detach()),
+            "gradient":float(weight.grad),"learning_rate":.1,"updated_weight":float(updated),"new_squared_error":float((updated*2-6).square())}}
+
+
+def architecture_demo():
     x = torch.randn(2, 12, 16)
     moe = ToyMoE()
     y, counts = moe(x)
     ssm = ToySSM()
     z, state = ssm(x)
-    print(json.dumps({"quantization":quantize_demo(), "distillation":distillation_demo(),
-        "moe_total_parameters":sum(p.numel() for p in moe.parameters()),
+    return {"moe_total_parameters":sum(p.numel() for p in moe.parameters()),
         "moe_tokens_per_expert":counts.tolist(), "moe_output_shape":list(y.shape),
-        "ssm_output_shape":list(z.shape), "ssm_final_state_shape":list(state.shape)}, indent=2))
+        "ssm_output_shape":list(z.shape), "ssm_final_state_shape":list(state.shape)}
+
+
+if __name__ == "__main__":
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--demo',choices=['all','math','quantization','distillation','architectures'],default='all')
+    parser.add_argument('--qmax',type=int,choices=[7,127],default=127)
+    args=parser.parse_args()
+    if args.qmax!=127 and args.demo!='quantization':parser.error('--qmax applies to --demo quantization only.')
+    torch.manual_seed(42)
+    demonstrations={'math':math_demo,'quantization':lambda:quantize_demo(args.qmax),
+        'distillation':distillation_demo,'architectures':architecture_demo}
+    selected=demonstrations if args.demo=='all' else {args.demo:demonstrations[args.demo]}
+    print(json.dumps({name:fn() for name,fn in selected.items()},indent=2))

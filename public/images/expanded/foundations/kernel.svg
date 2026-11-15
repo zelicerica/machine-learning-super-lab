@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 700" role="img" aria-labelledby="title desc">
+<title id="title">Curved geometry can need a richer representation</title><desc id="desc">Two concentric classes cannot be separated by a straight line in the original plane. Squared radius maps the inner ring near one and outer ring near four. This explicit radial illustration is not the exact radial-basis-kernel feature mapping.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#8192ae"/></marker></defs>
+<g font-family="DejaVu Sans, sans-serif">
+<rect x="0" y="0" width="1120" height="700" rx="18" fill="#0b1020"/>
+<text x="40" y="38" font-size="13" fill="#4ade80" font-weight="700" text-anchor="start" letter-spacing="2">FOUNDATIONS / KERNEL</text>
+<text x="40" y="84" font-size="30" fill="#e6edf7" font-weight="700" text-anchor="start" letter-spacing="0">Curved geometry can need a richer representation</text>
+<text x="40" y="117" font-size="17" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">Nested circles are a visual example; the runnable lab uses interleaving half-circles.</text>
+<line x1="40" y1="645" x2="1080" y2="645" stroke="#344563" stroke-width="1"/>
+<text x="40" y="674" font-size="14" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">Teaching illustration • Use your own lab run for measured results.</text>
+<rect x="40" y="155" width="500" height="390" rx="12" fill="#131c31"/>
+<rect x="580" y="155" width="500" height="390" rx="12" fill="#131c31"/>
+<text x="64" y="192" font-size="20" fill="#4ade80" font-weight="700" text-anchor="start" letter-spacing="0">Original two-dimensional inputs</text>
+<line x1="105" y1="367" x2="480" y2="367" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="290" y1="522" x2="290" y2="217" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<circle cx="290" cy="367" r="70" fill="none" stroke="#344563"/>
+<circle cx="290" cy="367" r="140" fill="none" stroke="#344563"/>
+<circle cx="360" cy="367" r="7" fill="#4ade80"/>
+<circle cx="354.672" cy="393.788" r="7" fill="#4ade80"/>
+<circle cx="339.497" cy="416.497" r="7" fill="#4ade80"/>
+<circle cx="316.788" cy="431.672" r="7" fill="#4ade80"/>
+<circle cx="290" cy="437" r="7" fill="#4ade80"/>
+<circle cx="263.212" cy="431.672" r="7" fill="#4ade80"/>
+<circle cx="240.503" cy="416.497" r="7" fill="#4ade80"/>
+<circle cx="225.328" cy="393.788" r="7" fill="#4ade80"/>
+<circle cx="220" cy="367" r="7" fill="#4ade80"/>
+<circle cx="225.328" cy="340.212" r="7" fill="#4ade80"/>
+<circle cx="240.503" cy="317.503" r="7" fill="#4ade80"/>
+<circle cx="263.212" cy="302.328" r="7" fill="#4ade80"/>
+<circle cx="290" cy="297" r="7" fill="#4ade80"/>
+<circle cx="316.788" cy="302.328" r="7" fill="#4ade80"/>
+<circle cx="339.497" cy="317.503" r="7" fill="#4ade80"/>
+<circle cx="354.672" cy="340.212" r="7" fill="#4ade80"/>
+<circle cx="428.428" cy="387.921" r="7" fill="#b5a0ff"/>
+<circle cx="409.885" cy="439.303" r="7" fill="#b5a0ff"/>
+<circle cx="373.09" cy="479.677" r="7" fill="#b5a0ff"/>
+<circle cx="323.645" cy="502.897" r="7" fill="#b5a0ff"/>
+<circle cx="269.079" cy="505.428" r="7" fill="#b5a0ff"/>
+<circle cx="217.697" cy="486.885" r="7" fill="#b5a0ff"/>
+<circle cx="177.323" cy="450.09" r="7" fill="#b5a0ff"/>
+<circle cx="154.103" cy="400.645" r="7" fill="#b5a0ff"/>
+<circle cx="151.572" cy="346.079" r="7" fill="#b5a0ff"/>
+<circle cx="170.115" cy="294.697" r="7" fill="#b5a0ff"/>
+<circle cx="206.91" cy="254.323" r="7" fill="#b5a0ff"/>
+<circle cx="256.355" cy="231.103" r="7" fill="#b5a0ff"/>
+<circle cx="310.921" cy="228.572" r="7" fill="#b5a0ff"/>
+<circle cx="362.303" cy="247.115" r="7" fill="#b5a0ff"/>
+<circle cx="402.677" cy="283.91" r="7" fill="#b5a0ff"/>
+<circle cx="425.897" cy="333.355" r="7" fill="#b5a0ff"/>
+<text x="107" y="511" font-size="15" fill="#4ade80" font-weight="400" text-anchor="start" letter-spacing="0">Inner ring: A</text>
+<text x="343" y="511" font-size="15" fill="#b5a0ff" font-weight="400" text-anchor="start" letter-spacing="0">Outer ring: B</text>
+<text x="604" y="192" font-size="20" fill="#4ade80" font-weight="700" text-anchor="start" letter-spacing="0">Illustrative radius-related coordinate</text>
+<text x="830" y="250" font-size="25" fill="#e6edf7" font-weight="700" text-anchor="middle" letter-spacing="0">r² = x₁² + x₂²</text>
+<line x1="640" y1="435" x2="1030" y2="435" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="650" y1="430" x2="650" y2="441" stroke="#344563" stroke-width="2"/>
+<text x="650" y="467" font-size="16" fill="#b4c1d5" font-weight="400" text-anchor="middle" letter-spacing="0">0</text>
+<line x1="732" y1="430" x2="732" y2="441" stroke="#344563" stroke-width="2"/>
+<text x="732" y="467" font-size="16" fill="#b4c1d5" font-weight="400" text-anchor="middle" letter-spacing="0">1</text>
+<line x1="814" y1="430" x2="814" y2="441" stroke="#344563" stroke-width="2"/>
+<text x="814" y="467" font-size="16" fill="#b4c1d5" font-weight="400" text-anchor="middle" letter-spacing="0">2</text>
+<line x1="896" y1="430" x2="896" y2="441" stroke="#344563" stroke-width="2"/>
+<text x="896" y="467" font-size="16" fill="#b4c1d5" font-weight="400" text-anchor="middle" letter-spacing="0">3</text>
+<line x1="978" y1="430" x2="978" y2="441" stroke="#344563" stroke-width="2"/>
+<text x="978" y="467" font-size="16" fill="#b4c1d5" font-weight="400" text-anchor="middle" letter-spacing="0">4</text>
+<circle cx="732" cy="399" r="8" fill="#4ade80"/>
+<circle cx="732" cy="375" r="8" fill="#4ade80"/>
+<circle cx="732" cy="351" r="8" fill="#4ade80"/>
+<circle cx="732" cy="327" r="8" fill="#4ade80"/>
+<circle cx="732" cy="303" r="8" fill="#4ade80"/>
+<circle cx="978" cy="399" r="8" fill="#b5a0ff"/>
+<circle cx="978" cy="375" r="8" fill="#b5a0ff"/>
+<circle cx="978" cy="351" r="8" fill="#b5a0ff"/>
+<circle cx="978" cy="327" r="8" fill="#b5a0ff"/>
+<circle cx="978" cy="303" r="8" fill="#b5a0ff"/>
+<line x1="855" y1="284" x2="855" y2="435" stroke="#fbbf24" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="856" y="493" font-size="16" fill="#fbbf24" font-weight="400" text-anchor="middle" letter-spacing="0">A threshold can separate them</text>
+<rect x="40" y="555" width="1040" height="82" rx="12" fill="#131c31"/>
+<rect x="40" y="555" width="4" height="82" rx="2" fill="#4ade80"/>
+<text x="60" y="584" font-size="17" fill="#e6edf7" font-weight="400" text-anchor="start" letter-spacing="0">A radial basis kernel supplies nonlinear similarities without this explicit radius calculation.</text>
+<text x="60" y="609" font-size="17" fill="#e6edf7" font-weight="400" text-anchor="start" letter-spacing="0">The sketch explains the geometry; it does not show the kernel’s exact feature map.</text>
+</g></svg>

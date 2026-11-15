@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 700" role="img" aria-labelledby="title desc">
+<title id="title">Keep the direction with the most variation</title><desc id="desc">Points vary mainly along a diagonal principal direction. Dashed perpendicular segments show information discarded when projecting to that one direction. Principal component analysis fits directions using training data; retained variation does not guarantee predictive usefulness.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#8192ae"/></marker></defs>
+<g font-family="DejaVu Sans, sans-serif">
+<rect x="0" y="0" width="1120" height="700" rx="18" fill="#0b1020"/>
+<text x="40" y="38" font-size="13" fill="#4ade80" font-weight="700" text-anchor="start" letter-spacing="2">FOUNDATIONS / PROJECTION</text>
+<text x="40" y="84" font-size="30" fill="#e6edf7" font-weight="700" text-anchor="start" letter-spacing="0">Keep the direction with the most variation</text>
+<text x="40" y="117" font-size="17" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">When two measurements rise together, one diagonal coordinate can retain their main pattern.</text>
+<line x1="40" y1="645" x2="1080" y2="645" stroke="#344563" stroke-width="1"/>
+<text x="40" y="674" font-size="14" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">Teaching illustration • Use your own lab run for measured results.</text>
+<rect x="40" y="155" width="580" height="465" rx="12" fill="#131c31"/>
+<line x1="90" y1="555" x2="577" y2="555" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="90" y1="555" x2="90" y2="188" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="345" y="598" font-size="16" fill="#b4c1d5" font-weight="400" text-anchor="middle" letter-spacing="0">Measurement 1</text>
+<text x="110" y="189" font-size="16" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">Measurement 2</text>
+<line x1="128" y1="522" x2="545" y2="208" stroke="#4ade80" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="159" y1="518" x2="150" y2="506" stroke="#b5a0ff" stroke-width="1" stroke-dasharray="4 4"/>
+<circle cx="159" cy="518" r="7" fill="#b5a0ff"/>
+<circle cx="150" cy="506" r="3" fill="#4ade80"/>
+<line x1="172.4" y1="456.7" x2="188" y2="477.5" stroke="#b5a0ff" stroke-width="1" stroke-dasharray="4 4"/>
+<circle cx="172.4" cy="456.7" r="7" fill="#b5a0ff"/>
+<circle cx="188" cy="477.5" r="3" fill="#4ade80"/>
+<line x1="245.8" y1="475.4" x2="226" y2="449" stroke="#b5a0ff" stroke-width="1" stroke-dasharray="4 4"/>
+<circle cx="245.8" cy="475.4" r="7" fill="#b5a0ff"/>
+<circle cx="226" cy="449" r="3" fill="#4ade80"/>
+<line x1="256.2" y1="410.1" x2="264" y2="420.5" stroke="#b5a0ff" stroke-width="1" stroke-dasharray="4 4"/>
+<circle cx="256.2" cy="410.1" r="7" fill="#b5a0ff"/>
+<circle cx="264" cy="420.5" r="3" fill="#4ade80"/>
+<line x1="316.4" y1="411.2" x2="302" y2="392" stroke="#b5a0ff" stroke-width="1" stroke-dasharray="4 4"/>
+<circle cx="316.4" cy="411.2" r="7" fill="#b5a0ff"/>
+<circle cx="302" cy="392" r="3" fill="#4ade80"/>
+<line x1="319.6" y1="336.3" x2="340" y2="363.5" stroke="#b5a0ff" stroke-width="1" stroke-dasharray="4 4"/>
+<circle cx="319.6" cy="336.3" r="7" fill="#b5a0ff"/>
+<circle cx="340" cy="363.5" r="3" fill="#4ade80"/>
+<line x1="388.2" y1="348.6" x2="378" y2="335" stroke="#b5a0ff" stroke-width="1" stroke-dasharray="4 4"/>
+<circle cx="388.2" cy="348.6" r="7" fill="#b5a0ff"/>
+<circle cx="378" cy="335" r="3" fill="#4ade80"/>
+<line x1="420.8" y1="312.9" x2="416" y2="306.5" stroke="#b5a0ff" stroke-width="1" stroke-dasharray="4 4"/>
+<circle cx="420.8" cy="312.9" r="7" fill="#b5a0ff"/>
+<circle cx="416" cy="306.5" r="3" fill="#4ade80"/>
+<line x1="440.8" y1="260.4" x2="454" y2="278" stroke="#b5a0ff" stroke-width="1" stroke-dasharray="4 4"/>
+<circle cx="440.8" cy="260.4" r="7" fill="#b5a0ff"/>
+<circle cx="454" cy="278" r="3" fill="#4ade80"/>
+<line x1="504" y1="265.5" x2="492" y2="249.5" stroke="#b5a0ff" stroke-width="1" stroke-dasharray="4 4"/>
+<circle cx="504" cy="265.5" r="7" fill="#b5a0ff"/>
+<circle cx="492" cy="249.5" r="3" fill="#4ade80"/>
+<text x="387" y="223" font-size="18" fill="#4ade80" font-weight="700" text-anchor="middle" letter-spacing="0">Keep this direction</text>
+<text x="670" y="208" font-size="20" fill="#4ade80" font-weight="700" text-anchor="start" letter-spacing="0">Project → compress → reconstruct</text>
+<text x="670" y="255" font-size="18" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">Each point keeps one coordinate</text>
+<text x="670" y="283" font-size="18" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">along the principal direction.</text>
+<rect x="670" y="332" width="400" height="76" rx="12" fill="#131c31"/>
+<text x="870" y="379" font-size="22" fill="#4ade80" font-weight="700" text-anchor="middle" letter-spacing="0">2 coordinates → 1 coordinate</text>
+<text x="670" y="461" font-size="18" fill="#b5a0ff" font-weight="400" text-anchor="start" letter-spacing="0">The perpendicular displacement</text>
+<text x="670" y="489" font-size="18" fill="#b5a0ff" font-weight="400" text-anchor="start" letter-spacing="0">is lost during this compression.</text>
+<text x="670" y="547" font-size="16" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">Fit the directions on training data.</text>
+<text x="670" y="575" font-size="16" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">High variance does not necessarily</text>
+<text x="670" y="603" font-size="16" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">mean useful predictive information.</text>
+</g></svg>

@@ -217,5 +217,6 @@
     }
   ],
   "reload_verified": true,
-  "limitations": "Two-digit constrained autoregressive policy; same fixed-length arithmetic simulator. PPO uses a prompt-state value baseline and terminal return, with no generalized advantage estimation. This is a PPO clipping/critic teaching implementation, not a production trainer. Group algorithms use four samples per prompt. Zero-variance groups provide zero normalized reward advantage. The deliberately flawed zero-prefix reward does not measure arithmetic correctness."
+  "limitations": "Two-digit constrained autoregressive policy; same fixed-length arithmetic simulator. PPO uses a prompt-state value baseline and terminal return, with no generalized advantage estimation. This is a PPO clipping/critic teaching implementation, not a production trainer. Group algorithms use four samples per prompt. Zero-variance groups provide zero normalized reward advantage. The deliberately flawed zero-prefix reward does not measure arithmetic correctness.",
+  "audit_note": "Historical pre-midnight.4 implementation used two policy updates per rollout. The corrected REINFORCE lesson uses one fresh on-policy update. These measurements do not validate the corrected algorithm; rerun it in a fresh folder."
 }

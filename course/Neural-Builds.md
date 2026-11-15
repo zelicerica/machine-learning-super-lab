@@ -23,7 +23,7 @@ flowchart TD
  H[Previous hidden state] --> G
  G --> N[New hidden state]
  N --> P[Next-word scores]
- N --> H
+ N -->|Next time step| H
  P --> L[Loss against next training word]
  P --> O[Generated word during inference]
 ```

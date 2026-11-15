@@ -317,7 +317,8 @@ z
     <text style="font-size: 15px; font-family: 'DejaVu Sans'; fill: #152b42" transform="translate(731.715703 790.272246)">Change one thing and evaluate again.</text>
    </g>
    <g id="text_15">
-    <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #152b42" x="57.6" y="884.52" transform="rotate(-0 57.6 884.52)">Missing facts → retrieval     Wrong behavior → training data     Memory limit → smaller model or compression</text>
+    <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #152b42" x="57.6" y="875">Missing facts → inspect retrieval  •  Memory limit → smaller model or compression</text>
+    <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #152b42" x="57.6" y="899">Behavior gap → inspect prompts, examples, and output contract</text>
    </g>
   </g>
  </g>

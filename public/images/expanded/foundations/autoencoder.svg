@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 700" role="img" aria-labelledby="title desc">
+<title id="title">Reconstruct through a small bottleneck</title><desc id="desc">An encoder maps 64 input pixels through 32 hidden values into an eight-number code. A decoder reconstructs 64 pixels. The clean original image supplies the reconstruction target; the digit category is not the target.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#8192ae"/></marker></defs>
+<g font-family="DejaVu Sans, sans-serif">
+<rect x="0" y="0" width="1120" height="700" rx="18" fill="#0b1020"/>
+<text x="40" y="38" font-size="13" fill="#4ade80" font-weight="700" text-anchor="start" letter-spacing="2">FOUNDATIONS / AUTOENCODER</text>
+<text x="40" y="84" font-size="30" fill="#e6edf7" font-weight="700" text-anchor="start" letter-spacing="0">Reconstruct through a small bottleneck</text>
+<text x="40" y="117" font-size="17" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">The denoising encoder sees corrupted pixels; the reconstruction target stays clean.</text>
+<line x1="40" y1="645" x2="1080" y2="645" stroke="#344563" stroke-width="1"/>
+<text x="40" y="674" font-size="14" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">Teaching illustration • Use your own lab run for measured results.</text>
+<text x="40" y="178" font-size="20" fill="#4ade80" font-weight="700" text-anchor="start" letter-spacing="0">Encode the noisy input</text>
+<text x="732" y="178" font-size="20" fill="#b5a0ff" font-weight="700" text-anchor="start" letter-spacing="0">Decode a reconstruction</text>
+<rect x="40" y="225" width="174" height="160" rx="12" fill="#131c31" stroke="#4ade80"/>
+<text x="127" y="312" font-size="23" fill="#4ade80" font-weight="700" text-anchor="middle" letter-spacing="0">64 pixels</text>
+<text x="127" y="416" font-size="16" fill="#b4c1d5" font-weight="400" text-anchor="middle" letter-spacing="0">Noisy input</text>
+<rect x="256" y="245" width="174" height="120" rx="12" fill="#131c31" stroke="#4ade80"/>
+<text x="343" y="312" font-size="23" fill="#4ade80" font-weight="700" text-anchor="middle" letter-spacing="0">32 values</text>
+<text x="343" y="396" font-size="16" fill="#b4c1d5" font-weight="400" text-anchor="middle" letter-spacing="0">Encoder</text>
+<rect x="472" y="270" width="174" height="70" rx="12" fill="#131c31" stroke="#fbbf24"/>
+<text x="559" y="312" font-size="23" fill="#fbbf24" font-weight="700" text-anchor="middle" letter-spacing="0">8 values</text>
+<text x="559" y="371" font-size="16" fill="#b4c1d5" font-weight="400" text-anchor="middle" letter-spacing="0">Code</text>
+<rect x="688" y="245" width="174" height="120" rx="12" fill="#131c31" stroke="#b5a0ff"/>
+<text x="775" y="312" font-size="23" fill="#b5a0ff" font-weight="700" text-anchor="middle" letter-spacing="0">Decoder</text>
+<text x="775" y="396" font-size="16" fill="#b4c1d5" font-weight="400" text-anchor="middle" letter-spacing="0">Learned mapping</text>
+<rect x="904" y="225" width="174" height="160" rx="12" fill="#131c31" stroke="#b5a0ff"/>
+<text x="991" y="312" font-size="23" fill="#b5a0ff" font-weight="700" text-anchor="middle" letter-spacing="0">64 pixels</text>
+<text x="991" y="416" font-size="16" fill="#b4c1d5" font-weight="400" text-anchor="middle" letter-spacing="0">Reconstruction</text>
+<line x1="217" y1="305" x2="251" y2="305" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="433" y1="305" x2="467" y2="305" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="649" y1="305" x2="683" y2="305" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="865" y1="305" x2="899" y2="305" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="65" y="481" width="250" height="87" rx="12" fill="#131c31"/>
+<text x="190" y="518" font-size="22" fill="#4ade80" font-weight="700" text-anchor="middle" letter-spacing="0">Clean original</text>
+<text x="190" y="549" font-size="17" fill="#b4c1d5" font-weight="400" text-anchor="middle" letter-spacing="0">64-pixel target</text>
+<rect x="688" y="481" width="390" height="87" rx="12" fill="#131c31"/>
+<text x="883" y="518" font-size="22" fill="#e6edf7" font-weight="700" text-anchor="middle" letter-spacing="0">Reconstruction loss</text>
+<text x="883" y="549" font-size="16" fill="#b4c1d5" font-weight="400" text-anchor="middle" letter-spacing="0">Compare reconstructed and clean pixels</text>
+<line x1="325" y1="525" x2="677" y2="525" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="991" y1="421" x2="991" y2="471" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="65" y="614" font-size="18" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">The target is the original image, not the digit label. Both encoder and decoder learn.</text>
+</g></svg>

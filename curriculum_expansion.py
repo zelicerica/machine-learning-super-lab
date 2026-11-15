@@ -3,8 +3,8 @@ from pathlib import Path
 import html
 ROOT=Path(__file__).resolve().parent
 
-def topic(id,title,group,summary,case,idea,example,algorithm,technical,commands,inspect,challenge,pitfall,question,options,correct,answer,source,image):
-    return dict(id=id,title=title,group=group,summary=summary,case=case,idea=idea,example=example,algorithm=algorithm,technical=technical,commands=commands,inspect=inspect,challenge=challenge,pitfall=pitfall,question=question,options=options,correct=correct,answer=answer,source=source,image=image)
+def topic(id,title,group,summary,case,idea,example,algorithm,technical,commands,inspect,challenge,pitfall,question,options,correct,answer,source):
+    return dict(id=id,title=title,group=group,summary=summary,case=case,idea=idea,example=example,algorithm=algorithm,technical=technical,commands=commands,inspect=inspect,challenge=challenge,pitfall=pitfall,question=question,options=options,correct=correct,answer=answer,source=source,image=f"foundations/{id}.svg")
 
 TOPICS=[
 topic('linear','Linear regression: learn a weighted prediction','Classical models',
@@ -19,7 +19,7 @@ topic('linear','Linear regression: learn a weighted prediction','Classical model
 'Predict which metric will increase when measurement noise increases from 8 to 25. Run both commands with seed 42, record the results, and explain why more noise does not necessarily require a deeper network. Then read linear() in foundations.py and change one generating coefficient in a copied experiment.',
 'Never estimate preprocessing statistics on the complete dataset before splitting. Do not interpret generated feature names as measured business facts.',
 'What does a regression coefficient describe?',['An association with one input, holding others fixed','A guarantee of causation','The number of training examples'],0,'A coefficient describes the fitted relationship under the model assumptions; intervention effects need additional causal evidence.',
-'https://scikit-learn.org/1.7/modules/linear_model.html','model-mechanisms.svg'),
+'https://scikit-learn.org/1.7/modules/linear_model.html'),
 
 topic('logistic','Logistic regression: turn scores into probabilities','Classical models',
 'Learn classification, thresholds, class imbalance, and confusion matrices.',
@@ -33,7 +33,7 @@ topic('logistic','Logistic regression: turn scores into probabilities','Classica
 'Compare training accuracy and validation accuracy under the two regularization settings. In a copied workbench experiment, use predict_proba and compare thresholds 0.2, 0.5, and 0.8. Submit the false-positive and false-negative counts, not only a single accuracy score.',
 'Choosing a threshold by inspecting final test labels invalidates that test as an independent final check. Select the threshold using validation data.',
 'Does a probability of 0.9 guarantee correctness?',['Yes','No; it is a model estimate that needs calibration and evaluation','Only if accuracy is high'],1,'Probabilities depend on training data and modeling assumptions. Calibration checks whether predicted frequencies match observed frequencies.',
-'https://scikit-learn.org/1.7/modules/linear_model.html#logistic-regression','evaluation-guide.svg'),
+'https://scikit-learn.org/1.7/modules/linear_model.html#logistic-regression'),
 
 topic('tree','Decision trees: inspect the questions','Classical models',
 'Build a branching classifier and see the cost of increasing depth.',
@@ -47,21 +47,21 @@ topic('tree','Decision trees: inspect the questions','Classical models',
 'Walk one example through the displayed thresholds by hand. Then compare depth 3 and depth 15 using the same split. Submit a short explanation of which model you would retain and what evidence could change your decision.',
 'A decision path explains this fitted model’s computation. It does not prove that the chosen feature causes the observed outcome.',
 'What is a common risk of a very deep tree?',['It cannot fit training data','It can memorize training-specific patterns','It always ignores numeric features'],1,'Greater depth increases flexibility and may fit noise, so validation performance matters.',
-'https://scikit-learn.org/1.7/modules/tree.html','model-mechanisms.svg'),
+'https://scikit-learn.org/1.7/modules/tree.html'),
 
 topic('ensemble','Ensembles: compare forests and boosting','Classical models',
 'Combine learners, compare the actual results, and distinguish two different strategies.',
 'Tabular prediction appears in inventory planning, service reliability, and transaction review. Tree ensembles are useful candidates when feature interactions matter. The exercise compares three approaches on identical generated event data, rather than claiming one algorithm always wins.',
-'A random forest trains many varied trees and aggregates their votes. Gradient boosting builds a sequence of models that improve the current predictive objective. The first strategy reduces dependence on one tree; the second makes successive corrections.',
-'If five trees vote [normal, fault, normal, normal, fault], the majority prediction is normal. That simple vote explains a forest. A boosting update instead adds a scaled new function to the current prediction; it is not simply another independent vote.',
+'A random forest trains many varied trees. The scikit-learn classifier used here averages their class probabilities before choosing a class. Gradient boosting builds a sequence of models that improve the current predictive objective. The first strategy reduces dependence on one tree; the second makes successive corrections.',
+'If five trees vote [normal, fault, normal, normal, fault], the majority prediction is normal. That is a simplified hard-voting illustration. The bundled forest instead averages class probabilities: normal-class estimates [0.8, 0.4, 0.7, 0.9, 0.3] average to 0.62, so normal wins. This score is not automatically calibrated. A boosting update instead adds a scaled new function to the current prediction; it is not simply another independent vote.',
 ['Create one fixed set of training and validation indices.','Fit a single tree as a baseline.','Fit a random forest with randomized trees.','Fit a gradient-boosting classifier on the same training examples.','Compare validation metrics, training accuracy, and the saved bar chart.'],
 'Forests use bootstrap sampling and feature randomness to reduce correlation among trees. Boosting follows the gradient of a loss; the popular description of fitting residuals is exact for some regression objectives and an intuition for other losses. More estimators increase compute and can change fit. Feature-importance rankings require careful interpretation when features are correlated. The ensemble experiment’s --depth option controls the baseline tree and forest; the boosting model separately uses a fixed 15-leaf limit.',
 ['python foundations.py ensemble --depth 3 --output outputs/ensemble-shallow-{run}','python foundations.py ensemble --depth 10 --output outputs/ensemble-deep-{run}'],
 'Inspect comparison.png and the nested metrics for single_tree, random_forest, and gradient_boosting. Explain any differences in the training–validation gap. The plotted scores are generated by your run.',
-'Choose the simplest candidate meeting your declared accuracy and false-alert requirements. Record fit time and discuss whether a small gain warrants more complex deployment. For another experiment, change tree counts in a copied function while holding the split fixed.',
+'Choose the simplest candidate meeting your declared accuracy and false-alert requirements. Record total experiment runtime and discuss whether a small gain warrants more complex deployment. Per-model fit time would require timing each fit separately; total runtime includes plotting, saving, and reload. For another experiment, change tree counts in a copied function while holding the split fixed.',
 'Do not compare one model on validation data with another on test data. Also avoid assuming every boosting update trains only on previously misclassified examples.',
 'How does gradient boosting differ from an ordinary forest?',['It builds successive corrections to an objective','It must use neural networks','It has no training phase'],0,'Boosting adds models sequentially to improve the current objective; forest trees are trained as varied members to aggregate.',
-'https://scikit-learn.org/1.7/modules/ensemble.html','model-mechanisms.svg'),
+'https://scikit-learn.org/1.7/modules/ensemble.html'),
 
 topic('neighbors','Nearest neighbors: classify by similarity','Classical models',
 'Observe how a distance rule and neighbor count reshape a decision boundary.',
@@ -75,7 +75,7 @@ topic('neighbors','Nearest neighbors: classify by similarity','Classical models'
 'Predict which neighbor count will be more sensitive to a mislabeled training point. Run both settings. Then try 5 neighbors while keeping noise and seed fixed, and justify the choice using validation evidence.',
 'Similarity is a design decision, not an objective universal property. A representation that groups images well may be poor for semantic document retrieval.',
 'Why scale features before distance-based prediction?',['To make all distances zero','To prevent units alone from dominating distance','To reveal validation labels'],1,'Scaling makes feature units more comparable; the scaler must be fitted only on the training subset.',
-'https://scikit-learn.org/1.7/modules/neighbors.html','model-mechanisms.svg'),
+'https://scikit-learn.org/1.7/modules/neighbors.html'),
 
 topic('kernel','Kernel methods: learn a curved boundary','Classical models',
 'Compare a linear support vector machine with a nonlinear similarity kernel.',
@@ -89,13 +89,13 @@ topic('kernel','Kernel methods: learn a curved boundary','Classical models',
 'Increase observation noise while preserving the random seed. Compare whether increasing C now helps or merely fits noisy detail. Document a case where the nonlinear model’s additional complexity is justified.',
 'Kernel methods are not a special kind of graphics processor. A kernel here is a mathematical similarity function; a hardware computation kernel means something different.',
 'What does a nonlinear kernel provide?',['A richer similarity-based decision boundary','A guarantee of perfect unseen predictions','A new physical processor'],0,'A kernel changes the similarities available to the model, allowing a boundary that is nonlinear in the original feature space.',
-'https://scikit-learn.org/1.7/modules/svm.html','model-mechanisms.svg'),
+'https://scikit-learn.org/1.7/modules/svm.html'),
 
 topic('bayes','Naive Bayes: combine evidence with probabilities','Classical models',
 'Build a probability-based classifier and inspect its independence assumption.',
 'A lightweight classifier can triage documents or sensor events when fast fitting and a simple baseline are valuable. Different naive Bayes variants fit different feature types. This lab uses continuous generated measurements and therefore Gaussian naive Bayes; text counts would call for another variant.',
 'Estimate how likely each feature value is under each class, combine that evidence with the class prior, then compare class scores. The “naive” assumption treats features as conditionally independent given the class. It is a modeling simplification, not a claim that real features are independent.',
-'If the prior chance of a fault is 0.1, then a highly unusual measurement under the normal class can increase the posterior fault probability. Multiplying probabilities requires normalization to obtain a probability distribution across classes. Correlated features can cause evidence to be counted more than once.',
+'If the prior chance of a fault is 0.1, then a highly unusual measurement under the normal class can increase the posterior fault probability. For a binary unusual-reading event, suppose its probability is 0.8 under fault and 0.1 under normal. The class scores are 0.1 × 0.8 = 0.08 and 0.9 × 0.1 = 0.09; normalization gives fault probability 0.08 / 0.17 ≈ 47.1 percent. These illustrative event probabilities explain the update; the runnable Gaussian model uses continuous feature likelihoods. Multiplying likelihoods and priors requires normalization across classes. Correlated features can cause evidence to be counted more than once.',
 ['Estimate training class frequencies.','For each class and feature, estimate a mean and variance.','Compute class scores for held-out measurements using Gaussian feature likelihoods.','Normalize class scores and choose a label.','Compare with logistic regression on the identical split.'],
 'Bayes’ rule connects posterior probability, likelihood, and prior. Implementations usually add log probabilities to avoid numerical underflow from multiplying many small values. Gaussian naive Bayes assumes a Gaussian distribution for each continuous feature within each class. Multinomial naive Bayes is often used for nonnegative counts. The laboratory’s generated features include dependencies, making the simplifying assumption visible rather than automatically favorable.',
 ['python foundations.py bayes --noise 0.05 --output outputs/bayes-{run}','python foundations.py bayes --noise 0.25 --output outputs/bayes-noisy-{run}'],
@@ -103,7 +103,7 @@ topic('bayes','Naive Bayes: combine evidence with probabilities','Classical mode
 'Write down what would change if the inputs were word counts rather than continuous measurements. In a copied experiment, duplicate one input column and assess whether redundant evidence changes predictions or confidence.',
 'A confident score from a naive Bayes model is not automatically reliable uncertainty. Evaluate calibration before using probabilities for consequential decisions.',
 'What is the central naive Bayes assumption?',['Features are conditionally independent given the class','All classes are equally common','Every feature is normally distributed in every variant'],0,'Conditional independence is the common simplifying assumption; distributional choices depend on the variant.',
-'https://scikit-learn.org/1.7/modules/naive_bayes.html','evaluation-guide.svg'),
+'https://scikit-learn.org/1.7/modules/naive_bayes.html'),
 
 topic('gaussian','Gaussian processes: predict with uncertainty','Classical models',
 'Fit a smooth function and inspect an uncertainty band beyond observed inputs.',
@@ -117,7 +117,7 @@ topic('gaussian','Gaussian processes: predict with uncertainty','Classical model
 'Explain why a wider uncertainty interval can be appropriate after increasing measurement noise. Change the smoothness assumption in a copied experiment and compare both error and coverage.',
 'Do not equate a narrow interval with truth. Misspecified noise or kernel assumptions can make a model confidently wrong.',
 'What does a Gaussian process uncertainty band depend on?',['Only the number of graphics processors','The data and modeling assumptions','A guarantee built into every prediction'],1,'The covariance function, noise assumptions, and observations shape the predictive distribution.',
-'https://scikit-learn.org/1.7/modules/gaussian_process.html','evaluation-guide.svg'),
+'https://scikit-learn.org/1.7/modules/gaussian_process.html'),
 
 topic('cluster','Clustering: discover groups without supplied labels','Unsupervised learning',
 'Compare centroid-based groups with density-based exploration.',
@@ -131,7 +131,7 @@ topic('cluster','Clustering: discover groups without supplied labels','Unsupervi
 'Predict what requesting five clusters does to a dataset generated from three groups. Run both settings. Explain why the best geometric score may not define the most useful operational categories.',
 'Unsupervised does not mean assumption-free. The distance measure, cluster count, and density thresholds express strong assumptions about useful structure.',
 'Are cluster numbers meaningful business labels?',['Yes, cluster zero always means normal','No; they are arbitrary identifiers requiring interpretation','Only with a larger model'],1,'Clusters need domain interpretation and validation. Their integer identifiers do not supply semantic meaning.',
-'https://scikit-learn.org/1.7/modules/clustering.html','split-leakage.svg'),
+'https://scikit-learn.org/1.7/modules/clustering.html'),
 
 topic('projection','Principal component analysis: compress measurements','Unsupervised learning',
 'Reduce 64 pixel measurements to fewer coordinates and reconstruct the images.',
@@ -145,7 +145,7 @@ topic('projection','Principal component analysis: compress measurements','Unsupe
 'Choose a compression level and justify it using storage dimensions and reconstruction quality. Explain why you would still need a separate downstream classification test before claiming the compressed representation preserves recognition performance.',
 'Fitting the principal directions on the whole dataset before the split leaks validation and test information into the representation.',
 'Does retaining 95 percent of variance imply 95 percent classification accuracy?',['Yes','No; these measure different properties','Only for images'],1,'Variance preservation measures representation geometry; classification accuracy measures correct labels on a task.',
-'https://scikit-learn.org/1.7/modules/decomposition.html#pca','neural-shapes.svg'),
+'https://scikit-learn.org/1.7/modules/decomposition.html#pca'),
 
 topic('dense','Dense neural networks: train a hidden representation','Neural networks',
 'Build a small multilayer perceptron and inspect gradients, shape, and loss.',
@@ -159,7 +159,7 @@ topic('dense','Dense neural networks: train a hidden representation','Neural net
 'Predict whether additional epochs improve validation accuracy and test that prediction. Read neural_classifier() and change hidden width in a copied model. Compare parameter count and quality, then preserve one final test run for the selected model.',
 'A falling training loss does not guarantee that the model generalizes. More neurons are not automatically more useful than better data or a simpler baseline.',
 'What does the nonlinear hidden layer make possible?',['Nonlinear input–output relationships','Automatic access to new training data','Guaranteed zero validation error'],0,'A nonlinear activation lets stacked layers express relationships that collapse to one linear mapping without it.',
-'https://docs.pytorch.org/tutorials/beginner/basics/buildmodel_tutorial.html','neural-shapes.svg'),
+'https://docs.pytorch.org/tutorials/beginner/basics/buildmodel_tutorial.html'),
 
 topic('convolution','Convolutional networks: share a visual detector','Neural networks',
 'Train spatial filters, follow tensor shapes, and compare with a dense network.',
@@ -173,7 +173,7 @@ topic('convolution','Convolutional networks: share a visual detector','Neural ne
 'Draw every tensor shape before reading the code. In a copied experiment shift each validation image by one pixel, define the border fill, and measure how performance changes. Explain why a clean validation score alone does not establish robustness.',
 'Changing image resolution requires revisiting the flattened layer’s input size. A shape error is often an architectural mismatch rather than a package-installation failure.',
 'What is shared in a convolutional layer?',['The same learned filter weights across positions','The labels of all images','One output value for the whole dataset'],0,'Filters reuse their weights over local neighborhoods at different positions.',
-'https://docs.pytorch.org/tutorials/beginner/blitz/neural_networks_tutorial.html','neural-shapes.svg'),
+'https://docs.pytorch.org/tutorials/beginner/blitz/neural_networks_tutorial.html'),
 
 topic('graph','Graph neural networks: learn from connections','Neural networks',
 'Combine node features with neighborhood information and test an edge-removal ablation.',
@@ -187,7 +187,7 @@ topic('graph','Graph neural networks: learn from connections','Neural networks',
 'Explain why the ablation keeps self-connections but removes other links. Submit a diagram identifying which features, edges, and labels are visible to the training procedure. Describe a separate evaluation for unseen organizations or networks.',
 'Randomly splitting nodes is not always enough to prevent operational leakage. Time, organizations, shared entities, and how edges were collected can all matter.',
 'What makes this evaluation transductive?',['All node features and edges are visible, while some labels are held out','All test labels enter the loss','The model uses no graph'],0,'The held-out nodes are part of the visible graph, but their labels are excluded from training.',
-'https://pytorch-geometric.readthedocs.io/en/latest/get_started/introduction.html','neural-shapes.svg'),
+'https://pytorch-geometric.readthedocs.io/en/latest/get_started/introduction.html'),
 
 topic('autoencoder','Autoencoders: reconstruct through a bottleneck','Generative foundations',
 'Learn a compact representation and reconstruct clean inputs from noisy observations.',
@@ -201,7 +201,7 @@ topic('autoencoder','Autoencoders: reconstruct through a bottleneck','Generative
 'Explain how the bottleneck size changes information capacity. Compare four and sixteen latent dimensions. Propose a genuinely held-out anomaly dataset before attempting to use reconstruction error as an alert score.',
 'An ordinary autoencoder does not guarantee that arbitrary random points in its representation space decode into plausible examples.',
 'What is the reconstruction target in this denoising lab?',['The clean original input','The digit label','An unrelated image'],0,'The clean input provides the target while the encoder receives a corrupted version.',
-'https://www.deeplearningbook.org/contents/autoencoders.html','generative-comparison.svg'),
+'https://www.deeplearningbook.org/contents/autoencoders.html'),
 
 topic('variational','Variational autoencoders: learn a distribution','Generative foundations',
 'Add probabilistic latent variables and balance reconstruction with regularization.',
@@ -215,7 +215,7 @@ topic('variational','Variational autoencoders: learn a distribution','Generative
 'Compare weak and strong divergence penalties. Explain why a better reconstruction score does not necessarily mean better samples from the prior. Record both the numeric error and a written review of sample diversity.',
 'Do not call a latent distribution “understanding” without defining a task-based evaluation. Generated examples can preserve undesirable patterns from training data.',
 'Why use a reparameterized latent sample?',['To let gradients reach learned distribution parameters','To eliminate randomness','To remove the decoder'],0,'Writing the sample as mean plus scaled noise separates randomness from the parameters being optimized.',
-'https://arxiv.org/abs/1312.6114','generative-comparison.svg'),
+'https://arxiv.org/abs/1312.6114'),
 
 topic('adversarial','Adversarial generation: train two competing models','Generative foundations',
 'Watch a generator learn a two-mode distribution and diagnose mode collapse.',
@@ -229,7 +229,7 @@ topic('adversarial','Adversarial generation: train two competing models','Genera
 'Run the longer experiment with a second seed after documenting the first. Explain whether more training improved coverage or caused collapse. Submit a failure analysis even if the generated distribution remains poor.',
 'Never mark the lab successful merely because generator loss decreases. A discriminator can become weak, saturated, or uninformative while sample quality remains poor.',
 'What is mode collapse?',['Producing only a narrow subset of the target variation','Using too many independent datasets','A required step in every generative model'],0,'A collapsed generator can produce plausible examples from one region while failing to cover other important modes.',
-'https://arxiv.org/abs/1406.2661','generative-comparison.svg'),
+'https://arxiv.org/abs/1406.2661'),
 
 topic('ngram','Statistical language models: count before you train a network','Language foundations',
 'Build an inspectable word predictor with counts, smoothing, and perplexity.',
@@ -243,7 +243,7 @@ topic('ngram','Statistical language models: count before you train a network','L
 'Hand-calculate one context’s smoothed probability from counts. Compare order one with order three and explain why longer context can create data sparsity instead of automatically improving results.',
 'Do not compare this word-level perplexity directly with the byte-level perplexity of the scratch neural language model. The prediction units differ.',
 'Why add smoothing?',['To avoid assigning zero probability to every unseen event','To introduce human labels','To make every word equally likely'],0,'Smoothing allocates probability to unseen events; it does not generally make the distribution uniform.',
-'https://www.nltk.org/api/nltk.lm.html','model-mechanisms.svg'),
+'https://www.nltk.org/api/nltk.lm.html'),
 
 topic('reinforcement','Reinforcement learning: learn actions from rewards','Decision systems',
 'Train a complete small action-value learner and compare it with random behavior.',
@@ -251,13 +251,13 @@ topic('reinforcement','Reinforcement learning: learn actions from rewards','Deci
 'The agent observes a state, chooses an action, receives a reward, and sees a new state. A table estimates the value of each action in each state. Updates combine immediate reward with an estimate of future reward. Exploration allows the agent to discover actions it has not yet learned to prefer.',
 'If an action currently has value 2, its target is 6, and the learning rate is 0.2, the updated value is 2 + 0.2 × (6 - 2) = 2.8. At the terminal goal, the target uses the immediate reward without adding a future-state value.',
 ['Initialize a table for sixteen states and four possible actions.','Choose random actions some of the time and otherwise choose the current best action.','Move in the grid, receive a step penalty or goal reward, and update the chosen entry.','Reduce exploration over training episodes.','Evaluate the greedy policy without exploration and compare with random actions.'],
-'The update is tabular Q-learning; Q denotes an action-value function, not an acronym. The discount factor controls how future rewards contribute. An episode ends at the goal or after the step limit. The environment is deterministic and all evaluation episodes begin at the same state, so repeated success does not establish generalization to new maps. A neural value function is an extension, not a requirement for reinforcement learning.',
+'The update is tabular Q-learning; Q denotes an action-value function, not an acronym. The discount factor controls how future rewards contribute. The goal is a terminal state; the 50-step cap truncates an unfinished trajectory. The terminal goal removes the future-value term, whereas this time-limit truncation is not a new terminal goal. The environment is deterministic and all evaluation episodes begin at the same state, so repeated success does not establish generalization to new maps. A neural value function is an extension, not a requirement for reinforcement learning.',
 ['python foundations.py reinforcement --episodes 50 --output outputs/reinforcement-short-{run}','python foundations.py reinforcement --episodes 500 --output outputs/reinforcement-long-{run}'],
 'Open rewards.png. Training rewards include exploration, while greedy_success_rate is measured without it. Interpret greedy_policy using the report’s action_order. Compare greedy_mean_return with random_mean_return.',
 'Trace a greedy path from the upper-left corner to the lower-right goal. Explain the terminal-state update. In a copied environment introduce an obstacle and evaluate the old policy before retraining, documenting what fails.',
 'Reward design can encourage unintended behavior. A large reward score is only useful when the environment and reward represent the desired task faithfully.',
 'Should a terminal transition bootstrap from a future value?',['Yes, always','No; the episode has ended','Only when a graphics processor is available'],1,'A terminal transition has no subsequent decision in the episode, so its target contains only the terminal reward.',
-'https://docs.pytorch.org/tutorials/intermediate/reinforcement_q_learning.html','evaluation-guide.svg')
+'https://docs.pytorch.org/tutorials/intermediate/reinforcement_q_learning.html')
 ]
 
 FLOW={
@@ -396,10 +396,10 @@ def module_markdown(t):
     from project_builds import build_section
     algorithm='\n'.join(f'{i+1}. {v}' for i,v in enumerate(t['algorithm']))
     commands='\n\n'.join('```text\n'+c+'\n```' for c in t['commands'])
-    scaling='For this exact bundled exercise, use your local central processing unit. Renting a graphics processing unit is unnecessary.'
+    scaling='The bundled exercise runs on a local central processing unit.'
     if t['id'] in ('dense','convolution','graph','autoencoder','variational','adversarial'):
-        scaling+=' For substantially larger images, graphs, or models, first record the local runtime and memory. Use the Vast.ai guide only when the measured limit justifies a rental, and pass --device cuda to use the remote graphics processor. More expensive hardware does not fix a flawed objective or split.'
-    else:scaling+=' The implementation uses ordinary processor-based scikit-learn or small tables. Renting a graphics processor will not automatically accelerate this code.'
+        scaling+=' For a larger version, measure runtime and memory before considering the optional graphics-processor path.'
+    else:scaling+=' This scikit-learn or small-table implementation does not gain automatic graphics-processor acceleration.'
     return f'''# {t['title']}
 
 **Tag: Runnable implementation lab.** Scope: an inspectable teaching implementation with real fitting, evaluation, and generated artifacts. This is not a production deployment certification.
@@ -434,17 +434,15 @@ def module_markdown(t):
 
 ## Run the implementation
 
-Open the Practice tab. Install the foundation packages once if the site requests them. The runner executes the actual program in lab/foundations.py. The commands below are for the website’s guided terminal; it selects your Python environment automatically. For external PowerShell, replace python with & .\\.venv\\Scripts\\python.exe and use .\\lab\\foundations.py from the website folder. Replace {{run}} with a unique name when typing commands manually; the website buttons generate it automatically.
+Use this lesson’s Practice buttons. For interpreter setup, external Windows commands, and fresh output folders, read the [shared experiment workflow](#ref/lab-workflow).
 
 {commands}
 
-The random seed controls the generated data, splits, and applicable model initialization. Keep it fixed when investigating one changed parameter. Neural results can still vary across hardware and library implementations.
 
 ## Inspect the evidence
 
 {t['inspect']}
 
-Every completed run writes report.json with the experiment, split, seed, settings, dataset description, measured metrics, timing, and limitations. Where applicable it also saves a trained parameter dictionary. The Experiment results page shows the measured report and generated plots. Record an explanation of the result instead of copying only the score.
 
 ## Change one thing and prove what happened
 
@@ -454,7 +452,6 @@ Every completed run writes report.json with the experiment, split, seed, setting
 
 {t['pitfall']}
 
-If the program reports a missing module, install foundation packages in the runtime shown by the website. If it refuses an existing output directory, choose a new one; this protects earlier evidence. If a numerical result surprises you, inspect data shape, split sizes, and the baseline before changing model complexity.
 
 ## Compute plan
 
@@ -462,13 +459,6 @@ If the program reports a missing module, install foundation packages in the runt
 
 {build_section(t)}
 
-## Submit an engineering assessment
-
-Save the two reports, their visual artifacts, a prediction made before the second run, and a paragraph explaining the observed difference. State the dataset’s limits and what additional evidence a real deployment would need. Use validation to choose settings; for a final assessment, rerun the selected settings with --split test and a new output folder. The adversarial and reinforcement labs describe their special evaluation protocols explicitly rather than claiming an ordinary random test split.
-
-## Primary reference
-
-[Read the primary documentation or research]({t['source']}). The lesson’s scenario and simplified implementation are teaching examples.
 '''
 
 def additions(render,start):
@@ -506,6 +496,14 @@ Open the [Language model atlas](#ref/families) for the full explanation, algorit
 
 The earlier language-model track retains its dense Transformer, mixture-of-experts, state-space, and hybrid implementations. The Build and retrieve track adds runnable recurrent language modeling, masked-token encoder pretraining, and recurrent encoder–decoder training from random weights. It also adds a pretrained-versus-scratch comparison and retrieval evaluation with actual frozen generation. Diffusion-language modeling remains **Concept** material without a standalone training implementation. Coding and vision lessons run pretrained models; they do not train production code or vision-language models from scratch.
 
+## Compare model mechanisms and evaluation tasks
+
+These overview graphics compare several methods. For a worked example of one method, open its individual lesson.
+
+![Comparison of weighted sums, branching, neighbors, and kernels](images/expanded/model-mechanisms.svg)
+
+![Match evaluation metrics to classification, regression, clustering, or generation](images/expanded/evaluation-guide.svg)
+
 ## A compact map of modeling choices
 
 ```mermaid
@@ -525,7 +523,8 @@ The drawing is a teaching map of representative choices, not an exclusive mathem
 '''
 
 def write_book():
-    book='# Machine Learning Super Lab: Expanded Foundations\n\nA companion to the local website. All commands run locally unless explicitly marked remote Linux.\n\n'+METHODS+'\n\n'+SELECTION+'\n\n'+'\n\n'.join(module_markdown(t) for t in TOPICS)
+    from lesson_references import references_markdown
+    book='# Machine Learning Super Lab: Expanded Foundations\n\nA companion to the local website. All commands run locally unless explicitly marked remote Linux.\n\n'+METHODS+'\n\n'+references_markdown('learning-signals')+'\n\n'+SELECTION+'\n\n'+references_markdown('model-selection')+'\n\n'+'\n\n'.join(module_markdown(t)+'\n\n'+references_markdown(t['id']) for t in TOPICS)
     for appendix in ('Concept-Build-Plans.md','Foundation-Glossary.md'):
         book+='\n\n'+(ROOT/'course'/appendix).read_text(encoding='utf-8')
     (ROOT/'course/Expanded-Foundations.md').write_text(book,encoding='utf-8')

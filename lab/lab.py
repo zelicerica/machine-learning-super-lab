@@ -158,6 +158,8 @@ def infer(args):
 
 
 def evaluate(args):
+    if Path(args.output).exists():
+        raise ValueError('Choose a new evaluation output filename; existing reports are preserved.')
     model, tokenizer, device = load(args)
     # Warm up so the first request's setup is not mixed into the timing sample.
     generate(model, tokenizer, device, "Hello", "Be brief.", 4)

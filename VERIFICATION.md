@@ -1,3 +1,18 @@
+# Content and reference audit — 2026-11-15
+
+Release **2026.11-midnight.4** contains 58 lessons, 17 reference chapters, 69 Mermaid instances, 18 distinct runnable-Foundations illustrations and 148 annotated per-lesson reference placements. See [CONTENT-AUDIT.md](CONTENT-AUDIT.md) for all 58 reviewed modules, corrections and execution limits.
+
+- **64 Python tests passed:** 56 root tests and 8 original model tests.
+- **75 routes / 69 Mermaid parses passed** in the DOM check, with internal links, images, saved progress, ordering and interaction checks.
+- **36 Foundations runs passed**, covering both configurations for all 18 implementations, artifact existence and saved-model prediction.
+- **14 modern entry-point smoke runs passed** at two updates, plus targeted validation/test judge, reward partition, PPO, serving and on-policy regression checks.
+- All 18 new figures were rendered and visually reviewed. Desktop browser review checked example placement, readable references and the corrected assessment flow. Mobile/native OS/GPU execution and pretrained downloads were not newly rerun.
+- Generated course output is checked for reproducibility. The release ZIP is checked for integrity and fresh extraction, with no learner outputs or machine-specific environment included.
+
+Historical verification records follow. Their counts and measurements describe the release identified in each section, not a new rerun. Historical reports with corrected metadata or earlier REINFORCE behavior now say so explicitly.
+
+---
+
 # Lesson order and green text
 
 Release `2026.11-midnight.3` numbers the displayed learning path consecutively: Foundations 1–20, Language models 21–34, Build and retrieve 35–42, and Modern language engineering 43–58. Generated language-workbook headings and cross-references use the corresponding website numbers; the standalone workbook retains its own numbering. Green text replaces the bright blue lettering, using a darker green in light mode.

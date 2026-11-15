@@ -1,7 +1,7 @@
 {
   "schema": "superlab.report.v1",
   "experiment": "reinforcement",
-  "split": "validation",
+  "split": "same_environment_policy_evaluation",
   "seed": 42,
   "dataset": "Deterministic four-by-four grid; upper-left start and lower-right goal",
   "metrics": {
@@ -78,5 +78,7 @@
     "numpy": "2.2.6",
     "scikit_learn": "1.7.2"
   },
-  "output_directory": "<verification-workspace>/SML-Lab-Localhost/lab/outputs/verification-1794634179/reinforcement"
+  "output_directory": "<verification-workspace>/SML-Lab-Localhost/lab/outputs/verification-1794634179/reinforcement",
+  "original_split_label": "validation",
+  "audit_note": "Historical measurements retained. The old validation label was misleading: evaluation reused the same deterministic grid and start state, not a new task partition."
 }

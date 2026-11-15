@@ -320,7 +320,7 @@ One simplified mathematical form is `state_t = A × state_previous + B × input_
 
 **Worked example:** the source is “Translate to French: Good morning.” The decoder generates the translation while using the encoded source. The source and generated output are separate sequences.
 
-**Technical detail:** decoder self-attention processes the output prefix; cross-attention uses representations produced by the encoder. Text-to-Text Transfer Transformer is a familiar family in this category. The five in its shortened name counts the five words beginning with T. [16]
+**Technical detail:** in a Transformer encoder–decoder, decoder self-attention processes the output prefix; cross-attention uses representations produced by the encoder. Text-to-Text Transfer Transformer is a familiar family in this category. The five in its shortened name counts the five words beginning with T. [16]
 
 **Try:** compare summarization with a decoder-only prompt and with an encoder–decoder model. Keep the source passages and evaluation criteria the same before comparing quality.
 
@@ -356,7 +356,7 @@ For a discrete example, Large Language Diffusion with mAsking uses a forward mas
 | Gated recurrent language model | Update a running state using gates that control retention and replacement; predict from the state | Streaming text prediction; long short-term memory networks and gated recurrent units are variants, not separate learning paradigms |
 | Linear-attention language model | Use a particular attention reformulation, such as kernel feature maps, to aggregate context without ordinary all-pairs softmax attention | Research into longer-context inference; tradeoffs depend on the formulation and kernel, so it is not automatically a drop-in equivalent [25] |
 
-**Build from start to finish:** for each design, propose a small offline operations-note completer. Define a latency and held-out prediction-quality target before training. Use permitted, sanitized text with document-level training, validation, and untouched test splits; build the vocabulary on training text; record tokenization and unknown-word rules. Choose one mechanism from the table, a vocabulary output layer, and a causal information flow. Start with random weights, train next-token cross-entropy, and select settings on validation. Compare with the count-based baseline using identical prediction units; then evaluate final test performance and memory. Save weights, vocabulary, architecture, and generation settings; reload them and complete a new note. Serve only through the local lab interface with input and output limits. Record poor completions and possible memorization; monitor drift and latency, and keep a prior version for rollback. Submit the design, data contract, split manifest, training curves, baseline comparison, reload evidence, and failure analysis. This paragraph is a project specification, not a claim that its code is supplied. Start with tiny local experiments; use the Vast.ai procedure only if measured resource needs justify the cost.
+**Build from start to finish:** for each design, propose a small offline operations-note completer. Define a latency and held-out prediction-quality target before training. Use permitted, sanitized text with document-level training, validation, and untouched test splits; build the vocabulary on training text; record tokenization and unknown-word rules. Choose one mechanism from the table, a vocabulary output layer, and a causal information flow. Start with random weights, train next-token cross-entropy, and select settings on validation. Compare with the count-based baseline using identical prediction units; then evaluate final test performance and memory. Save weights, vocabulary, architecture, and generation settings; reload them and complete a new note. Serve only through the local lab interface with input and output limits. Record poor completions and possible memorization; monitor drift and latency, and keep a prior version for rollback. Submit the design, data contract, split manifest, training curves, baseline comparison, reload evidence, and failure analysis. This paragraph specifies the feed-forward-window, convolutional-language, and linear-attention extensions. For the supplied recurrent implementation, use [the recurrent language-model lab](#lesson/scratch-recurrent). Start with tiny local experiments; use the Vast.ai procedure only if measured resource needs justify the cost.
 
 **Design exercise:** draw which input positions can influence one output. For the fixed-window network, change the window from two to four words; for a convolution, calculate the receptive field; for recurrence, explain what must fit in the state; for linear attention, identify the accumulated state in the chosen formulation. Explain how each prevents future-token leakage. Use the [additional build plans](#ref/build-plans) for encoder, recurrent, encoder–decoder, and diffusion project assessments.
 
@@ -613,59 +613,20 @@ For this course, use an x64 Windows, Linux or supported Mac computer with roughl
 
 **Concept:** Python runs the program. PyTorch computes tensor operations and gradients. Transformers loads the model and tokenizer. parameter-efficient fine-tuning adds adapters. A virtual environment gives this project its own installed packages.
 
-Download and extract the accompanying compressed archive. Work inside the extracted `SML-Lab-Zero-to-Hero` folder containing `lab.py` and `requirements.txt`. The guide is also inside the compressed archive. Model weights are downloaded separately on first use; the bundle does not contain the pretrained model.
+Start in the extracted website folder containing `server.py` and `start-lab.cmd`. The exercise programs and requirements live in its `lab` subfolder. Launch the website and use Package setup; keep any working Python environment you already configured. Model weights download separately on first use.
 
-### Windows using Command Prompt
+Follow [Windows installation](#ref/windows) for the launcher and interpreter. The [shared experiment workflow](#ref/lab-workflow) shows the correct PowerShell and Command Prompt working directories. Linux and macOS setup is in the repository README. Use Python 3.12 with the pinned teaching dependencies; pinned does not mean newest.
 
-Install 64-bit Python 3.12 from the official Python website if it is absent. In Visual Studio Code, choose Terminal → Select Default Profile → Command Prompt, then open a new terminal. Alternatively, open Command Prompt directly and change into the extracted folder. Replace the example path with your actual extraction path.
+Run these from the website’s guided terminal:
 
-```bat
-cd C:\Users\YOUR_NAME\Downloads\SML-Lab-Zero-to-Hero
-py -3.12 --version
-py -3.12 -m venv .venv
-.venv\Scripts\activate.bat
-python -m pip install torch==2.6.0 --index-url https://download.pytorch.org/whl/cpu
-python -m pip install -r requirements.txt
+```text
 python lab.py doctor
+python -m unittest discover -s tests -v
 ```
 
-These are Command Prompt commands. If you stay in PowerShell and activation is blocked, use the environment executable directly: `.\.venv\Scripts\python.exe lab.py doctor`. Replace `python` in later commands with `.\.venv\Scripts\python.exe`, including the package-installation commands. You do not need to change a machine-wide execution policy.
+**Expected:** the diagnostic identifies the configured interpreter, package versions, and available device. A central-processing-unit installation can correctly report `cuda_available: false`; this does not indicate a failed setup. Compute Unified Device Architecture is NVIDIA’s graphics-processor platform.
 
-### Linux or macOS
-
-Use Python 3.12 with the venv module available. On Linux, a missing venv module may require your distribution's `python3.12-venv` package.
-
-```bash
-python3.12 -m venv .venv
-source .venv/bin/activate
-```
-
-On Linux central processing unit:
-
-```bash
-python -m pip install torch==2.6.0 --index-url https://download.pytorch.org/whl/cpu
-```
-
-On macOS, use the ordinary PyTorch package index:
-
-```bash
-python -m pip install torch==2.6.0
-```
-
-Then:
-
-```bash
-python -m pip install -r requirements.txt
-python lab.py doctor
-```
-
-The included scripts default to central processing unit on all platforms. The pinned versions are a reproducible teaching environment, not a claim that they are the newest package releases. `VERIFICATION.md` records exactly what was exercised here. Optional graphics processing unit and vision paths have their own verification scope.
-
-**Expected:** the diagnostic shows the Python executable inside `.venv`, package versions, and `cuda_available: false` on the central processing unit route. That is success. Compute Unified Device Architecture is NVIDIA's graphics processing unit programming platform; a central processing unit installation should not report Compute Unified Device Architecture availability.
-
-**Checkpoint:** explain why `python -m pip` is preferable to an ambiguous `pip` command when several Python installations exist.
-
-**Save:** copy `EXPERIMENT-LOG.md` and fill in the environment rows. Run `python -m pip freeze > environment-local.txt` to record the actual installed dependencies on your machine.
+**Checkpoint:** explain why the selected interpreter must also install and import the project’s packages. Record its path and versions in your evidence notes. Installation does not train a model.
 
 ## Lab 1 Run inference and inspect tokens
 
@@ -718,7 +679,7 @@ Softmax converts logits into probabilities. If the correct next token receives p
 
 A gradient tells us how a small parameter change would affect loss. Gradient descent subtracts a scaled gradient: `new_weight = old_weight - learning_rate × gradient`. Backpropagation computes gradients efficiently through the computation. The optimizer decides how to turn them into parameter updates.
 
-**Hands-on:** run `python mechanisms.py` and inspect the distillation example's teacher probabilities and student gradient. A negative gradient for the teacher's favored category means subtracting that gradient will increase the corresponding student logit.
+**Hands-on:** run `python mechanisms.py --demo math`. Inspect softmax probabilities and negative log-likelihood. In the one-weight example, prediction is weight × 2 and target is 6. At weight 1, squared error is 16 and its gradient is −16. A step of size 0.1 changes the weight to 2.6, prediction to 5.2, and squared error to 0.64. Explain why subtracting the negative gradient increases the weight.
 
 **Checkpoint:** if training loss improves while validation loss worsens, can you explain why the model may be memorizing its training examples?
 
@@ -743,7 +704,13 @@ The generated report in JavaScript Object Notation contains every output, the ex
 2. Does the selected label match the expected label?
 3. Does it arrive within the application's latency and memory budget?
 
-Inspect failures directly. A score without examples conceals whether the problem is formatting, understanding, ambiguous annotation or a broken pipeline. A small model may score poorly on this first test. That is useful evidence.
+For a memory-exhaustion ticket, `{"label":"memory"}` can satisfy both format and category checks. `It looks like memory.` fails the format contract; `{"label":"data"}` can pass the schema while choosing the wrong category.
+
+Inspect failures in order: input parsing, task/annotation ambiguity, predicted content, output parsing, then the loaded model and adapter. This baseline does not retrieve notes. Record output length with latency: a shorter answer can arrive sooner even when its token rate is lower.
+
+The supplied historical adapted-model run scored 11/12 on the final test, with valid structure on all 12. This is an archived classroom result, not your baseline or a promised outcome. Measure your own run and retain its failures.
+
+Evaluation refuses to overwrite an existing report. On a rerun, choose a fresh filename and use that filename in the comparison command. Preserve the earlier evidence.
 
 **Why splits matter:** training examples update weights; validation guides your design choices; the final test estimates performance after those choices are fixed. Repeatedly examining test failures and adjusting the model turns the test set into another validation set. Create a fresh independent test set if that happens.
 
@@ -833,7 +800,7 @@ This exercise uses a roughly 137,000-parameter byte-level Transformer, much smal
 
 The architecture has token embeddings, learned position embeddings, two Transformer blocks, layer normalization and a vocabulary output head. A causal mask blocks future-token information. The test suite checks that changing future input tokens cannot change earlier-position outputs.
 
-**Expected:** finite training loss, lower validation loss after enough updates, generated fragments, a state dictionary and a report in JavaScript Object Notation. Early samples can be nonsense even while loss improves. This is especially visible after only 100 updates. Do not report this as a useful general-language model.
+**Expected:** finite training loss, validation loss measured before and after training; improvement is not guaranteed, generated fragments, a state dictionary and a report in JavaScript Object Notation. Early samples can be nonsense even while loss improves. This is especially visible after only 100 updates. Do not report this as a useful general-language model.
 
 **Read:** `batch` builds shifted input/target pairs. `ce` flattens positions for cross-entropy. The script samples training windows, backpropagates, updates parameters and finally generates tokens one at a time.
 
@@ -846,14 +813,14 @@ To reload your own checkpoint safely, instantiate the same architecture and load
 ## Lab 7 Understand quantization and memory
 
 ```bash
-python mechanisms.py
+python mechanisms.py --demo quantization
 ```
 
 The quantization experiment creates a floating-point weight matrix, chooses a scale, rounds it to signed eight-bit values and reconstructs approximate floating-point weights. It prints stored bytes and mean squared reconstruction error.
 
 The simplified equation is `q = round(w / scale)` and `w_approx = q × scale`. Rounding saves representation space and introduces error. Real schemes may use groups, different scales, zero points, nonlinear codebooks or mixed precision.
 
-**Hands-on modifications:** change the range from `[-127, 127]` to `[-7, 7]` to simulate a signed four-bit numerical range. However, storing those values in an `int8` tensor still consumes eight bits per element: packing two values into one byte is a separate engineering step. Report both numeric precision and actual storage size.
+**Hands-on modifications:** run `python mechanisms.py --demo quantization --qmax 7` to simulate a signed four-bit numerical range. This changes both the scale divisor and the clamp limit from 127 to 7; changing only the clamp would saturate many values. However, storing those values in an `int8` tensor still consumes eight bits per element: packing two values into one byte is a separate engineering step. Report both numeric precision and actual storage size.
 
 **Checkpoint:** explain why halving weight bytes does not necessarily halve total process random-access memory, and why a quantized model may be slower on hardware without an appropriate kernel.
 
@@ -903,7 +870,7 @@ For a later coding agent, separate proposal, execution and evaluation. The model
 
 ## Lab 10 Add images
 
-Use a simple image you own, such as a photo of a mug. Put it beside the scripts as `sample.jpg`. This extension uses a pretrained vision-language model and an image processor.
+Use the image-upload form in this lesson’s Practice tab with a simple image you own, such as a photo of a mug. This exercise uses a pretrained vision-language model and an image processor. For an external terminal, place `sample.jpg` inside the `lab/` folder, activate the lab environment and run the command below from that folder.
 
 ```bash
 python lab.py lock --model HuggingFaceTB/SmolVLM-256M-Instruct
@@ -922,10 +889,10 @@ The model card is the reference for the checkpoint and interface. [8] The script
 
 ## Lab 11 Explore mixture of experts state space and hybrid models
 
-Run the numerical demonstrations first:
+Run the architecture demonstration first:
 
 ```bash
-python mechanisms.py
+python mechanisms.py --demo architectures
 ```
 
 `ToyMoE` uses a learned router to select one of four feed-forward experts per token. It prints token counts per expert. All experts exist in memory even when only one executes for a token. The implementation omits production features such as capacity limits, expert parallelism and load-balancing losses.
@@ -1131,28 +1098,27 @@ The legacy filename prefix `SML-Lab` is the existing project label for **Machine
 
 These are primary model cards, documentation and research papers. Model cards describe specific checkpoints, not universal guarantees. The workbook's original synthetic dataset, exercises and planning estimates are our own teaching choices.
 
-1. SmolLM2 model card: https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct
-2. Hugging Face chat templates: https://huggingface.co/docs/transformers/chat_templating
-3. Qwen1.5 mixture of experts model card: https://huggingface.co/Qwen/Qwen1.5-MoE-A2.7B
-4. DeepSeek V2 Lite model card: https://huggingface.co/deepseek-ai/DeepSeek-V2-Lite
+1. [SmolLM2 model card](https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct)
+2. [Hugging Face chat templates](https://huggingface.co/docs/transformers/chat_templating)
+3. [Qwen1.5 mixture of experts model card](https://huggingface.co/Qwen/Qwen1.5-MoE-A2.7B)
+4. [DeepSeek V2 Lite model card](https://huggingface.co/deepseek-ai/DeepSeek-V2-Lite)
 5. Mamba paper and implementation: https://arxiv.org/abs/2312.00752 and https://github.com/state-spaces/mamba
-6. RecurrentGemma paper: https://arxiv.org/abs/2404.07839
-7. Qwen coding model card: https://huggingface.co/Qwen/Qwen2.5-Coder-0.5B-Instruct
-8. SmolVLM model card: https://huggingface.co/HuggingFaceTB/SmolVLM-256M-Instruct
-9. parameter-efficient fine-tuning quicktour: https://huggingface.co/docs/peft/quicktour
-10. Quantization and hardware support: https://huggingface.co/docs/transformers/quantization/bitsandbytes
-11. llama.cpp: https://github.com/ggml-org/llama.cpp
-12. Vast.ai setup and billing behavior: https://docs.vast.ai/guides/get-started/quickstart
-13. Speculative sampling paper: https://arxiv.org/abs/2302.01318
-
-14. NVIDIA explanation of Compute Unified Device Architecture: https://nvidia.custhelp.com/app/answers/detail/a_id/2132/~/what-is-cuda
-15. Bidirectional Encoder Representations from Transformers paper: https://arxiv.org/abs/1810.04805
-16. Text-to-Text Transfer Transformer introduction: https://research.google/blog/exploring-transfer-learning-with-t5-the-text-to-text-transfer-transformer/
-17. Low-rank adaptation paper: https://arxiv.org/abs/2106.09685
-18. Quantized low-rank adaptation paper: https://arxiv.org/abs/2305.14314
-19. Activation-aware weight quantization documentation: https://huggingface.co/docs/transformers/quantization/awq
-20. Maintained ggml model-format specification: https://github.com/ggml-org/ggml/blob/master/docs/gguf.md
-21. ExLlama version 2 implementation and format: https://github.com/turboderp-org/exllamav2
+6. [RecurrentGemma paper](https://arxiv.org/abs/2404.07839)
+7. [Qwen coding model card](https://huggingface.co/Qwen/Qwen2.5-Coder-0.5B-Instruct)
+8. [SmolVLM model card](https://huggingface.co/HuggingFaceTB/SmolVLM-256M-Instruct)
+9. [parameter-efficient fine-tuning quicktour](https://huggingface.co/docs/peft/quicktour)
+10. [Quantization and hardware support](https://huggingface.co/docs/transformers/quantization/bitsandbytes)
+11. [llama.cpp](https://github.com/ggml-org/llama.cpp)
+12. [Vast.ai setup and billing behavior](https://docs.vast.ai/guides/get-started/quickstart)
+13. [Speculative sampling paper](https://arxiv.org/abs/2302.01318)
+14. [NVIDIA explanation of Compute Unified Device Architecture](https://nvidia.custhelp.com/app/answers/detail/a_id/2132/~/what-is-cuda)
+15. [Bidirectional Encoder Representations from Transformers paper](https://arxiv.org/abs/1810.04805)
+16. [Text-to-Text Transfer Transformer introduction](https://research.google/blog/exploring-transfer-learning-with-t5-the-text-to-text-transfer-transformer/)
+17. [Low-rank adaptation paper](https://arxiv.org/abs/2106.09685)
+18. [Quantized low-rank adaptation paper](https://arxiv.org/abs/2305.14314)
+19. [Activation-aware weight quantization documentation](https://huggingface.co/docs/transformers/quantization/awq)
+20. [Maintained ggml model-format specification](https://github.com/ggml-org/ggml/blob/master/docs/gguf.md)
+21. [ExLlama version 2 implementation and format](https://github.com/turboderp-org/exllamav2)
 22. [A Neural Probabilistic Language Model, original authors](https://www.jmlr.org/papers/v3/bengio03a.html)
 23. [Language Modeling with Gated Convolutional Networks, original authors](https://arxiv.org/abs/1612.08083)
 24. [Large Language Diffusion Models, original authors](https://arxiv.org/abs/2502.09992)

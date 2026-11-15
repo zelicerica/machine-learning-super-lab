@@ -70,7 +70,7 @@ def main():
        ['python lab.py lock','python lab.py infer --prompt "Explain overfitting in one sentence." --max-new-tokens 48','python lab.py tokenize --prompt "A model predicts the next token."'],
        'What changes during ordinary inference?',['All learned weights','The current activations and context','The training dataset'],1,'Inference changes the current computation. The learned weights remain fixed.'),
       ('math','See the numbers underneath','Connect tensors, probabilities, loss and gradients.','Foundations',25,'Lab 2',
-       ['python mechanisms.py'],
+       ['python mechanisms.py --demo math'],
        'What does a gradient describe?',['A parameter’s local effect on loss','The number of words in a prompt','The model’s factual accuracy'],0,'A gradient describes a local rate of change. The optimizer uses it when updating parameters.'),
       ('baseline','Measure a baseline','Inspect every prediction before changing the model.','Evaluation',30,'Lab 3',
        ['python -m unittest discover -s tests -v','python lab.py eval --split validation --output outputs/baseline-validation.json'],
@@ -85,10 +85,10 @@ def main():
        ['python scratch_lm.py --steps 100 --output outputs/scratch-{run}'],
        'Why does the toy model use a causal mask?',['To hide incorrect labels','To stop a position from seeing future tokens','To reduce the vocabulary to words'],1,'Future tokens must not leak into the prediction of what comes next.'),
       ('compression','Make the numbers smaller','Measure storage and reconstruction error.','Quantization',25,'Lab 7',
-       ['python mechanisms.py'],
+       ['python mechanisms.py --demo quantization','python mechanisms.py --demo quantization --qmax 7'],
        'Do four-bit weights imply four-bit total runtime memory?',['Yes','No; other tensors and overhead still exist','Only on a laptop'],1,'Weights are one part of the memory budget. Activations, caches and buffers also matter.'),
       ('distillation','Learn from a teacher','Understand teacher signals, student learning and pruning.','Distillation',30,'Lab 8',
-       ['python mechanisms.py'],
+       ['python mechanisms.py --demo distillation'],
        'What changes during student distillation?',['The selected student parameters','Only the teacher prompt','The original evaluation answers'],0,'The student learns from teacher-provided signals. Evaluation must remain independent.'),
       ('code','Evaluate a coding model','Use executable tests to judge generated programs.','Specialization',35,'Lab 9',
        ['python lab.py lock --model Qwen/Qwen2.5-Coder-0.5B-Instruct','python lab.py infer --model Qwen/Qwen2.5-Coder-0.5B-Instruct --prompt "Write a Python function that returns the maximum of a nonempty list." --max-new-tokens 128'],
@@ -97,7 +97,7 @@ def main():
        ['python lab.py lock --model HuggingFaceTB/SmolVLM-256M-Instruct'],
        'Can a text-only model see pixels from a filename?',['Yes, if the filename is descriptive','No; an image-capable processing path is needed','Only with a longer prompt'],1,'A vision-language model needs an image representation and a way to connect it to language.'),
       ('architectures','Experiment with other families','Train tiny expert, state-space and hybrid models.','Architecture',40,'Lab 11',
-       ['python scratch_lm.py --architecture ssm --steps 20 --output outputs/ssm-{run}','python scratch_lm.py --architecture moe --steps 20 --output outputs/moe-{run}','python scratch_lm.py --architecture hybrid --steps 20 --output outputs/hybrid-{run}'],
+       ['python mechanisms.py --demo architectures','python scratch_lm.py --architecture ssm --steps 20 --output outputs/ssm-{run}','python scratch_lm.py --architecture moe --steps 20 --output outputs/moe-{run}','python scratch_lm.py --architecture hybrid --steps 20 --output outputs/hybrid-{run}'],
        'What does active expert count tell you?',['All model weight storage','Which expert computation is used per token','The guaranteed speed on your computer'],1,'Active computation and total stored parameters are different resource budgets.'),
       ('cloud','Move an experiment to a graphics processor','Plan a rental, verify the device and preserve your work.','Optional cloud',30,'Lab 12',
        ['python lab.py doctor'],
@@ -110,8 +110,7 @@ def main():
     for index,row in enumerate(metadata):
         ident,title,desc,topic,minutes,prefix,commands,q,options,correct,explanation=row
         extra=[]
-        if ident=='math': extra=['The learning algorithm','Attention without']
-        if ident=='baseline':extra=['Understand evaluation']
+        if ident=='math': extra=['Attention without']
         lessons.append({'id':ident,'number':index+1,'title':title,'description':desc,'topic':topic,'minutes':minutes,
             'html':section(prefix+' ',*extra),'commands':commands,
             'quiz':{'question':q,'options':options,'correct':correct,'explanation':explanation}})
@@ -135,14 +134,34 @@ def main():
     lessons.sort(key=lambda lesson:track_order.index(lesson['track']))
     for number,lesson in enumerate(lessons,1):
         lesson['number']=number
+    from lesson_references import REFERENCES, references_markdown
+    assert set(REFERENCES)=={lesson['id'] for lesson in lessons}, 'Reference coverage differs from lessons'
+    for lesson in lessons:
+        lesson['references']=REFERENCES[lesson['id']]
+        lesson['html']+='<section class="lesson-references">'+render(references_markdown(lesson['id']))+'</section>'
     write_book()
+    # Keep a single definition for terms shared by the two original glossaries.
+    glossary_sources=[body for title,body in sections.items() if title.startswith('Acronyms abbreviations')]
+    glossary_sources.append((ROOT/'course/Foundation-Glossary.md').read_text(encoding='utf-8'))
+    terms={}
+    for source in glossary_sources:
+        for line in source.splitlines():
+            if line.startswith('|'):
+                cells=[v.strip() for v in line.strip('|').split('|')]
+                if len(cells)!=3 or all(re.fullmatch(r'[:\- ]+',c) for c in cells):continue
+                key=cells[0].strip('`').casefold()
+                if key in ('short form or term','term','abbreviation','short form','symbol or term'):continue
+                terms.setdefault(key,cells)
+    glossary='# Every abbreviation, explained\n\n| Term | Expanded name | Meaning in this lab |\n|---|---|---|\n'
+    glossary+='\n'.join('| '+' | '.join(terms[k])+' |' for k in sorted(terms))
     data={'lessons':lessons,'references':{
+        'lab-workflow':{'title':'Run, compare, save, and explain','html':render((ROOT/'course/Lab-Workflow.md').read_text(encoding='utf-8'))},
         'build-plans':{'title':'More model build plans','html':render((ROOT/'course/Concept-Build-Plans.md').read_text(encoding='utf-8'))},
         'ml-atlas':{'title':'Machine learning atlas','html':render(atlas_markdown())},
         'windows':{'title':'Windows installation','html':render((ROOT/'WINDOWS-SETUP.md').read_text(encoding='utf-8'))},
-        'foundations':{'title':'Start with the concepts','html':section('Before the laboratories','A decision algorithm')},
+        'foundations':{'title':'Start with the concepts','html':section('Before the laboratories','A decision algorithm','The learning algorithm')},
         'families':{'title':'Language model atlas','html':render('**Concept** — A representative map of language modeling within machine learning. Implementation links state exactly which exercises run in this package.')+section('Language models are machine learning','Model families explained','How specialization','Reference map')},
-        'glossary':{'title':'Every abbreviation, explained','html':section('Acronyms abbreviations')+render((ROOT/'course/Foundation-Glossary.md').read_text(encoding='utf-8'))},
+        'glossary':{'title':'Every abbreviation, explained','html':render(glossary)},
         'troubleshooting':{'title':'Find the cause of an error','html':section('Troubleshooting','Guided understanding')},
         'sources':{'title':'Primary sources and further reading','html':section('Sources and further study')}},
         'welcome':render(chunks[0])}

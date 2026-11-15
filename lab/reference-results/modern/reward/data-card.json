@@ -1,6 +1,30 @@
 {
-  "origin": "Original synthetic teaching examples and deterministic generators included in modern_lab.py",
+  "origin": "Original authored or simulated teaching data",
   "license": "Included for course exercises",
-  "split_policy": "Sentence-level notes, template-level tickets, operand-pair arithmetic; shared rules and vocabulary remain",
-  "real_world_validation": "Not performed; do not interpret simulator scores as deployment evidence."
+  "real_world_validation": "Not performed; these scores do not establish deployment reliability.",
+  "dataset": "Authored style-preference pairs; no factuality labels",
+  "split_policy": "Distinct train, validation, and test response-pair fixtures",
+  "selected_split": "validation",
+  "partition_sizes": {
+    "train": 4,
+    "validation": 2,
+    "test": 2
+  },
+  "row_ids": {
+    "train": [
+      "e5ba7490db8b5c0e",
+      "9d45e3629aaae667",
+      "458fce2411e42ea0",
+      "c7a2e700b598dd47"
+    ],
+    "validation": [
+      "60fc5d2ff3d51387",
+      "41b7165402cadf3e"
+    ],
+    "test": [
+      "45f4cac20d498c59",
+      "e33c9f18da72ad1b"
+    ]
+  },
+  "audit_note": "Dataset description corrected in midnight.4; measurements are historical and were not rerun by this metadata correction."
 }

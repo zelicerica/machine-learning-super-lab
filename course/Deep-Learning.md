@@ -28,8 +28,8 @@ Without nonlinear activations, consecutive linear layers collapse into another l
 
 ```mermaid
 flowchart TD
- X[Two scaled sensor features] --> H1[32 learned hidden features]
- H1 --> H2[32 learned hidden features]
+ X[Two scaled sensor features] --> H1[32 hidden values with ReLU]
+ H1 --> H2[32 hidden values with ReLU]
  H2 --> S[Two class scores]
  S --> L[Cross-entropy loss]
  Y[Known training label] --> L

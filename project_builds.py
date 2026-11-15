@@ -19,68 +19,75 @@ PROJECTS={
 'ngram':('Small operations-text completion model','Training sentences tokenized into words; vocabulary and context counts are learned from the training split. Real logs require removal of secrets and stable tokenization.','A distribution over the next word for a supplied context. The saved counting model needs no neural framework.','Held-out perplexity, unknown-word rate, memory growth with context order, and inappropriate memorized text.'),
 'reinforcement':('Sequential route decisions in a small simulator','States, permitted actions, transition rules, rewards, termination, and episode length define the data-generating environment.','An action index for an integer state: zero up, one right, two down, three left. Physical deployment is outside this lab.','Success rate, episode return, unsafe actions, reward exploitation, and transfer failure on changed maps.')}
 
+# Each recipe names the actual implementation and comparison for this lesson.
+RECIPES={
+ 'linear':('Fit an intercept and three coefficients by ordinary least squares.', 'Compare noise 8 and 25 against the included training-mean predictor.', 'Recovered weights, absolute error, a changed workload prediction, and the noisy-run comparison.'),
+ 'logistic':('Fit train-only scaling and a regularized logistic classifier.', 'Compare regularization settings and the included majority-class baseline; select thresholds using validation.', 'Confusion counts at chosen thresholds, minority-class recall, and a new event score.'),
+ 'tree':('Grow feature-threshold splits with the configured maximum depth.', 'Compare depths 3 and 15 on the same split and inspect the included majority baseline.', 'One hand-traced decision path, the training/validation gap, and a prediction for changed sensor values.'),
+ 'ensemble':('Fit a single tree, an 80-tree random forest, and histogram gradient boosting.', 'Compare their validation metrics and the majority baseline on identical examples. Total run seconds includes plotting/export; per-model fit time requires extra instrumentation.', 'Per-model error counts, depth sensitivity, the selected model, and an explanation of probability averaging versus sequential boosting.'),
+ 'neighbors':('Store standardized training measurements; classify using the requested nearest-neighbor count.', 'Compare k=1 and k=25 on the same split; use the reported majority baseline.', 'Boundary plots, neighbor-count sensitivity, and a new query with an explanation of the distance units.'),
+ 'kernel':('Fit train-only scaling, a linear support-vector classifier, and a radial-basis classifier.', 'Compare both kernels and the majority baseline; repeat with changed C on the same split.', 'The two boundaries, held-out errors, the chosen complexity, and a new sensor-pair prediction.'),
+ 'bayes':('Estimate Gaussian feature likelihoods and priors for naive Bayes; fit the separate logistic comparator.', 'Compare both models and the majority baseline. The saved confusion.png shows the logistic comparator; read the naive-Bayes confusion counts in report.json.', 'Normalized posterior arithmetic, both models’ error counts, a correlated-feature failure, and new-input predictions.'),
+ 'gaussian':('Fit a Gaussian process with a radial-basis covariance plus observation noise.', 'Compare noise 0.12 and 0.5 using error and interval coverage. A constant-mean baseline is an extra activity, not an included metric.', 'The uncertainty plot, observed coverage, an out-of-range input, and a statement of the kernel/noise assumptions.'),
+ 'cluster':('Fit train-only scaling and K-means; fit DBSCAN separately on training observations for exploration.', 'Compare k=3 and k=5 using held-out assignments. Do not rank the training-only DBSCAN plot as if it used the same evaluation protocol.', 'A center update by hand, cluster assignments, silhouette and adjusted Rand scores, and an explanation of arbitrary cluster IDs.'),
+ 'projection':('Fit a centered principal-component basis on training digits and retain the requested dimensions.', 'Compare 4 and 32 components by reconstruction error and retained training variance; no classifier is trained.', 'Original/reconstructed digits, the dimension tradeoff, a projected new input, and information lost during reconstruction.'),
+ 'dense':('Train a 64-input, 32-hidden-value, 10-score network with a nonlinear activation.', 'Compare 5 and 20 epochs on the same split. This report has no automatic majority-baseline field.', 'Tensor dimensions, loss behavior, per-digit errors, and a reloaded prediction for changed pixels.'),
+ 'convolution':('Train two shared 3-by-3 filter layers with a pooling layer and a 10-score output.', 'Compare the two epoch budgets. A dense-model comparison requires its own run with matched split and training budget.', 'Feature-map dimensions, held-out confusion counts, a spatially changed input, and limitations under image shifts.'),
+ 'graph':('Train two degree-normalized aggregation layers on the fixed 180-node graph.', 'Run the edge-ablation comparison separately. All features/edges are visible; only training labels enter the loss. This is transductive evaluation.', 'Full-graph versus ablated scores, a manual neighbor calculation, and predictions in the original node ordering.'),
+ 'autoencoder':('Encode noisy 64-pixel images into a compact vector and decode toward clean targets.', 'Compare latent dimensions 4 and 16 and the included training-mean-image reconstruction baseline.', 'Clean/noisy/reconstructed images, reconstruction errors, and the detail lost at each bottleneck size.'),
+ 'variational':('Learn latent distribution parameters; sample for training and combine reconstruction with a prior-divergence penalty.', 'Compare beta 0.1 and 2 with the included mean-image baseline. Evaluate reconstruction at the latent mean and inspect prior samples separately.', 'A reparameterization calculation, reconstruction and divergence behavior, sample coverage, and a saved-mean reconstruction.'),
+ 'adversarial':('Alternate discriminator and generator updates for a one-dimensional two-mode target.', 'Compare fresh target and generated draws after each training budget. There is no train/validation/test partition; --split does not apply. This simulator comparison is not a production final test.', 'Both histograms, mode coverage, a collapse case, and a saved-generator output from a new two-value noise vector.'),
+ 'ngram':('Count training contexts, construct the vocabulary, and apply add-one smoothing.', 'Compare orders 1 and 3 on identical held-out sentences and the included uniform-vocabulary perplexity baseline.', 'A normalized next-word distribution, unknown-word behavior, comparable perplexities, and new-context predictions.'),
+ 'reinforcement':('Train a tabular action-value policy through rewards in the deterministic 4-by-4 grid.', 'Compare greedy and random policies over 100 episodes each in the same map and start state. --split does not apply; a new-map evaluation is a separate extension.', 'A terminal-aware value update, reward curve, greedy/random returns, a saved-table decision, and limits of same-map success.')
+}
+
 def build_section(t):
     name,data,contract,monitor=PROJECTS[t['id']]
-    return f'''## Build it from start to finish: {name}
+    architecture,evaluation,evidence=RECIPES[t['id']]
+    return f'''## Build from start to finish: {name}
 
-**Runnable implementation lab — local prototype.** This build connects the real-world scenario to an executable teaching model. Simulated data is explicitly identified; a good score on it does not establish business performance.
+1. **Decision and data contract.** {data} Define the acceptable error or failure rate before selecting a model.
+2. **Architecture and training.** {architecture} The Practice commands and algorithm above are the runnable implementation for this prototype.
+3. **Independent evidence and comparison.** {evaluation}
+4. **Save, reload, and use a new input.** Retain the generated manifest, learned state, and input example. Use **Load saved example** and **Predict new input**. {contract}
+5. **Local deployment and production gap.** The local saved-input interface is the serving prototype. Before external use, validate representative inputs, enforce request/access limits, and keep a versioned rollback artifact. The teaching score alone is not a deployment approval.
+6. **Monitor.** {monitor} Name a response owner and a condition that would trigger review or rollback.
 
-1. **Write the decision and success criterion.** State who consumes the prediction and which mistake is expensive. Define a measurable baseline before choosing a model. For this project: {name.lower()}.
-2. **Define and inspect the data.** {data} Use the bundled dataset first. Before replacing it, document permission, provenance, missing values, units, class coverage, duplicates, and when each feature becomes available.
-3. **Create the evaluation boundary.** The program fixes a seed and separates fitting from held-out evaluation where that protocol applies. For real workloads, choose time-based or entity-based separation when random splitting would leak related observations. The graph, adversarial, and reinforcement modules explain their distinct protocols.
-4. **Construct the model.** Read the algorithm and the matching function in foundations.py. Trace the input shape through every preprocessing and model stage. The numerical example above lets you check a small part by hand.
-5. **Train and compare.** Run the first Practice experiment. Record its baseline, metrics, runtime, and failure cases. Run the changed setting and explain the result. Choose settings using validation; reserve final test evidence for the chosen configuration.
-6. **Save a usable artifact.** The program writes a model-manifest.json, an example-input.json, a fitted model or learned counting/action table, and report.json. It reloads the artifact in a separate inference function before declaring success. Learned scaling stays with applicable classical models. A neural state dictionary alone would be insufficient without the matching architecture; this build also exports an executable inference module.
-7. **Use it on a new input.** In Practice, select **Load saved example**, edit one value while preserving the documented shape, and select **Predict new input**. This reloads the saved model and runs inference without training again. {contract}
-8. **Deploy the prototype locally.** The localhost website is the demonstration serving layer: input validation → saved artifact → inference → output. Keep the model's environment and feature contract with the release. Only load artifacts you created or trust; executable model formats are not passive documents.
-9. **Plan a production handoff.** Add representative-data evaluation, request limits, authentication, authorization, observability, model versioning, rollback, and a suitable reject/fallback behavior before exposing a service to other users. These are engineering extensions, not completed production features of this local lab.
-10. **Monitor and decide when to retrain.** {monitor} Define a threshold and response owner. Track whether the new data resembles the training population, and compare a candidate model with the deployed baseline before replacement.
+### Evidence for this build
 
-### The build architecture
-
-```mermaid
-flowchart TD
- A[Problem and permitted data] --> B[Split and validate]
- B --> C[Fit preprocessing and model]
- C --> D[Evaluate held-out evidence]
- D --> E{{Meets agreed criterion}}
- E -->|Revise using validation| C
- E -->|Accept| F[Save versioned artifact]
- F --> G[Reload for new input]
- G --> H[Local prediction and monitoring plan]
-```
-
-### Command-line inference alternative
-
-The website remembers the last successful model folder for this lesson. In its guided terminal, replace MODEL-FOLDER below with that actual folder name and NEW-RUN with a unique output name. Edit a copy of example-input.json to supply your own values.
-
-```text
-python predict_saved.py --model-dir outputs/MODEL-FOLDER --input outputs/MODEL-FOLDER/example-input.json --output outputs/prediction-NEW-RUN.json
-```
-
-### Build acceptance evidence
-
-Submit a one-paragraph problem definition, feature/target contract, baseline and selected-model reports, one failure analysis, saved artifact, a changed-input prediction, and a deployment/monitoring decision. Passing a command demonstrates executable code; this evidence explains whether the model is appropriate for its intended use.
+{evidence} Include the measured reports and one limitation. For interpreter setup, command-line prediction, artifact handling, and a common submission checklist, use [Run, compare, save, and explain](#ref/lab-workflow).
 
 '''
 
 def language_project_section(ident):
     cases={
-      'scratch':('Train a tiny operations-text language model','Define a permitted operations-text corpus; split whole documents before extracting sequences; build byte embeddings, causal attention, feed-forward layers, and an output head; train next-byte prediction; compare held-out loss; inspect generated text; save weights and vocabulary; package the tokenizer with inference.'),
+      'scratch':('Train a tiny operations-text language model','Run the bundled synthetic corpus with independently generated training and validation text. For a later real-corpus extension, define permitted operations documents and split whole documents before extracting sequences; build byte embeddings, causal attention, feed-forward layers, and an output head; train next-byte prediction; compare held-out loss; inspect generated text; save weights and vocabulary; package the tokenizer with inference.'),
       'architectures':('Compare three sequence engines for streamed event text','Keep corpus, split, training steps, and evaluation fixed. Train the supplied toy mixture-of-experts, state-space, and hybrid alternatives. Inspect routing or state behavior, measured loss, saved checkpoints, and memory/runtime. A toy state-space model does not reproduce the full Mamba algorithm.'),
       'adapt':('Adapt a compact assistant to structured support triage','Define allowed support categories and an output schema; curate independently labeled examples; freeze the base checkpoint; train low-rank adapter matrices; measure category accuracy and valid structure on validation; select settings; evaluate once on final test; save the adapter with the base revision and prompt contract; use the adapter in inference.'),
       'code':('Build a local coding-assistant prototype','Choose a small pretrained coding checkpoint and permitted programming tasks; pin its revision; run generation; assess outputs using independent tests in a suitable isolated execution environment; track correctness and latency; package prompts, model revision, and test cases. This lesson runs a pretrained model; it does not train a coding foundation model from scratch.'),
       'vision':('Build a screenshot-description prototype','Choose a small vision-language checkpoint; pin its revision; prepare permitted images and reference answers; feed pixels through the model processor; generate a description; compare factual details and unsupported claims; record latency and memory; define a rejection behavior for unclear images. This lesson implements pretrained inference, not vision-language pretraining.'),
       'compression':('Prepare a compact model for an edge memory budget','Measure the full runtime memory first; choose precision and supported runtime; quantify rounding error on the numerical lab; for an actual compressed checkpoint, compare task quality, memory, and latency against the uncompressed baseline; preserve tokenizer and serving settings. The supplied code is a numerical compression demonstration, not a production checkpoint converter.'),
-      'distillation':('Design a small student for a narrow support task','Define the student task and independent test set; obtain permitted teacher outputs only for training examples; choose soft-target or response-based learning; train student parameters; compare with the student trained without teacher signals; save a versioned model; assess cost and failure cases. The included code demonstrates teacher/student and pruning mechanisms; production text distillation is an extension.')}
+      'distillation':('Design a small student for a narrow support task','Define the student task and independent test set; obtain permitted teacher outputs only for training examples; choose soft-target or response-based learning; train student parameters; compare with the student trained without teacher signals; save a versioned model; assess cost and failure cases. The included code computes soft teacher targets and a student-logit gradient. A complete student training loop, pruning, and production text distillation are separate implementation activities.')}
     if ident not in cases:return ''
     title,steps=cases[ident]
+    details={
+      'scratch':('Synthetic text → byte IDs and shifted targets → causal model → held-out byte loss → checkpoint and configuration → sampled continuation.', 'Parameter count, before/after loss in byte-token units, causal-mask check, saved configuration, reload sample, and one incoherent completion.'),
+      'architectures':('Shared synthetic corpus → expert routing or recurrent-state updates → next-byte scores → comparable loss calculation → separate model checkpoints.', 'Total parameters and runtime per model, routing counts or chunked-state check, loss and samples. Explain why unequal model sizes and Python implementations prevent a hardware speed ranking.'),
+      'adapt':('Labeled ticket and chat template → frozen base plus trainable adapter → validation schema/category checks → selected adapter → final-test comparison.', 'Base revision, adapter path, trainable parameters, validation report pair, one schema/category failure, and a new-ticket response with the adapter. Keep the matching base and tokenizer.'),
+      'code':('Function specification → coding checkpoint → generated source → inspect/extract code → independently authored tests in a disposable runner.', 'Task and test manifest, checkpoint and sampling settings, first-answer pass fraction, a failing input, and latency/output length. This is pretrained inference; no trained coding-model artifact is produced.'),
+      'vision':('Image and question → multimodal processor → image-conditioned model → description → compare with visible facts.', 'A five-image question/answer log, counts/colors/absence checks, an unsupported claim, checkpoint revision, and latency. The website upload form supplies the pixels; training is an extension.'),
+      'compression':('Floating-point matrix → scale and integer rounding → reconstructed matrix → error and actual storage comparison.', 'Integer range, scale, reconstruction mean squared error, and actual tensor bytes including the scale. Explain why an int8 tensor using a four-bit numerical range is not packed four-bit storage. No model is trained or saved.'),
+      'distillation':('Teacher/student logits → temperature-scaled distributions → divergence loss → student-logit gradient.', 'Teacher probabilities, student gradient signs, and a temperature comparison. Explain the update that could follow. The demonstration performs no optimizer step and produces no trained-student checkpoint; pruning must be implemented separately.')
+    }
+    flow,evidence=details[ident]
     return f'''## Build from start to finish: {title}
 
 {steps}
 
-**Deployment flow:** permitted input → validated preprocessing/tokenizer → pinned model and optional adapter → bounded generation → output checks → recorded evaluation. Use the local runner as the prototype environment. Before a shared service, add identity controls, request limits, monitoring, and rollback. Keep training examples and operational logs free of secrets.
+**This exercise’s flow:** {flow}
 
-**Evidence to submit:** problem statement, data permission and split, baseline, trained or selected artifact, held-out predictions, one failure case, an example inference, compute cost, and a monitoring decision. Where the paragraph identifies a mechanism demonstration or pretrained inference, label the remaining training work as a planned extension.
+**Evidence for this lesson:** {evidence}
+
+Use the [shared experiment workflow](#ref/lab-workflow) for environment, artifact, and serving conventions. The [capstone](#lesson/capstone) assembles a complete engineering decision from the applicable evidence.
 
 '''

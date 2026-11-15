@@ -79,7 +79,7 @@ def additions(render,start):
 
 def references(render):
     return {key:{'title':title,'html':render((ROOT/'course'/file).read_text(encoding='utf-8'))} for key,title,file in [
-        ('modern-path','Modern language-model learning path','Modern-Language-Engineering.md'),
+        ('modern-path','Modern engineering handbook (all 16 chapters)','Modern-Language-Engineering.md'),
         ('research-landmarks','Landmark research: ideas and evidence','Research-Landmarks.md'),
         ('modern-glossary','Modern language-model terminology','Modern-Glossary.md'),
         ('qlora-cloud','Quantized adaptation and cloud costs','QLoRA-and-Cloud.md')]}

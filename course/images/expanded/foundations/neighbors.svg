@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 700" role="img" aria-labelledby="title desc">
+<title id="title">Let nearby labeled cases vote</title><desc id="desc">A new query is connected to five selected neighbors. Three fault labels beat two normal labels. The vote fraction 3/5 is not a guarantee of a calibrated fault probability.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#8192ae"/></marker></defs>
+<g font-family="DejaVu Sans, sans-serif">
+<rect x="0" y="0" width="1120" height="700" rx="18" fill="#0b1020"/>
+<text x="40" y="38" font-size="13" fill="#4ade80" font-weight="700" text-anchor="start" letter-spacing="2">FOUNDATIONS / NEIGHBORS</text>
+<text x="40" y="84" font-size="30" fill="#e6edf7" font-weight="700" text-anchor="start" letter-spacing="0">Let nearby labeled cases vote</text>
+<text x="40" y="117" font-size="17" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">For k = 5, the lesson’s labels are fault, normal, fault, fault, normal.</text>
+<line x1="40" y1="645" x2="1080" y2="645" stroke="#344563" stroke-width="1"/>
+<text x="40" y="674" font-size="14" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">Teaching illustration • Use your own lab run for measured results.</text>
+<rect x="40" y="155" width="615" height="465" rx="12" fill="#131c31"/>
+<line x1="88" y1="566" x2="615" y2="566" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="88" y1="566" x2="88" y2="185" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="322" y="602" font-size="15" fill="#b4c1d5" font-weight="400" text-anchor="middle" letter-spacing="0">Standardized feature 1</text>
+<text x="105" y="189" font-size="15" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">Standardized feature 2</text>
+<line x1="350" y1="383" x2="279" y2="308" stroke="#344563" stroke-width="2" stroke-dasharray="4 5"/>
+<circle cx="279" cy="308" r="22" fill="#fb8fa1"/>
+<text x="279" y="315" font-size="19" fill="#0b1020" font-weight="700" text-anchor="middle" letter-spacing="0">F</text>
+<line x1="350" y1="383" x2="425" y2="310" stroke="#344563" stroke-width="2" stroke-dasharray="4 5"/>
+<circle cx="425" cy="310" r="22" fill="#4ade80"/>
+<text x="425" y="317" font-size="19" fill="#0b1020" font-weight="700" text-anchor="middle" letter-spacing="0">N</text>
+<line x1="350" y1="383" x2="260" y2="421" stroke="#344563" stroke-width="2" stroke-dasharray="4 5"/>
+<circle cx="260" cy="421" r="22" fill="#fb8fa1"/>
+<text x="260" y="428" font-size="19" fill="#0b1020" font-weight="700" text-anchor="middle" letter-spacing="0">F</text>
+<line x1="350" y1="383" x2="390" y2="452" stroke="#344563" stroke-width="2" stroke-dasharray="4 5"/>
+<circle cx="390" cy="452" r="22" fill="#fb8fa1"/>
+<text x="390" y="459" font-size="19" fill="#0b1020" font-weight="700" text-anchor="middle" letter-spacing="0">F</text>
+<line x1="350" y1="383" x2="454" y2="404" stroke="#344563" stroke-width="2" stroke-dasharray="4 5"/>
+<circle cx="454" cy="404" r="22" fill="#4ade80"/>
+<text x="454" y="411" font-size="19" fill="#0b1020" font-weight="700" text-anchor="middle" letter-spacing="0">N</text>
+<circle cx="144" cy="251" r="8" fill="#344563"/>
+<circle cx="570" cy="211" r="8" fill="#344563"/>
+<circle cx="145" cy="493" r="8" fill="#344563"/>
+<circle cx="575" cy="502" r="8" fill="#344563"/>
+<circle cx="513" cy="245" r="8" fill="#344563"/>
+<path d="M333 383 L350 366 L367 383 L350 400 Z" fill="#fbbf24" stroke="#fbbf24" stroke-width="1"/>
+<text x="350" y="364" font-size="17" fill="#fbbf24" font-weight="700" text-anchor="middle" letter-spacing="0">New case</text>
+<text x="700" y="211" font-size="20" fill="#4ade80" font-weight="700" text-anchor="start" letter-spacing="0">Count the selected labels</text>
+<text x="700" y="283" font-size="20" fill="#e6edf7" font-weight="400" text-anchor="start" letter-spacing="0">Fault</text>
+<rect x="804" y="257" width="195" height="38" rx="4" fill="#fb8fa1"/>
+<text x="1025" y="284" font-size="22" fill="#fb8fa1" font-weight="700" text-anchor="start" letter-spacing="0">3</text>
+<text x="700" y="361" font-size="20" fill="#e6edf7" font-weight="400" text-anchor="start" letter-spacing="0">Normal</text>
+<rect x="804" y="335" width="130" height="38" rx="4" fill="#4ade80"/>
+<text x="1025" y="362" font-size="22" fill="#4ade80" font-weight="700" text-anchor="start" letter-spacing="0">2</text>
+<text x="700" y="436" font-size="24" fill="#fb8fa1" font-weight="700" text-anchor="start" letter-spacing="0">Majority prediction: fault</text>
+<text x="700" y="481" font-size="16" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">Vote fraction: 3 / 5 = 0.60</text>
+<text x="700" y="509" font-size="16" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">This is not a calibration guarantee.</text>
+<text x="700" y="561" font-size="15" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">Scale features using training data.</text>
+<text x="700" y="589" font-size="15" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">Otherwise units can dominate distance.</text>
+</g></svg>

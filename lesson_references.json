@@ -1,0 +1,858 @@
+{
+  "learning-signals": [
+    {
+      "title": "Supervised learning — scikit-learn",
+      "url": "https://scikit-learn.org/1.7/supervised_learning.html",
+      "why": "Examples of learning from supplied targets, including regression and classification."
+    },
+    {
+      "title": "Unsupervised learning — scikit-learn",
+      "url": "https://scikit-learn.org/1.7/unsupervised_learning.html",
+      "why": "Places clustering and representation learning within unlabeled-data methods."
+    },
+    {
+      "title": "A Simple Framework for Contrastive Learning of Visual Representations — Chen et al.",
+      "url": "https://arxiv.org/abs/2002.05709",
+      "why": "An original self-supervised representation-learning example; optional further reading, not an implemented lab."
+    },
+    {
+      "title": "Q-learning — Watkins and Dayan",
+      "url": "https://link.springer.com/article/10.1007/BF00992698",
+      "why": "Shows that learning from actions and rewards does not require a neural-network architecture."
+    }
+  ],
+  "model-selection": [
+    {
+      "title": "Common pitfalls and recommended practices — scikit-learn",
+      "url": "https://scikit-learn.org/1.7/common_pitfalls.html",
+      "why": "Explains data leakage, train-only preprocessing, and consistent transformations at prediction time."
+    },
+    {
+      "title": "Cross-validation: evaluating estimator performance — scikit-learn",
+      "url": "https://scikit-learn.org/1.7/modules/cross_validation.html",
+      "why": "Explains evaluation boundaries, validation choices, and group- or time-aware splitting."
+    }
+  ],
+  "linear": [
+    {
+      "title": "Linear models — scikit-learn",
+      "url": "https://scikit-learn.org/1.7/modules/linear_model.html",
+      "why": "Explains weighted predictions and the ordinary least-squares objective."
+    },
+    {
+      "title": "LinearRegression API — scikit-learn",
+      "url": "https://scikit-learn.org/1.7/modules/generated/sklearn.linear_model.LinearRegression.html",
+      "why": "Documents the fitted coefficients, intercept, solver, and prediction API used in this experiment."
+    }
+  ],
+  "logistic": [
+    {
+      "title": "Logistic regression — scikit-learn",
+      "url": "https://scikit-learn.org/1.7/modules/linear_model.html#logistic-regression",
+      "why": "Connects linear scores to class probabilities and regularized training."
+    },
+    {
+      "title": "LogisticRegression API — scikit-learn",
+      "url": "https://scikit-learn.org/1.7/modules/generated/sklearn.linear_model.LogisticRegression.html",
+      "why": "Defines C as inverse regularization strength and documents predict_proba."
+    },
+    {
+      "title": "Common pitfalls and recommended practices — scikit-learn",
+      "url": "https://scikit-learn.org/1.7/common_pitfalls.html",
+      "why": "Explains why the lab fits its feature scaler only on training examples."
+    }
+  ],
+  "tree": [
+    {
+      "title": "Decision trees — scikit-learn",
+      "url": "https://scikit-learn.org/1.7/modules/tree.html",
+      "why": "Explains recursive feature splits, leaf predictions, and overfitting."
+    },
+    {
+      "title": "DecisionTreeClassifier API — scikit-learn",
+      "url": "https://scikit-learn.org/1.7/modules/generated/sklearn.tree.DecisionTreeClassifier.html",
+      "why": "Documents the Gini criterion, depth limit, and tree controls used by the lab."
+    }
+  ],
+  "ensemble": [
+    {
+      "title": "Ensemble methods — scikit-learn",
+      "url": "https://scikit-learn.org/1.7/modules/ensemble.html",
+      "why": "Distinguishes forests from sequential boosting and explains forest probability averaging."
+    },
+    {
+      "title": "RandomForestClassifier API — scikit-learn",
+      "url": "https://scikit-learn.org/1.7/modules/generated/sklearn.ensemble.RandomForestClassifier.html",
+      "why": "Defines prediction as the class with the highest average probability across trees."
+    },
+    {
+      "title": "HistGradientBoostingClassifier API — scikit-learn",
+      "url": "https://scikit-learn.org/1.7/modules/generated/sklearn.ensemble.HistGradientBoostingClassifier.html",
+      "why": "Documents the histogram boosting implementation and its iteration and leaf limits."
+    }
+  ],
+  "neighbors": [
+    {
+      "title": "Nearest neighbors — scikit-learn",
+      "url": "https://scikit-learn.org/1.7/modules/neighbors.html",
+      "why": "Explains distance-based prediction, neighbor selection, and the effects of dimensionality."
+    },
+    {
+      "title": "KNeighborsClassifier API — scikit-learn",
+      "url": "https://scikit-learn.org/1.7/modules/generated/sklearn.neighbors.KNeighborsClassifier.html",
+      "why": "Documents k, vote weighting, distance metrics, and the classifier used here."
+    }
+  ],
+  "kernel": [
+    {
+      "title": "Support vector machines — scikit-learn",
+      "url": "https://scikit-learn.org/1.7/modules/svm.html",
+      "why": "Explains margin classifiers, the radial-basis kernel, and the effects of C and gamma."
+    },
+    {
+      "title": "SVC API — scikit-learn",
+      "url": "https://scikit-learn.org/1.7/modules/generated/sklearn.svm.SVC.html",
+      "why": "Documents the linear/RBF kernels and scale-based gamma rule used in the comparison."
+    }
+  ],
+  "bayes": [
+    {
+      "title": "Naive Bayes — scikit-learn",
+      "url": "https://scikit-learn.org/1.7/modules/naive_bayes.html",
+      "why": "Explains conditional independence and warns that classifier probabilities may need calibration."
+    },
+    {
+      "title": "GaussianNB API — scikit-learn",
+      "url": "https://scikit-learn.org/1.7/modules/generated/sklearn.naive_bayes.GaussianNB.html",
+      "why": "Documents Gaussian feature likelihoods, priors, and the exact classifier fitted in this lab."
+    }
+  ],
+  "gaussian": [
+    {
+      "title": "Gaussian processes — scikit-learn",
+      "url": "https://scikit-learn.org/1.7/modules/gaussian_process.html",
+      "why": "Explains conditioning a function prior on observations and predicting uncertainty."
+    },
+    {
+      "title": "GaussianProcessRegressor API — scikit-learn",
+      "url": "https://scikit-learn.org/1.7/modules/generated/sklearn.gaussian_process.GaussianProcessRegressor.html",
+      "why": "Documents kernel fitting, target normalization, and returned predictive standard deviations."
+    }
+  ],
+  "cluster": [
+    {
+      "title": "Clustering — scikit-learn",
+      "url": "https://scikit-learn.org/1.7/modules/clustering.html",
+      "why": "Explains K-means, density-based clustering, silhouette, and adjusted Rand index."
+    },
+    {
+      "title": "KMeans API — scikit-learn",
+      "url": "https://scikit-learn.org/1.7/modules/generated/sklearn.cluster.KMeans.html",
+      "why": "Documents fitted centers, inertia, and predictions for new observations."
+    },
+    {
+      "title": "DBSCAN API — scikit-learn",
+      "url": "https://scikit-learn.org/1.7/modules/generated/sklearn.cluster.DBSCAN.html",
+      "why": "Explains neighborhood density, noise labels, and the separate training-data exploration."
+    }
+  ],
+  "projection": [
+    {
+      "title": "Principal component analysis — scikit-learn",
+      "url": "https://scikit-learn.org/1.7/modules/decomposition.html#pca",
+      "why": "Explains orthogonal principal directions, centering, and dimensionality reduction."
+    },
+    {
+      "title": "PCA API — scikit-learn",
+      "url": "https://scikit-learn.org/1.7/modules/generated/sklearn.decomposition.PCA.html",
+      "why": "Documents retained variance, transform, and inverse_transform used to reconstruct digits."
+    }
+  ],
+  "dense": [
+    {
+      "title": "Build the Neural Network — PyTorch",
+      "url": "https://docs.pytorch.org/tutorials/beginner/basics/buildmodel_tutorial.html",
+      "why": "Introduces dense layers, nonlinear activations, and class-score outputs."
+    },
+    {
+      "title": "Linear layer — PyTorch",
+      "url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.Linear.html",
+      "why": "Specifies input/output dimensions, learned weights, and bias for affine layers."
+    },
+    {
+      "title": "CrossEntropyLoss — PyTorch",
+      "url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html",
+      "why": "Explains why the classifier supplies unnormalized logits directly to the loss."
+    }
+  ],
+  "convolution": [
+    {
+      "title": "Conv2d — PyTorch 2.6",
+      "url": "https://docs.pytorch.org/docs/2.6/generated/torch.nn.Conv2d.html",
+      "why": "Defines channel dimensions, padding, stride, and spatial filtering for the lab's convolutions."
+    },
+    {
+      "title": "MaxPool2d — PyTorch",
+      "url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.MaxPool2d.html",
+      "why": "Explains how the 2-by-2 pooling layer reduces each 8-by-8 map to 4-by-4."
+    }
+  ],
+  "graph": [
+    {
+      "title": "Semi-Supervised Classification with Graph Convolutional Networks — Kipf and Welling",
+      "url": "https://arxiv.org/abs/1609.02907",
+      "why": "Introduces graph convolution that combines node features and local connectivity."
+    },
+    {
+      "title": "GCNConv operator — PyTorch Geometric",
+      "url": "https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.nn.conv.GCNConv.html",
+      "why": "Shows symmetric degree normalization and self-connections; the lab implements the mechanism directly without this package."
+    }
+  ],
+  "autoencoder": [
+    {
+      "title": "Autoencoders — Deep Learning, chapter 14",
+      "url": "https://www.deeplearningbook.org/contents/autoencoders.html",
+      "why": "Explains encoder/decoder reconstruction, bottlenecks, and limitations of unconstrained copying."
+    },
+    {
+      "title": "Stacked Denoising Autoencoders — Vincent et al.",
+      "url": "https://www.jmlr.org/papers/v11/vincent10a.html",
+      "why": "An original research treatment of learning representations by reconstructing clean inputs from corrupted versions."
+    }
+  ],
+  "variational": [
+    {
+      "title": "Auto-Encoding Variational Bayes — Kingma and Welling",
+      "url": "https://arxiv.org/abs/1312.6114",
+      "why": "Introduces the variational objective and differentiable reparameterization used in the lesson."
+    },
+    {
+      "title": "Probability distributions — PyTorch 2.6",
+      "url": "https://docs.pytorch.org/docs/2.6/distributions.html",
+      "why": "Explains reparameterized samples, Normal distributions, and divergence operations behind the numerical example."
+    }
+  ],
+  "adversarial": [
+    {
+      "title": "Generative Adversarial Networks — Goodfellow et al.",
+      "url": "https://arxiv.org/abs/1406.2661",
+      "why": "Introduces joint generator/discriminator training; the lab uses a small one-dimensional teaching model."
+    },
+    {
+      "title": "BCEWithLogitsLoss — PyTorch",
+      "url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.BCEWithLogitsLoss.html",
+      "why": "Documents the numerically stable binary objective used for discriminator and generator updates."
+    }
+  ],
+  "ngram": [
+    {
+      "title": "N-gram Language Models — Jurafsky and Martin",
+      "url": "https://web.stanford.edu/~jurafsky/slp3/3.pdf",
+      "why": "Explains context counts, language-model evaluation, perplexity, and smoothing."
+    },
+    {
+      "title": "Language modeling package — NLTK",
+      "url": "https://www.nltk.org/api/nltk.lm.html",
+      "why": "Documents vocabulary handling, n-gram counts, and Laplace add-one smoothing."
+    }
+  ],
+  "reinforcement": [
+    {
+      "title": "Q-learning — Watkins and Dayan",
+      "url": "https://link.springer.com/article/10.1007/BF00992698",
+      "why": "The original tabular action-value learning paper; the publisher provides an abstract and publication record."
+    },
+    {
+      "title": "Handling Time Limits — Gymnasium",
+      "url": "https://gymnasium.farama.org/tutorials/gymnasium_basics/handling_time_limits/",
+      "why": "Distinguishes true termination from time-limit truncation and explains when to bootstrap."
+    },
+    {
+      "title": "Reinforcement Learning (DQN) Tutorial — PyTorch",
+      "url": "https://docs.pytorch.org/tutorials/intermediate/reinforcement_q_learning.html",
+      "why": "Further reading on Q targets and terminal states; the lab uses a table rather than this tutorial's neural network."
+    }
+  ],
+  "setup": [
+    {
+      "title": "Python 3.12: virtual environments",
+      "url": "https://docs.python.org/3.12/library/venv.html",
+      "why": "Explains package isolation, environment creation and activation used by this workspace."
+    },
+    {
+      "title": "PyTorch: install and verify locally",
+      "url": "https://pytorch.org/get-started/locally/",
+      "why": "Select the CPU or supported CUDA installation and verify that tensors run on the intended device."
+    }
+  ],
+  "inference": [
+    {
+      "title": "SmolLM2-135M-Instruct model card",
+      "url": "https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct",
+      "why": "Documents this lesson's exact pretrained checkpoint, intended use and limitations."
+    },
+    {
+      "title": "Transformers 4.57.1: chat templates",
+      "url": "https://huggingface.co/docs/transformers/v4.57.1/en/chat_templating",
+      "why": "Explains conversation-role formatting and the generation prompt used by the inference code."
+    }
+  ],
+  "math": [
+    {
+      "title": "PyTorch 2.9: automatic differentiation mechanics",
+      "url": "https://docs.pytorch.org/docs/2.9/notes/autograd.html",
+      "why": "Connects the lesson's loss, backward pass and gradients to the computation graph."
+    },
+    {
+      "title": "Attention Is All You Need — Vaswani et al. (2017)",
+      "url": "https://arxiv.org/abs/1706.03762",
+      "why": "Primary source for query, key and value attention, masking and the Transformer block."
+    },
+    {
+      "title": "SmolLM2 configuration at the course's pinned revision",
+      "url": "https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct/blob/12fd25f77366fa6b3b4b768ec3050bf629380bac/config.json",
+      "why": "Verify the hidden width of 576 used in this lesson's tensor-shape example."
+    }
+  ],
+  "baseline": [
+    {
+      "title": "scikit-learn: evaluating estimator performance",
+      "url": "https://scikit-learn.org/stable/modules/cross_validation.html",
+      "why": "Explains why validation guides choices and the final test must remain independent."
+    },
+    {
+      "title": "Python 3.12: JSON encoding and decoding",
+      "url": "https://docs.python.org/3.12/library/json.html",
+      "why": "Supports the structured-output parsing exercise; the lab adds its own stricter label and key contract."
+    }
+  ],
+  "adapt": [
+    {
+      "title": "LoRA: Low-Rank Adaptation of Large Language Models — Hu et al. (2021)",
+      "url": "https://arxiv.org/abs/2106.09685",
+      "why": "Primary source for learning low-rank updates while freezing pretrained weights."
+    },
+    {
+      "title": "PEFT 0.17: LoRA configuration",
+      "url": "https://huggingface.co/docs/peft/v0.17.0/en/package_reference/lora",
+      "why": "Documents the rank, alpha, target modules and adapter options used by the training implementation."
+    }
+  ],
+  "retrieval": [
+    {
+      "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks — Lewis et al. (2020)",
+      "url": "https://arxiv.org/abs/2005.11401",
+      "why": "Historical foundation for combining retrieved evidence with a generator; this lab uses a simpler lexical retriever."
+    },
+    {
+      "title": "Dense Passage Retrieval for Open-Domain Question Answering — Karpukhin et al. (2020)",
+      "url": "https://arxiv.org/abs/2004.04906",
+      "why": "Compare learned dense retrieval with this lesson's token-overlap retrieval; dense retrieval is an extension, not the implemented algorithm."
+    }
+  ],
+  "scratch": [
+    {
+      "title": "Attention Is All You Need — Vaswani et al. (2017)",
+      "url": "https://arxiv.org/abs/1706.03762",
+      "why": "Explains the attention and feed-forward components adapted into the tiny causal language model."
+    },
+    {
+      "title": "PyTorch 2.9: TransformerEncoderLayer",
+      "url": "https://docs.pytorch.org/docs/2.9/generated/torch.nn.TransformerEncoderLayer.html",
+      "why": "Documents the self-attention layer used with an explicit causal mask in the scratch implementation."
+    }
+  ],
+  "compression": [
+    {
+      "title": "Transformers 4.57.1: bitsandbytes quantization",
+      "url": "https://huggingface.co/docs/transformers/v4.57.1/en/quantization/bitsandbytes",
+      "why": "Explains actual checkpoint quantization, hardware support and memory measurement beyond the scalar numerical demo."
+    },
+    {
+      "title": "LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale — Dettmers et al. (2022)",
+      "url": "https://arxiv.org/abs/2208.07339",
+      "why": "Shows why real model quantization needs more than changing an integer range and how outliers affect precision."
+    }
+  ],
+  "distillation": [
+    {
+      "title": "Distilling the Knowledge in a Neural Network — Hinton et al. (2015)",
+      "url": "https://arxiv.org/abs/1503.02531",
+      "why": "Primary source for softened teacher targets and temperature in student learning."
+    },
+    {
+      "title": "PyTorch: pruning tutorial",
+      "url": "https://docs.pytorch.org/tutorials/intermediate/pruning_tutorial.html",
+      "why": "Supports the separate pruning extension, including masks and the distinction between zeroing weights and making execution smaller."
+    }
+  ],
+  "code": [
+    {
+      "title": "Qwen2.5-Coder-0.5B-Instruct model card",
+      "url": "https://huggingface.co/Qwen/Qwen2.5-Coder-0.5B-Instruct",
+      "why": "Documents the exact coding checkpoint, model size and supported inference interface."
+    },
+    {
+      "title": "Evaluating Large Language Models Trained on Code — Chen et al. (2021)",
+      "url": "https://arxiv.org/abs/2107.03374",
+      "why": "Introduces functional correctness evaluation with independently written programming tests and explains sampling-based evaluation."
+    }
+  ],
+  "vision": [
+    {
+      "title": "SmolVLM-256M-Instruct model card",
+      "url": "https://huggingface.co/HuggingFaceTB/SmolVLM-256M-Instruct",
+      "why": "Documents the exact vision-language checkpoint and its image-plus-text processing path."
+    },
+    {
+      "title": "Transformers 4.57.1: multimodal chat templates",
+      "url": "https://huggingface.co/docs/transformers/v4.57.1/en/chat_templating_multimodal",
+      "why": "Explains why pixels must pass through a multimodal processor rather than being supplied as a filename to a text model."
+    }
+  ],
+  "architectures": [
+    {
+      "title": "Switch Transformers — Fedus et al. (2021)",
+      "url": "https://arxiv.org/abs/2101.03961",
+      "why": "Primary example of sparse expert routing; compare its full training design with the lab's deliberately small top-one router."
+    },
+    {
+      "title": "Mamba: Linear-Time Sequence Modeling with Selective State Spaces — Gu and Dao (2023)",
+      "url": "https://arxiv.org/abs/2312.00752",
+      "why": "Distinguishes a selective state-space architecture from the lab's basic diagonal recurrence."
+    },
+    {
+      "title": "Griffin: Mixing Gated Linear Recurrences with Local Attention — De et al. (2024)",
+      "url": "https://arxiv.org/abs/2402.19427",
+      "why": "Shows a concrete recurrence-and-attention hybrid and why different hybrid architectures must be described individually."
+    }
+  ],
+  "cloud": [
+    {
+      "title": "Vast.ai: SSH connection guide",
+      "url": "https://docs.vast.ai/guides/instances/connect/ssh",
+      "why": "Supports SSH-key setup, connection commands and forwarding the localhost lab through an SSH tunnel."
+    },
+    {
+      "title": "Vast.ai: billing",
+      "url": "https://docs.vast.ai/guides/reference/billing",
+      "why": "Explains prepaid credits, stopped-instance storage charges and why preserving files and ending billable resources are separate steps."
+    }
+  ],
+  "capstone": [
+    {
+      "title": "Model Cards for Model Reporting — Mitchell et al. (2018)",
+      "url": "https://arxiv.org/abs/1810.03993",
+      "why": "Provides a framework for reporting intended use, evaluation conditions, limitations and model provenance."
+    },
+    {
+      "title": "The ML Test Score — Breck et al. (2017)",
+      "url": "https://research.google/pubs/the-ml-test-score-a-rubric-for-ml-production-readiness-and-technical-debt-reduction/",
+      "why": "Connects the capstone's evidence and monitoring plan to concrete tests for a production handoff."
+    },
+    {
+      "title": "scikit-learn: evaluating estimator performance",
+      "url": "https://scikit-learn.org/stable/modules/cross_validation.html",
+      "why": "Explains the untouched final-test boundary and why tuning after inspecting test results invalidates that boundary."
+    }
+  ],
+  "modern-map": [
+    {
+      "title": "Vaswani et al. (2017), Attention Is All You Need",
+      "url": "https://arxiv.org/abs/1706.03762",
+      "why": "Read the attention equation and original encoder–decoder diagram; distinguish this architecture from the lab’s small causal decoder."
+    },
+    {
+      "title": "Dosovitskiy et al. (2020/2021), An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale",
+      "url": "https://arxiv.org/abs/2010.11929",
+      "why": "See how image patches become input sequences; shared attention ideas do not imply identical preprocessing or model architecture."
+    },
+    {
+      "title": "Radford et al. (2022), Robust Speech Recognition via Large-Scale Weak Supervision",
+      "url": "https://arxiv.org/abs/2212.04356",
+      "why": "Connect audio representations, text targets and supervision to a concrete cross-domain Transformer example."
+    },
+    {
+      "title": "Chen et al. (2021), Decision Transformer: Reinforcement Learning via Sequence Modeling",
+      "url": "https://arxiv.org/abs/2106.01345",
+      "why": "Distinguish return-conditioned trajectory modeling from the online policy-gradient training taught later."
+    }
+  ],
+  "attention-cache": [
+    {
+      "title": "Vaswani et al. (2017), Attention Is All You Need",
+      "url": "https://arxiv.org/abs/1706.03762",
+      "why": "Read the attention equation and original encoder–decoder diagram; distinguish this architecture from the lab’s small causal decoder."
+    },
+    {
+      "title": "Shazeer (2019), Fast Transformer Decoding: One Write-Head is All You Need",
+      "url": "https://arxiv.org/abs/1911.02150",
+      "why": "Explain why sharing keys and values across query heads changes decoder cache storage and memory bandwidth."
+    },
+    {
+      "title": "Ainslie et al. (2023), GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints",
+      "url": "https://arxiv.org/abs/2305.13245",
+      "why": "Relate grouped key/value heads to MHA and MQA; the lab trains from scratch rather than reproducing the paper’s uptraining procedure."
+    },
+    {
+      "title": "Jiang et al. (2023), Mistral 7B",
+      "url": "https://arxiv.org/abs/2310.06825",
+      "why": "Read the sliding-window and grouped-query design rationale; compare it with the lab’s eight-position teaching window."
+    }
+  ],
+  "position-normalization": [
+    {
+      "title": "Su et al. (2021), RoFormer: Enhanced Transformer with Rotary Position Embedding",
+      "url": "https://arxiv.org/abs/2104.09864",
+      "why": "Connect rotations of query/key coordinates to position-dependent attention."
+    },
+    {
+      "title": "Press et al. (2021/2022), Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation",
+      "url": "https://arxiv.org/abs/2108.12409",
+      "why": "Compare distance biases with learned position embeddings and distinguish measured extrapolation from a general guarantee."
+    },
+    {
+      "title": "Zhang and Sennrich (2019), Root Mean Square Layer Normalization",
+      "url": "https://arxiv.org/abs/1910.07467",
+      "why": "Compare root-mean-square scaling with mean-centered layer normalization."
+    },
+    {
+      "title": "Shazeer (2020), GLU Variants Improve Transformer",
+      "url": "https://arxiv.org/abs/2002.05202",
+      "why": "Connect the SwiGLU equation and feed-forward parameter budget to the gated variant."
+    }
+  ],
+  "expert-routing": [
+    {
+      "title": "Shazeer et al. (2017), Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer",
+      "url": "https://arxiv.org/abs/1701.06538",
+      "why": "Separate stored expert capacity from per-token computation and inspect routing and load-balancing costs."
+    },
+    {
+      "title": "Fedus et al. (2021/2022), Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity",
+      "url": "https://arxiv.org/abs/2101.03961",
+      "why": "Study top-one routing and balancing; identify the capacity, communication and scale details omitted by the local router."
+    }
+  ],
+  "latent-depth": [
+    {
+      "title": "DeepSeek-AI (2024), DeepSeek-V2: A Strong, Economical, and Efficient Mixture-of-Experts Language Model",
+      "url": "https://arxiv.org/abs/2405.04434",
+      "why": "Read multi-head latent attention and list the projection absorption and rotary details omitted by the simple reconstructed cache."
+    },
+    {
+      "title": "Kimi Team et al. (2026), Attention Residuals",
+      "url": "https://arxiv.org/abs/2603.15031",
+      "why": "Compare attention over earlier depth representations with the lab’s block-output mixture; distinguish Full and Block Attention Residuals."
+    },
+    {
+      "title": "He et al. (2015/2016), Deep Residual Learning for Image Recognition",
+      "url": "https://arxiv.org/abs/1512.03385",
+      "why": "Establish ordinary residual addition before comparing learned mixtures across depth."
+    }
+  ],
+  "adaptation-comparison": [
+    {
+      "title": "Hu et al. (2021), LoRA: Low-Rank Adaptation of Large Language Models",
+      "url": "https://arxiv.org/abs/2106.09685",
+      "why": "Connect frozen base weights, low-rank updates, initialization and adapter parameter counts to the tuning experiment."
+    },
+    {
+      "title": "Dettmers et al. (2023), QLoRA: Efficient Finetuning of Quantized LLMs",
+      "url": "https://arxiv.org/abs/2305.14314",
+      "why": "Compare NormalFloat4, double quantization and paged optimizers with the lab’s narrower uniform packed-weight demonstration."
+    },
+    {
+      "title": "Ouyang et al. (2022), Training language models to follow instructions with human feedback",
+      "url": "https://arxiv.org/abs/2203.02155",
+      "why": "Separate demonstrations, reward-model training and policy optimization; compare human feedback with this lab’s authored synthetic examples."
+    }
+  ],
+  "quantized-cloud": [
+    {
+      "title": "Dettmers et al. (2023), QLoRA: Efficient Finetuning of Quantized LLMs",
+      "url": "https://arxiv.org/abs/2305.14314",
+      "why": "Compare NormalFloat4, double quantization and paged optimizers with the lab’s narrower uniform packed-weight demonstration."
+    },
+    {
+      "title": "Hugging Face PEFT, Quantization guide",
+      "url": "https://huggingface.co/docs/peft/en/developer_guides/quantization",
+      "why": "Follow supported low-bit model preparation and adapter attachment, and verify the actual backend configuration."
+    },
+    {
+      "title": "Hugging Face bitsandbytes, Integrations",
+      "url": "https://huggingface.co/docs/bitsandbytes/main/integrations",
+      "why": "Check the supported quantization integration and distinguish storage precision from computation dtype and total device memory."
+    }
+  ],
+  "preference-learning": [
+    {
+      "title": "Rafailov et al. (2023), Direct Preference Optimization: Your Language Model is Secretly a Reward Model",
+      "url": "https://arxiv.org/abs/2305.18290",
+      "why": "Trace the preferred/rejected response log-likelihood ratios against a frozen reference and the resulting preference objective."
+    },
+    {
+      "title": "Ouyang et al. (2022), Training language models to follow instructions with human feedback",
+      "url": "https://arxiv.org/abs/2203.02155",
+      "why": "Separate demonstrations, reward-model training and policy optimization; compare human feedback with this lab’s authored synthetic examples."
+    }
+  ],
+  "reward-learning": [
+    {
+      "title": "Christiano et al. (2017), Deep reinforcement learning from human preferences",
+      "url": "https://arxiv.org/abs/1706.03741",
+      "why": "Understand how pairwise preferences train a reward predictor and why optimizing that predictor is distinct from verifying task outcomes."
+    },
+    {
+      "title": "Ouyang et al. (2022), Training language models to follow instructions with human feedback",
+      "url": "https://arxiv.org/abs/2203.02155",
+      "why": "Separate demonstrations, reward-model training and policy optimization; compare human feedback with this lab’s authored synthetic examples."
+    },
+    {
+      "title": "Rafailov et al. (2023), Direct Preference Optimization: Your Language Model is Secretly a Reward Model",
+      "url": "https://arxiv.org/abs/2305.18290",
+      "why": "Trace the preferred/rejected response log-likelihood ratios against a frozen reference and the resulting preference objective."
+    }
+  ],
+  "policy-gradient": [
+    {
+      "title": "OpenAI Spinning Up, Vanilla Policy Gradient",
+      "url": "https://spinningup.openai.com/en/latest/algorithms/vpg.html",
+      "why": "Trace the on-policy gradient estimator, advantage baseline and fresh rollout requirement for each policy update."
+    },
+    {
+      "title": "DeepSeek-AI (2025), DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning",
+      "url": "https://arxiv.org/abs/2501.12948",
+      "why": "Contrast verifier-driven reasoning research with this lab’s supervised warm start and constrained two-digit task."
+    },
+    {
+      "title": "Ouyang et al. (2022), Training language models to follow instructions with human feedback",
+      "url": "https://arxiv.org/abs/2203.02155",
+      "why": "Separate demonstrations, reward-model training and policy optimization; compare human feedback with this lab’s authored synthetic examples."
+    }
+  ],
+  "policy-optimization": [
+    {
+      "title": "Schulman et al. (2017), Proximal Policy Optimization Algorithms",
+      "url": "https://arxiv.org/abs/1707.06347",
+      "why": "Work through the clipped importance-ratio surrogate and distinguish old behavior-policy probabilities from the regularization reference."
+    },
+    {
+      "title": "Shao et al. (2024), DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models",
+      "url": "https://arxiv.org/abs/2402.03300",
+      "why": "Read GRPO and compare within-prompt group reward normalization with a learned value baseline."
+    },
+    {
+      "title": "Zheng et al. (2025), Group Sequence Policy Optimization",
+      "url": "https://arxiv.org/abs/2507.18071",
+      "why": "Derive the length-normalized sequence importance ratio and sequence-level clipping used by the GSPO teaching objective."
+    }
+  ],
+  "benchmark-literacy": [
+    {
+      "title": "Hendrycks et al. (2020/2021), Measuring Massive Multitask Language Understanding",
+      "url": "https://arxiv.org/abs/2009.03300",
+      "why": "Inspect subject coverage and evaluation format before selecting a broad knowledge benchmark."
+    },
+    {
+      "title": "Jimenez et al. (2023), SWE-bench: Can Language Models Resolve Real-World GitHub Issues?",
+      "url": "https://arxiv.org/abs/2310.06770",
+      "why": "Treat repository state, issue context and executable tests as part of the benchmark protocol."
+    },
+    {
+      "title": "Rein et al. (2023), GPQA: A Graduate-Level Google-Proof Q&A Benchmark",
+      "url": "https://arxiv.org/abs/2311.12022",
+      "why": "Compare expert-authored science questions with your application’s actual information needs."
+    },
+    {
+      "title": "Phan et al. (2025), Humanity’s Last Exam",
+      "url": "https://arxiv.org/abs/2501.14249",
+      "why": "Inspect benchmark scope and version before interpreting difficult academic questions as general product quality."
+    }
+  ],
+  "evaluation-engineering": [
+    {
+      "title": "Chen et al. (2021), Evaluating Large Language Models Trained on Code",
+      "url": "https://arxiv.org/abs/2107.03374",
+      "why": "Section 2.1 and Appendix A derive the unbiased pass@k estimator used in the arithmetic harness; the course does not run HumanEval."
+    },
+    {
+      "title": "Liang et al. (2022), Holistic Evaluation of Language Models",
+      "url": "https://arxiv.org/abs/2211.09110",
+      "why": "Choose evaluation scenarios and multiple metrics deliberately, and document protocols and limitations instead of treating one score as complete quality."
+    },
+    {
+      "title": "Mitchell et al. (2018/2019), Model Cards for Model Reporting",
+      "url": "https://arxiv.org/abs/1810.03993",
+      "why": "Document intended use, evaluation conditions, observed limitations and the evidence behind a deployment decision."
+    }
+  ],
+  "judge-audit": [
+    {
+      "title": "Zheng et al. (2023), Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena",
+      "url": "https://arxiv.org/abs/2306.05685",
+      "why": "Study position, verbosity and self-enhancement biases and compare them with strict parsing and order-swapped fixtures."
+    },
+    {
+      "title": "Chiang et al. (2024), Chatbot Arena: An Open Platform for Evaluating LLMs by Human Preference",
+      "url": "https://arxiv.org/abs/2403.04132",
+      "why": "Compare real crowdsourced pairwise preference evaluation with a tiny author-keyed fixture and illustrative Elo updates."
+    }
+  ],
+  "streaming-service": [
+    {
+      "title": "Dao et al. (2022), FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness",
+      "url": "https://arxiv.org/abs/2205.14135",
+      "why": "Distinguish mathematically exact attention from efficient kernel scheduling; the local Python model does not implement FlashAttention."
+    },
+    {
+      "title": "Kwon et al. (2023), Efficient Memory Management for Large Language Model Serving with PagedAttention",
+      "url": "https://arxiv.org/abs/2309.06180",
+      "why": "Separate cache allocation and serving throughput from cache tensor size; the course does not implement a paged allocator."
+    },
+    {
+      "title": "vLLM, Production Metrics",
+      "url": "https://docs.vllm.ai/en/latest/usage/metrics/",
+      "why": "Compare request, prefill, first-token and inter-token metrics and state your client-side measurement boundaries."
+    }
+  ],
+  "modern-capstone": [
+    {
+      "title": "Mitchell et al. (2018/2019), Model Cards for Model Reporting",
+      "url": "https://arxiv.org/abs/1810.03993",
+      "why": "Document intended use, evaluation conditions, observed limitations and the evidence behind a deployment decision."
+    },
+    {
+      "title": "Gebru et al. (2018/2021), Datasheets for Datasets",
+      "url": "https://arxiv.org/abs/1803.09010",
+      "why": "Document data origin, composition, collection, intended use and limitations alongside the split identity."
+    },
+    {
+      "title": "Liang et al. (2022), Holistic Evaluation of Language Models",
+      "url": "https://arxiv.org/abs/2211.09110",
+      "why": "Choose evaluation scenarios and multiple metrics deliberately, and document protocols and limitations instead of treating one score as complete quality."
+    }
+  ],
+  "training-route": [
+    {
+      "title": "PyTorch — Transfer learning tutorial",
+      "url": "https://docs.pytorch.org/tutorials/beginner/transfer_learning_tutorial.html",
+      "why": "Compare training an output head with fine-tuning the whole network; the tutorial uses images, while this lab uses synthetic operations text."
+    },
+    {
+      "title": "PyTorch — Automatic differentiation",
+      "url": "https://docs.pytorch.org/tutorials/beginner/basics/autogradqs_tutorial.html",
+      "why": "Connect the forward computation, gradient calculation and optimizer update to the runnable training loop."
+    },
+    {
+      "title": "LoRA: Low-Rank Adaptation of Large Language Models — Hu et al. (2021)",
+      "url": "https://arxiv.org/abs/2106.09685",
+      "why": "Primary source for learning low-rank updates while freezing pretrained weights."
+    }
+  ],
+  "deep-network": [
+    {
+      "title": "PyTorch — Automatic differentiation",
+      "url": "https://docs.pytorch.org/tutorials/beginner/basics/autogradqs_tutorial.html",
+      "why": "Connect the forward computation, gradient calculation and optimizer update to the runnable training loop."
+    },
+    {
+      "title": "Rumelhart, Hinton and Williams — Learning representations by back-propagating errors",
+      "url": "https://www.cs.toronto.edu/~hinton/absps/naturebp.pdf",
+      "why": "The original backpropagation paper supplies the learning mechanism behind the multilayer network."
+    },
+    {
+      "title": "scikit-learn — Common pitfalls and recommended practices",
+      "url": "https://scikit-learn.org/1.7/common_pitfalls.html",
+      "why": "Check how independent partitions and training-only preprocessing prevent data leakage."
+    }
+  ],
+  "scratch-recurrent": [
+    {
+      "title": "Cho et al. — Learning Phrase Representations using RNN Encoder–Decoder",
+      "url": "https://arxiv.org/abs/1406.1078",
+      "why": "Read the gated recurrent encoder–decoder mechanism underlying this lab’s GRU; the small synthetic task does not reproduce the translation experiment."
+    },
+    {
+      "title": "PyTorch — GRU",
+      "url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.GRU.html",
+      "why": "Match reset/update gates, hidden-state shapes and outputs to the recurrent classifier. Use the installed package version for exact API behavior."
+    }
+  ],
+  "scratch-encoder": [
+    {
+      "title": "Devlin et al. — BERT",
+      "url": "https://aclanthology.org/N19-1423/",
+      "why": "Understand bidirectional masked-token pretraining. The lab trains a tiny encoder on synthetic text and does not reproduce BERT’s data, objectives or results."
+    },
+    {
+      "title": "PyTorch 2.6 — TransformerEncoderLayer",
+      "url": "https://docs.pytorch.org/docs/2.6/generated/torch.nn.TransformerEncoderLayer.html",
+      "why": "Map the attention and feed-forward layers in the exercise to the official module interface."
+    }
+  ],
+  "scratch-sequence": [
+    {
+      "title": "Cho et al. — Learning Phrase Representations using RNN Encoder–Decoder",
+      "url": "https://arxiv.org/abs/1406.1078",
+      "why": "Read the gated recurrent encoder–decoder mechanism underlying this lab’s GRU; the small synthetic task does not reproduce the translation experiment."
+    },
+    {
+      "title": "Vaswani et al. — Attention Is All You Need",
+      "url": "https://arxiv.org/abs/1706.03762",
+      "why": "Compare the original Transformer encoder–decoder with this lab’s GRU sequence-to-sequence model. Cross-attention is further reading, not a component of the included GRU."
+    }
+  ],
+  "transfer-compare": [
+    {
+      "title": "PyTorch — Transfer learning tutorial",
+      "url": "https://docs.pytorch.org/tutorials/beginner/transfer_learning_tutorial.html",
+      "why": "Compare training an output head with fine-tuning the whole network; the tutorial uses images, while this lab uses synthetic operations text."
+    },
+    {
+      "title": "Devlin et al. — BERT",
+      "url": "https://aclanthology.org/N19-1423/",
+      "why": "Understand bidirectional masked-token pretraining. The lab trains a tiny encoder on synthetic text and does not reproduce BERT’s data, objectives or results."
+    },
+    {
+      "title": "scikit-learn — Common pitfalls and recommended practices",
+      "url": "https://scikit-learn.org/1.7/common_pitfalls.html",
+      "why": "Check how independent partitions and training-only preprocessing prevent data leakage."
+    }
+  ],
+  "rag-pipeline": [
+    {
+      "title": "Lewis et al. — Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+      "url": "https://arxiv.org/abs/2005.11401",
+      "why": "The landmark retrieval-plus-generation design provides context; this lab uses sparse TF–IDF retrieval and a frozen generator rather than reproducing the paper’s learned retriever."
+    },
+    {
+      "title": "scikit-learn — TfidfVectorizer",
+      "url": "https://scikit-learn.org/1.7/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html",
+      "why": "Follow how document tokens become weighted, normalized sparse vectors in this implementation."
+    },
+    {
+      "title": "scikit-learn — cosine_similarity",
+      "url": "https://scikit-learn.org/1.7/modules/generated/sklearn.metrics.pairwise.cosine_similarity.html",
+      "why": "Explain why dot products of L2-normalized TF–IDF vectors give the retrieval similarity used here."
+    }
+  ],
+  "synthetic-data": [
+    {
+      "title": "Wang et al. — Self-Instruct",
+      "url": "https://aclanthology.org/2023.acl-long.754/",
+      "why": "A research example of generating and filtering instruction data. The lab’s deterministic tabular simulator is a different mechanism."
+    },
+    {
+      "title": "Stadler, Oprisanu and Troncoso — Synthetic Data: Anonymisation Groundhog Day",
+      "url": "https://www.usenix.org/conference/usenixsecurity22/presentation/stadler",
+      "why": "Understand why calling data synthetic does not by itself establish privacy."
+    },
+    {
+      "title": "Shumailov et al. — The Curse of Recursion: Training on Generated Data Makes Models Forget",
+      "url": "https://arxiv.org/abs/2305.17493",
+      "why": "Research on recursive synthetic-data training motivates independent evaluation; the lab tests controlled quality and coverage changes, not a reproduction of model collapse."
+    }
+  ]
+}

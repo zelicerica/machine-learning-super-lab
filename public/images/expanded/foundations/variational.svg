@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 700" role="img" aria-labelledby="title desc">
+<title id="title">Sample a latent value without losing the gradient</title><desc id="desc">For mean 2, standard deviation 0.5 and sampled standard-normal noise minus 1, the latent sample is 2 plus 0.5 times minus 1, which is 1.5. Training combines a reconstruction term with a weighted KL divergence to the prior.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#8192ae"/></marker></defs>
+<g font-family="DejaVu Sans, sans-serif">
+<rect x="0" y="0" width="1120" height="700" rx="18" fill="#0b1020"/>
+<text x="40" y="38" font-size="13" fill="#4ade80" font-weight="700" text-anchor="start" letter-spacing="2">FOUNDATIONS / VARIATIONAL</text>
+<text x="40" y="84" font-size="30" fill="#e6edf7" font-weight="700" text-anchor="start" letter-spacing="0">Sample a latent value without losing the gradient</text>
+<text x="40" y="117" font-size="17" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">The encoder predicts distribution parameters; random noise supplies the sample variation.</text>
+<line x1="40" y1="645" x2="1080" y2="645" stroke="#344563" stroke-width="1"/>
+<text x="40" y="674" font-size="14" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">Teaching illustration • Use your own lab run for measured results.</text>
+<text x="40" y="170" font-size="20" fill="#4ade80" font-weight="700" text-anchor="start" letter-spacing="0">One latent coordinate</text>
+<rect x="40" y="196" width="320" height="120" rx="12" fill="#131c31"/>
+<text x="200" y="232" font-size="16" fill="#b4c1d5" font-weight="400" text-anchor="middle" letter-spacing="0">Encoder mean</text>
+<text x="200" y="284" font-size="32" fill="#4ade80" font-weight="700" text-anchor="middle" letter-spacing="0">μ = 2</text>
+<rect x="400" y="196" width="320" height="120" rx="12" fill="#131c31"/>
+<text x="560" y="232" font-size="16" fill="#b4c1d5" font-weight="400" text-anchor="middle" letter-spacing="0">Encoder standard deviation</text>
+<text x="560" y="284" font-size="32" fill="#b5a0ff" font-weight="700" text-anchor="middle" letter-spacing="0">σ = 0.5</text>
+<rect x="760" y="196" width="320" height="120" rx="12" fill="#131c31"/>
+<text x="920" y="232" font-size="16" fill="#b4c1d5" font-weight="400" text-anchor="middle" letter-spacing="0">Sampled standard-normal noise</text>
+<text x="920" y="284" font-size="32" fill="#fbbf24" font-weight="700" text-anchor="middle" letter-spacing="0">ε = −1</text>
+<path d="M200 320 V350 H560 V377" fill="none" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M560 320 V350 H560 V377" fill="none" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M920 320 V350 H560 V377" fill="none" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="250" y="384" width="620" height="104" rx="12" fill="#0b1020" stroke="#344563"/>
+<text x="560" y="430" font-size="27" fill="#e6edf7" font-weight="700" text-anchor="middle" letter-spacing="0">z = μ + σ × ε</text>
+<text x="560" y="470" font-size="27" fill="#4ade80" font-weight="700" text-anchor="middle" letter-spacing="0">2 + 0.5 × (−1) = 1.5</text>
+<line x1="560" y1="496" x2="560" y2="522" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="560" y="554" font-size="23" fill="#b5a0ff" font-weight="700" text-anchor="middle" letter-spacing="0">Decode z to reconstruct the input</text>
+<text x="560" y="598" font-size="22" fill="#e6edf7" font-weight="400" text-anchor="middle" letter-spacing="0">Training objective: reconstruction term + β × KL(q(z|x) ‖ p(z))</text>
+<text x="560" y="626" font-size="14" fill="#b4c1d5" font-weight="400" text-anchor="middle" letter-spacing="0">KL: Kullback–Leibler divergence to the prior</text>
+</g></svg>

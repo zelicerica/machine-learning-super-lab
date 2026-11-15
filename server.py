@@ -75,7 +75,11 @@ def parse_command(command):
     if not args or args[0] not in ALLOWED_SCRIPTS: raise ValueError('Use one of the course scripts. The code editor is available for your own Python.')
     script=args[0]
     if script=='mechanisms.py':
-        if len(args)!=1: raise ValueError('mechanisms.py takes no arguments.')
+        if len(args)!=1:
+            if len(args) not in (3,5) or args[1]!='--demo' or args[2] not in {'math','quantization','distillation','architectures'}:
+                raise ValueError('Choose one supported numerical demo.')
+            if len(args)==5 and (args[2]!='quantization' or args[3]!='--qmax' or args[4] not in {'7','127'}):
+                raise ValueError('Quantization supports --qmax 7 or 127.')
         return [runtime_python(),*args]
     if script=='compare_reports.py':
         if len(args)!=3: raise ValueError('Supply two report paths inside outputs/.')

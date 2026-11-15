@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 700" role="img" aria-labelledby="title desc">
+<title id="title">Track the image tensor through the network</title><desc id="desc">A single-channel 8 by 8 image becomes eight 8 by 8 feature maps, then eight 4 by 4 pooled maps, then sixteen 4 by 4 maps. Flattening gives 256 values, followed by ten class scores.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#8192ae"/></marker></defs>
+<g font-family="DejaVu Sans, sans-serif">
+<rect x="0" y="0" width="1120" height="700" rx="18" fill="#0b1020"/>
+<text x="40" y="38" font-size="13" fill="#4ade80" font-weight="700" text-anchor="start" letter-spacing="2">FOUNDATIONS / CONVOLUTION</text>
+<text x="40" y="84" font-size="30" fill="#e6edf7" font-weight="700" text-anchor="start" letter-spacing="0">Track the image tensor through the network</text>
+<text x="40" y="117" font-size="17" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">Shape notation is channels × height × width; flattening preserves the element count.</text>
+<line x1="40" y1="645" x2="1080" y2="645" stroke="#344563" stroke-width="1"/>
+<text x="40" y="674" font-size="14" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">Teaching illustration • Use your own lab run for measured results.</text>
+<rect x="50" y="165" width="300" height="195" rx="12" fill="#131c31"/>
+<text x="66" y="193" font-size="17" fill="#4ade80" font-weight="700" text-anchor="start" letter-spacing="0">1 / Input</text>
+<rect x="155" y="220" width="75" height="75" rx="3" fill="#0b1020" stroke="#344563"/>
+<line x1="164.375" y1="220" x2="164.375" y2="295" stroke="#344563" stroke-width="1"/>
+<line x1="155" y1="229.375" x2="230" y2="229.375" stroke="#344563" stroke-width="1"/>
+<line x1="173.75" y1="220" x2="173.75" y2="295" stroke="#344563" stroke-width="1"/>
+<line x1="155" y1="238.75" x2="230" y2="238.75" stroke="#344563" stroke-width="1"/>
+<line x1="183.125" y1="220" x2="183.125" y2="295" stroke="#344563" stroke-width="1"/>
+<line x1="155" y1="248.125" x2="230" y2="248.125" stroke="#344563" stroke-width="1"/>
+<line x1="192.5" y1="220" x2="192.5" y2="295" stroke="#344563" stroke-width="1"/>
+<line x1="155" y1="257.5" x2="230" y2="257.5" stroke="#344563" stroke-width="1"/>
+<line x1="201.875" y1="220" x2="201.875" y2="295" stroke="#344563" stroke-width="1"/>
+<line x1="155" y1="266.875" x2="230" y2="266.875" stroke="#344563" stroke-width="1"/>
+<line x1="211.25" y1="220" x2="211.25" y2="295" stroke="#344563" stroke-width="1"/>
+<line x1="155" y1="276.25" x2="230" y2="276.25" stroke="#344563" stroke-width="1"/>
+<line x1="220.625" y1="220" x2="220.625" y2="295" stroke="#344563" stroke-width="1"/>
+<line x1="155" y1="285.625" x2="230" y2="285.625" stroke="#344563" stroke-width="1"/>
+<text x="200" y="339" font-size="21" fill="#e6edf7" font-weight="700" text-anchor="middle" letter-spacing="0">1 × 8 × 8</text>
+<rect x="410" y="165" width="300" height="195" rx="12" fill="#131c31"/>
+<text x="426" y="193" font-size="17" fill="#b5a0ff" font-weight="700" text-anchor="start" letter-spacing="0">2 / Padded convolution</text>
+<rect x="531" y="206" width="75" height="75" rx="3" fill="#0b1020" stroke="#344563"/>
+<rect x="523" y="213" width="75" height="75" rx="3" fill="#0b1020" stroke="#344563"/>
+<rect x="515" y="220" width="75" height="75" rx="3" fill="#0b1020" stroke="#344563"/>
+<line x1="524.375" y1="220" x2="524.375" y2="295" stroke="#344563" stroke-width="1"/>
+<line x1="515" y1="229.375" x2="590" y2="229.375" stroke="#344563" stroke-width="1"/>
+<line x1="533.75" y1="220" x2="533.75" y2="295" stroke="#344563" stroke-width="1"/>
+<line x1="515" y1="238.75" x2="590" y2="238.75" stroke="#344563" stroke-width="1"/>
+<line x1="543.125" y1="220" x2="543.125" y2="295" stroke="#344563" stroke-width="1"/>
+<line x1="515" y1="248.125" x2="590" y2="248.125" stroke="#344563" stroke-width="1"/>
+<line x1="552.5" y1="220" x2="552.5" y2="295" stroke="#344563" stroke-width="1"/>
+<line x1="515" y1="257.5" x2="590" y2="257.5" stroke="#344563" stroke-width="1"/>
+<line x1="561.875" y1="220" x2="561.875" y2="295" stroke="#344563" stroke-width="1"/>
+<line x1="515" y1="266.875" x2="590" y2="266.875" stroke="#344563" stroke-width="1"/>
+<line x1="571.25" y1="220" x2="571.25" y2="295" stroke="#344563" stroke-width="1"/>
+<line x1="515" y1="276.25" x2="590" y2="276.25" stroke="#344563" stroke-width="1"/>
+<line x1="580.625" y1="220" x2="580.625" y2="295" stroke="#344563" stroke-width="1"/>
+<line x1="515" y1="285.625" x2="590" y2="285.625" stroke="#344563" stroke-width="1"/>
+<text x="560" y="339" font-size="21" fill="#e6edf7" font-weight="700" text-anchor="middle" letter-spacing="0">8 × 8 × 8</text>
+<rect x="770" y="165" width="300" height="195" rx="12" fill="#131c31"/>
+<text x="786" y="193" font-size="17" fill="#fbbf24" font-weight="700" text-anchor="start" letter-spacing="0">3 / Pooling</text>
+<rect x="891" y="206" width="75" height="75" rx="3" fill="#0b1020" stroke="#344563"/>
+<rect x="883" y="213" width="75" height="75" rx="3" fill="#0b1020" stroke="#344563"/>
+<rect x="875" y="220" width="75" height="75" rx="3" fill="#0b1020" stroke="#344563"/>
+<line x1="893.75" y1="220" x2="893.75" y2="295" stroke="#344563" stroke-width="1"/>
+<line x1="875" y1="238.75" x2="950" y2="238.75" stroke="#344563" stroke-width="1"/>
+<line x1="912.5" y1="220" x2="912.5" y2="295" stroke="#344563" stroke-width="1"/>
+<line x1="875" y1="257.5" x2="950" y2="257.5" stroke="#344563" stroke-width="1"/>
+<line x1="931.25" y1="220" x2="931.25" y2="295" stroke="#344563" stroke-width="1"/>
+<line x1="875" y1="276.25" x2="950" y2="276.25" stroke="#344563" stroke-width="1"/>
+<text x="920" y="339" font-size="21" fill="#e6edf7" font-weight="700" text-anchor="middle" letter-spacing="0">8 × 4 × 4</text>
+<rect x="50" y="398" width="300" height="195" rx="12" fill="#131c31"/>
+<text x="66" y="426" font-size="17" fill="#b5a0ff" font-weight="700" text-anchor="start" letter-spacing="0">4 / Second convolution</text>
+<rect x="179" y="432" width="75" height="75" rx="3" fill="#0b1020" stroke="#344563"/>
+<rect x="171" y="439" width="75" height="75" rx="3" fill="#0b1020" stroke="#344563"/>
+<rect x="163" y="446" width="75" height="75" rx="3" fill="#0b1020" stroke="#344563"/>
+<rect x="155" y="453" width="75" height="75" rx="3" fill="#0b1020" stroke="#344563"/>
+<line x1="173.75" y1="453" x2="173.75" y2="528" stroke="#344563" stroke-width="1"/>
+<line x1="155" y1="471.75" x2="230" y2="471.75" stroke="#344563" stroke-width="1"/>
+<line x1="192.5" y1="453" x2="192.5" y2="528" stroke="#344563" stroke-width="1"/>
+<line x1="155" y1="490.5" x2="230" y2="490.5" stroke="#344563" stroke-width="1"/>
+<line x1="211.25" y1="453" x2="211.25" y2="528" stroke="#344563" stroke-width="1"/>
+<line x1="155" y1="509.25" x2="230" y2="509.25" stroke="#344563" stroke-width="1"/>
+<text x="200" y="572" font-size="21" fill="#e6edf7" font-weight="700" text-anchor="middle" letter-spacing="0">16 × 4 × 4</text>
+<rect x="410" y="398" width="300" height="195" rx="12" fill="#131c31"/>
+<text x="426" y="426" font-size="17" fill="#4ade80" font-weight="700" text-anchor="start" letter-spacing="0">5 / Flatten</text>
+<rect x="434" y="466" width="12" height="48" rx="2" fill="#4ade80"/>
+<rect x="452" y="466" width="12" height="48" rx="2" fill="#4ade80"/>
+<rect x="470" y="466" width="12" height="48" rx="2" fill="#4ade80"/>
+<rect x="488" y="466" width="12" height="48" rx="2" fill="#4ade80"/>
+<rect x="506" y="466" width="12" height="48" rx="2" fill="#4ade80"/>
+<rect x="524" y="466" width="12" height="48" rx="2" fill="#4ade80"/>
+<rect x="542" y="466" width="12" height="48" rx="2" fill="#4ade80"/>
+<rect x="560" y="466" width="12" height="48" rx="2" fill="#4ade80"/>
+<rect x="578" y="466" width="12" height="48" rx="2" fill="#4ade80"/>
+<rect x="596" y="466" width="12" height="48" rx="2" fill="#4ade80"/>
+<rect x="614" y="466" width="12" height="48" rx="2" fill="#4ade80"/>
+<rect x="632" y="466" width="12" height="48" rx="2" fill="#4ade80"/>
+<rect x="650" y="466" width="12" height="48" rx="2" fill="#4ade80"/>
+<rect x="668" y="466" width="12" height="48" rx="2" fill="#4ade80"/>
+<text x="560" y="538" font-size="15" fill="#b4c1d5" font-weight="400" text-anchor="middle" letter-spacing="0">All values in one vector</text>
+<text x="560" y="572" font-size="21" fill="#e6edf7" font-weight="700" text-anchor="middle" letter-spacing="0">16 × 4 × 4 = 256</text>
+<rect x="770" y="398" width="300" height="195" rx="12" fill="#131c31"/>
+<text x="786" y="426" font-size="17" fill="#fbbf24" font-weight="700" text-anchor="start" letter-spacing="0">6 / Classifier</text>
+<rect x="806" y="504" width="14" height="20" rx="2" fill="#fbbf24"/>
+<rect x="829" y="487" width="14" height="37" rx="2" fill="#fbbf24"/>
+<rect x="852" y="470" width="14" height="54" rx="2" fill="#fbbf24"/>
+<rect x="875" y="453" width="14" height="71" rx="2" fill="#fbbf24"/>
+<rect x="898" y="498" width="14" height="26" rx="2" fill="#fbbf24"/>
+<rect x="921" y="481" width="14" height="43" rx="2" fill="#fbbf24"/>
+<rect x="944" y="464" width="14" height="60" rx="2" fill="#fbbf24"/>
+<rect x="967" y="447" width="14" height="77" rx="2" fill="#fbbf24"/>
+<rect x="990" y="492" width="14" height="32" rx="2" fill="#fbbf24"/>
+<rect x="1013" y="475" width="14" height="49" rx="2" fill="#fbbf24"/>
+<text x="920" y="572" font-size="21" fill="#e6edf7" font-weight="700" text-anchor="middle" letter-spacing="0">10 class scores</text>
+<line x1="358" y1="263" x2="399" y2="263" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="718" y1="263" x2="759" y2="263" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="358" y1="496" x2="399" y2="496" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="718" y1="496" x2="759" y2="496" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M1070 263 H1095 V379 H25 V496 H40" fill="none" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="560" y="625" font-size="16" fill="#b4c1d5" font-weight="400" text-anchor="middle" letter-spacing="0">A stack is symbolic: the shape label gives the exact channel count.</text>
+</g></svg>

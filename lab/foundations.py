@@ -47,10 +47,27 @@ def regression(y,p):return {'mean_absolute_error':float(mean_absolute_error(y,p)
 def payload(a,metrics,parts=None,dataset='',notes='',artifacts=None,history=None):
     result={'schema':'superlab.report.v1','experiment':a.experiment,'split':a.split,'seed':a.seed,'dataset':dataset,'metrics':metrics,'limitations':notes,'artifacts':artifacts or [],'history':history or [],'settings':{k:v for k,v in vars(a).items() if k not in ('out','output')}}
     if parts is not None:result['split_sizes']={'train':len(parts[0]),'validation':len(parts[1]),'test':len(parts[2])}
+    if a.experiment=='adversarial':
+        result.update(split='independent_target_samples',evaluation={'protocol':'Fresh samples from the same known simulator; not a reserved final test','target_samples':1500,'generated_samples':1500,'evaluation_seed':a.seed+1})
+    elif a.experiment=='reinforcement':
+        result.update(split='same_environment_policy_evaluation',evaluation={'protocol':'Same deterministic map and fixed start; not generalization to new tasks','episodes_per_policy':100,'start_state':0,'step_cap':50})
     return result
 
 def export_manifest(a,kind,sample,method='predict',output='values'):
-    (a.out/'model-manifest.json').write_text(json.dumps({'format':kind,'experiment':a.experiment,'method':method,'output':output,'input_contract':'Use the shape and feature order in example-input.json. Digit inputs are 64 grayscale values normalized to 0 through 1. Graph inference uses all 180 nodes in the original ordering; its saved graph structure is fixed.','trusted_artifacts_only':True},indent=2))
+    contracts={
+        'linear':'Rows of [record_count, transformation_count, compression_setting], in that order.',
+        'gaussian':'Rows containing one sensor-position value in the training units.',
+        'neighbors':'Rows of two measurements; the saved pipeline applies the training scaler.',
+        'kernel':'Rows of two measurements; the saved pipeline applies the training scaler.',
+        'cluster':'Rows of two measurements; outputs are arbitrary K-means cluster IDs.',
+        'graph':'All 180 node feature rows in the original ordering; the saved graph structure is fixed.',
+        'adversarial':'Rows of two noise values; each row produces one synthetic scalar.',
+        'reinforcement':'Integer grid states from 0 through 15; outputs use action order up, right, down, left.',
+        'ngram':'A text context using the saved word tokenizer and vocabulary.'}
+    contract=contracts.get(a.experiment,'Rows of eight numeric event measurements in the feature order shown in example-input.json.')
+    if a.experiment in ('projection','dense','convolution','autoencoder','variational'):
+        contract='Rows of 64 grayscale values normalized to 0 through 1, flattened from 8-by-8 images.'
+    (a.out/'model-manifest.json').write_text(json.dumps({'format':kind,'experiment':a.experiment,'method':method,'output':output,'input_contract':contract,'trusted_artifacts_only':True},indent=2))
     (a.out/'example-input.json').write_text(json.dumps(sample.tolist() if hasattr(sample,'tolist') else sample,indent=2))
 
 def export_sklearn(a,models,sample,method='predict'):
@@ -218,8 +235,8 @@ def representation(a):
 
 def adversarial(a):
     torch,device=neural_setup(a);nn=torch.nn;rng=np.random.default_rng(a.seed)
-    def real(n):
-        modes=torch.randint(0,2,(n,1),device=device);return torch.randn(n,1,device=device)*.4+torch.where(modes==0,-2.,2.)
+    def real(n,generator=None):
+        modes=torch.randint(0,2,(n,1),device=device,generator=generator);return torch.randn(n,1,device=device,generator=generator)*.4+torch.where(modes==0,-2.,2.)
     generator=nn.Sequential(nn.Linear(2,32),nn.LeakyReLU(.2),nn.Linear(32,32),nn.LeakyReLU(.2),nn.Linear(32,1)).to(device)
     discriminator=nn.Sequential(nn.Linear(1,32),nn.LeakyReLU(.2),nn.Linear(32,16),nn.LeakyReLU(.2),nn.Linear(16,1)).to(device)
     go=torch.optim.Adam(generator.parameters(),lr=.001,betas=(.5,.999));do=torch.optim.Adam(discriminator.parameters(),lr=.001,betas=(.5,.999));bce=nn.BCEWithLogitsLoss();history=[]
@@ -230,7 +247,8 @@ def adversarial(a):
         go.zero_grad();fake=generator(torch.randn(128,2,device=device));gl=bce(discriminator(fake),torch.ones_like(fake));gl.backward();go.step()
         for p in discriminator.parameters():p.requires_grad_(True)
         if step%20==0 or step==a.steps-1:history.append({'step':step+1,'loss':float(gl.detach()),'discriminator_loss':float(dl.detach())})
-    with torch.no_grad():generated=generator(torch.randn(1500,2,device=device)).cpu().numpy().ravel();observed=real(1500).cpu().numpy().ravel()
+    evaluation_rng=torch.Generator(device=device).manual_seed(a.seed+1)
+    with torch.no_grad():generated=generator(torch.randn(1500,2,device=device,generator=evaluation_rng)).cpu().numpy().ravel();observed=real(1500,evaluation_rng).cpu().numpy().ravel()
     plt.figure(figsize=(8,4));plt.hist(observed,bins=45,density=True,alpha=.5,label='Independent target samples');plt.hist(generated,bins=45,density=True,alpha=.5,label='Generated samples');plt.legend();plt.xlabel('Synthetic scalar value');plt.ylabel('Density');plt.title('Check both modes, not just a decreasing loss')
     torch.save(generator.state_dict(),a.out/'generator.pt')
     export_torch(a,generator,torch.randn(2,2,device=device))
@@ -294,6 +312,9 @@ def reinforcement(a):
     return payload(a,{'greedy_success_rate':success/100,'greedy_mean_return':float(np.mean(returns)),'random_mean_return':float(np.mean(baseline)),'greedy_policy':table.argmax(1).reshape(4,4).tolist(),'action_order':['up','right','down','left']},dataset='Deterministic four-by-four grid; upper-left start and lower-right goal',notes='Evaluation repeats the same environment without exploration. It verifies learned behavior here, not generalization to new maps or physical robots.',artifacts=[figure(a,'rewards.png')])
 
 def run(a):
+    if a.experiment in ('adversarial','reinforcement'):
+        if a.split is not None:raise ValueError('--split does not apply to this simulator evaluation; see the lesson protocol.')
+    else:a.split=a.split or 'validation'
     a.out=Path(a.output)
     if a.out.exists() and any(a.out.iterdir()):raise ValueError('Choose a new output folder to preserve previous evidence.')
     a.out.mkdir(parents=True,exist_ok=True)
@@ -307,7 +328,7 @@ def run(a):
     (a.out/'report.json').write_text(json.dumps(result,indent=2,allow_nan=False),encoding='utf-8');print(json.dumps(result,indent=2,allow_nan=False));return result
 
 def parser():
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('experiment',choices=EXPERIMENTS);p.add_argument('--output',default='outputs/foundation-run');p.add_argument('--seed',type=int,default=42);p.add_argument('--split',choices=['validation','test'],default='validation');p.add_argument('--device',choices=['cpu','cuda'],default='cpu');p.add_argument('--threads',type=int,default=2);p.add_argument('--epochs',type=int,default=20);p.add_argument('--steps',type=int,default=600);p.add_argument('--episodes',type=int,default=500);p.add_argument('--depth',type=int,default=4);p.add_argument('--neighbors',type=int,default=5);p.add_argument('--clusters',type=int,default=3);p.add_argument('--components',type=int,default=16);p.add_argument('--latent',type=int,default=8);p.add_argument('--order',type=int,default=2);p.add_argument('--noise',type=float,default=.12);p.add_argument('--strength',type=float,default=1);p.add_argument('--beta',type=float,default=.1);p.add_argument('--ablate-edges',action='store_true');return p
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('experiment',choices=EXPERIMENTS);p.add_argument('--output',default='outputs/foundation-run');p.add_argument('--seed',type=int,default=42);p.add_argument('--split',choices=['validation','test'],default=None);p.add_argument('--device',choices=['cpu','cuda'],default='cpu');p.add_argument('--threads',type=int,default=2);p.add_argument('--epochs',type=int,default=20);p.add_argument('--steps',type=int,default=600);p.add_argument('--episodes',type=int,default=500);p.add_argument('--depth',type=int,default=4);p.add_argument('--neighbors',type=int,default=5);p.add_argument('--clusters',type=int,default=3);p.add_argument('--components',type=int,default=16);p.add_argument('--latent',type=int,default=8);p.add_argument('--order',type=int,default=2);p.add_argument('--noise',type=float,default=.12);p.add_argument('--strength',type=float,default=1);p.add_argument('--beta',type=float,default=.1);p.add_argument('--ablate-edges',action='store_true');return p
 
 if __name__=='__main__':
     args=parser().parse_args()

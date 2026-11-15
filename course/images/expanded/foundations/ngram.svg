@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 700" role="img" aria-labelledby="title desc">
+<title id="title">Predict the next word from counted transitions</title><desc id="desc">After server, starts appears three times and stops once. Their unsmoothed probabilities are 3/4 and 1/4. Add-one smoothing gives each vocabulary option one additional count and uses denominator four plus the vocabulary size V.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#8192ae"/></marker></defs>
+<g font-family="DejaVu Sans, sans-serif">
+<rect x="0" y="0" width="1120" height="700" rx="18" fill="#0b1020"/>
+<text x="40" y="38" font-size="13" fill="#4ade80" font-weight="700" text-anchor="start" letter-spacing="2">FOUNDATIONS / NGRAM</text>
+<text x="40" y="84" font-size="30" fill="#e6edf7" font-weight="700" text-anchor="start" letter-spacing="0">Predict the next word from counted transitions</text>
+<text x="40" y="117" font-size="17" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">The short context is “server”; the training counts are three “starts” and one “stops”.</text>
+<line x1="40" y1="645" x2="1080" y2="645" stroke="#344563" stroke-width="1"/>
+<text x="40" y="674" font-size="14" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">Teaching illustration • Use your own lab run for measured results.</text>
+<rect x="40" y="180" width="270" height="220" rx="12" fill="#131c31"/>
+<text x="175" y="227" font-size="19" fill="#b4c1d5" font-weight="400" text-anchor="middle" letter-spacing="0">Context</text>
+<text x="175" y="286" font-size="35" fill="#4ade80" font-weight="700" text-anchor="middle" letter-spacing="0">“server”</text>
+<text x="175" y="353" font-size="17" fill="#b4c1d5" font-weight="400" text-anchor="middle" letter-spacing="0">4 observed transitions</text>
+<path d="M319 290 H360 V238 H408" fill="none" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M360 290 V365 H408" fill="none" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="430" y="221" font-size="25" fill="#4ade80" font-weight="700" text-anchor="start" letter-spacing="0">starts</text>
+<text x="1055" y="221" font-size="24" fill="#4ade80" font-weight="700" text-anchor="end" letter-spacing="0">3/4 = 0.75</text>
+<rect x="430" y="244" width="625" height="30" rx="4" fill="#344563"/>
+<rect x="430" y="244" width="468.75" height="30" rx="4" fill="#4ade80"/>
+<text x="430" y="348" font-size="25" fill="#b5a0ff" font-weight="700" text-anchor="start" letter-spacing="0">stops</text>
+<text x="1055" y="348" font-size="24" fill="#b5a0ff" font-weight="700" text-anchor="end" letter-spacing="0">1/4 = 0.25</text>
+<rect x="430" y="371" width="625" height="30" rx="4" fill="#344563"/>
+<rect x="430" y="371" width="156.25" height="30" rx="4" fill="#b5a0ff"/>
+<rect x="40" y="456" width="1040" height="163" rx="12" fill="#131c31"/>
+<text x="64" y="491" font-size="20" fill="#fbbf24" font-weight="700" text-anchor="start" letter-spacing="0">Add one count to every vocabulary option</text>
+<text x="560" y="540" font-size="29" fill="#e6edf7" font-weight="700" text-anchor="middle" letter-spacing="0">P(word | server) = (count + 1) / (4 + V)</text>
+<text x="64" y="583" font-size="18" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">V is the full vocabulary size. An unseen option receives 1 / (4 + V), not zero.</text>
+</g></svg>

@@ -80,6 +80,7 @@ flowchart TD
     J --> S
     S --> P["Softmax weights"]
     P --> O["Weighted values and output projection"]
+    J -->|"Values"| O
     J --> N["Cache for next generation step"]
 ```
 
@@ -170,7 +171,7 @@ flowchart TD
     K --> U["Reconstruct keys and values"]
     U --> A["Causal token attention"]
     H["Earlier block outputs"] --> D["Learned depth mixture"]
-    D --> X
+    D --> B["Next block at the same token position"]
 ```
 
 **Build from start to finish:** `modern_lab.py research` trains the ordinary baseline, latent-cache variant, and depth-mixture variant on the event sentences. Compare cache bytes, model size, loss and cached/full equivalence. All variant checkpoints are saved; the final depth-mixture model is reloaded and accepts a new text prefix. Read the corresponding landmark references before claiming a paper reproduction.
@@ -202,7 +203,7 @@ flowchart TD
 
 **The four-bit boundary:** the local code packs two integer codes per byte and stores row scales. It quantizes only selected query/output projections and the vocabulary head. Other frozen parameters remain full precision. Computation unpacks to floating point. This is a real packed-storage/adaptation exercise, but **not** the paper's NormalFloat4 quantizer, whole-model QLoRA, or an optimized low-bit kernel. It must never be presented as measured GPU QLoRA performance.
 
-**Change one variable:** compare 75 and 150 adaptation updates in separate runs. Check whether lower response loss produces better actual labels on held-out templates. **Assessment:** derive the parameter counts; identify the bytes in scales and remaining full-precision tensors; explain why adapter-only deployment still needs the matching base.
+**Budget comparison:** compare `--steps 75` and `--steps 150`. This option changes both the base-pretraining budget and each method’s adaptation budget, so it is not an isolated adaptation ablation. Within each run, all three methods branch from the same pretrained base. For an isolated adaptation study, save and reuse one identical base while varying only adaptation updates. Check whether lower response loss produces better actual labels on held-out templates. **Assessment:** derive the parameter counts; identify the bytes in scales and remaining full-precision tensors; explain why adapter-only deployment still needs the matching base.
 
 **Deployment and monitoring:** save tokenizer rules, configuration, base identity, adapter mode and labels with the artifact. Reject inputs outside the contract. Track per-class mistakes, format failures and latency. Three held-out examples cannot establish generalization; use independently collected real tickets and review before deploying. Roll back to the matched baseline if adaptation damages required behavior.
 
@@ -269,6 +270,8 @@ flowchart TD
     U --> A["Held-out and adversarial checks"]
 ```
 
+**Evaluation fixtures:** four authored response pairs train the scorer; two separate pairs are used for validation and another two for test. The report and data card identify the selected pair IDs. These are style-preference teaching fixtures, not human ratings or factuality labels.
+
 **Build from start to finish:** train the scorer, evaluate held-out pair ordering, test a repeated response and an unsupported numerical claim, save the weights, reload them, and score edited text in the browser. These are author-specified teaching labels, not results from a human-participant study. The model does not receive a question or evidence and cannot verify a response's factual relation to them.
 
 **Change one variable:** alter one training preference to favor a dismissive answer and rerun in a new directory. Inspect sensitivity to labels and wording. **Assessment:** explain score-offset invariance, show a misleading high score, and design a held-out audit that distinguishes tone from correctness.
@@ -298,6 +301,8 @@ flowchart TD
     M --> E["Untouched exact-match assessment"]
 ```
 
+**On-policy update:** REINFORCE takes one optimizer step per sampled rollout, then draws fresh responses. The clipped methods in the next lesson use their declared repeated surrogate updates.
+
 **Build from start to finish:** the normal command uses exact arithmetic reward. The second command rewards any answer starting with zero, including incorrect answers. Both report before/after held-out arithmetic accuracy and training reward separately. The model saves and reloads, and browser prediction accepts a new prompt such as `8+9=`.
 
 **Assessment:** compare correct and flawed reward experiments. A reward curve can improve without improving held-out correctness. A short run may not exhibit dramatic hacking; report the actual outcome rather than inventing an expected failure. Explain the warm-start cost and why this is not reinforcement learning entirely from random weights.
@@ -324,7 +329,10 @@ flowchart TD
 flowchart TD
     P["One prompt"] --> G["Four sampled responses"]
     G --> R["Verified rewards"]
-    R --> A["Within-group advantages"]
+    R --> M{"Which algorithm?"}
+    M -->|"PPO"| V["Reward minus learned value baseline"]
+    M -->|"GRPO or GSPO"| A["Within-group advantages"]
+    V --> L
     G --> O["Frozen rollout log probabilities"]
     A --> L["Clipped policy objective"]
     O --> L
@@ -416,6 +424,8 @@ flowchart TD
 
 **Elo** is a comparative rating system named after its inventor, not an acronym. For equal ratings, the expected score is 0.5. With an update factor of 16, one win adds eight points to the winner and subtracts eight from the loser. The exercise updates two ratings from valid judge choices. Wrong judgments can produce a confidently misleading ranking. Ratings depend on opponents, presentation order, update rules and the population of comparisons.
 
+**Case banks:** validation and test contain six different authored questions each. The selected bank appears in both answer orders, producing twelve presentations of six cases. IDs and questions are saved with the raw judgments; swapped orders are not independent new examples.
+
 **Build from start to finish:** run fixture mode first, then actual-model mode. Inspect `judge-audit.png`, raw outputs, invalid responses, agreement and Elo. This lab freezes the judge and saves evaluation artifacts rather than training a new checkpoint. For a product, add blinded human review on representative examples and measure disagreement before using a judge to gate releases.
 
 **Assessment:** explain why the biased fixture can be valid and consistent but wrong; identify a malformed actual judge output; propose controls for order, length and self-preference bias. **Monitoring:** version the judge, rubric and prompt; retest when any changes; retain a manual review route and previous scoring configuration.
@@ -440,7 +450,10 @@ flowchart TD
     D --> S["Stream token to client"]
     S --> D
     S --> M["Arrival timestamps and latency report"]
+    F --> M
 ```
+
+**Evidence boundary:** this is a fixed local systems-timing probe. Its twelve requests do not form a validation/test quality split, and `--split` is not applicable. The data card names training data separately from the two timing prompts.
 
 **Build from start to finish:** the serving experiment trains and saves a small grouped-query model, reload-checks it, starts a private loopback service, sends real streaming requests, and shuts the service down. It tests two prompt lengths with cached and uncached generation and three repeats per condition. Inspect the actual arrival curves in `latency.png`. The service sends token identifiers as newline-delimited JavaScript Object Notation; the client timestamps each line.
 
@@ -466,10 +479,13 @@ Choose one product: an offline operations-note completer, a ticket-routing assis
 flowchart TD
     R["Requirement and data contract"] --> B["Baseline build"]
     B --> A["Controlled alternative"]
-    A --> E{"Independent quality and cost gates"}
+    A --> E{"Validation quality and cost gates"}
     E -->|"Fail"| F["Diagnose and revise using validation"]
     F --> A
-    E -->|"Pass"| S["Save and reload"]
+    E -->|"Pass"| FZ["Freeze model and protocol"]
+    FZ --> T{"One reserved final assessment"}
+    T -->|"Accept"| S["Save and reload"]
+    T -->|"Reject"| Z["Stop; a new study needs fresh final evidence"]
     S --> D["Local service and monitoring plan"]
     D --> X["Reproducible evidence package"]
 ```

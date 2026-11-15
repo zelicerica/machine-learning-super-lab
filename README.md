@@ -2,7 +2,9 @@
 
 **Understand it. Run it. Prove it.** A local website for learning machine learning through explanations, visual algorithms, executable Python experiments, and evidence-based assessments.
 
-The course contains **58 lessons**, **16 reference chapters**, **87 Mermaid diagram instances**, and illustrated model-family guides. Start with a tiny model, learn how training works, build models from scratch, compare pretrained approaches, and test complete retrieval and synthetic-data pipelines.
+The course contains **58 lessons**, **17 reference chapters**, **69 Mermaid diagram instances**, and illustrated model-family guides. Start with a tiny model, learn how training works, build models from scratch, compare pretrained approaches, and test complete retrieval and synthetic-data pipelines.
+
+**Content-reviewed release `2026.11-midnight.4`:** all 58 lessons have matched references at the end, the 18 Foundations implementations have individual worked-example illustrations, and shared workflow material has been consolidated. Read the [lesson-by-lesson audit](CONTENT-AUDIT.md) and [annotated references](course/Annotated-Lesson-References.md).
 
 **Midnight Motion release:** the connected glass blocks now move behind the lab as a locally bundled, silent MP4. The landing page gives the video room to show; lesson backgrounds are dimmed for reading. Use **Pause motion** in the top bar; the preference persists, and reduced-motion settings are respected. The navy workspace also includes coding colors, a light-theme option, searchable learning tracks, readable lesson outlines, code highlighting, expandable diagrams, controlled teaching animations, and a searchable research timeline. Click the lesson-count badge to see the exact release and folder serving your browser.
 

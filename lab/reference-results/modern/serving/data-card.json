@@ -1,6 +1,16 @@
 {
-  "origin": "Original synthetic teaching examples and deterministic generators included in modern_lab.py",
+  "origin": "Original authored or simulated teaching data",
   "license": "Included for course exercises",
-  "split_policy": "Sentence-level notes, template-level tickets, operand-pair arithmetic; shared rules and vocabulary remain",
-  "real_world_validation": "Not performed; do not interpret simulator scores as deployment evidence."
+  "real_world_validation": "Not performed; these scores do not establish deployment reliability.",
+  "dataset": "Event-sentence training data and fixed local timing prompts",
+  "split_policy": "Systems timing probe; no held-out quality evaluation",
+  "selected_split": "systems_timing_probe",
+  "training_rows": 9,
+  "timing_prompts": [
+    "service api: ",
+    "service api event start: service queue event restore: "
+  ],
+  "requests": 12,
+  "protocol": "Two prompts, cached/uncached, three warmed serial requests per combination",
+  "audit_note": "Dataset description corrected in midnight.4; measurements are historical and were not rerun by this metadata correction."
 }

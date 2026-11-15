@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 700" role="img" aria-labelledby="title desc">
+<title id="title">Combine learners in two different ways</title><desc id="desc">Five illustrative tree votes are normal, fault, normal, normal, fault, so three of five vote normal. The bundled random forest averages tree class probabilities rather than these hard votes. Boosting instead adds a scaled correction to a current prediction function.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#8192ae"/></marker></defs>
+<g font-family="DejaVu Sans, sans-serif">
+<rect x="0" y="0" width="1120" height="700" rx="18" fill="#0b1020"/>
+<text x="40" y="38" font-size="13" fill="#4ade80" font-weight="700" text-anchor="start" letter-spacing="2">FOUNDATIONS / ENSEMBLE</text>
+<text x="40" y="84" font-size="30" fill="#e6edf7" font-weight="700" text-anchor="start" letter-spacing="0">Combine learners in two different ways</text>
+<text x="40" y="117" font-size="17" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">A simple voting example contrasts with successive boosting corrections.</text>
+<line x1="40" y1="645" x2="1080" y2="645" stroke="#344563" stroke-width="1"/>
+<text x="40" y="674" font-size="14" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">Teaching illustration • Use your own lab run for measured results.</text>
+<rect x="40" y="155" width="500" height="470" rx="12" fill="#131c31"/>
+<rect x="560" y="155" width="520" height="470" rx="12" fill="#131c31"/>
+<text x="64" y="190" font-size="20" fill="#4ade80" font-weight="700" text-anchor="start" letter-spacing="0">Hard-vote illustration</text>
+<path d="M100 235 L77 273 M100 235 L123 273" fill="none" stroke="#344563" stroke-width="2"/>
+<circle cx="100" cy="227" r="14" fill="#b5a0ff"/>
+<circle cx="77" cy="278" r="8" fill="#4ade80"/>
+<circle cx="123" cy="278" r="8" fill="#4ade80"/>
+<text x="100" y="321" font-size="24" fill="#4ade80" font-weight="700" text-anchor="middle" letter-spacing="0">N</text>
+<line x1="100" y1="339" x2="100" y2="369" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M195 235 L172 273 M195 235 L218 273" fill="none" stroke="#344563" stroke-width="2"/>
+<circle cx="195" cy="227" r="14" fill="#b5a0ff"/>
+<circle cx="172" cy="278" r="8" fill="#fb8fa1"/>
+<circle cx="218" cy="278" r="8" fill="#fb8fa1"/>
+<text x="195" y="321" font-size="24" fill="#fb8fa1" font-weight="700" text-anchor="middle" letter-spacing="0">F</text>
+<line x1="195" y1="339" x2="195" y2="369" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M290 235 L267 273 M290 235 L313 273" fill="none" stroke="#344563" stroke-width="2"/>
+<circle cx="290" cy="227" r="14" fill="#b5a0ff"/>
+<circle cx="267" cy="278" r="8" fill="#4ade80"/>
+<circle cx="313" cy="278" r="8" fill="#4ade80"/>
+<text x="290" y="321" font-size="24" fill="#4ade80" font-weight="700" text-anchor="middle" letter-spacing="0">N</text>
+<line x1="290" y1="339" x2="290" y2="369" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M385 235 L362 273 M385 235 L408 273" fill="none" stroke="#344563" stroke-width="2"/>
+<circle cx="385" cy="227" r="14" fill="#b5a0ff"/>
+<circle cx="362" cy="278" r="8" fill="#4ade80"/>
+<circle cx="408" cy="278" r="8" fill="#4ade80"/>
+<text x="385" y="321" font-size="24" fill="#4ade80" font-weight="700" text-anchor="middle" letter-spacing="0">N</text>
+<line x1="385" y1="339" x2="385" y2="369" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M480 235 L457 273 M480 235 L503 273" fill="none" stroke="#344563" stroke-width="2"/>
+<circle cx="480" cy="227" r="14" fill="#b5a0ff"/>
+<circle cx="457" cy="278" r="8" fill="#fb8fa1"/>
+<circle cx="503" cy="278" r="8" fill="#fb8fa1"/>
+<text x="480" y="321" font-size="24" fill="#fb8fa1" font-weight="700" text-anchor="middle" letter-spacing="0">F</text>
+<line x1="480" y1="339" x2="480" y2="369" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="100" y1="376" x2="480" y2="376" stroke="#344563" stroke-width="2"/>
+<line x1="290" y1="376" x2="290" y2="411" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="290" y="454" font-size="27" fill="#4ade80" font-weight="700" text-anchor="middle" letter-spacing="0">3 normal  &gt;  2 fault</text>
+<text x="64" y="514" font-size="17" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">This is an illustrative hard vote.</text>
+<text x="64" y="542" font-size="17" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">The bundled forest averages class</text>
+<text x="64" y="570" font-size="17" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">probabilities before choosing a label.</text>
+<text x="586" y="190" font-size="20" fill="#b5a0ff" font-weight="700" text-anchor="start" letter-spacing="0">Boosting: improve the current model</text>
+<rect x="610" y="222" width="420" height="83" rx="12" fill="#0b1020" stroke="#344563"/>
+<text x="632" y="253" font-size="17" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">Current function</text>
+<text x="820" y="285" font-size="24" fill="#e6edf7" font-weight="700" text-anchor="middle" letter-spacing="0">F(x)</text>
+<rect x="610" y="338" width="420" height="83" rx="12" fill="#0b1020" stroke="#344563"/>
+<text x="632" y="369" font-size="17" fill="#b5a0ff" font-weight="400" text-anchor="start" letter-spacing="0">New correction</text>
+<text x="820" y="401" font-size="24" fill="#e6edf7" font-weight="700" text-anchor="middle" letter-spacing="0">η × h(x)</text>
+<rect x="610" y="454" width="420" height="83" rx="12" fill="#0b1020" stroke="#344563"/>
+<text x="632" y="485" font-size="17" fill="#4ade80" font-weight="400" text-anchor="start" letter-spacing="0">Updated function</text>
+<text x="820" y="517" font-size="24" fill="#e6edf7" font-weight="700" text-anchor="middle" letter-spacing="0">F(x) + η × h(x)</text>
+<line x1="820" y1="307" x2="820" y2="333" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="820" y1="423" x2="820" y2="449" stroke="#344563" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="586" y="584" font-size="17" fill="#b4c1d5" font-weight="400" text-anchor="start" letter-spacing="0">η controls the correction’s contribution.</text>
+</g></svg>

@@ -1,6 +1,40 @@
 {
-  "origin": "Original synthetic teaching examples and deterministic generators included in modern_lab.py",
+  "origin": "Original authored or simulated teaching data",
   "license": "Included for course exercises",
-  "split_policy": "Sentence-level notes, template-level tickets, operand-pair arithmetic; shared rules and vocabulary remain",
-  "real_world_validation": "Not performed; do not interpret simulator scores as deployment evidence."
+  "real_world_validation": "Not performed; these scores do not establish deployment reliability.",
+  "dataset": "Fictional support tickets",
+  "split_policy": "Ticket-template split; shared categories remain",
+  "selected_split": "validation",
+  "partition_sizes": {
+    "train": 12,
+    "validation": 3,
+    "test": 3
+  },
+  "row_ids": {
+    "train": [
+      "5253e43eb271b1ba",
+      "939068abbab8b3de",
+      "b3d9e00a305aab79",
+      "aed3efd4c18339d9",
+      "f500623146d10de0",
+      "c74e68aaab8a5d41",
+      "6f538bc31c0ab07b",
+      "7a9e3c4a054b5c9a",
+      "c1e5b420c91e1801",
+      "c87eff41207dfde9",
+      "98d08db27f2fca07",
+      "5a83aa15ef297bf9"
+    ],
+    "validation": [
+      "24764a3cd2b3e67f",
+      "80c1d21b2caf0153",
+      "265317eae0fa01da"
+    ],
+    "test": [
+      "d30f381300164060",
+      "cfa1a107f5a082dd",
+      "a87295ff19e08f42"
+    ]
+  },
+  "audit_note": "Dataset description corrected in midnight.4; measurements are historical and were not rerun by this metadata correction."
 }
