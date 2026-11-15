@@ -176,7 +176,7 @@ function updateComparison(){
 }
 function afterRender(){
   updateBackgroundRoute();
-  enhanceReading();enhanceWorkbench();filterResearch();updateComparison();enhanceMotion();
+  enhanceReading();enhanceWorkbench();filterResearch();updateComparison();enhanceMotion();TransformerExplorer.mount();
   document.querySelectorAll('a[href^="http"]').forEach(a=>{a.target="_blank";a.rel="noopener noreferrer";});
   document.querySelectorAll('.practice-card').forEach((card,i)=>{card.classList.add('build-card');});
 }

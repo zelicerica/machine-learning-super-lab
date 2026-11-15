@@ -43,7 +43,7 @@ class LocalRunnerTests(unittest.TestCase):
     def test_workspace_identifies_running_catalog_and_folder(self):
         status,info=self.request('/api/workspace')
         self.assertEqual(status,200)
-        self.assertEqual(info['lessons'],58)
+        self.assertEqual(info['lessons'],59)
         self.assertEqual(info['release'],json.loads((s.ROOT/'release.json').read_text())['id'])
         self.assertEqual(info['project_folder'],str(s.ROOT))
         self.assertTrue(info['catalog_matches_release'])

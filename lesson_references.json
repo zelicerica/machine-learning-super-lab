@@ -854,5 +854,42 @@
       "url": "https://arxiv.org/abs/2305.17493",
       "why": "Research on recursive synthetic-data training motivates independent evaluation; the lab tests controlled quality and coverage changes, not a reproduction of model collapse."
     }
+  ],
+  "transformer-world": [
+    {
+      "title": "Vaswani et al. — Attention Is All You Need (2017)",
+      "url": "https://arxiv.org/abs/1706.03762",
+      "why": "Primary source for the original encoder–decoder architecture, scaled dot-product attention, masking, and parallel training."
+    },
+    {
+      "title": "Bahdanau et al. — Neural Machine Translation by Jointly Learning to Align and Translate (2014/2015)",
+      "url": "https://arxiv.org/abs/1409.0473",
+      "why": "Shows learned alignment in recurrent translation before the Transformer; prevents confusing attention with the later architecture."
+    },
+    {
+      "title": "Devlin et al. — BERT (2018/2019)",
+      "url": "https://arxiv.org/abs/1810.04805",
+      "why": "Documents bidirectional encoder pretraining and downstream adaptation, a distinct branch from autoregressive generation."
+    },
+    {
+      "title": "Brown et al. — Language Models are Few-Shot Learners (2020)",
+      "url": "https://arxiv.org/abs/2005.14165",
+      "why": "Supports the GPT-3 milestone and the study of task examples supplied through prompts rather than task-specific gradient updates."
+    },
+    {
+      "title": "Dosovitskiy et al. — An Image is Worth 16x16 Words (2020/2021)",
+      "url": "https://arxiv.org/abs/2010.11929",
+      "why": "Explains image-patch sequences and Vision Transformers, illustrating that the architecture extends beyond language."
+    },
+    {
+      "title": "Ouyang et al. — Training language models to follow instructions with human feedback (2022)",
+      "url": "https://arxiv.org/abs/2203.02155",
+      "why": "Distinguishes supervised instruction demonstrations and human-feedback training from the original Transformer architecture."
+    },
+    {
+      "title": "PyTorch — Transformer reference implementation",
+      "url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.Transformer.html",
+      "why": "Connects the schematic to inspectable encoder/decoder settings, attention masks, and normalization choices in a real implementation."
+    }
   ]
 }

@@ -1,5 +1,7 @@
 # Landmark research: ideas, evidence, and the path to today's models
 
+Explore [The Transformer turning point](#lesson/transformer-world) for a 3D architecture, a numerical attention activity, and the history behind the 2017 paper.
+
 **Tag: Concept and research-reading workshop.** This is a selected learning history, not a claim that these papers were the first or only contributions to each idea. Dates usually refer to the first public paper or preprint; conference and journal dates can differ. Research is cumulative and branching, not one uninterrupted product lineage.
 
 For each source, read in this order: the problem; the main figure; one worked algorithm; the experimental setup; the limitations. Then connect it to an executable lesson. A teaching mechanism is not a reproduction of the paper's scale, dataset or results. The page links primary papers and official benchmark documentation; some publishers can require access or block automated fetching.

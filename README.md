@@ -2,7 +2,9 @@
 
 **Understand it. Run it. Prove it.** Learn machine learning through visual explanations, executable Python experiments, and evidence-based assessments.
 
-**58 lessons · 17 reference chapters · 18 complete Foundations builds**
+**59 lessons · 17 reference chapters · 18 complete Foundations builds**
+
+New: **The Transformer turning point** (Lesson 59), with a local 3D architecture explorer, mouse/touch/keyboard controls, and an attention masking experiment. Open `#lesson/transformer-world` in the running lab.
 
 Explore classical models, neural networks, language models, retrieval, synthetic data, and modern language engineering. Tiny models and teaching datasets help you inspect the process; their scores are not production benchmarks.
 

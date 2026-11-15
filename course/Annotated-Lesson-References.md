@@ -1,6 +1,6 @@
 # Annotated lesson references
 
-Release 2026.11-midnight.4. Sources are grouped by the current website lesson order. Each annotation states its connection to the exercise; a paper is not a claim that its full experiment was reproduced.
+Release 2026.11-transformer.1. Sources are grouped by the current website lesson order. Each annotation states its connection to the exercise; a paper is not a claim that its full experiment was reproduced.
 
 ## 01. Understand how models learn
 
@@ -672,3 +672,19 @@ Use these sources to check the mechanism and extend the exercise. Research resul
 - [Gebru et al. (2018/2021), Datasheets for Datasets](https://arxiv.org/abs/1803.09010) — Document data origin, composition, collection, intended use and limitations alongside the split identity.
 - [Liang et al. (2022), Holistic Evaluation of Language Models](https://arxiv.org/abs/2211.09110) — Choose evaluation scenarios and multiple metrics deliberately, and document protocols and limitations instead of treating one score as complete quality.
 
+
+## 59. The Transformer turning point
+
+Lesson ID: `transformer-world`. Track: Modern language engineering.
+
+### Reading
+
+Use these sources to check the mechanism and extend the exercise. Research results are not results measured by this lab.
+
+- [Vaswani et al. — Attention Is All You Need (2017)](https://arxiv.org/abs/1706.03762) — Primary source for the original encoder–decoder architecture, scaled dot-product attention, masking, and parallel training.
+- [Bahdanau et al. — Neural Machine Translation by Jointly Learning to Align and Translate (2014/2015)](https://arxiv.org/abs/1409.0473) — Shows learned alignment in recurrent translation before the Transformer; prevents confusing attention with the later architecture.
+- [Devlin et al. — BERT (2018/2019)](https://arxiv.org/abs/1810.04805) — Documents bidirectional encoder pretraining and downstream adaptation, a distinct branch from autoregressive generation.
+- [Brown et al. — Language Models are Few-Shot Learners (2020)](https://arxiv.org/abs/2005.14165) — Supports the GPT-3 milestone and the study of task examples supplied through prompts rather than task-specific gradient updates.
+- [Dosovitskiy et al. — An Image is Worth 16x16 Words (2020/2021)](https://arxiv.org/abs/2010.11929) — Explains image-patch sequences and Vision Transformers, illustrating that the architecture extends beyond language.
+- [Ouyang et al. — Training language models to follow instructions with human feedback (2022)](https://arxiv.org/abs/2203.02155) — Distinguishes supervised instruction demonstrations and human-feedback training from the original Transformer architecture.
+- [PyTorch — Transformer reference implementation](https://docs.pytorch.org/docs/stable/generated/torch.nn.Transformer.html) — Connects the schematic to inspectable encoder/decoder settings, attention masks, and normalization choices in a real implementation.

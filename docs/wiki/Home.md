@@ -4,7 +4,7 @@
 
 **Understand it. Run it. Prove it.**
 
-The Machine Learning Super Lab has 58 lessons, 17 reference chapters, and executable Python experiments. This wiki holds the detailed documentation previously in the README.
+The Machine Learning Super Lab has 59 lessons, 17 reference chapters, and executable Python experiments. This wiki holds the detailed documentation previously in the README.
 
 **Start with [Running in a VM](Running-in-a-VM.md).** A dedicated compatible VM is recommended for the CPU track. GPU extensions have separate requirements; VM-specific execution has not been verified here.
 

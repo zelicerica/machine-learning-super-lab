@@ -128,6 +128,8 @@ def main():
     lessons.extend(build_additions(render,len(lessons)+1))
     from modern_curriculum import additions as modern_additions, references as modern_references
     lessons.extend(modern_additions(render,len(lessons)+1))
+    from transformer_lesson import additions as transformer_additions
+    lessons.extend(transformer_additions(render,len(lessons)+1))
     # Number the complete learning path, not the order source modules were added.
     # Stable IDs keep existing links, completion records and evidence notes valid.
     track_order=['Foundations','Language models','Build and retrieve','Modern language engineering']
