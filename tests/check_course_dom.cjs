@@ -1,13 +1,14 @@
 const {JSDOM}=require(process.env.SML_JSDOM_PATH||'jsdom');
 const fs=require('fs'),assert=require('assert/strict'),path=require('path');
 const root=path.resolve(__dirname,'..');
+const release=JSON.parse(fs.readFileSync(root+'/release.json'));
 const course=JSON.parse(fs.readFileSync(root+'/public/course.json'));
 const html=fs.readFileSync(root+'/public/index.html','utf8').replace(/<script[^>]*src=[^>]+><\/script>/g,'');
 const dom=new JSDOM(html,{url:'http://localhost:8765',runScripts:'outside-only',pretendToBeVisual:true});
 const w=dom.window;w.TextEncoder=TextEncoder;w.TextDecoder=TextDecoder;w.scrollTo=()=>{};w.matchMedia=()=>({matches:false,addEventListener:()=>{}});w.HTMLMediaElement.prototype.play=function(){this.dataset.testPlaying='yes';this.dispatchEvent(new w.Event('play'));return Promise.resolve()};w.HTMLMediaElement.prototype.pause=function(){this.dataset.testPlaying='no';this.dispatchEvent(new w.Event('pause'))};w.HTMLElement.prototype.scrollIntoView=()=>{};w.HTMLDialogElement.prototype.showModal=function(){this.open=true};w.HTMLDialogElement.prototype.close=function(){this.open=false};
 w.HTMLCanvasElement.prototype.getContext=()=>null;
 w.localStorage.setItem('super-lab-v1',JSON.stringify({done:['setup'],notes:{math:'Earlier evidence remains.'}}));
-w.fetch=async url=>({ok:true,json:async()=>url==='/course.json'?course:url==='/api/session'?{token:'test',runtime:{ready:true,foundations_ready:true,python:'3.12'},templates:{hello:'print(1)'},workspace:{name:'Transformer Explorer',release:'2026.11-transformer.1',lessons:59,expected_lessons:59,references:Object.keys(course.references).length,project_folder:'/test/lab',catalog_file:'/test/lab/public/course.json',catalog_matches_release:true,python:'/test/python'}}:[]});
+w.fetch=async url=>({ok:true,json:async()=>url==='/course.json'?course:url==='/api/session'?{token:'test',runtime:{ready:true,foundations_ready:true,python:'3.12'},templates:{hello:'print(1)'},workspace:{name:release.name,release:release.id,lessons:59,expected_lessons:59,references:Object.keys(course.references).length,project_folder:'/test/lab',catalog_file:'/test/lab/public/course.json',catalog_matches_release:true,python:'/test/python'}}:[]});
 const mermaidFile=fs.readFileSync(root+'/public/index.html','utf8').match(/src="([^"]*mermaid[^\"]*)"/)[1];
 require('vm').runInContext(fs.readFileSync(path.join(root,'public',mermaidFile),'utf8'),dom.getInternalVMContext());
 w.eval('mermaid.run=async({nodes})=>{for(const n of nodes){await mermaid.parse(n.textContent);n.dataset.syntaxValid="true"}}');
