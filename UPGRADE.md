@@ -1,6 +1,6 @@
-# Upgrade to Midnight — 58 lessons
+# Upgrade to Midnight Motion — 58 lessons
 
-Release: `2026.11-midnight.1`.
+Release: `2026.11-midnight.2`.
 
 ## Why your local lab can still show 34 lessons
 
@@ -14,7 +14,7 @@ A GitHub update or ZIP download does not automatically replace an extracted fold
 2. Extract the **entire** new ZIP into a separate folder. Do not run inside the ZIP or copy just `index.html`.
 3. Open the new folder containing `server.py`, `release.json`, and `start-lab.cmd`.
 4. Double-click `start-lab.cmd`. Keep that window open. It now prints the release, lesson count, and exact serving folder.
-5. Visit **http://localhost:8765** and refresh. The top bar should show **58 lessons · Midnight**. Click that badge to inspect **About this workspace**.
+5. Visit **http://localhost:8765** and refresh. The top bar should show **58 lessons · Midnight Motion**. Click that badge to inspect **About this workspace**.
 
 If you already have a working Python environment, you can reuse its interpreter in place. Do not move or copy the environment itself; virtual environments can contain absolute paths. In PowerShell, substitute the real old folder below:
 
@@ -49,4 +49,4 @@ With both launchers stopped, copy `lab/outputs`, `lab/inputs`, and `runs` from t
 
 Midnight navy is the default, with an optional light theme; cyan controls, violet examples, mint evidence, and amber cautions share the code-editor palette. The sidebar groups and searches lessons. The homepage offers progress, continuation, and four track cards. Lessons have an outline, highlighted code with copy buttons, and an expandable diagram explorer. The workbench includes highlighted editable code, line numbers, and a resizable console. Results summarize real metrics and compare compatible reports. The research page filters 47 paper and benchmark references by text and topic.
 
-Attention and expert-routing lessons include optional, stepwise teaching animations. They do not autoplay and respect reduced-motion preferences. They are conceptual illustrations, not captured activations. The separate HeyGen design preview shown in the conversation is not a required download or runtime dependency.
+Attention and expert-routing lessons include optional, stepwise teaching animations. They do not autoplay and respect reduced-motion preferences. They are conceptual illustrations, not captured activations. The accepted HeyGen clip is now bundled as an approximately 1.2 MB local MP4 background. It loops silently, is prominent on the homepage, and is dimmed behind lessons. Pause motion / Play motion in the top bar remembers your preference. Reduced-motion settings suppress autoplay unless you explicitly choose Play. The background needs no HeyGen connection.

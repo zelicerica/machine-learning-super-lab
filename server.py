@@ -9,6 +9,7 @@ import json
 import mimetypes
 import os
 from pathlib import Path
+import re
 import secrets
 import shlex
 import signal
@@ -248,13 +249,30 @@ class Handler(BaseHTTPRequestHandler):
     def valid_host(self):
         host=self.headers.get('Host','').split(':')[0]
         return PREVIEW or host in ('localhost','127.0.0.1','[::1]')
-    def respond(self,body,status=200,ctype='application/json; charset=utf-8'):
+    def respond(self,body,status=200,ctype='application/json; charset=utf-8',headers=None):
         if isinstance(body,(dict,list)): body=json.dumps(body).encode()
         elif isinstance(body,str): body=body.encode()
         self.send_response(status);self.send_header('Content-Type',ctype);self.send_header('Content-Length',str(len(body)))
         self.send_header('Cache-Control','no-store');self.send_header('X-Content-Type-Options','nosniff')
         self.send_header('Content-Security-Policy',"default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'")
+        for name,value in (headers or {}).items(): self.send_header(name,str(value))
         self.end_headers();self.wfile.write(body)
+    def serve_video(self,target):
+        data=target.read_bytes();size=len(data);requested=self.headers.get('Range')
+        headers={'Accept-Ranges':'bytes'}
+        if not requested: return self.respond(data,ctype='video/mp4',headers=headers)
+        match=re.fullmatch(r'bytes=(\d{0,18})-(\d{0,18})',requested)
+        if not match or not any(match.groups()):
+            return self.respond(b'',416,'video/mp4',{**headers,'Content-Range':f'bytes */{size}'})
+        left,right=match.groups()
+        if not left:
+            count=int(right);start=max(0,size-count);end=size-1
+        else:
+            start=int(left);end=min(int(right),size-1) if right else size-1
+        if start>=size or end<start:
+            return self.respond(b'',416,'video/mp4',{**headers,'Content-Range':f'bytes */{size}'})
+        headers['Content-Range']=f'bytes {start}-{end}/{size}'
+        return self.respond(data[start:end+1],206,'video/mp4',headers)
     def do_GET(self):
         if not self.valid_host(): return self.respond({'error':'Invalid host'},403)
         parsed=urlparse(self.path);path=parsed.path
@@ -292,6 +310,7 @@ class Handler(BaseHTTPRequestHandler):
         if path=='/download/research.md': return self.respond((ROOT/'course/Research-Landmarks.md').read_bytes(),ctype='text/markdown; charset=utf-8')
         target=(PUBLIC/('index.html' if path=='/' else path.lstrip('/'))).resolve()
         if not target.is_relative_to(PUBLIC.resolve()) or not target.is_file(): return self.respond({'error':'Not found'},404)
+        if target.suffix.lower()=='.mp4': return self.serve_video(target)
         return self.respond(target.read_bytes(),ctype=mimetypes.guess_type(target.name)[0] or 'application/octet-stream')
     def do_POST(self):
         if not self.valid_host(): return self.respond({'error':'Invalid host'},403)

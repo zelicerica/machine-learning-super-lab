@@ -4,17 +4,25 @@ const root=path.resolve(__dirname,'..');
 const course=JSON.parse(fs.readFileSync(root+'/public/course.json'));
 const html=fs.readFileSync(root+'/public/index.html','utf8').replace(/<script[^>]*src=[^>]+><\/script>/g,'');
 const dom=new JSDOM(html,{url:'http://localhost:8765',runScripts:'outside-only',pretendToBeVisual:true});
-const w=dom.window;w.TextEncoder=TextEncoder;w.TextDecoder=TextDecoder;w.scrollTo=()=>{};w.matchMedia=()=>({matches:false});w.HTMLElement.prototype.scrollIntoView=()=>{};w.HTMLDialogElement.prototype.showModal=function(){this.open=true};w.HTMLDialogElement.prototype.close=function(){this.open=false};
+const w=dom.window;w.TextEncoder=TextEncoder;w.TextDecoder=TextDecoder;w.scrollTo=()=>{};w.matchMedia=()=>({matches:false,addEventListener:()=>{}});w.HTMLMediaElement.prototype.play=function(){this.dataset.testPlaying='yes';this.dispatchEvent(new w.Event('play'));return Promise.resolve()};w.HTMLMediaElement.prototype.pause=function(){this.dataset.testPlaying='no';this.dispatchEvent(new w.Event('pause'))};w.HTMLElement.prototype.scrollIntoView=()=>{};w.HTMLDialogElement.prototype.showModal=function(){this.open=true};w.HTMLDialogElement.prototype.close=function(){this.open=false};
 w.localStorage.setItem('super-lab-v1',JSON.stringify({done:['setup'],notes:{math:'Earlier evidence remains.'}}));
-w.fetch=async url=>({ok:true,json:async()=>url==='/course.json'?course:url==='/api/session'?{token:'test',runtime:{ready:true,foundations_ready:true,python:'3.12'},templates:{hello:'print(1)'},workspace:{name:'Midnight',release:'2026.11-midnight.1',lessons:58,expected_lessons:58,references:16,project_folder:'/test/lab',catalog_file:'/test/lab/public/course.json',catalog_matches_release:true,python:'/test/python'}}:[]});
+w.fetch=async url=>({ok:true,json:async()=>url==='/course.json'?course:url==='/api/session'?{token:'test',runtime:{ready:true,foundations_ready:true,python:'3.12'},templates:{hello:'print(1)'},workspace:{name:'Midnight',release:'2026.11-midnight.2',lessons:58,expected_lessons:58,references:16,project_folder:'/test/lab',catalog_file:'/test/lab/public/course.json',catalog_matches_release:true,python:'/test/python'}}:[]});
 const mermaidFile=fs.readFileSync(root+'/public/index.html','utf8').match(/src="([^"]*mermaid[^\"]*)"/)[1];
 require('vm').runInContext(fs.readFileSync(path.join(root,'public',mermaidFile),'utf8'),dom.getInternalVMContext());
 w.eval('mermaid.run=async({nodes})=>{for(const n of nodes){await mermaid.parse(n.textContent);n.dataset.syntaxValid="true"}}');
-for(const file of ['motion.js','interface.js'])require('vm').runInContext(fs.readFileSync(root+'/public/'+file,'utf8'),dom.getInternalVMContext());
+for(const file of ['background.js','motion.js','interface.js'])require('vm').runInContext(fs.readFileSync(root+'/public/'+file,'utf8'),dom.getInternalVMContext());
 require('vm').runInContext(fs.readFileSync(root+'/public/app.js','utf8'),dom.getInternalVMContext());
 (async()=>{
  await new Promise(r=>setTimeout(r,100));
  assert.equal(w.document.querySelectorAll('.course-card').length,58);
+ assert.equal(w.document.querySelectorAll('#labBackgroundVideo').length,1);
+ assert.ok(fs.existsSync(root+'/public'+w.document.querySelector('#labBackgroundVideo source').getAttribute('src')));
+ const video=w.document.querySelector('#labBackgroundVideo');assert.equal(video.dataset.testPlaying,'yes');
+ w.document.querySelector('#backgroundToggle').click();assert.equal(video.dataset.testPlaying,'no');assert.equal(w.localStorage.getItem('super-lab-background-motion'),'off');
+ w.document.querySelector('#backgroundToggle').click();assert.equal(video.dataset.testPlaying,'yes');
+ w.eval("backgroundPreference=null;backgroundMedia.matches=true;updateBackgroundPlayback()");assert.equal(video.dataset.testPlaying,'no');
+ w.eval("backgroundMedia.matches=false;updateBackgroundPlayback()");assert.equal(video.dataset.testPlaying,'yes');
+
  w.document.querySelector('[data-track="Modern language engineering"]').click();await new Promise(r=>setTimeout(r,10));assert.equal(w.document.querySelectorAll('.course-card').length,16);
  assert.equal(w.document.documentElement.dataset.theme,'dark');
  w.document.querySelector('#themeToggle').click();await new Promise(r=>setTimeout(r,0));assert.equal(w.document.documentElement.dataset.theme,'light');

@@ -1,3 +1,17 @@
+# Midnight Motion background
+
+Release `2026.11-midnight.2` adds the accepted HeyGen MP4 as an actual moving background. It preserves the 58-lesson catalog, learning content, training programs, prior outputs, and lesson identifiers. This supersedes the earlier note that the HeyGen clip was only a separate preview.
+
+- The bundled video is **8 seconds, H.264, 1280 × 732, 24 fps, 1,203,435 bytes, with no audio stream**. Its poster comes from the same clip. No third-party network request or video player is required by the page.
+- **56 Python tests passed**: 48 course/server tests and eight original model tests. New checks cover full MP4 responses, prefix/suffix/open-ended HTTP byte ranges, and invalid ranges. Public path and host validation still apply before video delivery.
+- The **74-route DOM check** passes, including all 87 Mermaid parses and new playback preference, reduced-motion, one-video-instance, and bundled-video-path checks.
+- Desktop Chrome loaded the local MP4 with ready state 4, observed its time advancing, and confirmed muted loop playback. Pause held the playback time unchanged; the paused preference survived a reload; Play resumed it. The background continued across navigation and visibly dimmed to 25% video opacity on a lesson page. The landing page was visually inspected with the new full-width opening section and relocated Up next card.
+- The ZIP is checked for integrity and freshly extracted to verify its release/catalog and local assets. It excludes per-machine environments, learner output, and browser screenshots.
+
+The video is a decorative illustration, not an algorithm diagram or measured model activation. Native Windows/macOS installation, mobile-device rendering, and GPU execution were not rerun. Browser autoplay policies can require using Play motion; the poster remains available if playback is prevented. The earlier training and reload evidence below still applies to the unchanged algorithms.
+
+---
+
 # Midnight interface revision — 2026-11-15
 
 Release `2026.11-midnight.1` retains **58 lessons, 16 reference guides, and 87 Mermaid diagram instances**. This revision changes the interface and release diagnostics; it does not change model-training algorithms or reference measurements. Earlier dated records below describe their own releases.

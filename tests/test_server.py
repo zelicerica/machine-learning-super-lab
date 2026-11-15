@@ -44,7 +44,7 @@ class LocalRunnerTests(unittest.TestCase):
         status,info=self.request('/api/workspace')
         self.assertEqual(status,200)
         self.assertEqual(info['lessons'],58)
-        self.assertEqual(info['release'],'2026.11-midnight.1')
+        self.assertEqual(info['release'],'2026.11-midnight.2')
         self.assertEqual(info['project_folder'],str(s.ROOT))
         self.assertTrue(info['catalog_matches_release'])
         self.assertEqual(self.request('/api/workspace',headers={'Host':'untrusted.example'})[0],403)
@@ -56,6 +56,24 @@ class LocalRunnerTests(unittest.TestCase):
                 info=s.workspace_info()
                 self.assertEqual(info['lessons'],34)
                 self.assertFalse(info['catalog_matches_release'])
+    def test_local_video_and_byte_ranges(self):
+        target=s.PUBLIC/'media/neural-network.mp4';data=target.read_bytes()
+        with urlopen(self.base+'/media/neural-network.mp4') as response:
+            self.assertEqual(response.status,200)
+            self.assertEqual(response.headers['Content-Type'],'video/mp4')
+            self.assertEqual(response.headers['Accept-Ranges'],'bytes')
+            self.assertEqual(response.read(),data)
+        for requested,expected in [('bytes=0-31',data[:32]),('bytes=-16',data[-16:]),('bytes=32-',data[32:])]:
+            with urlopen(Request(self.base+'/media/neural-network.mp4',headers={'Range':requested})) as response:
+                self.assertEqual(response.status,206)
+                self.assertEqual(response.read(),expected)
+                self.assertEqual(int(response.headers['Content-Length']),len(expected))
+    def test_invalid_video_ranges_fail_without_disclosing_files(self):
+        for requested in ['bytes=999999999-','bytes=8-3','bytes=-0','bytes=-','bytes=1-2,4-5']:
+            with self.assertRaises(HTTPError) as raised:
+                urlopen(Request(self.base+'/media/neural-network.mp4',headers={'Range':requested}))
+            self.assertEqual(raised.exception.code,416)
+            self.assertTrue(raised.exception.headers['Content-Range'].startswith('bytes */'))
     def test_cross_origin_and_missing_token_cannot_execute(self):
         body={'kind':'code','code':'print(123)'}
         self.assertEqual(self.request('/api/run',body,{'Origin':'https://untrusted.example'})[0],403)

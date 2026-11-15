@@ -248,3 +248,24 @@ main{padding:25px 18px 40px}.hero{padding-top:5px;padding-bottom:15px}.hero h1{f
 .motion-caption{min-height:85px;color:var(--ink);font-size:16px!important;margin:12px 0!important}.motion-controls{display:flex;gap:10px;flex-wrap:wrap}.concept-motion .fineprint{font-size:12px!important;line-height:1.5;margin-bottom:0}
 @media(max-width:760px){.concept-motion{padding:14px}.concept-motion .section-heading{display:block}.concept-motion .tag{display:inline-block;margin-top:8px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+/* The accepted HeyGen clip is a local, silent MP4 background. */
+.lab-atmosphere{position:fixed;inset:0 0 0 var(--sidebar);z-index:0;pointer-events:none;overflow:hidden;background:var(--bg)}
+.lab-atmosphere video{width:100%;height:100%;object-fit:cover;object-position:65% center;opacity:.25;transition:opacity .5s}
+.lab-atmosphere:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#0b1020ee 0%,#0b1020b8 32%,#0b102018 78%),linear-gradient(0deg,#0b1020e8 0%,#0b102000 52%)}
+body[data-view=home] .lab-atmosphere video{opacity:1}
+.page-shell{position:relative;z-index:1}
+.topbar{background:#0b1020b8;backdrop-filter:blur(14px)}
+.hero{display:flex;min-height:580px;padding:55px 0 50px;align-items:center;position:relative}
+.hero>div{max-width:590px}.hero h1{font-size:clamp(38px,4vw,61px);text-shadow:0 3px 30px #0b1020a0}.hero h1 em{color:#6bd5ff}
+.hero .page-desc{max-width:500px;color:#cfdaec;text-shadow:0 2px 15px #0b1020}
+.hero .eyebrow,.hero-meta{color:#b4c7e1}.hero .button.secondary{background:#131c31c9;backdrop-filter:blur(10px)}
+.resume-strip{display:grid;grid-template-columns:125px 1fr auto;gap:22px;align-items:center;background:#131c31d9;backdrop-filter:blur(16px);border:1px solid #54799470;border-radius:14px;padding:22px 25px;margin:0 0 22px;box-shadow:0 0 40px #38bdf809}
+.resume-strip .tag{display:inline-block;margin-top:9px}.resume-strip h2{font-size:21px;margin:0 0 4px}.resume-strip p{font-size:13px;color:var(--muted);margin:0}
+body[data-view=home] .stat-card,body[data-view=home] .track-card{background:#131c31e0;backdrop-filter:blur(14px)}
+body[data-view=home] .track-card.cyan{border-top-color:var(--cyan)}body[data-view=home] .track-card.violet{border-top-color:var(--violet)}body[data-view=home] .track-card.mint{border-top-color:var(--mint)}body[data-view=home] .track-card.amber{border-top-color:var(--amber)}
+:root[data-theme=light] .lab-atmosphere:after{background:linear-gradient(90deg,#f0f4faf5 0%,#f0f4fabb 35%,#f0f4fa45 80%),linear-gradient(0deg,#f0f4faeb 0%,#f0f4fa00 70%)}
+:root[data-theme=light] .topbar{background:#f0f4fac9}:root[data-theme=light] .hero h1{text-shadow:none}:root[data-theme=light] .hero h1 em{color:var(--cyan)}
+:root[data-theme=light] .hero .page-desc,:root[data-theme=light] .hero .eyebrow,:root[data-theme=light] .hero-meta{color:var(--muted);text-shadow:none}
+:root[data-theme=light] .hero .button.secondary,:root[data-theme=light] .resume-strip,:root[data-theme=light] body[data-view=home] .stat-card,:root[data-theme=light] body[data-view=home] .track-card{background:#ffffffdf}
+@media(max-width:1050px){.hero{min-height:550px}.hero>div{max-width:520px}.hero h1{font-size:45px}.lab-atmosphere:after{background:linear-gradient(90deg,#0b1020ee 0%,#0b102095 55%,#0b102030 100%),linear-gradient(0deg,#0b1020e8,#0b102000 65%)}.resume-strip{grid-template-columns:1fr auto}.resume-strip>div:first-child{display:none}}
+@media(max-width:760px){.lab-atmosphere{left:0}.hero{min-height:510px;padding:45px 0}.hero h1{font-size:40px}.hero>div{max-width:95%}.resume-strip{grid-template-columns:1fr;padding:18px}.top-actions{gap:5px}.top-actions .button{padding:7px;font-size:10px}body[data-view=home] .lab-atmosphere video{opacity:.7}.hero .page-desc{font-size:16px}}
