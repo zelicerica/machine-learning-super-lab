@@ -258,7 +258,8 @@ class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
         if not self.valid_host(): return self.respond({'error':'Invalid host'},403)
         parsed=urlparse(self.path);path=parsed.path
-        if path=='/api/session': return self.respond({'token':TOKEN,'runtime':runtime_status(),'templates':TEMPLATES})
+        if path=='/api/session': return self.respond({'token':TOKEN,'runtime':runtime_status(),'templates':TEMPLATES,'workspace':workspace_info()})
+        if path=='/api/workspace': return self.respond(workspace_info())
         if path=='/api/runtime': return self.respond(runtime_status())
         if path=='/api/results': return self.respond(reports())
         if path=='/api/example':
@@ -313,6 +314,16 @@ class Handler(BaseHTTPRequestHandler):
         except RuntimeError as exc: return self.respond({'error':str(exc)},409)
         except (ValueError,TypeError,KeyError) as exc: return self.respond({'error':str(exc)},400)
 
+def workspace_info():
+    release=json.loads((ROOT/'release.json').read_text(encoding='utf-8'))
+    catalog=json.loads((PUBLIC/'course.json').read_text(encoding='utf-8'))
+    count=len(catalog.get('lessons',[]))
+    return {'release':release['id'],'name':release['name'],'lessons':count,
+            'expected_lessons':release['expected_lessons'],'references':len(catalog.get('references',{})),
+            'catalog_matches_release':count==release['expected_lessons'],
+            'project_folder':str(ROOT),'catalog_file':str(PUBLIC/'course.json'),
+            'python':runtime_python(),'local_only':not PREVIEW}
+
 def main():
     global PREVIEW
     p=argparse.ArgumentParser(description=__doc__)
@@ -322,9 +333,13 @@ def main():
     a=p.parse_args();PREVIEW=a.preview
     if not a.preview and a.host not in ('127.0.0.1','localhost'): p.error('The learner server binds to localhost only.')
     RUNS.mkdir(exist_ok=True)
-    server=ThreadingHTTPServer((a.host,a.port),Handler)
+    try: server=ThreadingHTTPServer((a.host,a.port),Handler)
+    except OSError as exc:
+        p.exit(1,f'Cannot start the lab on port {a.port}: {exc}\nAn older copy may still be running. Stop its launcher with Ctrl+C, then start this folder again:\n{ROOT}\nOr use --port 8766 for a separate workspace address.\n')
     url=f'http://localhost:{server.server_port}'
-    print(f'\nMachine Learning Super Lab: {url}\nKeep this window open. Press Ctrl+C to stop.\n',flush=True)
+    info=workspace_info()
+    print(f'\nMachine Learning Super Lab — {info["release"]}\n{info["lessons"]} lessons | {info["references"]} references\nServing folder: {ROOT}\nOpen: {url}\nKeep this window open. Press Ctrl+C to stop.\n',flush=True)
+    if not info['catalog_matches_release']: print('Catalog differs from this release. Run python build_course.py in this folder, then restart.',flush=True)
     if not a.no_browser: threading.Timer(.6,lambda:webbrowser.open(url)).start()
     try: server.serve_forever()
     except KeyboardInterrupt: pass

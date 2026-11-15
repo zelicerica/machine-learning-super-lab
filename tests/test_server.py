@@ -40,6 +40,22 @@ class LocalRunnerTests(unittest.TestCase):
             if job['status'] not in ('running','queued'):return job
             time.sleep(.02)
         self.fail('Job did not finish')
+    def test_workspace_identifies_running_catalog_and_folder(self):
+        status,info=self.request('/api/workspace')
+        self.assertEqual(status,200)
+        self.assertEqual(info['lessons'],58)
+        self.assertEqual(info['release'],'2026.11-midnight.1')
+        self.assertEqual(info['project_folder'],str(s.ROOT))
+        self.assertTrue(info['catalog_matches_release'])
+        self.assertEqual(self.request('/api/workspace',headers={'Host':'untrusted.example'})[0],403)
+    def test_workspace_detects_old_catalog(self):
+        with tempfile.TemporaryDirectory() as folder:
+            public=Path(folder)
+            (public/'course.json').write_text(json.dumps({'lessons':[{}]*34,'references':{}}))
+            with patch.object(s,'PUBLIC',public):
+                info=s.workspace_info()
+                self.assertEqual(info['lessons'],34)
+                self.assertFalse(info['catalog_matches_release'])
     def test_cross_origin_and_missing_token_cannot_execute(self):
         body={'kind':'code','code':'print(123)'}
         self.assertEqual(self.request('/api/run',body,{'Origin':'https://untrusted.example'})[0],403)

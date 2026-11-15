@@ -4,6 +4,10 @@
 
 The course contains **58 lessons**, **16 reference chapters**, **87 Mermaid diagram instances**, and illustrated model-family guides. Start with a tiny model, learn how training works, build models from scratch, compare pretrained approaches, and test complete retrieval and synthetic-data pipelines.
 
+**Midnight release:** a navy workspace with coding colors, a light-theme option, searchable learning tracks, readable lesson outlines, code highlighting, expandable diagrams, controlled teaching animations, and a searchable research timeline. Click the lesson-count badge to see the exact release and folder serving your browser.
+
+**Still seeing 34 lessons locally?** Your launcher may be running an older extracted copy. Follow [Upgrade to Midnight](UPGRADE.md) to switch folders while preserving your environment, outputs, notes, and progress.
+
 > **New to the concepts? Start with [Tiny AI — AI for Curious Minds](https://from-number-boxes-to-tiny-ai.ericazelic.chatgpt.site).** This illustrated introduction is the prerequisite learning path before the more technical engineering exercises here. Return when you are comfortable discussing inputs, predictions, weights, and learning from errors; the Super Lab explains the implementation details as you go.
 
 [Windows setup](#windows--powershell-or-command-prompt) · [macOS setup](#macos--apple-silicon) · [Linux setup](#linux--ubuntu-2404-example) · [First experiment](#run-your-first-experiment) · [Learning paths](#what-you-will-build) · [More projects](#more-learning-and-projects)

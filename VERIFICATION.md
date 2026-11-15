@@ -1,3 +1,22 @@
+# Midnight interface revision — 2026-11-15
+
+Release `2026.11-midnight.1` retains **58 lessons, 16 reference guides, and 87 Mermaid diagram instances**. This revision changes the interface and release diagnostics; it does not change model-training algorithms or reference measurements. Earlier dated records below describe their own releases.
+
+## Validation in this revision
+
+- **54 Python tests passed:** 46 course/server tests and eight original model tests, on the existing Python 3.12 / PyTorch 2.6.0 CPU environment. New server checks identify the serving folder and release, detect a 34-lesson catalog mismatch, and reject untrusted hosts on the workspace endpoint.
+- The DOM check covers all **74 lesson/reference routes**, all **87 bundled Mermaid parses**, lesson search and track grouping, theme persistence, old progress/notes retention, safe code rendering, research search and topic groups, workspace diagnostics, console controls, animation stepping, and numeric report comparison with incompatible-split rejection.
+- Desktop Chrome visual review used the managed development preview. The homepage displayed the midnight theme and 58-lesson badge; the highlighted workbench ran the real learning-loop example to completion. Lesson search, expert-routing steps, Mermaid rendering and enlargement, and research search were exercised. Enlarged diagram styling and research-topic grouping defects found during review were corrected.
+- All new frontend scripts pass Node syntax checks. The downloadable archive is checked for integrity and includes the generated 58-lesson catalog and required local assets. Runtime environments, learner outputs, private machine configuration, and development caches are excluded.
+
+## Scope and limits
+
+The animations are illustrative attention and top-one expert-routing steps, with explicit playback and reduced-motion support; they do not display measured model activations. Syntax coloring is a small local highlighter, not a Python parser or language server. Report comparison displays actual shared numeric values and warns that matching names alone do not establish comparable datasets, units, or conditions.
+
+Native Windows/macOS installation, mobile browser layout, GPU training, and paid cloud setup were not executed in this revision. The Windows launcher argument forwarding and upgrade instructions were reviewed; they still require a native-platform check. Existing full training/reload evidence is recorded in the earlier expansion below, not claimed as newly rerun here. A separate HeyGen aesthetic preview is outside the runnable package and is not required for offline use.
+
+---
+
 # Modern language-engineering expansion — 2026-11-15
 
 The course now includes **58 lessons, 16 reference chapters, and 87 Mermaid diagram instances**. Lessons 43–58 form a progressive path through attention, architecture, adaptation, preferences and rewards, evaluation, and serving. Existing lesson identifiers and the learner-output conventions remain unchanged. The research timeline connects original papers to specific lessons and labels simplified mechanisms and unimplemented reading extensions.
