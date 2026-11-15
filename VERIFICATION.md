@@ -1,3 +1,37 @@
+# Modern language-engineering expansion — 2026-11-15
+
+The course now includes **58 lessons, 16 reference chapters, and 87 Mermaid diagram instances**. Lessons 43–58 form a progressive path through attention, architecture, adaptation, preferences and rewards, evaluation, and serving. Existing lesson identifiers and the learner-output conventions remain unchanged. The research timeline connects original papers to specific lessons and labels simplified mechanisms and unimplemented reading extensions.
+
+## What passed in this revision
+
+- **52 automated Python tests:** 44 course/server tests plus eight original language-model tests. New checks cover causality, incremental cache equivalence, head-sharing cache sizes, packed four-bit storage, adapter gradients, save/reload, split boundaries, preference gradients, clipping and sequence ratios, pass@k, confidence intervals, judge abstention, real streaming HTTP, and bounded requests.
+- All **14 new experiment types** executed their baseline commands. Thirteen additional runs changed a setting, and the optional real local judge ran against its pinned checkpoint: **28 completed experiment runs** in total.
+- Independently reloaded and predicted with **26 saved model outputs** through `predict_saved.py`. Reports and plots are retained in `lab/reference-results/modern`, without weight files. The expert-routing reports were rerun after fixing their measured token-count scope.
+- The actual streaming service handled twelve client-timed requests per baseline and changed-setting run. Cached and uncached token outputs also match in the HTTP unit test. Invalid tokens, empty/oversized prompts and invalid generation counts are rejected.
+- The frontend DOM check rendered the content and controls for **all 74 lesson/reference routes**, parsed all **87 diagram instances with the bundled Mermaid parser**, checked internal links and image paths, exercised the modern-track filter and practice controls, and verified retention of earlier progress and notes. This is DOM simulation, not a visual browser layout test.
+- JavaScript syntax, course generation and Python compilation passed. The optional GPU script correctly refused CPU-only execution with an explicit explanation.
+
+## What the results do and do not establish
+
+Execution success does not guarantee model quality. The reference results preserve failed adaptation, reward-model generalization, policy-training regressions, and all twelve invalid responses from the tiny-model judge. The fixed-format toy policy and simplified latent/depth attention experiments are not reproductions of full frontier systems. Public benchmarks are covered as benchmark literacy; original arithmetic mini-suite scores are not public benchmark scores.
+
+Validation used Linux, Python 3.12, PyTorch 2.6.0+cpu and the existing pinned CPU dependencies. The new track did not require a paid rental. Native Windows/macOS execution, GPU QLoRA, cloud installation and new browser visual/responsive checks were **not completed**. The connected browser displayed the user's older 34-lesson installation; the separate cloud browser could not reach the new local server, and the shell's browser launch was restricted. Those observations are not evidence that the new browser layout passed. Earlier browser evidence below applies only to the unchanged earlier content and interface.
+
+## Repeat the checks
+
+From the repository root, use the configured course Python:
+
+```powershell
+# Windows PowerShell
+& .\.venv\Scripts\python.exe -m unittest discover -s tests -v
+& .\.venv\Scripts\python.exe -m unittest discover -s lab/tests -v
+& .\.venv\Scripts\python.exe build_course.py
+```
+
+The optional developer DOM check is `node tests/check_course_dom.cjs`; it requires jsdom 26.1.0 in a separate developer environment. Set `SML_JSDOM_PATH` to its absolute module directory if it is not on Node's module path. Node and jsdom are not required to use the downloaded course. A real browser check should additionally cover layout, keyboard interaction, charts, a Practice run, and saved-model prediction on the learner's platform.
+
+---
+
 # Expanded course verification — 2026-11-14
 
 ## Public repository preparation — 2026-11-14

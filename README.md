@@ -2,7 +2,7 @@
 
 **Understand it. Run it. Prove it.** A local website for learning machine learning through explanations, visual algorithms, executable Python experiments, and evidence-based assessments.
 
-The course contains **42 lessons**, **12 reference chapters**, **58 Mermaid diagram instances**, and illustrated model-family guides. Start with a tiny model, learn how training works, build models from scratch, compare pretrained approaches, and test complete retrieval and synthetic-data pipelines.
+The course contains **58 lessons**, **16 reference chapters**, **87 Mermaid diagram instances**, and illustrated model-family guides. Start with a tiny model, learn how training works, build models from scratch, compare pretrained approaches, and test complete retrieval and synthetic-data pipelines.
 
 > **New to the concepts? Start with [Tiny AI — AI for Curious Minds](https://from-number-boxes-to-tiny-ai.ericazelic.chatgpt.site).** This illustrated introduction is the prerequisite learning path before the more technical engineering exercises here. Return when you are comfortable discussing inputs, predictions, weights, and learning from errors; the Super Lab explains the implementation details as you go.
 
@@ -22,6 +22,7 @@ Every lesson is marked **Concept** or **Runnable implementation lab**. A runnabl
 | Pretrained versus scratch | Reuse, fine-tuning, frozen encoders, and a three-branch transfer experiment | Outcomes with matched downstream examples and explicit earlier training cost |
 | Build and retrieve | Deep classifier, recurrent language model, masked encoder, encoder–decoder, retrieval-augmented generation | Train → evaluate → save → reload → predict; retrieval and citation audits |
 | Synthetic data | Generate, audit, corrupt labels, narrow coverage, and vary volume | Dataset cards, plots, seed-only/generated-only/mixed comparisons |
+| Modern language engineering | Attention and caches, block components, sparse experts, tuning, preferences, policy learning, evaluation, and streaming | Controlled comparisons, reload checks, failure analysis, and measured latency |
 | Decision systems | A small reinforcement-learning environment | Action values, reward measurements, and comparison with a random policy |
 
 The **language model atlas** explains that language models are part of machine learning. The atlas is a representative map, not an exhaustive list of every possible architecture. Larger project plans are clearly labeled Concept.
@@ -234,7 +235,8 @@ Use a fresh output name for each experiment. Stop the website with **Control+C**
 2. **Foundations:** how models learn, how to choose a baseline, and classical model builds.
 3. **Language models:** inference, evaluation, adapter training, random-weight training, and architecture mechanisms.
 4. **Build and retrieve:** deeper neural builds, pretrained-versus-scratch comparisons, retrieval-augmented generation, and synthetic data.
-5. **Capstone:** justify your design using measurements, limitations, and a saved reproducible artifact.
+5. **Modern language engineering:** attention → architecture → adaptation → preferences and rewards → evaluation → serving. Start with Lesson 43; dependencies and optional research extensions are labeled.
+6. **Capstone:** justify your design using measurements, limitations, and a saved reproducible artifact.
 
 | Guide | Contents |
 |---|---|
@@ -242,6 +244,10 @@ Use a fresh output name for each experiment. Stop the website with **Control+C**
 | [Foundation builds](course/Expanded-Foundations.md) | 18 end-to-end builds and two concept lessons |
 | [Training and retrieval workbook](course/Building-Models-and-Retrieval.md) | Pretraining decisions, deep learning, neural builds, retrieval, and synthetic data |
 | [Synthetic data](course/Synthetic-Data.md) | Generation methods, quality checks, risks, and runnable comparisons |
+| [Modern language engineering](course/Modern-Language-Engineering.md) | 16 progressive lessons connecting architecture, post-training, evaluation, and serving |
+| [Landmark research](course/Research-Landmarks.md) | A research timeline with primary papers, explanations, and lesson links |
+| [Modern terminology](course/Modern-Glossary.md) | Every acronym on the Stanford overview, organized by engineering decision |
+| [Optional QLoRA extension](course/QLoRA-and-Cloud.md) | Real NormalFloat4 adaptation, hardware prerequisites, and a cloud cost worksheet |
 | [Additional build plans](course/Concept-Build-Plans.md) | Clearly labeled Concept projects |
 | [Vast.ai guide](course/Vast-ai-Lab.md) | Optional rental, hardware verification, private connection, cost, backup, and cleanup |
 | [Verification](VERIFICATION.md) | What was actually run and what remains untested |
@@ -251,6 +257,8 @@ The website is the best place to follow workbook links such as `#lesson/...` and
 ## Updates and your saved work
 
 Close the server and back up the project before updating. For a downloaded archive, extract the new version separately, then merge source files into your existing project. Preserve `.venv`, `lab/outputs`, `lab/inputs`, and `runs`. If you edited course source, keep your changes before replacing files. For a Git checkout, review local changes before pulling updates.
+
+This expansion preserves all existing lesson identifiers. It adds Lessons 43–58 and the **Modern language engineering** overview filter. Open **Landmark research** in the sidebar for the new references page. No new package family is required for the core CPU track beyond the existing course environment. The optional GPU QLoRA extension has separate dependencies and is explicitly unvalidated on GPU hardware.
 
 Progress, evidence notes, and editor drafts are stored in your browser profile for the exact website address. Continue using `http://localhost:8765`; a different port, browser profile, or `127.0.0.1` address has separate browser storage. Export notes and terminal logs for portable backups. Trained artifacts and reports remain in the project folder.
 

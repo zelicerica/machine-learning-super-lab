@@ -1,0 +1,6 @@
+{
+  "origin": "Original synthetic teaching examples and deterministic generators included in modern_lab.py",
+  "license": "Included for course exercises",
+  "split_policy": "Sentence-level notes, template-level tickets, operand-pair arithmetic; shared rules and vocabulary remain",
+  "real_world_validation": "Not performed; do not interpret simulator scores as deployment evidence."
+}

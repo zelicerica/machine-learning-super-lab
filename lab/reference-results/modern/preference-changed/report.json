@@ -1,0 +1,62 @@
+{
+  "schema": "superlab.report.v1",
+  "experiment": "preference",
+  "seed": 42,
+  "split": "validation",
+  "settings": {
+    "experiment": "preference",
+    "steps": 100,
+    "seed": 42,
+    "threads": 2,
+    "split": "validation",
+    "beta": 0.5,
+    "reward": "exact",
+    "judge": "fixture"
+  },
+  "runtime": {
+    "torch": "2.6.0+cpu",
+    "device": "cpu",
+    "seconds": 3.621756410000671
+  },
+  "artifacts": [],
+  "metrics": {
+    "heldout_preference_win_rate_before": 1.0,
+    "heldout_preference_win_rate_after": 1.0,
+    "margins_before": [
+      34.77745056152344,
+      67.13192749023438,
+      50.73944091796875
+    ],
+    "margins_after": [
+      56.547908782958984,
+      93.74195861816406,
+      70.68246459960938
+    ],
+    "reference_weights_unchanged": true,
+    "heldout_response_loss": 1.9074839353561401
+  },
+  "history": [
+    {
+      "step": 1,
+      "loss": 0.6931471824645996
+    },
+    {
+      "step": 26,
+      "loss": 1.176852765638614e-05
+    },
+    {
+      "step": 51,
+      "loss": 7.390071914414875e-06
+    },
+    {
+      "step": 76,
+      "loss": 6.804806162108434e-06
+    },
+    {
+      "step": 100,
+      "loss": 6.489164206868736e-06
+    }
+  ],
+  "reload_verified": true,
+  "limitations": "Synthetic preferred-label versus unknown-response pairs. A higher preference margin does not establish helpfulness, factuality, or free-running generation quality."
+}

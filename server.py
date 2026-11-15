@@ -27,6 +27,8 @@ TOKEN=secrets.token_urlsafe(32)
 PREVIEW=False
 JOBS={}; JOB_LOCK=threading.Lock()
 ALLOWED_SCRIPTS={'lab.py','scratch_lm.py','mechanisms.py','compare_reports.py','foundations.py','predict_saved.py','neural_builds.py','rag_workshop.py','synthetic_data.py'}
+ALLOWED_SCRIPTS.add('modern_lab.py')
+MODERN_EXPERIMENTS={'attention','components','experts','research','tuning','preference','reward','reinforce','ppo','grpo','gspo','evaluation','judging','serving'}
 FOUNDATIONS={'linear','logistic','tree','ensemble','neighbors','kernel','bayes','gaussian','cluster','projection','dense','convolution','graph','autoencoder','variational','adversarial','ngram','reinforcement'}
 ALLOWED_SUBCOMMANDS={'doctor','lock','tokenize','infer','eval','train','rag'}
 ALLOWED_MODELS={'HuggingFaceTB/SmolLM2-135M-Instruct','Qwen/Qwen2.5-Coder-0.5B-Instruct','HuggingFaceTB/SmolVLM-256M-Instruct'}
@@ -88,6 +90,9 @@ def parse_command(command):
     if script=='neural_builds.py':
         if len(args)<2 or args[1] not in {'deep','recurrent','encoder','seq2seq','transfer'}: raise ValueError('Unknown neural build.')
         start=2
+    if script=='modern_lab.py':
+        if len(args)<2 or args[1] not in MODERN_EXPERIMENTS: raise ValueError('Unknown modern language-model experiment.')
+        start=2
     flags={'--model','--device','--threads','--seed','--adapter','--prompt','--max-new-tokens','--temperature','--split','--output','--steps','--batch-size','--max-length','--lr','--architecture'}
     bools={'--retrieve-only','--refresh'}
     if script=='foundations.py':
@@ -101,6 +106,8 @@ def parse_command(command):
         flags={'--output','--mode','--chunk-size','--overlap','--top-k','--threshold','--split','--prompt','--model','--threads','--seed','--max-new-tokens'};bools={'--include-stale'}
     if script=='synthetic_data.py':
         flags={'--output','--samples','--label-noise','--coverage','--seed','--split'};bools=set()
+    if script=='modern_lab.py':
+        flags={'--output','--steps','--seed','--threads','--split','--beta','--reward','--judge'};bools=set()
     i=start
     while i<len(args):
         flag=args[i]
@@ -117,6 +124,14 @@ def parse_command(command):
             if flag=='--coverage' and val not in {'full','narrow'}:raise ValueError('Choose full or narrow coverage.')
             if flag=='--seed' and not 0<=int(val)<=2**32-4:raise ValueError('Seed is outside the allowed range.')
             if flag=='--split' and val not in {'validation','test'}:raise ValueError('Choose validation or test.')
+        if script=='modern_lab.py':
+            if flag=='--steps' and not 1<=int(val)<=1000:raise ValueError('Use 1–1000 updates.')
+            if flag=='--threads' and not 1<=int(val)<=16:raise ValueError('Use 1–16 threads.')
+            if flag=='--seed' and not 0<=int(val)<2**32:raise ValueError('Use an unsigned 32-bit seed.')
+            if flag=='--beta' and not 0<=float(val)<=2:raise ValueError('Use beta between zero and two.')
+            if flag=='--split' and val not in {'validation','test'}:raise ValueError('Choose validation or test.')
+            if flag=='--reward' and val not in {'exact','zero-prefix'}:raise ValueError('Choose exact or zero-prefix reward.')
+            if flag=='--judge' and val not in {'fixture','model'}:raise ValueError('Choose fixture or model judge.')
         i+=2
     return [runtime_python(),*args]
 
@@ -267,11 +282,13 @@ class Handler(BaseHTTPRequestHandler):
             return self.respond(serializable_job(job,offset))
         if path=='/api/source':
             name=parse_qs(parsed.query).get('name',['lab.py'])[0]
-            if name not in ALLOWED_SCRIPTS|{'vision_lab.py','make_data.py'}: return self.respond({'error':'Unknown source file'},400)
+            if name not in ALLOWED_SCRIPTS|{'vision_lab.py','make_data.py','modern_models.py','modern_evaluation.py','modern_serving.py','qlora_gpu.py'}: return self.respond({'error':'Unknown source file'},400)
             return self.respond({'name':name,'code':(LAB/name).read_text()})
         if path=='/download/guide.md': return self.respond((ROOT/'course/SML-Lab-Zero-to-Hero.md').read_bytes(),ctype='text/markdown; charset=utf-8')
         if path=='/download/foundations.md': return self.respond((ROOT/'course/Expanded-Foundations.md').read_bytes(),ctype='text/markdown; charset=utf-8')
         if path=='/download/builds.md': return self.respond((ROOT/'course/Building-Models-and-Retrieval.md').read_bytes(),ctype='text/markdown; charset=utf-8')
+        if path=='/download/modern.md': return self.respond((ROOT/'course/Modern-Language-Engineering.md').read_bytes(),ctype='text/markdown; charset=utf-8')
+        if path=='/download/research.md': return self.respond((ROOT/'course/Research-Landmarks.md').read_bytes(),ctype='text/markdown; charset=utf-8')
         target=(PUBLIC/('index.html' if path=='/' else path.lstrip('/'))).resolve()
         if not target.is_relative_to(PUBLIC.resolve()) or not target.is_file(): return self.respond({'error':'Not found'},404)
         return self.respond(target.read_bytes(),ctype=mimetypes.guess_type(target.name)[0] or 'application/octet-stream')

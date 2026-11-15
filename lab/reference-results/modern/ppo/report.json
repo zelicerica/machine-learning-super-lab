@@ -1,0 +1,221 @@
+{
+  "schema": "superlab.report.v1",
+  "experiment": "ppo",
+  "seed": 42,
+  "split": "validation",
+  "settings": {
+    "experiment": "ppo",
+    "steps": 100,
+    "seed": 42,
+    "threads": 2,
+    "split": "validation",
+    "beta": 0.1,
+    "reward": "exact",
+    "judge": "fixture"
+  },
+  "runtime": {
+    "torch": "2.6.0+cpu",
+    "device": "cpu",
+    "seconds": 2.0722227649966953
+  },
+  "artifacts": [
+    "rewards.png"
+  ],
+  "metrics": {
+    "heldout_exact_match_before": 0.2,
+    "heldout_exact_match_after": 0.2,
+    "reward_rule": "exact",
+    "predictions": [
+      {
+        "prompt": "1+3=",
+        "expected": "04",
+        "before": "04",
+        "after": "04"
+      },
+      {
+        "prompt": "0+1=",
+        "expected": "01",
+        "before": "00",
+        "after": "00"
+      },
+      {
+        "prompt": "8+3=",
+        "expected": "11",
+        "before": "09",
+        "after": "09"
+      },
+      {
+        "prompt": "1+6=",
+        "expected": "07",
+        "before": "08",
+        "after": "08"
+      },
+      {
+        "prompt": "3+7=",
+        "expected": "10",
+        "before": "09",
+        "after": "09"
+      },
+      {
+        "prompt": "4+4=",
+        "expected": "08",
+        "before": "05",
+        "after": "09"
+      },
+      {
+        "prompt": "9+3=",
+        "expected": "12",
+        "before": "10",
+        "after": "10"
+      },
+      {
+        "prompt": "1+1=",
+        "expected": "02",
+        "before": "04",
+        "after": "04"
+      },
+      {
+        "prompt": "8+5=",
+        "expected": "13",
+        "before": "13",
+        "after": "13"
+      },
+      {
+        "prompt": "3+3=",
+        "expected": "06",
+        "before": "04",
+        "after": "04"
+      },
+      {
+        "prompt": "0+7=",
+        "expected": "07",
+        "before": "08",
+        "after": "05"
+      },
+      {
+        "prompt": "9+4=",
+        "expected": "13",
+        "before": "13",
+        "after": "17"
+      },
+      {
+        "prompt": "5+5=",
+        "expected": "10",
+        "before": "11",
+        "after": "11"
+      },
+      {
+        "prompt": "7+0=",
+        "expected": "07",
+        "before": "05",
+        "after": "04"
+      },
+      {
+        "prompt": "6+3=",
+        "expected": "09",
+        "before": "09",
+        "after": "09"
+      },
+      {
+        "prompt": "5+4=",
+        "expected": "09",
+        "before": "11",
+        "after": "11"
+      },
+      {
+        "prompt": "7+1=",
+        "expected": "08",
+        "before": "09",
+        "after": "08"
+      },
+      {
+        "prompt": "4+5=",
+        "expected": "09",
+        "before": "11",
+        "after": "11"
+      },
+      {
+        "prompt": "5+3=",
+        "expected": "08",
+        "before": "05",
+        "after": "10"
+      },
+      {
+        "prompt": "0+3=",
+        "expected": "03",
+        "before": "04",
+        "after": "00"
+      }
+    ]
+  },
+  "history": [
+    {
+      "step": 1,
+      "loss": -0.604591429233551,
+      "training_reward": 0.5,
+      "reward_standard_deviation": 0.5
+    },
+    {
+      "step": 11,
+      "loss": 0.41438600420951843,
+      "training_reward": 0.3125,
+      "reward_standard_deviation": 0.4635123908519745
+    },
+    {
+      "step": 21,
+      "loss": -0.18293288350105286,
+      "training_reward": 0.5625,
+      "reward_standard_deviation": 0.49607837200164795
+    },
+    {
+      "step": 31,
+      "loss": -0.02077997662127018,
+      "training_reward": 0.4375,
+      "reward_standard_deviation": 0.49607837200164795
+    },
+    {
+      "step": 41,
+      "loss": -0.16969889402389526,
+      "training_reward": 0.625,
+      "reward_standard_deviation": 0.4841229319572449
+    },
+    {
+      "step": 51,
+      "loss": -0.07690250873565674,
+      "training_reward": 0.8125,
+      "reward_standard_deviation": 0.3903123736381531
+    },
+    {
+      "step": 61,
+      "loss": 0.24499166011810303,
+      "training_reward": 0.375,
+      "reward_standard_deviation": 0.4841229319572449
+    },
+    {
+      "step": 71,
+      "loss": -0.10243576020002365,
+      "training_reward": 0.5625,
+      "reward_standard_deviation": 0.49607837200164795
+    },
+    {
+      "step": 81,
+      "loss": 0.16429613530635834,
+      "training_reward": 0.625,
+      "reward_standard_deviation": 0.4841229319572449
+    },
+    {
+      "step": 91,
+      "loss": -0.057761210948228836,
+      "training_reward": 0.8125,
+      "reward_standard_deviation": 0.3903123736381531
+    },
+    {
+      "step": 100,
+      "loss": 0.34069880843162537,
+      "training_reward": 0.1875,
+      "reward_standard_deviation": 0.3903123736381531
+    }
+  ],
+  "reload_verified": true,
+  "limitations": "Two-digit constrained autoregressive policy; same fixed-length arithmetic simulator. PPO uses a prompt-state value baseline and terminal return, with no generalized advantage estimation. This is a PPO clipping/critic teaching implementation, not a production trainer. Group algorithms use four samples per prompt. Zero-variance groups provide zero normalized reward advantage. The deliberately flawed zero-prefix reward does not measure arithmetic correctness."
+}

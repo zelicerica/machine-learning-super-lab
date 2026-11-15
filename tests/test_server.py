@@ -59,6 +59,22 @@ class LocalRunnerTests(unittest.TestCase):
             with self.assertRaises(ValueError):s.parse_command(c)
         self.assertEqual(self.request('/api/artifact?path=../server.py')[0],404)
         self.assertEqual(self.request('/api/example?path=../')[0],400)
+    def test_modern_commands_match_curriculum_and_bound_options(self):
+        import modern_curriculum
+        for lesson in modern_curriculum.SPECS:
+            for command in lesson[4]:
+                with self.subTest(command=command):
+                    self.assertEqual(s.parse_command(command.replace('{run}','check'))[0],sys.executable)
+        for option in ['--beta nan','--beta inf','--steps 1001','--threads 17','--seed -1','--reward invented','--judge invented','--split train','--output ../escape']:
+            with self.subTest(option=option),self.assertRaises(ValueError):
+                s.parse_command('python modern_lab.py attention '+option)
+        for name in ['modern_models.py','modern_evaluation.py','modern_serving.py','modern_lab.py']:
+            status,body=self.request('/api/source?name='+name)
+            self.assertEqual(status,200);self.assertGreater(len(body['code']),100)
+    def test_modern_downloads_have_expected_content(self):
+        for path,needle in [('/download/modern.md',b'Build attention'),('/download/research.md',b'Attention Is All You Need')]:
+            with urlopen(self.base+path,timeout=10) as response:
+                self.assertEqual(response.status,200);self.assertIn(needle,response.read())
     def test_actual_execution_and_saved_output(self):
         status,j=self.request('/api/run',{'kind':'code','code':'print(sum([2, 3, 7]))'})
         self.assertEqual(status,202);done=self.wait_job(j['id'])

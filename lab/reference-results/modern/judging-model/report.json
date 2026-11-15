@@ -1,0 +1,136 @@
+{
+  "schema": "superlab.report.v1",
+  "experiment": "judging",
+  "seed": 42,
+  "split": "validation",
+  "settings": {
+    "experiment": "judging",
+    "steps": 100,
+    "seed": 42,
+    "threads": 2,
+    "split": "validation",
+    "beta": 0.1,
+    "reward": "exact",
+    "judge": "model"
+  },
+  "runtime": {
+    "torch": "2.6.0+cpu",
+    "device": "cpu",
+    "seconds": 12.672576480996213
+  },
+  "artifacts": [
+    "judge-audit.png"
+  ],
+  "metrics": {
+    "agreement_with_authored_answer_key": 0.0,
+    "valid_choice_rate": 0.0,
+    "swap_consistency_on_valid_pairs": null,
+    "elo_ratings": {
+      "correct concise": 1000.0,
+      "wrong verbose": 1000.0
+    },
+    "judge_mode": "model",
+    "cases": [
+      {
+        "case": 0,
+        "swapped": false,
+        "expected": "A",
+        "raw_judge_output": "Answer: 8",
+        "parsed": null,
+        "correct": false
+      },
+      {
+        "case": 0,
+        "swapped": true,
+        "expected": "B",
+        "raw_judge_output": "Answer: 5",
+        "parsed": null,
+        "correct": false
+      },
+      {
+        "case": 1,
+        "swapped": false,
+        "expected": "A",
+        "raw_judge_output": "Answer: A.",
+        "parsed": null,
+        "correct": false
+      },
+      {
+        "case": 1,
+        "swapped": true,
+        "expected": "B",
+        "raw_judge_output": "Answer: A.",
+        "parsed": null,
+        "correct": false
+      },
+      {
+        "case": 2,
+        "swapped": false,
+        "expected": "A",
+        "raw_judge_output": "A: Validation.",
+        "parsed": null,
+        "correct": false
+      },
+      {
+        "case": 2,
+        "swapped": true,
+        "expected": "B",
+        "raw_judge_output": "A: Always tune",
+        "parsed": null,
+        "correct": false
+      },
+      {
+        "case": 3,
+        "swapped": false,
+        "expected": "A",
+        "raw_judge_output": "Question: Does retrieval",
+        "parsed": null,
+        "correct": false
+      },
+      {
+        "case": 3,
+        "swapped": true,
+        "expected": "B",
+        "raw_judge_output": "Question: Does retrieval",
+        "parsed": null,
+        "correct": false
+      },
+      {
+        "case": 4,
+        "swapped": false,
+        "expected": "A",
+        "raw_judge_output": "Answer: 9",
+        "parsed": null,
+        "correct": false
+      },
+      {
+        "case": 4,
+        "swapped": true,
+        "expected": "B",
+        "raw_judge_output": "The correct answer is",
+        "parsed": null,
+        "correct": false
+      },
+      {
+        "case": 5,
+        "swapped": false,
+        "expected": "A",
+        "raw_judge_output": "A: No.",
+        "parsed": null,
+        "correct": false
+      },
+      {
+        "case": 5,
+        "swapped": true,
+        "expected": "B",
+        "raw_judge_output": "A: Yes,",
+        "parsed": null,
+        "correct": false
+      }
+    ],
+    "model": "HuggingFaceTB/SmolLM2-135M-Instruct",
+    "revision": "12fd25f77366fa6b3b4b768ec3050bf629380bac",
+    "rubric": "Factual correctness only; exact A or B output"
+  },
+  "limitations": "Fixture mode is a deliberately length-biased simulated judge, not an LLM. Model mode uses a real small local language model, which may fail. Answer keys are author-specified, not a human-participant study. Twelve pair presentations do not establish judge reliability. Elo depends on opponents, order and rating settings; not a universal quality scale."
+}

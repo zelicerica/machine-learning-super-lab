@@ -9,6 +9,9 @@ import numpy as np
 def predict(folder,inputs):
     folder=Path(folder);manifest=json.loads((folder/'model-manifest.json').read_text())
     kind=manifest['format']
+    if kind=='superlab-modern':
+        from modern_lab import predict as modern_predict
+        return modern_predict(folder,inputs)
     if kind=='superlab-synthetic':
         from synthetic_data import predict as synthetic_predict
         return synthetic_predict(folder,inputs)

@@ -1,0 +1,119 @@
+[
+  {
+    "experiment": "attention",
+    "args": [
+      "--steps",
+      "50"
+    ],
+    "exit": 0,
+    "seconds": 4.67
+  },
+  {
+    "experiment": "components",
+    "args": [
+      "--steps",
+      "50"
+    ],
+    "exit": 0,
+    "seconds": 4.83
+  },
+  {
+    "experiment": "experts",
+    "args": [
+      "--steps",
+      "50"
+    ],
+    "exit": 0,
+    "seconds": 3.58
+  },
+  {
+    "experiment": "research",
+    "args": [
+      "--steps",
+      "50"
+    ],
+    "exit": 0,
+    "seconds": 3.68
+  },
+  {
+    "experiment": "tuning",
+    "args": [
+      "--steps",
+      "150"
+    ],
+    "exit": 0,
+    "seconds": 7.27
+  },
+  {
+    "experiment": "preference",
+    "args": [
+      "--beta",
+      "0.5"
+    ],
+    "exit": 0,
+    "seconds": 5.41
+  },
+  {
+    "experiment": "reward",
+    "args": [
+      "--steps",
+      "50"
+    ],
+    "exit": 0,
+    "seconds": 2.59
+  },
+  {
+    "experiment": "reinforce",
+    "args": [
+      "--reward",
+      "zero-prefix"
+    ],
+    "exit": 0,
+    "seconds": 3.73
+  },
+  {
+    "experiment": "ppo",
+    "args": [
+      "--steps",
+      "50"
+    ],
+    "exit": 0,
+    "seconds": 3.23
+  },
+  {
+    "experiment": "grpo",
+    "args": [
+      "--steps",
+      "50"
+    ],
+    "exit": 0,
+    "seconds": 3.13
+  },
+  {
+    "experiment": "gspo",
+    "args": [
+      "--steps",
+      "50"
+    ],
+    "exit": 0,
+    "seconds": 3.42
+  },
+  {
+    "experiment": "evaluation",
+    "args": [
+      "--steps",
+      "50"
+    ],
+    "exit": 0,
+    "seconds": 2.91
+  },
+  {
+    "experiment": "serving",
+    "args": [
+      "--steps",
+      "50"
+    ],
+    "exit": 0,
+    "seconds": 3.8
+  }
+]

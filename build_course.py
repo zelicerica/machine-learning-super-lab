@@ -129,6 +129,8 @@ def main():
     lessons.extend(additions(render,len(lessons)+1))
     from learning_tracks import additions as build_additions, references as build_references
     lessons.extend(build_additions(render,len(lessons)+1))
+    from modern_curriculum import additions as modern_additions, references as modern_references
+    lessons.extend(modern_additions(render,len(lessons)+1))
     write_book()
     data={'lessons':lessons,'references':{
         'build-plans':{'title':'More model build plans','html':render((ROOT/'course/Concept-Build-Plans.md').read_text(encoding='utf-8'))},
@@ -141,6 +143,7 @@ def main():
         'sources':{'title':'Primary sources and further reading','html':section('Sources and further study')}},
         'welcome':render(chunks[0])}
     data['references'].update(build_references(render))
+    data['references'].update(modern_references(render))
     (ROOT/'public/course.json').write_text(json.dumps(data,ensure_ascii=False),encoding='utf-8')
     assert all(x['html'] for x in lessons)
     print('Built',len(lessons),'complete lessons and',len(data['references']),'reference chapters.')

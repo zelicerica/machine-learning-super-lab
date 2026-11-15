@@ -1,0 +1,72 @@
+[
+  {
+    "experiment": "attention",
+    "exit": 0,
+    "seconds": 5.64
+  },
+  {
+    "experiment": "components",
+    "exit": 0,
+    "seconds": 6.65
+  },
+  {
+    "experiment": "experts",
+    "exit": 0,
+    "seconds": 4.81
+  },
+  {
+    "experiment": "research",
+    "exit": 0,
+    "seconds": 4.84
+  },
+  {
+    "experiment": "tuning",
+    "exit": 0,
+    "seconds": 4.88
+  },
+  {
+    "experiment": "preference",
+    "exit": 0,
+    "seconds": 5.25
+  },
+  {
+    "experiment": "reward",
+    "exit": 0,
+    "seconds": 2.62
+  },
+  {
+    "experiment": "reinforce",
+    "exit": 0,
+    "seconds": 4.03
+  },
+  {
+    "experiment": "ppo",
+    "exit": 0,
+    "seconds": 4.11
+  },
+  {
+    "experiment": "grpo",
+    "exit": 0,
+    "seconds": 3.74
+  },
+  {
+    "experiment": "gspo",
+    "exit": 0,
+    "seconds": 3.75
+  },
+  {
+    "experiment": "evaluation",
+    "exit": 0,
+    "seconds": 2.83
+  },
+  {
+    "experiment": "judging",
+    "exit": 0,
+    "seconds": 1.81
+  },
+  {
+    "experiment": "serving",
+    "exit": 0,
+    "seconds": 4.11
+  }
+]

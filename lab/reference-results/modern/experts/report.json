@@ -1,0 +1,117 @@
+{
+  "schema": "superlab.report.v1",
+  "experiment": "experts",
+  "seed": 42,
+  "split": "validation",
+  "settings": {
+    "experiment": "experts",
+    "steps": 100,
+    "seed": 42,
+    "threads": 2,
+    "split": "validation",
+    "beta": 0.1,
+    "reward": "exact",
+    "judge": "fixture"
+  },
+  "runtime": {
+    "torch": "2.6.0+cpu",
+    "device": "cpu",
+    "seconds": 2.734290319000138
+  },
+  "artifacts": [
+    "comparison.png",
+    "attention.png"
+  ],
+  "metrics": {
+    "dense": {
+      "loss": 0.5542572736740112,
+      "byte_perplexity": 1.7406476796916845,
+      "parameters": 44352,
+      "training_seconds": 0.6534352340022451,
+      "cache_bytes": 20480,
+      "cached_max_logit_error": 2.86102294921875e-06,
+      "generated": "running.\ng.\n p: ",
+      "cached_tokens_equal": true,
+      "config": {
+        "width": 32,
+        "heads": 4,
+        "kv_heads": 4,
+        "layers": 2,
+        "context": 96,
+        "position": "learned",
+        "norm": "layer",
+        "qk_norm": false,
+        "swiglu": false,
+        "window": 0,
+        "latent": false,
+        "experts": 0,
+        "depth_attention": false
+      }
+    },
+    "four-experts": {
+      "loss": 0.6918455362319946,
+      "byte_perplexity": 1.9973984048871785,
+      "parameters": 93768,
+      "training_seconds": 0.9392266759969061,
+      "cache_bytes": 20480,
+      "cached_max_logit_error": 1.9073486328125e-06,
+      "generated": "running.\nng.\n: r",
+      "cached_tokens_equal": true,
+      "config": {
+        "width": 32,
+        "heads": 4,
+        "kv_heads": 4,
+        "layers": 2,
+        "context": 96,
+        "position": "learned",
+        "norm": "layer",
+        "qk_norm": false,
+        "swiglu": false,
+        "window": 0,
+        "latent": false,
+        "experts": 4,
+        "depth_attention": false
+      },
+      "routing_counts": [
+        [
+          7,
+          0,
+          8,
+          10
+        ],
+        [
+          5,
+          1,
+          9,
+          10
+        ]
+      ],
+      "routing_probe_tokens": 25,
+      "expert_note": "Counts cover the full example prompt, separately per layer. All four experts are stored. One expert per token executes; router and other layers still execute. No distributed dispatch or capacity limits."
+    }
+  },
+  "history": [
+    {
+      "step": 1,
+      "loss": 5.613186359405518
+    },
+    {
+      "step": 25,
+      "loss": 1.4898098707199097
+    },
+    {
+      "step": 50,
+      "loss": 0.3716910183429718
+    },
+    {
+      "step": 75,
+      "loss": 0.17012935876846313
+    },
+    {
+      "step": 100,
+      "loss": 0.10684093832969666
+    }
+  ],
+  "reload_verified": true,
+  "limitations": "Sixteen synthetic event sentences; held-out combinations share vocabulary and rules. Latent and depth-mixture variants are mechanism demonstrations, not paper reproductions. Python loops do not predict optimized hardware speed."
+}

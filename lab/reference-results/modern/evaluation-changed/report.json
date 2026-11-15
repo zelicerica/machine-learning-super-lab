@@ -1,0 +1,38 @@
+{
+  "schema": "superlab.report.v1",
+  "experiment": "evaluation",
+  "seed": 42,
+  "split": "validation",
+  "settings": {
+    "experiment": "evaluation",
+    "steps": 50,
+    "seed": 42,
+    "threads": 2,
+    "split": "validation",
+    "beta": 0.1,
+    "reward": "exact",
+    "judge": "fixture"
+  },
+  "runtime": {
+    "torch": "2.6.0+cpu",
+    "device": "cpu",
+    "seconds": 0.9202043359982781
+  },
+  "artifacts": [],
+  "metrics": {
+    "greedy_exact_match": 0.1,
+    "greedy_wilson_95_interval": [
+      0.027865893984153206,
+      0.30103820641179335
+    ],
+    "mean_pass_at_1": 0.05,
+    "mean_pass_at_4": 0.16785714285714284,
+    "byte_perplexity": 6.194584937669938,
+    "examples": 20,
+    "samples_per_example": 8,
+    "sampling_support": "decimal digits only",
+    "raw_samples_file": "samples.json"
+  },
+  "reload_verified": true,
+  "limitations": "Original arithmetic mini-suite, not AIME, MMLU, GPQA, HLE, or SWE-bench. Eight stochastic samples per problem; Wilson interval applies to greedy problem-level outcomes, not correlated samples. Full-vocabulary byte perplexity and constrained-generation accuracy measure different distributions."
+}

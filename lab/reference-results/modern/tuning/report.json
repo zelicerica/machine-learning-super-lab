@@ -1,0 +1,137 @@
+{
+  "schema": "superlab.report.v1",
+  "experiment": "tuning",
+  "seed": 42,
+  "split": "validation",
+  "settings": {
+    "experiment": "tuning",
+    "steps": 100,
+    "seed": 42,
+    "threads": 2,
+    "split": "validation",
+    "beta": 0.1,
+    "reward": "exact",
+    "judge": "fixture"
+  },
+  "runtime": {
+    "torch": "2.6.0+cpu",
+    "device": "cpu",
+    "seconds": 2.9682731610009796
+  },
+  "artifacts": [
+    "comparison.png"
+  ],
+  "metrics": {
+    "full": {
+      "loss_before": 5.75914192199707,
+      "loss": 2.632742404937744,
+      "trainable_parameters": 44352,
+      "state_bytes": 177440,
+      "training_seconds": 0.49634170700301183,
+      "frozen_buffers_unchanged": true,
+      "accuracy": 0.3333333333333333,
+      "predictions": [
+        {
+          "prompt": "ticket: module absent\nlabel:",
+          "expected": "environment",
+          "generated": " memory\nry\nviron",
+          "correct": false
+        },
+        {
+          "prompt": "ticket: tensor too large\nlabel:",
+          "expected": "memory",
+          "generated": " memory\nvironmen",
+          "correct": true
+        },
+        {
+          "prompt": "ticket: wrong data schema\nlabel:",
+          "expected": "data",
+          "generated": " memenment\nnment",
+          "correct": false
+        }
+      ]
+    },
+    "lora": {
+      "loss_before": 5.75914192199707,
+      "loss": 1.6959010362625122,
+      "trainable_parameters": 2176,
+      "state_bytes": 186144,
+      "training_seconds": 0.512773810994986,
+      "frozen_buffers_unchanged": true,
+      "accuracy": 0.0,
+      "predictions": [
+        {
+          "prompt": "ticket: module absent\nlabel:",
+          "expected": "environment",
+          "generated": " danvimont\nny\na\n",
+          "correct": false
+        },
+        {
+          "prompt": "ticket: tensor too large\nlabel:",
+          "expected": "memory",
+          "generated": " m\nnt\nnviroronta",
+          "correct": false
+        },
+        {
+          "prompt": "ticket: wrong data schema\nlabel:",
+          "expected": "data",
+          "generated": " ome\n at\nronrenm",
+          "correct": false
+        }
+      ]
+    },
+    "packed4": {
+      "loss_before": 5.817873954772949,
+      "loss": 1.5156913995742798,
+      "trainable_parameters": 2176,
+      "state_bytes": 144672,
+      "training_seconds": 0.6371281300016562,
+      "frozen_buffers_unchanged": true,
+      "accuracy": 0.0,
+      "predictions": [
+        {
+          "prompt": "ticket: module absent\nlabel:",
+          "expected": "environment",
+          "generated": " dainvimonmove\nn",
+          "correct": false
+        },
+        {
+          "prompt": "ticket: tensor too large\nlabel:",
+          "expected": "memory",
+          "generated": " dm\nnma\nnvrmat a",
+          "correct": false
+        },
+        {
+          "prompt": "ticket: wrong data schema\nlabel:",
+          "expected": "data",
+          "generated": " omorororrorrea\n",
+          "correct": false
+        }
+      ]
+    }
+  },
+  "history": [
+    {
+      "step": 1,
+      "loss": 5.535823822021484
+    },
+    {
+      "step": 25,
+      "loss": 2.9235074520111084
+    },
+    {
+      "step": 50,
+      "loss": 1.3793306350708008
+    },
+    {
+      "step": 75,
+      "loss": 0.7609487771987915
+    },
+    {
+      "step": 100,
+      "loss": 0.3915308713912964
+    }
+  ],
+  "reload_verified": true,
+  "limitations": "Uniform four-bit packing of selected adapted projections only, with float unpacking during computation. This is not NormalFloat4 QLoRA, full-model quantization, or a memory/speed claim for a GPU kernel. Three held-out examples per split provide very weak accuracy evidence."
+}
