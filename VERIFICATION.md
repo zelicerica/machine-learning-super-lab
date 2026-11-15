@@ -1,3 +1,14 @@
+# Lesson order and green text
+
+Release `2026.11-midnight.3` numbers the displayed learning path consecutively: Foundations 1–20, Language models 21–34, Build and retrieve 35–42, and Modern language engineering 43–58. Generated language-workbook headings and cross-references use the corresponding website numbers; the standalone workbook retains its own numbering. Green text replaces the bright blue lettering, using a darker green in light mode.
+
+- All **48 course/server Python tests passed**. The **74-route DOM check** passed, including all 87 Mermaid parses, consecutive numbering, sidebar order, every lesson's Next link, matching numbered headings, the first suggested lesson, and resume/completion/note retention by stable lesson ID.
+- A comparison against the previous catalog confirmed all 58 lesson IDs, commands, quizzes, and teaching content remain unchanged apart from the intended numbering and ordering.
+- The green text has minimum contrast ratios of **7.76:1 in dark mode** and **6.05:1 in light mode** across the base, paper, raised, and tinted control surfaces. This is a CSS color calculation; a new browser visual review was not performed for this small revision.
+- The refreshed ZIP passed integrity and fresh-extraction checks, including release/catalog consistency and bundled script paths. Training algorithms and the moving background are unchanged; earlier verification below applies to those features.
+
+---
+
 # Midnight Motion background
 
 Release `2026.11-midnight.2` adds the accepted HeyGen MP4 as an actual moving background. It preserves the 58-lesson catalog, learning content, training programs, prior outputs, and lesson identifiers. This supersedes the earlier note that the HeyGen clip was only a separate preview.

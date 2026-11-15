@@ -1,6 +1,8 @@
 # Upgrade to Midnight Motion — 58 lessons
 
-Release: `2026.11-midnight.2`.
+Release: `2026.11-midnight.3`.
+
+The lesson sequence now starts at Foundations 1 and continues through lesson 58. Language models starts at 21, Build and retrieve at 35, and Modern language engineering at 43. Saved progress and notes still match their original lessons. Bright blue text is now green, with a darker green in light mode.
 
 ## Why your local lab can still show 34 lessons
 

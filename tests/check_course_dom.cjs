@@ -6,7 +6,7 @@ const html=fs.readFileSync(root+'/public/index.html','utf8').replace(/<script[^>
 const dom=new JSDOM(html,{url:'http://localhost:8765',runScripts:'outside-only',pretendToBeVisual:true});
 const w=dom.window;w.TextEncoder=TextEncoder;w.TextDecoder=TextDecoder;w.scrollTo=()=>{};w.matchMedia=()=>({matches:false,addEventListener:()=>{}});w.HTMLMediaElement.prototype.play=function(){this.dataset.testPlaying='yes';this.dispatchEvent(new w.Event('play'));return Promise.resolve()};w.HTMLMediaElement.prototype.pause=function(){this.dataset.testPlaying='no';this.dispatchEvent(new w.Event('pause'))};w.HTMLElement.prototype.scrollIntoView=()=>{};w.HTMLDialogElement.prototype.showModal=function(){this.open=true};w.HTMLDialogElement.prototype.close=function(){this.open=false};
 w.localStorage.setItem('super-lab-v1',JSON.stringify({done:['setup'],notes:{math:'Earlier evidence remains.'}}));
-w.fetch=async url=>({ok:true,json:async()=>url==='/course.json'?course:url==='/api/session'?{token:'test',runtime:{ready:true,foundations_ready:true,python:'3.12'},templates:{hello:'print(1)'},workspace:{name:'Midnight',release:'2026.11-midnight.2',lessons:58,expected_lessons:58,references:16,project_folder:'/test/lab',catalog_file:'/test/lab/public/course.json',catalog_matches_release:true,python:'/test/python'}}:[]});
+w.fetch=async url=>({ok:true,json:async()=>url==='/course.json'?course:url==='/api/session'?{token:'test',runtime:{ready:true,foundations_ready:true,python:'3.12'},templates:{hello:'print(1)'},workspace:{name:'Midnight',release:'2026.11-midnight.3',lessons:58,expected_lessons:58,references:16,project_folder:'/test/lab',catalog_file:'/test/lab/public/course.json',catalog_matches_release:true,python:'/test/python'}}:[]});
 const mermaidFile=fs.readFileSync(root+'/public/index.html','utf8').match(/src="([^"]*mermaid[^\"]*)"/)[1];
 require('vm').runInContext(fs.readFileSync(path.join(root,'public',mermaidFile),'utf8'),dom.getInternalVMContext());
 w.eval('mermaid.run=async({nodes})=>{for(const n of nodes){await mermaid.parse(n.textContent);n.dataset.syntaxValid="true"}}');
@@ -15,6 +15,13 @@ require('vm').runInContext(fs.readFileSync(root+'/public/app.js','utf8'),dom.get
 (async()=>{
  await new Promise(r=>setTimeout(r,100));
  assert.equal(w.document.querySelectorAll('.course-card').length,58);
+ assert.deepEqual(course.lessons.map(l=>l.number),Array.from({length:58},(_,i)=>i+1));
+ assert.deepEqual([...new Set(course.lessons.map(l=>l.track))],['Foundations','Language models','Build and retrieve','Modern language engineering']);
+ assert.equal(course.lessons[0].id,'learning-signals');
+ assert.equal(w.document.querySelector('.hero-actions a').getAttribute('href'),'#lesson/learning-signals');
+ assert.deepEqual([...w.document.querySelectorAll('.lesson-link')].map(a=>a.getAttribute('href')),course.lessons.map(l=>'#lesson/'+l.id));
+ assert.equal(w.document.querySelector('.lesson-link[href="#lesson/setup"]').classList.contains('done'),true);
+ w.eval("state.last='math'");assert.equal(w.eval('nextLesson().id'),'math');assert.equal(w.eval('nextLesson().number'),23);w.eval('delete state.last');
  assert.equal(w.document.querySelectorAll('#labBackgroundVideo').length,1);
  assert.ok(fs.existsSync(root+'/public'+w.document.querySelector('#labBackgroundVideo source').getAttribute('src')));
  const video=w.document.querySelector('#labBackgroundVideo');assert.equal(video.dataset.testPlaying,'yes');
@@ -35,6 +42,14 @@ require('vm').runInContext(fs.readFileSync(root+'/public/app.js','utf8'),dom.get
    assert.equal(w.document.querySelectorAll('.diagram-error').length,0,route);
    const diagrams=w.document.querySelectorAll('[data-syntax-valid="true"]').length;
    assert.equal(diagrams,(body.match(/class="mermaid"/g)||[]).length,route);
+   if(route.startsWith('lesson/')){
+     const index=course.lessons.findIndex(l=>route==='lesson/'+l.id),lesson=course.lessons[index],next=course.lessons[index+1];
+     assert.equal(w.document.querySelector('.lesson-top .eyebrow').textContent,'LESSON '+String(index+1).padStart(2,'0')+' / 58');
+     assert.equal(w.document.querySelector('.lesson-next .button').getAttribute('href'),next?'#lesson/'+next.id:'#results',route);
+     for(const heading of w.document.querySelectorAll('.reading h3')){
+       const match=heading.textContent.match(/^Lab (\d+) /);if(match)assert.equal(Number(match[1]),lesson.number,route);
+     }
+   }
    checks.push({route,diagrams});
  }
  const valid=new Set([...course.lessons.map(l=>'#lesson/'+l.id),...Object.keys(course.references).map(r=>'#ref/'+r)]);
@@ -55,6 +70,6 @@ require('vm').runInContext(fs.readFileSync(root+'/public/app.js','utf8'),dom.get
  w.eval(`resultReports=[{path:'a',data:{experiment:'test',split:'test',metrics:{accuracy:0.5}}},{path:'b',data:{experiment:'test',split:'test',metrics:{accuracy:0.75}}}];document.querySelector('#main').innerHTML=comparisonControls(resultReports);updateComparison()`);assert.ok(w.document.querySelector('#comparisonTable').textContent.includes('+0.25'));
  w.eval("resultReports[1].data.split='validation';updateComparison()");assert.ok(w.document.querySelector('#comparisonTable').textContent.includes('not directly comparable'));
  const state=JSON.parse(w.localStorage.getItem('super-lab-v1'));assert.deepEqual(state.done,['setup']);assert.equal(state.notes.math,'Earlier evidence remains.');
- const report={routes:checks,diagram_syntax_instances:checks.reduce((n,r)=>n+r.diagrams,0),modern_filter_count:16,practice_controls:true,old_progress_retained:true,links_and_images:true,limits:'DOM simulation and actual bundled Mermaid parser; no browser layout or visual rendering verification.'};
+ const report={routes:checks,diagram_syntax_instances:checks.reduce((n,r)=>n+r.diagrams,0),modern_filter_count:16,practice_controls:true,old_progress_retained:true,lesson_sequence_and_next_links:true,links_and_images:true,limits:'DOM simulation and actual bundled Mermaid parser; no browser layout or visual rendering verification.'};
  if(process.env.SML_DOM_REPORT)fs.writeFileSync(process.env.SML_DOM_REPORT,JSON.stringify(report,null,2));console.log(JSON.stringify({routes:checks.length,diagrams:report.diagram_syntax_instances,result:'passed'}));await new Promise(r=>setTimeout(r,30));w.close();
 })().catch(e=>{console.error(e);w.close();process.exit(1)});

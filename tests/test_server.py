@@ -44,7 +44,7 @@ class LocalRunnerTests(unittest.TestCase):
         status,info=self.request('/api/workspace')
         self.assertEqual(status,200)
         self.assertEqual(info['lessons'],58)
-        self.assertEqual(info['release'],'2026.11-midnight.2')
+        self.assertEqual(info['release'],'2026.11-midnight.3')
         self.assertEqual(info['project_folder'],str(s.ROOT))
         self.assertTrue(info['catalog_matches_release'])
         self.assertEqual(self.request('/api/workspace',headers={'Host':'untrusted.example'})[0],403)

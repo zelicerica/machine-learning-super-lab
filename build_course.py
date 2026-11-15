@@ -18,8 +18,6 @@ def inline(text):
     return text
 
 def render(md):
-    # Website numbers start at one; the downloadable workbook starts at zero.
-    md=re.sub(r'\bLab (\d+)\b',lambda m:'Lab '+str(int(m.group(1))+1),md)
     lines=md.splitlines();out=[];i=0
     while i<len(lines):
         line=lines[i]
@@ -131,6 +129,12 @@ def main():
     lessons.extend(build_additions(render,len(lessons)+1))
     from modern_curriculum import additions as modern_additions, references as modern_references
     lessons.extend(modern_additions(render,len(lessons)+1))
+    # Number the complete learning path, not the order source modules were added.
+    # Stable IDs keep existing links, completion records and evidence notes valid.
+    track_order=['Foundations','Language models','Build and retrieve','Modern language engineering']
+    lessons.sort(key=lambda lesson:track_order.index(lesson['track']))
+    for number,lesson in enumerate(lessons,1):
+        lesson['number']=number
     write_book()
     data={'lessons':lessons,'references':{
         'build-plans':{'title':'More model build plans','html':render((ROOT/'course/Concept-Build-Plans.md').read_text(encoding='utf-8'))},
@@ -144,6 +148,15 @@ def main():
         'welcome':render(chunks[0])}
     data['references'].update(build_references(render))
     data['references'].update(modern_references(render))
+    # The standalone language workbook uses its own zero-based lab numbers.
+    # Resolve its headings and cross-references to the website's final numbers.
+    lesson_numbers={lesson['id']:lesson['number'] for lesson in lessons}
+    workbook_numbers={int(row[5].split()[1]):lesson_numbers[row[0]] for row in metadata}
+    def website_lab_numbers(content):
+        return re.sub(r'\bLab (\d+)\b',lambda m:'Lab '+str(workbook_numbers.get(int(m[1]),int(m[1]))),content)
+    for entry in [*lessons,*data['references'].values()]:
+        entry['html']=website_lab_numbers(entry['html'])
+    data['welcome']=website_lab_numbers(data['welcome'])
     (ROOT/'public/course.json').write_text(json.dumps(data,ensure_ascii=False),encoding='utf-8')
     assert all(x['html'] for x in lessons)
     print('Built',len(lessons),'complete lessons and',len(data['references']),'reference chapters.')
